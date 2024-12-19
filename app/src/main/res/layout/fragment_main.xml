@@ -37,7 +37,20 @@
             android:orientation="vertical"
             android:paddingHorizontal="16dp"
             android:paddingVertical="16dp">
-            <include layout="@layout/item_bank_card" />
+            <include layout="@layout/item_bank_card"  />
+            <View android:layout_height="16dp"  android:layout_width="wrap_content"/>
+            <include layout="@layout/item_bank_card"  />
+            <View android:layout_height="16dp"  android:layout_width="wrap_content"/>
+            <include layout="@layout/item_bank_card"  />
+            <View android:layout_height="16dp"  android:layout_width="wrap_content"/>
+            <include layout="@layout/item_bank_card"  />
+            <View android:layout_height="16dp"  android:layout_width="wrap_content"/>
+            <include layout="@layout/item_bank_card"  />
+            <View android:layout_height="16dp"  android:layout_width="wrap_content"/>
+            <include layout="@layout/item_bank_card"  />
+            <View android:layout_height="16dp"  android:layout_width="wrap_content"/>
+            <include layout="@layout/item_bank_card"  />
+            <View android:layout_height="16dp"  android:layout_width="wrap_content"/>
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
