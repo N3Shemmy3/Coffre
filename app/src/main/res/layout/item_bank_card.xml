@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardBackgroundColor="@color/ic_launcher_background"
+    app:cardBackgroundColor="?colorPrimaryContainer"
     app:cardElevation="0dp"
     app:cardForegroundColor="@android:color/transparent"
     app:contentPadding="24dp"
@@ -20,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Today's Expense"
-            android:textColor="?colorOnBackground"
+            android:textColor="?colorOnPrimaryContainer"
             android:alpha=".7"
             android:textAppearance="?textAppearanceBodyLarge" />
 
@@ -31,7 +31,7 @@
             android:layout_alignBaseline="@id/itemTitle"
             android:layout_alignParentEnd="true"
             android:text="****1234"
-            android:textColor="?colorOnBackground"
+            android:textColor="?colorOnPrimaryContainer"
             android:alpha=".7"
             android:textAppearance="?textAppearanceBodyLarge" />
 
@@ -44,7 +44,7 @@
             android:fontFamily="monospace"
             android:gravity="end"
             android:text="$3,400.77"
-            android:textColor="?colorOnSurfaceVariant"
+            android:textColor="?colorOnPrimaryContainer"
             android:textAppearance="?textAppearanceHeadline3" />
 
         <TextView
@@ -52,7 +52,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/itemBalance"
-            android:textColor="?colorOnBackground"
+            android:textColor="?colorOnPrimaryContainer"
             android:alpha=".7"
             android:text="Remaining Balance" />
 
@@ -62,7 +62,7 @@
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@id/itemBalanceLabel"
             android:layout_alignEnd="@id/itemBalanceLabel"
-            android:textColor="?colorOnBackground"
+            android:textColor="?colorOnPrimaryContainer"
             android:alpha=".7"
             android:layout_alignParentEnd="true"
             android:fontFamily="monospace"

@@ -14,7 +14,7 @@
         android:theme="@style/Theme.Coffre"
         tools:targetApi="tiramisu">
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.activity.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -22,7 +22,7 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <!-- Note: A RecyclerView can also be used -->
+
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nestedScrollView"
         android:layout_width="match_parent"
@@ -35,22 +35,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:paddingHorizontal="16dp"
             android:paddingVertical="16dp">
-            <include layout="@layout/item_bank_card"  />
-            <View android:layout_height="16dp"  android:layout_width="wrap_content"/>
-            <include layout="@layout/item_bank_card"  />
-            <View android:layout_height="16dp"  android:layout_width="wrap_content"/>
-            <include layout="@layout/item_bank_card"  />
-            <View android:layout_height="16dp"  android:layout_width="wrap_content"/>
-            <include layout="@layout/item_bank_card"  />
-            <View android:layout_height="16dp"  android:layout_width="wrap_content"/>
-            <include layout="@layout/item_bank_card"  />
-            <View android:layout_height="16dp"  android:layout_width="wrap_content"/>
-            <include layout="@layout/item_bank_card"  />
-            <View android:layout_height="16dp"  android:layout_width="wrap_content"/>
-            <include layout="@layout/item_bank_card"  />
-            <View android:layout_height="16dp"  android:layout_width="wrap_content"/>
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/accountsViewPager"
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content" />
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
