@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="App.MaterialToolbar" parent="@style/Widget.Material3.Toolbar">
+        <item name="android:insetLeft">@dimen/activity_padding_horizontal</item>
+        <item name="android:insetRight">@dimen/activity_padding_horizontal</item>
+    </style>
+</resources>
