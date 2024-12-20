@@ -1,4 +1,5 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="?attr/selectableItemBackground"
@@ -8,6 +9,7 @@
         android:id="@+id/itemIcon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:contentDescription="@string/list_item_icon"
         android:padding="16dp" />
 
     <TextView
@@ -15,10 +17,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_toEndOf="@id/itemIcon"
+        android:contentDescription="@string/list_item_title"
         android:maxLines="1"
         android:paddingTop="16dp"
         android:paddingEnd="16dp"
-        android:textAppearance="?attr/textAppearanceSubtitle1" />
+        android:textAppearance="?attr/textAppearanceSubtitle1"
+        tools:ignore="RtlSymmetry" />
 
     <TextView
         android:id="@+id/itemSubTitle"
@@ -27,8 +31,10 @@
         android:layout_below="@id/itemTitle"
         android:layout_gravity="center_vertical"
         android:layout_toEndOf="@id/itemIcon"
+        android:contentDescription="@string/list_item_sub_title"
         android:maxLines="2"
         android:paddingEnd="16dp"
-        android:textAppearance="?attr/textAppearanceBody2" />
+        android:textAppearance="?attr/textAppearanceBody2"
+        tools:ignore="RtlSymmetry" />
 
 </RelativeLayout>

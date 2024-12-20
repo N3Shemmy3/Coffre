@@ -1,5 +1,34 @@
 <resources>
     <string name="app_name">Coffre</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!--Screens -->
+    <string name="transactions">Transactions</string>
+
+
+    <!--Actions -->
+    <string name="action_open">Open</string>
+    <string name="action_close">Close</string>
+    <string name="action_start">Start</string>
+    <string name="action_stop">Stop</string>
+    <string name="action_save">Save</string>
+    <string name="action_search">Search</string>
+    <string name="action_clear">Clear</string>
+    <string name="action_history">History</string>
+    <string name="action_present">Present</string>
+    <string name="action_future">Future</string>
+
+
+
+    <!--Content Descriptions -->
+    <!--User Profile-->
+    <string name="user_profile_picture">User profile picture</string>
+
+
+    <!--Views-->
+<string name="record_new_transaction">Record new transaction</string>
+    <!--List Item-->
+    <string name="list_item_icon">List item icon</string>
+    <string name="list_item_title">List item title</string>
+    <string name="list_item_sub_title">List item subtitle</string>
+
 </resources>

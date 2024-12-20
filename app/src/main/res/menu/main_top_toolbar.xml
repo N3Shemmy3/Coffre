@@ -3,11 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:title="Search"
         android:icon="@drawable/outline_search_24"
+        android:title="@string/action_search"
         app:showAsAction="always" />
     <item
-        android:title="History"
         android:icon="@drawable/outline_calendar_today_24"
+        android:title="@string/action_history"
         app:showAsAction="always" />
 </menu>

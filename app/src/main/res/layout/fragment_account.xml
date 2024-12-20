@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:minHeight="?attr/actionBarSize"
             app:navigationIcon="@drawable/outline_arrow_back_24"
-            app:title="Account Name" />
+            app:title="@string/transactions" />
 
     </com.google.android.material.appbar.AppBarLayout>
 

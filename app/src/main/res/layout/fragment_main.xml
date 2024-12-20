@@ -29,6 +29,7 @@
                     android:layout_width="?actionBarSize"
                     android:layout_height="?actionBarSize"
                     android:scaleType="centerCrop"
+                    android:contentDescription="@string/user_profile_picture"
                     app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"
                     app:srcCompat="@drawable/avatar" />
             </RelativeLayout>
@@ -79,6 +80,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/activity_padding_vertical"
+        android:contentDescription="@string/record_new_transaction"
         android:src="@drawable/outline_add_24" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
