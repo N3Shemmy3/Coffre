@@ -1,15 +1,16 @@
 package dev.n3shemmy3.coffre.ui.activity;
 
 import android.os.Bundle;
-import android.widget.Toast;
+import android.view.View;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+import androidx.fragment.app.FragmentTransaction;
 
 import dev.n3shemmy3.coffre.R;
+import dev.n3shemmy3.coffre.ui.fragment.BaseFragment;
 import dev.n3shemmy3.coffre.ui.fragment.MainFragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -18,9 +19,27 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
+        getWindow().setSharedElementsUseOverlay(false);
         setContentView(R.layout.activity_main);
-        if (savedInstanceState != null) return;
-        Toast.makeText(this, "MainActivity state == null", Toast.LENGTH_SHORT).show();
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, new MainFragment()).commitNow();
+    }
+
+    public void replaceFragment(@NonNull BaseFragment fragment) {
+        replaceFragment(fragment, null, null);
+    }
+
+    public void replaceFragment(@NonNull BaseFragment fragment, @NonNull Bundle args) {
+        replaceFragment(fragment, null, args);
+    }
+
+    public void replaceFragment(@NonNull BaseFragment fragment, @Nullable View sharedElement, @Nullable Bundle args) {
+        fragment.setArguments(args);
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.setReorderingAllowed(true);
+        if (args != null)
+            transaction.addSharedElement(sharedElement, args.getString("transitionName"));
+        transaction
+                .addToBackStack(System.currentTimeMillis() + "")
+                .replace(R.id.fragmentContainer, fragment)
+                .commit();
     }
 }
