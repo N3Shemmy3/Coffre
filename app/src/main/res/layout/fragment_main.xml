@@ -8,18 +8,42 @@
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/topAppBar"
+        app:liftOnScrollTargetViewId="@id/nestedScrollView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/topToolBar"
-            style="@style/App.MaterialToolbar"
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            style="?attr/collapsingToolbarLayoutLargeStyle"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:minHeight="?attr/actionBarSize"
-            app:menu="@menu/main_top_toolbar"
-            app:title="@string/app_name" />
+            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
+            android:layout_height="?attr/collapsingToolbarLayoutLargeSize"
+            app:expandedTitleMarginStart="@dimen/activity_padding_horizontal">
 
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingVertical="@dimen/activity_padding_vertical"
+                android:paddingHorizontal="@dimen/activity_padding_horizontal">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:layout_width="?actionBarSize"
+                    android:layout_height="?actionBarSize"
+                    android:scaleType="centerCrop"
+                    app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"
+                    app:srcCompat="@drawable/avatar" />
+            </RelativeLayout>
+
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/topToolBar"
+                style="@style/App.MaterialToolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:menu="@menu/main_top_toolbar"
+                android:background="@android:color/transparent"
+                app:layout_collapseMode="pin"
+                app:title="$4,500.55" />
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
 
@@ -42,6 +66,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1000dp"/>
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

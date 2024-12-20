@@ -80,7 +80,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:maxLines="5"
+                    android:maxLines="8"
                     android:singleLine="false" />
 
             </com.google.android.material.textfield.TextInputLayout>
