@@ -40,10 +40,18 @@
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/accountsViewPager"
                 android:layout_width="match_parent"
-                android:orientation="horizontal"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" />
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/activity_padding_vertical"
+        android:src="@drawable/outline_add_24" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="?materialCardViewFilledStyle"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardBackgroundColor="?colorPrimaryContainer"
-    app:cardElevation="0dp"
-    app:cardForegroundColor="@android:color/transparent"
     app:contentPadding="24dp"
-    app:strokeWidth="0dp"
     app:shapeAppearanceOverlay="?shapeAppearanceCornerLarge">
 
     <RelativeLayout
@@ -19,10 +16,10 @@
             android:id="@+id/itemTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Today's Expense"
-            android:textColor="?colorOnPrimaryContainer"
             android:alpha=".7"
-            android:textAppearance="?textAppearanceBodyLarge" />
+            android:text="Today's Expense"
+            android:textAppearance="?textAppearanceBodyLarge"
+            android:textColor="?colorOnPrimaryContainer" />
 
         <TextView
             android:id="@+id/itemCardNumber"
@@ -30,10 +27,10 @@
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@id/itemTitle"
             android:layout_alignParentEnd="true"
-            android:text="****1234"
-            android:textColor="?colorOnPrimaryContainer"
             android:alpha=".7"
-            android:textAppearance="?textAppearanceBodyLarge" />
+            android:text="****1234"
+            android:textAppearance="?textAppearanceBodyLarge"
+            android:textColor="?colorOnPrimaryContainer" />
 
         <TextView
             android:id="@+id/itemBalance"
@@ -44,17 +41,17 @@
             android:fontFamily="monospace"
             android:gravity="end"
             android:text="$3,400.77"
-            android:textColor="?colorOnPrimaryContainer"
-            android:textAppearance="?textAppearanceHeadline3" />
+            android:textAppearance="?textAppearanceHeadline3"
+            android:textColor="?colorOnPrimaryContainer" />
 
         <TextView
             android:id="@+id/itemBalanceLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/itemBalance"
-            android:textColor="?colorOnPrimaryContainer"
             android:alpha=".7"
-            android:text="Remaining Balance" />
+            android:text="Remaining Balance"
+            android:textColor="?colorOnPrimaryContainer" />
 
         <TextView
             android:id="@+id/itemCardType"
@@ -62,11 +59,11 @@
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@id/itemBalanceLabel"
             android:layout_alignEnd="@id/itemBalanceLabel"
-            android:textColor="?colorOnPrimaryContainer"
-            android:alpha=".7"
             android:layout_alignParentEnd="true"
+            android:alpha=".7"
             android:fontFamily="monospace"
-            android:text="VISA" />
+            android:text="VISA"
+            android:textColor="?colorOnPrimaryContainer" />
 
     </RelativeLayout>
 

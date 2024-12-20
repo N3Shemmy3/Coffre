@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -12,13 +13,17 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.android.material.appbar.MaterialToolbar;
+
 import dev.n3shemmy3.coffre.R;
+import dev.n3shemmy3.coffre.ui.utils.InsetUtils;
 
 
 public class MainFragment extends BaseFragment {
 
 
     private View view;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -30,15 +35,8 @@ public class MainFragment extends BaseFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ViewCompat.setOnApplyWindowInsetsListener(view.findViewById(R.id.topAppBar), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, v.getPaddingBottom());
-            return insets;
-        });
-        ViewCompat.setOnApplyWindowInsetsListener(view.findViewById(R.id.content), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(v.getPaddingLeft(), v.getPaddingTop(), v.getPaddingRight(), systemBars.bottom);
-            return insets;
-        });
+        Toast.makeText(getContext(), "MainFragment.onViewCreated", Toast.LENGTH_SHORT).show();
+        InsetUtils.applySystemBarsInsets(view.findViewById(R.id.topAppBar), false, true, false, false);
+        InsetUtils.applySystemBarsMargin(view.findViewById(R.id.fab), false, false, false, true);
     }
 }
