@@ -10,10 +10,10 @@ import java.util.ArrayList;
 
 import dev.n3shemmy3.coffre.R;
 import dev.n3shemmy3.coffre.ui.interfaces.ItemListener;
-import dev.n3shemmy3.coffre.ui.viewholder.AccountItemViewHolder;
-import dev.n3shemmy3.coffre.ui.viewholder.BaseViewHolder;
+import dev.n3shemmy3.coffre.ui.viewholder.AccountPagerViewHolder;
+import dev.n3shemmy3.coffre.ui.viewholder.ItemViewHolder;
 
-public class AccountsViewPagerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
+public class AccountsViewPagerAdapter extends RecyclerView.Adapter<ItemViewHolder> {
     private Context context;
     private ArrayList<String> items;
     private ItemListener itemListener;
@@ -30,15 +30,15 @@ public class AccountsViewPagerAdapter extends RecyclerView.Adapter<BaseViewHolde
 
     @NonNull
     @Override
-    public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        BaseViewHolder holder;
-        holder = AccountItemViewHolder.create(parent, R.layout.item_account_card);
-        holder.setItemListener(itemListener);
+    public ItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        ItemViewHolder holder;
+        holder = AccountPagerViewHolder.create(parent, R.layout.item_pager_account);
+      //  holder.setItemListener(itemListener);
         return holder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull BaseViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
 
 
     }

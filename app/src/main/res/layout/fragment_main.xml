@@ -8,30 +8,57 @@
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/topAppBar"
-        app:liftOnScrollTargetViewId="@id/nestedScrollView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:liftOnScrollTargetViewId="@id/recyclerView">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             style="?attr/collapsingToolbarLayoutLargeStyle"
             android:layout_width="match_parent"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
-            android:layout_height="?attr/collapsingToolbarLayoutLargeSize"
-            app:expandedTitleMarginStart="@dimen/activity_padding_horizontal">
+            android:layout_height="wrap_content"
+            android:minHeight="?collapsingToolbarLayoutLargeSize"
+            app:collapsedTitleTextAppearance="?textAppearanceTitleLarge"
+            app:collapsedTitleTextColor="@color/colorBrand"
+            app:expandedTitleMarginStart="@dimen/activity_padding_horizontal"
+            app:expandedTitleTextColor="@android:color/transparent"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingVertical="@dimen/activity_padding_vertical"
-                android:paddingHorizontal="@dimen/activity_padding_horizontal">
+                android:paddingHorizontal="@dimen/activity_padding_horizontal"
+                android:paddingTop="@dimen/activity_padding_vertical"
+                android:paddingBottom="8dp"
+                >
 
                 <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/headerIcon"
                     android:layout_width="?actionBarSize"
                     android:layout_height="?actionBarSize"
-                    android:scaleType="centerCrop"
+                    android:adjustViewBounds="true"
+                    android:clickable="true"
                     android:contentDescription="@string/user_profile_picture"
+                    android:foreground="?selectableItemBackground"
+                    android:scaleType="centerCrop"
                     app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"
                     app:srcCompat="@drawable/avatar" />
+
+                <TextView
+                    android:id="@+id/headerSubtitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/headerIcon"
+                    android:layout_marginTop="@dimen/activity_padding_horizontal"
+                    android:text="Spent Today"
+                    android:textAppearance="?textAppearanceTitleSmall" />
+                <TextView
+                    android:id="@+id/headerTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/headerSubtitle"
+                    android:textColor="@color/colorBrand"
+                    android:text="$4,500.55"
+                    android:textAppearance="?textAppearanceHeadline4" />
             </RelativeLayout>
 
 
@@ -40,13 +67,26 @@
                 style="@style/App.MaterialToolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                app:menu="@menu/main_top_toolbar"
                 android:background="@android:color/transparent"
                 app:layout_collapseMode="pin"
+                app:menu="@menu/main_top_toolbar"
                 app:title="$4,500.55" />
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:paddingHorizontal="@dimen/activity_padding_vertical"
+        android:paddingTop="@dimen/activity_padding_vertical"
+        android:paddingBottom="84dp"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />
+
+
+    <!-- Scrollable content
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nestedScrollView"
@@ -54,26 +94,70 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <!-- Scrollable content -->
         <LinearLayout
             android:id="@+id/content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:paddingVertical="16dp">
+            android:paddingVertical="8dp">
 
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/accountsViewPager"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="true"
+                android:clipToPadding="false"
                 android:orientation="horizontal" />
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1000dp"/>
 
+            <com.google.android.material.card.MaterialCardView
+                style="?materialCardViewFilledStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginVertical="12dp"
+                app:contentPaddingTop="8dp"
+                app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Medium">
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/transactionHeader"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBaseline="@id/transactionAllButton"
+                        android:layout_marginHorizontal="12dp"
+                        android:text="@string/transactions"
+                        android:textStyle="bold"
+                        android:textAppearance="?attr/textAppearanceSubtitle1" />
+
+                    <Button
+                        android:id="@+id/transactionAllButton"
+                        style="@style/Widget.Material3.Button.TextButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignEnd="@id/transactionHeader"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginHorizontal="12dp"
+                        android:text="See all" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerTransactionHistory"
+                        android:layout_width="match_parent"
+                        android:layout_height="250dp"
+                        android:layout_below="@id/transactionHeader"
+                        android:layout_marginVertical="12dp"
+                        android:nestedScrollingEnabled="false"
+                        tools:listitem="@layout/item_two_line" />
+                </RelativeLayout>
+
+            </com.google.android.material.card.MaterialCardView>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
-
+    -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
@@ -81,6 +165,7 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/activity_padding_vertical"
         android:contentDescription="@string/record_new_transaction"
+        app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"
         android:src="@drawable/outline_add_24" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -4,8 +4,8 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 
-public interface ItemListener {
-    void onItemClicked(@NonNull View itemView, Object object, int position);
+public abstract interface ItemListener<T> {
+    void onItemClicked(@NonNull View itemView, T item, int position);
 
-    void onItemLongClicked(@NonNull View itemView, Object object, int position);
+    void onItemLongClicked(@NonNull View itemView, T item, int position);
 }

@@ -16,9 +16,13 @@ public class TwoLineItemViewHolder extends SingleLineItemViewHolder {
 
     public final TextView itemSubTitle;
 
-    public TwoLineItemViewHolder(@NonNull View view) {
-        super(view);
+    public TwoLineItemViewHolder(@NonNull View itemView) {
+        super(itemView);
         this.itemSubTitle = itemView.findViewById(R.id.itemSubTitle);
+
+        itemIcon.setImageResource(R.drawable.outline_local_cafe_24);
+        itemTitle.setText("Item title");
+        itemSubTitle.setText("Item Supporting");
     }
 
     @NonNull

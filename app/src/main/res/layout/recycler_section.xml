@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="?materialCardViewFilledStyle"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:contentPaddingTop="4dp"
+    app:cardElevation="0dp"
+    app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Medium">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/itemSectionHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/itemSectionButton"
+            android:layout_marginHorizontal="12dp"
+            android:text="@string/transactions"
+            android:textStyle="bold"
+            android:textAppearance="?attr/textAppearanceSubtitle1" />
+
+        <Button
+            android:id="@+id/itemSectionButton"
+            style="@style/Widget.Material3.Button.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@id/itemSectionHeader"
+            android:layout_alignParentEnd="true"
+            android:layout_marginHorizontal="12dp"
+            android:text="@string/see_all" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/itemRecycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/itemSectionHeader"
+            android:layout_marginVertical="12dp"
+            android:nestedScrollingEnabled="false"
+            tools:listitem="@layout/item_two_line" />
+    </RelativeLayout>
+
+</com.google.android.material.card.MaterialCardView>
