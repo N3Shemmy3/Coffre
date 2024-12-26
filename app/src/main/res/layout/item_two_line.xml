@@ -1,4 +1,4 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,53 +8,88 @@
     android:minHeight="64dp">
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/itemIconCard"
+        android:id="@+id/itemStartICard"
         style="@style/Widget.Material3.CardView.Filled"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_margin="10dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="16dp"
         app:cardBackgroundColor="?colorSurfaceBright"
         app:contentPadding="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full">
 
         <ImageView
             android:id="@+id/itemIcon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:contentDescription="@string/list_item_icon"
-            tools:src="@drawable/outline_local_cafe_24"
-            app:tint="@color/list_item_tint" />
+            app:tint="@color/list_item_tint"
+            tools:src="@drawable/outline_local_cafe_24" />
     </com.google.android.material.card.MaterialCardView>
 
     <TextView
         android:id="@+id/itemTitle"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_toEndOf="@id/itemIconCard"
+        android:layout_marginHorizontal="16dp"
         android:contentDescription="@string/list_item_title"
         android:maxLines="1"
-        android:layout_marginTop="10dp"
-        android:paddingEnd="16dp"
-        tools:text="@string/list_item_title"
+        android:layout_marginTop="-2dp"
         android:textAppearance="?attr/textAppearanceSubtitle1"
         android:textColor="@color/list_item_tint"
-        tools:ignore="RtlSymmetry" />
+        app:layout_constraintEnd_toStartOf="@id/itemEndICard"
+        app:layout_constraintStart_toEndOf="@id/itemStartICard"
+        app:layout_constraintTop_toTopOf="@id/itemStartICard"
+        tools:ignore="RtlSymmetry"
+        tools:text="@string/list_item_title" />
 
     <TextView
         android:id="@+id/itemSubTitle"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        tools:text="@string/list_item_sub_title"
-        android:layout_below="@id/itemTitle"
-        android:layout_gravity="center_vertical"
-        android:layout_toEndOf="@id/itemIconCard"
         android:contentDescription="@string/list_item_sub_title"
         android:maxLines="2"
-        android:paddingEnd="16dp"
         android:textAppearance="?attr/textAppearanceBody2"
         android:textColor="@color/list_item_subtitle_tint"
-        tools:ignore="RtlSymmetry" />
+        app:layout_constraintEnd_toEndOf="@id/itemTitle"
+        app:layout_constraintStart_toStartOf="@id/itemTitle"
+        app:layout_constraintTop_toBottomOf="@id/itemTitle"
+        tools:ignore="RtlSymmetry"
+        tools:text="@string/list_item_sub_title" />
 
-</RelativeLayout>
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/itemEndICard"
+        style="@style/Widget.Material3.CardView.Filled"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="16dp"
+        app:cardBackgroundColor="@color/colorExpenseContainer"
+        app:contentPadding="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full">
+
+        <ImageView
+            android:id="@+id/itemEndIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/list_item_icon"
+            android:src="@drawable/outline_local_cafe_24"
+            android:visibility="gone"
+            app:tint="@color/colorOnExpenseContainer" />
+
+        <TextView
+            android:id="@+id/itemEndText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="- $300"
+            android:textAppearance="?textAppearanceBodyLarge"
+            android:textColor="@color/colorOnExpenseContainer" />
+
+    </com.google.android.material.card.MaterialCardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

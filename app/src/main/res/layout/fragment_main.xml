@@ -9,84 +9,39 @@
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/topAppBar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:liftOnScrollTargetViewId="@id/recyclerView">
+        android:layout_height="wrap_content">
 
-        <com.google.android.material.appbar.CollapsingToolbarLayout
-            style="?attr/collapsingToolbarLayoutLargeStyle"
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/topToolBar"
+            style="@style/App.MaterialToolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:minHeight="?collapsingToolbarLayoutLargeSize"
-            app:collapsedTitleTextAppearance="?textAppearanceTitleLarge"
-            app:collapsedTitleTextColor="@color/colorBrand"
-            app:expandedTitleMarginStart="@dimen/activity_padding_horizontal"
-            app:expandedTitleTextColor="@android:color/transparent"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
+            android:minHeight="?attr/actionBarSize"
+            app:menu="@menu/main_top_toolbar"
+            app:title="$4,500.55">
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingHorizontal="@dimen/activity_padding_horizontal"
-                android:paddingTop="@dimen/activity_padding_vertical"
-                android:paddingBottom="8dp"
-                >
+                android:layout_height="match_parent">
 
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/headerIcon"
-                    android:layout_width="?actionBarSize"
-                    android:layout_height="?actionBarSize"
+                    android:layout_width="?minTouchTargetSize"
+                    android:layout_height="?minTouchTargetSize"
+                    android:layout_centerVertical="true"
                     android:adjustViewBounds="true"
                     android:clickable="true"
                     android:contentDescription="@string/user_profile_picture"
-                    android:foreground="?selectableItemBackground"
+                    android:foreground="?actionBarItemBackground"
                     android:scaleType="centerCrop"
                     app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"
                     app:srcCompat="@drawable/avatar" />
 
-                <TextView
-                    android:id="@+id/headerSubtitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/headerIcon"
-                    android:layout_marginTop="@dimen/activity_padding_horizontal"
-                    android:text="Spent Today"
-                    android:textAppearance="?textAppearanceTitleSmall" />
-                <TextView
-                    android:id="@+id/headerTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/headerSubtitle"
-                    android:textColor="@color/colorBrand"
-                    android:text="$4,500.55"
-                    android:textAppearance="?textAppearanceHeadline4" />
             </RelativeLayout>
-
-
-            <com.google.android.material.appbar.MaterialToolbar
-                android:id="@+id/topToolBar"
-                style="@style/App.MaterialToolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="@android:color/transparent"
-                app:layout_collapseMode="pin"
-                app:menu="@menu/main_top_toolbar"
-                app:title="$4,500.55" />
-        </com.google.android.material.appbar.CollapsingToolbarLayout>
+        </com.google.android.material.appbar.MaterialToolbar>
     </com.google.android.material.appbar.AppBarLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:clipChildren="false"
-        android:clipToPadding="false"
-        android:paddingHorizontal="@dimen/activity_padding_vertical"
-        android:paddingTop="@dimen/activity_padding_vertical"
-        android:paddingBottom="84dp"
-        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />
-
-
-    <!-- Scrollable content
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nestedScrollView"
@@ -99,24 +54,132 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:paddingVertical="8dp">
-
-            <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/accountsViewPager"
+            android:paddingTop="@dimen/activity_padding_vertical"
+            android:paddingBottom="84dp">
+            <!--Budget Card -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/budgetCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:nestedScrollingEnabled="true"
-                android:clipToPadding="false"
-                android:orientation="horizontal" />
+                style="?materialCardViewFilledStyle"
+                app:cardBackgroundColor="@color/colorIncomeContainer"
+                app:cardCornerRadius="22dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:paddingVertical="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/account_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="My Balance"
+                        android:textFontWeight="600"
+                        android:layout_marginStart="20dp"
+                        android:textColor="@color/colorOnIncomeContainer"
+                        android:alpha="0.72"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
+                    <TextView
+                        android:id="@+id/currency"
+                        android:text="$"
+                        android:textColor="@color/colorOnIncomeContainer"
+                        android:alpha="0.72"
+                        android:textSize="32sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toStartOf="@id/account_title"
+                        app:layout_constraintTop_toTopOf="@id/decimal"
+                        app:layout_constraintBottom_toBottomOf="@id/decimal"/>
+
+                    <TextView
+                        android:id="@+id/round"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="-123."
+                        android:textColor="@color/colorOnIncomeContainer"
+                        android:textSize="54sp"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginEnd="2dp"
+                        app:layout_constraintTop_toTopOf="@id/account_title"
+                        app:layout_constraintEnd_toStartOf="@id/decimal" />
+
+                    <TextView
+                        android:id="@+id/decimal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="45"
+                        android:textColor="@color/colorOnIncomeContainer"
+                        android:textSize="36sp"
+                        android:layout_marginBottom="4dp"
+                        android:layout_marginEnd="20dp"
+                        app:layout_constraintBottom_toBottomOf="@id/round"
+                        app:layout_constraintEnd_toEndOf="parent" />
+
+                    <TextView
+                        android:id="@+id/income_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/income"
+                        android:textColor="@color/colorOnIncomeContainer"
+                        android:alpha="0.72"
+                        android:layout_marginTop="8dp"
+                        android:textFontWeight="600"
+                        app:layout_constraintTop_toBottomOf="@id/round"
+                        app:layout_constraintStart_toStartOf="@id/account_title" />
+
+                    <TextView
+                        android:id="@+id/income"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="+ $12839"
+                        android:textFontWeight="700"
+                        app:layout_constraintEnd_toEndOf="@id/decimal"
+                        app:layout_constraintTop_toTopOf="@id/income_title"
+                        app:layout_constraintBottom_toBottomOf="@id/income_title"
+                        android:textColor="@color/colorOnIncomeContainer" />
+
+                    <TextView
+                        android:id="@+id/expenses_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/expenses"
+                        android:textColor="@color/colorOnExpenseContainer"
+                        android:alpha="0.72"
+                        android:layout_marginTop="8dp"
+                        android:textFontWeight="600"
+                        app:layout_constraintTop_toBottomOf="@id/income_title"
+                        app:layout_constraintStart_toStartOf="@id/account_title" />
+
+                    <TextView
+                        android:id="@+id/expenses"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="- $5678"
+                        android:textFontWeight="700"
+                        app:layout_constraintEnd_toEndOf="@id/decimal"
+                        app:layout_constraintTop_toTopOf="@id/expenses_title"
+                        app:layout_constraintBottom_toBottomOf="@id/expenses_title"
+                        android:textColor="@color/colorExpense" />
+
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
 
             <com.google.android.material.card.MaterialCardView
                 style="?materialCardViewFilledStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="16dp"
-                android:layout_marginVertical="12dp"
+                android:layout_margin="@dimen/activity_padding_vertical"
                 app:contentPaddingTop="8dp"
-                app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Medium">
+                app:cardCornerRadius="22dp">
 
 
                 <RelativeLayout
@@ -129,10 +192,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignBaseline="@id/transactionAllButton"
-                        android:layout_marginHorizontal="12dp"
+                        android:layout_marginHorizontal="16dp"
                         android:text="@string/transactions"
-                        android:textStyle="bold"
-                        android:textAppearance="?attr/textAppearanceSubtitle1" />
+                        android:textAppearance="?attr/textAppearanceSubtitle1"
+                        android:textStyle="bold" />
 
                     <Button
                         android:id="@+id/transactionAllButton"
@@ -142,12 +205,12 @@
                         android:layout_alignEnd="@id/transactionHeader"
                         android:layout_alignParentEnd="true"
                         android:layout_marginHorizontal="12dp"
-                        android:text="See all" />
+                        android:text="@string/see_all" />
 
                     <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recyclerTransactionHistory"
+                        android:id="@+id/transactionRecycler"
                         android:layout_width="match_parent"
-                        android:layout_height="250dp"
+                        android:layout_height="wrap_content"
                         android:layout_below="@id/transactionHeader"
                         android:layout_marginVertical="12dp"
                         android:nestedScrollingEnabled="false"
@@ -155,9 +218,11 @@
                 </RelativeLayout>
 
             </com.google.android.material.card.MaterialCardView>
+
+
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
-    -->
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
@@ -165,7 +230,7 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/activity_padding_vertical"
         android:contentDescription="@string/record_new_transaction"
-        app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"
-        android:src="@drawable/outline_add_24" />
+        android:src="@drawable/outline_add_24"
+        app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

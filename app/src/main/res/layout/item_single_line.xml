@@ -1,32 +1,41 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:gravity="center_vertical"
     android:background="?attr/selectableItemBackground"
+    android:gravity="center_vertical"
     android:minHeight="?attr/minTouchTargetSize">
 
     <ImageView
         android:id="@+id/itemIcon"
-        android:contentDescription="@string/list_item_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:contentDescription="@string/list_item_icon"
+        android:paddingStart="20dp"
         android:paddingTop="8dp"
+        android:paddingEnd="16dp"
         android:paddingBottom="8dp"
-        android:paddingStart="16dp"
-        tools:src="@drawable/outline_local_cafe_24"
-        android:paddingEnd="16dp"/>
+        app:layout_constraintEnd_toStartOf="@+id/itemTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/outline_local_cafe_24" />
 
     <TextView
         android:id="@+id/itemTitle"
-        android:contentDescription="@string/list_item_title"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:paddingEnd="16dp"
+        android:contentDescription="@string/list_item_title"
         android:maxLines="1"
+        android:paddingEnd="20dp"
         android:textAppearance="?attr/textAppearanceSubtitle1"
-        tools:text="@string/list_item_title"
-        tools:ignore="RtlSymmetry" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/itemIcon"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="RtlSymmetry"
+        tools:text="@string/list_item_title" />
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

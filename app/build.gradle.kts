@@ -41,6 +41,7 @@ dependencies {
     implementation(libs.constraintlayout)
     implementation(libs.coordinatorlayout)
     implementation(libs.fragment)
+    implementation(libs.glide)
     implementation(libs.eventbus)
     implementation(libs.viewpager2)
     implementation(libs.viewmodel)

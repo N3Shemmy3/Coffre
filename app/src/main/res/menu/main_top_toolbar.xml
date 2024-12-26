@@ -7,7 +7,7 @@
         android:title="@string/action_search"
         app:showAsAction="always" />
     <item
-        android:icon="@drawable/outline_calendar_today_24"
+        android:icon="@drawable/outline_calendar_month_24"
         android:title="@string/action_history"
         app:showAsAction="always" />
 </menu>

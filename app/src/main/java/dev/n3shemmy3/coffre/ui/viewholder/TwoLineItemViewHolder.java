@@ -8,10 +8,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 
 import dev.n3shemmy3.coffre.R;
+import dev.n3shemmy3.coffre.ui.item.ListItem;
 
-/**
- * A simple two line list item.
- */
+
 public class TwoLineItemViewHolder extends SingleLineItemViewHolder {
 
     public final TextView itemSubTitle;
@@ -19,10 +18,12 @@ public class TwoLineItemViewHolder extends SingleLineItemViewHolder {
     public TwoLineItemViewHolder(@NonNull View itemView) {
         super(itemView);
         this.itemSubTitle = itemView.findViewById(R.id.itemSubTitle);
+    }
 
-        itemIcon.setImageResource(R.drawable.outline_local_cafe_24);
-        itemTitle.setText("Item title");
-        itemSubTitle.setText("Item Supporting");
+    @Override
+    public void onBindViewHolder(ListItem item) {
+        super.onBindViewHolder(item);
+        itemSubTitle.setText(item.getSubTitle());
     }
 
     @NonNull

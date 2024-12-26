@@ -3,6 +3,8 @@ package dev.n3shemmy3.coffre.ui.viewholder;
 
 import androidx.recyclerview.widget.RecyclerView.ViewHolder;
 
+import android.annotation.SuppressLint;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,13 +13,13 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
-import dev.n3shemmy3.coffre.R;
-import dev.n3shemmy3.coffre.ui.items.SingleLineItem;
+import com.bumptech.glide.Glide;
 
-/**
- * A simple single line list item.
- */
-public class SingleLineItemViewHolder extends BaseViewHolder<SingleLineItem> {
+import dev.n3shemmy3.coffre.R;
+import dev.n3shemmy3.coffre.ui.item.ListItem;
+
+
+public class SingleLineItemViewHolder extends ViewHolder {
 
     public final ImageView itemIcon;
     public final TextView itemTitle;
@@ -28,8 +30,18 @@ public class SingleLineItemViewHolder extends BaseViewHolder<SingleLineItem> {
         this.itemTitle = itemView.findViewById(R.id.itemTitle);
     }
 
-    @Override
-    public void onBindViewHolder(SingleLineItem item) {
+
+    public void onBindViewHolder(ListItem item) {
+        String icon = item.getIcon();
+        if (icon.startsWith("http://") || icon.startsWith("https://")) {
+            //load image from url
+            Glide.with(itemIcon.getContext()).load(icon).into(itemIcon);
+        } else {
+            // Load image from resources
+            @SuppressLint("DiscouragedApi") int resId = itemIcon.getContext().getResources().getIdentifier(icon, "drawable", itemIcon.getContext().getPackageName());
+            itemIcon.setImageResource(resId);
+        }
+        itemTitle.setText(item.getTitle());
 
     }
 
@@ -39,3 +51,4 @@ public class SingleLineItemViewHolder extends BaseViewHolder<SingleLineItem> {
                 .inflate(R.layout.item_single_line, parent, false));
     }
 }
+

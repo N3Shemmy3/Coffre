@@ -10,9 +10,6 @@ import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import dev.n3shemmy3.coffre.R;
-import dev.n3shemmy3.coffre.ui.interfaces.ItemListener;
-import dev.n3shemmy3.coffre.ui.items.BaseItem;
 
 
 public abstract class BaseViewHolder<T> extends RecyclerView.ViewHolder {

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:contentPadding="24dp"
-    app:cardBackgroundColor="@color/colorBrand"
+    app:cardBackgroundColor="@color/colorIncome"
     app:shapeAppearanceOverlay="?shapeAppearanceCornerLarge">
 
     <RelativeLayout
@@ -20,7 +20,7 @@
             android:alpha=".7"
             android:text="Today's Expense"
             android:textAppearance="?textAppearanceBodyLarge"
-            android:textColor="@color/colorOnBrand" />
+            android:textColor="@color/colorOnIncome" />
 
         <TextView
             android:id="@+id/itemCardNumber"
@@ -31,7 +31,7 @@
             android:alpha=".7"
             android:text="****1234"
             android:textAppearance="?textAppearanceBodyLarge"
-            android:textColor="@color/colorOnBrand" />
+            android:textColor="@color/colorOnIncome" />
 
         <TextView
             android:id="@+id/itemBalance"
@@ -43,7 +43,7 @@
             android:gravity="end"
             android:text="$3,400.77"
             android:textAppearance="?textAppearanceHeadline3"
-            android:textColor="@color/colorOnBrand" />
+            android:textColor="@color/colorOnIncome" />
 
         <TextView
             android:id="@+id/itemBalanceLabel"
@@ -52,7 +52,7 @@
             android:layout_below="@id/itemBalance"
             android:alpha=".7"
             android:text="Remaining Balance"
-            android:textColor="@color/colorOnBrand" />
+            android:textColor="@color/colorOnIncome" />
 
         <TextView
             android:id="@+id/itemCardType"
@@ -64,7 +64,7 @@
             android:alpha=".7"
             android:fontFamily="monospace"
             android:text="VISA"
-            android:textColor="@color/colorOnBrand" />
+            android:textColor="@color/colorOnIncome" />
 
     </RelativeLayout>
 

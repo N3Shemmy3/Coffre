@@ -10,10 +10,7 @@ import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 
 import dev.n3shemmy3.coffre.R;
-import dev.n3shemmy3.coffre.ui.items.BaseRecyclerItem;
-import dev.n3shemmy3.coffre.ui.items.RecyclerItem;
-import dev.n3shemmy3.coffre.ui.items.SectionItem;
-
+/*
 public class SectionViewHolder extends RecyclerViewHolder {
 
     public TextView itemSectionHeader;
@@ -25,7 +22,7 @@ public class SectionViewHolder extends RecyclerViewHolder {
         this.itemSectionHeader = itemView.findViewById(R.id.itemSectionHeader);
         this.itemSectionButton = itemView.findViewById(R.id.itemSectionButton);
     }
-
+/*
     @Override
     public void onBindViewHolder(RecyclerItem item) {
         super.onBindViewHolder(item);
@@ -38,4 +35,6 @@ public class SectionViewHolder extends RecyclerViewHolder {
     public static SectionViewHolder create(@NonNull ViewGroup parent, @LayoutRes int layoutId) {
         return new SectionViewHolder(LayoutInflater.from(parent.getContext()).inflate(layoutId, parent, false));
     }
+
 }
+ */

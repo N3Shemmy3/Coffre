@@ -1,0 +1,57 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/itemIconCard"
+        style="@style/Widget.Material3.CardView.Filled"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_margin="8dp"
+        app:cardBackgroundColor="?colorSurfaceBright"
+        app:contentPadding="8dp"
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full">
+
+        <ImageView
+            android:id="@+id/itemIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:contentDescription="@string/list_item_icon"
+            app:tint="@color/list_item_tint"
+            tools:src="@drawable/outline_local_cafe_24" />
+    </com.google.android.material.card.MaterialCardView>
+
+    <TextView
+        android:id="@+id/itemTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_toEndOf="@id/itemIconCard"
+        android:contentDescription="@string/list_item_title"
+        android:maxLines="1"
+        android:paddingEnd="16dp"
+        android:textAppearance="?attr/textAppearanceBodySmall"
+        android:textColor="@color/list_item_tint"
+        tools:ignore="RtlSymmetry"
+        tools:text="@string/list_item_title" />
+
+    <TextView
+        android:id="@+id/itemSubTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/itemTitle"
+        android:layout_gravity="center_vertical"
+        android:layout_toEndOf="@id/itemIconCard"
+        android:contentDescription="@string/list_item_sub_title"
+        android:maxLines="2"
+        android:paddingEnd="16dp"
+        android:textAppearance="?attr/textAppearanceBodyMedium"
+        android:textColor="@color/list_item_subtitle_tint"
+        tools:ignore="RtlSymmetry"
+        tools:text="@string/list_item_sub_title" />
+
+</RelativeLayout>

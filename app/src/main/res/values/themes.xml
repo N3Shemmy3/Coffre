@@ -62,7 +62,14 @@
         <item name="colorSurfaceContainer">@color/md_theme_surfaceContainer</item>
         <item name="colorSurfaceContainerHigh">@color/md_theme_surfaceContainerHigh</item>
         <item name="colorSurfaceContainerHighest">@color/md_theme_surfaceContainerHighest</item>
-
+        <item name="colorIncome">@color/colorIncome</item>
+        <item name="colorOnIncome">@color/colorOnIncome</item>
+        <item name="colorIncomeContainer">@color/colorIncomeContainer</item>
+        <item name="colorOnIncomeContainer">@color/colorOnIncomeContainer</item>
+        <item name="colorExpense">@color/colorExpense</item>
+        <item name="colorOnExpense">@color/colorOnExpense</item>
+        <item name="colorExpenseContainer">@color/colorExpenseContainer</item>
+        <item name="colorOnExpenseContainer">@color/colorOnExpenseContainer</item>
     </style>
     <style name="Theme.Coffre" parent="PreV31.Theme.Coffre" />
 </resources>
