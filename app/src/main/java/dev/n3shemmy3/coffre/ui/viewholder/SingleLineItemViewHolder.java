@@ -24,24 +24,46 @@ public class SingleLineItemViewHolder extends ViewHolder {
     public final ImageView itemIcon;
     public final TextView itemTitle;
 
+    public final ImageView itemEndIcon;
+    public final TextView itemEndText;
+
     public SingleLineItemViewHolder(@NonNull View itemView) {
         super(itemView);
         this.itemIcon = itemView.findViewById(R.id.itemIcon);
         this.itemTitle = itemView.findViewById(R.id.itemTitle);
+        this.itemEndIcon = itemView.findViewById(R.id.itemEndIcon);
+        this.itemEndText = itemView.findViewById(R.id.itemEndText);
     }
 
 
     public void onBindViewHolder(ListItem item) {
-        String icon = item.getIcon();
-        if (icon.startsWith("http://") || icon.startsWith("https://")) {
-            //load image from url
-            Glide.with(itemIcon.getContext()).load(icon).into(itemIcon);
-        } else {
-            // Load image from resources
-            @SuppressLint("DiscouragedApi") int resId = itemIcon.getContext().getResources().getIdentifier(icon, "drawable", itemIcon.getContext().getPackageName());
-            itemIcon.setImageResource(resId);
+        //start icon
+        {
+
+            String icon = item.getIcon();
+            if (icon.startsWith("http://") || icon.startsWith("https://")) {
+                //load image from url
+                Glide.with(itemIcon.getContext()).load(icon).into(itemIcon);
+            } else {
+                // Load image from resources
+                @SuppressLint("DiscouragedApi") int resId = itemIcon.getContext().getResources().getIdentifier(icon, "drawable", itemIcon.getContext().getPackageName());
+                itemIcon.setImageResource(resId);
+            }
         }
-        itemTitle.setText(item.getTitle());
+        //end icon & text
+        if (item.getEndIcon() != null) {
+            String endIcon = item.getIcon();
+            if (endIcon.startsWith("http://") || endIcon.startsWith("https://")) {
+                //load image from url
+                Glide.with(itemEndIcon.getContext()).load(endIcon).into(itemIcon);
+            } else {
+                // Load image from resources
+                @SuppressLint("DiscouragedApi") int resId = itemIcon.getContext().getResources().getIdentifier(endIcon, "drawable", itemIcon.getContext().getPackageName());
+                itemEndIcon.setImageResource(resId);
+            }
+        } else {
+            itemEndText.setText(item.getTitle());
+        }
 
     }
 

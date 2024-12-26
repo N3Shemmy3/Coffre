@@ -8,6 +8,7 @@ import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.view.ViewCompat;
+import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -43,6 +44,7 @@ public class MainFragment extends BaseFragment {
         {
             transactionRecycler = root.findViewById(R.id.transactionRecycler);
             transactionRecycler.setLayoutManager(new LinearLayoutManager(requireContext()));
+            transactionRecycler.setItemAnimator(new DefaultItemAnimator());
             ListItemAdapter listItemAdapter = new ListItemAdapter(new ItemListener<>() {
                 @Override
                 public void onItemClicked(@NonNull View itemView, ListItem item, int position) {

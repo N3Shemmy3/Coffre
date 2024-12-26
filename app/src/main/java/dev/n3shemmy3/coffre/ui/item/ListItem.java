@@ -8,11 +8,13 @@ public class ListItem extends BaseItem {
     private String title;
     private String subTitle;
 
+    private String endText;
+    private String endIcon;
+
     public ListItem(int id, String icon, String title) {
         super(id);
         this.icon = icon;
         this.title = title;
-        this.subTitle = null;
     }
 
     public ListItem(int id, String icon, String title, String subTitle) {
@@ -20,6 +22,15 @@ public class ListItem extends BaseItem {
         this.icon = icon;
         this.title = title;
         this.subTitle = subTitle;
+    }
+
+    public ListItem(int id, String icon, String title, String subTitle, String endText, String endIcon) {
+        super(id);
+        this.icon = icon;
+        this.title = title;
+        this.subTitle = subTitle;
+        this.endText = endText;
+        this.endIcon = endIcon;
     }
 
     public String getIcon() {
@@ -46,9 +57,25 @@ public class ListItem extends BaseItem {
         this.subTitle = subTitle;
     }
 
+    public String getEndText() {
+        return endText;
+    }
+
+    public void setEndText(String endText) {
+        this.endText = endText;
+    }
+
+    public String getEndIcon() {
+        return endIcon;
+    }
+
+    public void setEndIcon(String endIcon) {
+        this.endIcon = endIcon;
+    }
+
     @NonNull
     @Override
     public String toString() {
-        return getId() + getIcon() + getTitle() + getSubTitle();
+        return getId() + getIcon() + getTitle() + getSubTitle() + getEndIcon() + getEndText();
     }
 }

@@ -29,13 +29,27 @@
         android:layout_height="wrap_content"
         android:contentDescription="@string/list_item_title"
         android:maxLines="1"
-        android:paddingEnd="20dp"
         android:textAppearance="?attr/textAppearanceSubtitle1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/itemEndIcon"
         app:layout_constraintStart_toEndOf="@+id/itemIcon"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="RtlSymmetry"
         tools:text="@string/list_item_title" />
+
+    <ImageView
+        android:id="@+id/itemEndIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:contentDescription="@string/list_item_icon"
+        android:paddingHorizontal="16dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/itemTitle"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/outline_local_cafe_24" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
