@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <Preference
+        android:icon="@drawable/outline_calendar_month_24"
+        android:summary="Item summary"
+        android:title="Item Title" />
+    <Preference
+        android:icon="@drawable/outline_credit_card_24"
+        android:summary="Item summary"
+        android:title="Item Title" />
+    <Preference
+        android:icon="@drawable/outline_currency_yen_24"
+        android:summary="Item summary"
+        android:title="Item Title" />
+    <Preference
+        android:icon="@drawable/outline_local_cafe_24"
+        android:summary="Item summary"
+        android:title="Item Title" />
+    <Preference
+        android:icon="@drawable/outline_dashboard_24"
+        android:summary="Item summary"
+        android:title="Item Title" />
+    <Preference
+        android:icon="@drawable/outline_widgets_24"
+        android:summary="Item summary"
+        android:title="Item Title" />
+    <Preference
+        android:icon="@drawable/outline_event_24"
+        android:summary="Item summary"
+        android:title="Item Title" />
+    <Preference
+        android:icon="@drawable/outline_settings_24"
+        android:summary="Item summary"
+        android:title="Item Title" />
+</androidx.preference.PreferenceScreen>

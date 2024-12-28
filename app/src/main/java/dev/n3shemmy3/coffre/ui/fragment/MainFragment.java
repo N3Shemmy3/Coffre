@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.transition.MaterialElevationScale;
 
 import java.util.ArrayList;
@@ -27,7 +28,7 @@ import dev.n3shemmy3.coffre.ui.utils.InsetUtils;
 
 public class MainFragment extends BaseFragment {
 
-
+    private ShapeableImageView toolBarAvatar;
     private RecyclerView transactionRecycler;
 
     private FloatingActionButton floatingActionButton;
@@ -41,6 +42,7 @@ public class MainFragment extends BaseFragment {
 
     @Override
     protected void onFragmentCreated(@NonNull View root, @Nullable Bundle savedInstanceState) {
+        super.onFragmentCreated(root, savedInstanceState);
         {
             transactionRecycler = root.findViewById(R.id.transactionRecycler);
             transactionRecycler.setLayoutManager(new LinearLayoutManager(requireContext()));
@@ -50,18 +52,17 @@ public class MainFragment extends BaseFragment {
                 public void onItemClicked(@NonNull View itemView, ListItem item, int position) {
                     MaterialElevationScale exitTransition = new MaterialElevationScale(false);
                     exitTransition.setDuration(getResources().getInteger(com.google.android.material.R.integer.material_motion_duration_long_1));
-                    setExitTransition(exitTransition);
+                    //setExitTransition(exitTransition);
 
                     MaterialElevationScale reenterTransition = new MaterialElevationScale(true);
                     reenterTransition.setDuration(getResources().getInteger(com.google.android.material.R.integer.material_motion_duration_long_1));
-                    setReenterTransition(reenterTransition);
-
+                   // setReenterTransition(reenterTransition);
 
                     String transitionName = "shared_element_" + position;
                     ViewCompat.setTransitionName(itemView, transitionName);
                     Bundle bundle = new Bundle();
                     bundle.putString("transitionName", transitionName);
-                    ((MainActivity) requireActivity()).replaceFragment(new AccountFragment(), itemView, bundle);
+                    ((MainActivity) requireActivity()).replaceFragment(new RecordFragment() /* , itemView, bundle */);
 
                 }
 
@@ -72,20 +73,24 @@ public class MainFragment extends BaseFragment {
             });
             ArrayList<ListItem> items = new ArrayList<>();
             for (int i = 0; i < 12; i++) {
-                items.add(new ListItem(i, "outline_local_cafe_24", "Item " + i, "Sub Item " + i));
+                items.add(new ListItem(i, "outline_local_cafe_24", "Item " + i, "Sub Item " + i, null, "- $" + i + "00"));
             }
             listItemAdapter.submitList(items);
             transactionRecycler.setAdapter(listItemAdapter);
         }
+        toolBarAvatar = root.findViewById(R.id.toolBarAvatar);
+        final Bundle bundle = new Bundle();
+        bundle.putString("transitionName", "avatar");
+        toolBarAvatar.setTransitionName("avatar");
+        toolBarAvatar.setOnClickListener(v -> {
+            ((MainActivity) requireActivity()).replaceFragment(new ProfileFragment() /*, toolBarAvatar, bundle */);
+        });
+
 
         floatingActionButton = root.findViewById(R.id.fab);
-        Bundle bundle = new Bundle();
         bundle.putString("transitionName", "fab");
         floatingActionButton.setTransitionName("fab");
-        floatingActionButton.setOnClickListener(v -> ((MainActivity) requireActivity()).replaceFragment(new RecordFragment(), floatingActionButton, bundle));
-
-
-        InsetUtils.applySystemBarsInsets(root.findViewById(R.id.topAppBar), false, true, false, false);
+        floatingActionButton.setOnClickListener(v -> ((MainActivity) requireActivity()).replaceFragment(new RecordFragment() /* , floatingActionButton, bundle */));
         InsetUtils.applySystemBarsMargin(floatingActionButton, false, false, false, true);
     }
 

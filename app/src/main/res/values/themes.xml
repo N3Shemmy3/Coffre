@@ -2,19 +2,6 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.Coffre" parent="Theme.Material3.DynamicColors.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
-        <!-- fixes some UI issues on MIUI devices -->
-        <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
-        <!-- true edge-to-edge, no black bars in display notch -->
-        <item name="android:windowLayoutInDisplayCutoutMode" tools:targetApi="r">always</item>
-        <!-- Work around b/331383944: PreferenceFragmentCompat permanently mutates activity theme (enables vertical scrollbars) -->
-        <item name="android:scrollbars">none</item>
-        <item name="toolbarStyle">@style/App.MaterialToolbar</item>
-        <item name="android:navigationBarColor">@android:color/transparent</item>
-    </style>
-
-
-    <style name="PreV31.Theme.Coffre" parent="Base.Theme.Coffre" >
-        <item name="android:windowLayoutInDisplayCutoutMode" >shortEdges</item>
         <!-- Material theme -->
         <item name="colorPrimary">@color/md_theme_primary</item>
         <item name="colorOnPrimary">@color/md_theme_onPrimary</item>
@@ -71,5 +58,19 @@
         <item name="colorExpenseContainer">@color/colorExpenseContainer</item>
         <item name="colorOnExpenseContainer">@color/colorOnExpenseContainer</item>
     </style>
-    <style name="Theme.Coffre" parent="PreV31.Theme.Coffre" />
+
+
+    <style name="Theme.Coffre" parent="Base.Theme.Coffre">
+        <item name="toolbarStyle">@style/App.MaterialToolbar</item>
+        <!-- fixes some UI issues on MIUI devices -->
+        <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
+        <!-- true edge-to-edge, no black bars in display notch -->
+        <item name="android:windowLayoutInDisplayCutoutMode" tools:targetApi="r">always</item>
+        <!-- Work around b/331383944: PreferenceFragmentCompat permanently mutates activity theme (enables vertical scrollbars) -->
+        <item name="android:scrollbars">none</item>
+        <item name="android:windowLightStatusBar">?isLightTheme</item>
+        <item name="android:windowLightNavigationBar">?isLightTheme</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+    </style>
 </resources>

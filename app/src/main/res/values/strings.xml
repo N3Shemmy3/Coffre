@@ -18,14 +18,13 @@
     <string name="action_future">Future</string>
 
 
-
     <!--Content Descriptions -->
     <!--User Profile-->
     <string name="user_profile_picture">User profile picture</string>
 
 
     <!--Views-->
-<string name="record_new_transaction">Record new transaction</string>
+    <string name="record_new_transaction">Record new transaction</string>
     <!--List Item-->
     <string name="list_item_icon">List item icon</string>
     <string name="list_item_title">List item title</string>
@@ -33,5 +32,9 @@
     <string name="see_all">See all</string>
     <string name="income">Income</string>
     <string name="expenses">Expenses</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="action_delete">Delete</string>
+    <string name="label_settings">Settings</string>
 
 </resources>

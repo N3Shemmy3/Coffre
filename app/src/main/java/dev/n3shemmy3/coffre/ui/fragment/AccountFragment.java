@@ -41,12 +41,10 @@ public class AccountFragment extends BaseFragment {
 
     @Override
     protected void onFragmentCreated(@NonNull View root, @Nullable Bundle savedInstanceState) {
-        assert getArguments() != null;
-        String transitionName = getArguments().getString("transitionName");
-        ViewCompat.setTransitionName(root, transitionName);
-
-        topToolBar = root.findViewById(R.id.topToolBar);
-        topToolBar.setNavigationOnClickListener(v -> requireActivity().getSupportFragmentManager().popBackStack());
-        InsetUtils.applySystemBarsInsets(root.findViewById(R.id.topAppBar), false, true, false, false);
+        super.onFragmentCreated(root, savedInstanceState);
+        if (getArguments() != null) {
+            String transitionName = getArguments().getString("transitionName");
+            ViewCompat.setTransitionName(root, transitionName);
+        }
     }
 }

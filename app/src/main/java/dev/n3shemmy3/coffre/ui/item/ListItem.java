@@ -24,13 +24,13 @@ public class ListItem extends BaseItem {
         this.subTitle = subTitle;
     }
 
-    public ListItem(int id, String icon, String title, String subTitle, String endText, String endIcon) {
+    public ListItem(int id, String icon, String title, String subTitle, String endIcon, String endText) {
         super(id);
         this.icon = icon;
         this.title = title;
         this.subTitle = subTitle;
-        this.endText = endText;
         this.endIcon = endIcon;
+        this.endText = endText;
     }
 
     public String getIcon() {

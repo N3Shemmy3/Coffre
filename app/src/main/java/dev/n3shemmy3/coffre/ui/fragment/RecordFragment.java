@@ -11,9 +11,15 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.color.MaterialColors;
+import com.google.android.material.datepicker.MaterialDatePicker;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
+import com.google.android.material.timepicker.MaterialTimePicker;
+import com.google.android.material.timepicker.TimeFormat;
 import com.google.android.material.transition.MaterialContainerTransform;
 
 import dev.n3shemmy3.coffre.R;
@@ -23,6 +29,9 @@ import dev.n3shemmy3.coffre.ui.utils.InsetUtils;
 public class RecordFragment extends BaseFragment {
 
     private MaterialToolbar topToolBar;
+
+    private TextInputEditText inputTime;
+    private TextInputEditText inputDate;
 
     @Override
     protected int getLayoutResId() {
@@ -45,12 +54,31 @@ public class RecordFragment extends BaseFragment {
 
     @Override
     protected void onFragmentCreated(@NonNull View root, @Nullable Bundle savedInstanceState) {
-        assert getArguments() != null;
-        String transitionName = getArguments().getString("transitionName");
-        ViewCompat.setTransitionName(root, transitionName);
+        super.onFragmentCreated(root, savedInstanceState);
+        if (getArguments() != null) {
+            String transitionName = getArguments().getString("transitionName");
+            ViewCompat.setTransitionName(root, transitionName);
+        }
 
-        topToolBar = root.findViewById(R.id.topToolBar);
-        topToolBar.setNavigationOnClickListener(v -> requireActivity().getSupportFragmentManager().popBackStack());
-        InsetUtils.applySystemBarsInsets(root.findViewById(R.id.topAppBar), false, true, false, false);
+        inflateInputs(root);
+    }
+
+    void inflateInputs(@NonNull View root) {
+
+        inputTime = root.findViewById(R.id.inputTime);
+        inputTime.setOnClickListener(v -> {
+            Toast.makeText(requireContext(), "clicked:inputTime", Toast.LENGTH_SHORT).show();
+            new MaterialTimePicker.Builder()
+                    .build()
+                    .show(getChildFragmentManager(), "inputTime");
+
+        });
+        inputDate = root.findViewById(R.id.inputDate);
+        inputDate.setOnClickListener(v -> {
+            Toast.makeText(requireContext(), "clicked:inputDate", Toast.LENGTH_SHORT).show();
+            MaterialDatePicker.Builder.datePicker()
+                    .build()
+                    .show(getChildFragmentManager(), "inputDate");
+        });
     }
 }

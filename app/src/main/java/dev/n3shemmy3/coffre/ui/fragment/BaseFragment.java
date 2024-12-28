@@ -7,10 +7,16 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.color.MaterialColors;
 import com.google.android.material.transition.MaterialSharedAxis;
+
+import dev.n3shemmy3.coffre.R;
+import dev.n3shemmy3.coffre.ui.utils.InsetUtils;
 
 public abstract class BaseFragment extends Fragment {
 
@@ -19,8 +25,17 @@ public abstract class BaseFragment extends Fragment {
 
     protected abstract int getLayoutResId();
 
-    protected abstract void onFragmentCreated(@NonNull View root, @Nullable Bundle savedInstanceState);
+    protected void onFragmentCreated(@NonNull View root, @Nullable Bundle savedInstanceState) {
+        setDefaults(root);
+    }
 
+    private View root;
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ViewCompat.setTransitionName(root, null);
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -35,8 +50,9 @@ public abstract class BaseFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View root = inflater.inflate(getLayoutResId(), container, false);
+        root = inflater.inflate(getLayoutResId(), container, false);
         onFragmentCreated(root, savedInstanceState);
+
         return root;
     }
 
@@ -46,11 +62,32 @@ public abstract class BaseFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         // Overlap colors.
         view.setBackgroundColor(MaterialColors.getColor(view, android.R.attr.colorBackground));
+        /*
         postponeEnterTransition();
         view.getViewTreeObserver().addOnPreDrawListener(() -> {
             startPostponedEnterTransition();
             return true;
         });
+
+         */
+
+    }
+
+    void setDefaults(@NonNull View root) {
+        //Appbar
+        AppBarLayout topAppBar = root.findViewById(R.id.topAppBar);
+        if (root.findViewById(R.id.topAppBar) != null) {
+            InsetUtils.applyDisplayCutoutInsets(root.findViewById(R.id.topAppBar), true, true, true, false);
+            InsetUtils.applySystemBarsInsets(root.findViewById(R.id.topAppBar), true, true, true, false);
+        }
+        //Toolbar
+        MaterialToolbar topToolBar = root.findViewById(R.id.topToolBar);
+        if (topToolBar != null) {
+            topToolBar.setNavigationOnClickListener(v -> requireActivity().getSupportFragmentManager().popBackStack());
+        }
+        //content below Appbar
+        if (root.findViewById(R.id.content) != null)
+            InsetUtils.applyDisplayCutoutMargin(root.findViewById(R.id.content), true, false, true, false);
 
     }
 

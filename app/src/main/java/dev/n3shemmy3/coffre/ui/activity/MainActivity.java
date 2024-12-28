@@ -7,6 +7,7 @@ import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import dev.n3shemmy3.coffre.R;
@@ -23,19 +24,19 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-    public void replaceFragment(@NonNull BaseFragment fragment) {
+    public void replaceFragment(@NonNull Fragment fragment) {
         replaceFragment(fragment, null, null);
     }
 
-    public void replaceFragment(@NonNull BaseFragment fragment, @NonNull Bundle args) {
+    public void replaceFragment(@NonNull Fragment fragment, @NonNull Bundle args) {
         replaceFragment(fragment, null, args);
     }
 
-    public void replaceFragment(@NonNull BaseFragment fragment, @Nullable View sharedElement, @Nullable Bundle args) {
+    public void replaceFragment(@NonNull Fragment fragment, @Nullable View sharedElement, @Nullable Bundle args) {
         fragment.setArguments(args);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.setReorderingAllowed(true);
-        if (args != null)
+        if (sharedElement != null)
             transaction.addSharedElement(sharedElement, args.getString("transitionName"));
         transaction
                 .addToBackStack(System.currentTimeMillis() + "")

@@ -18,6 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minHeight="?attr/actionBarSize"
+            app:menu="@menu/record_top_toolbar"
             app:navigationIcon="@drawable/outline_arrow_back_24"
             app:title="Record" />
 
@@ -35,58 +36,114 @@
             android:id="@+id/content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:paddingHorizontal="@dimen/activity_padding_horizontal"
-            android:paddingVertical="@dimen/activity_padding_vertical">
+            android:orientation="vertical">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/inputName"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Name">
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingHorizontal="@dimen/activity_padding_horizontal"
+                android:paddingVertical="@dimen/activity_padding_vertical">
 
-                <com.google.android.material.textfield.TextInputEditText
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layoutName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:imeOptions="actionNext"
-                    android:lines="1"
-                    android:singleLine="true" />
+                    android:hint="Name"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
-            </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:imeOptions="actionNext"
+                        android:lines="1"
+                        android:singleLine="true" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/inputAmount"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="@dimen/activity_padding_horizontal"
-                android:hint="Amount"
-                app:prefixText="$">
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputEditText
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layoutAmount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:imeOptions="actionNext"
-                    android:inputType="number"
-                    android:singleLine="true" />
+                    android:layout_marginTop="@dimen/activity_padding_vertical"
+                    android:hint="Amount"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/layoutName"
+                    app:prefixText="$">
 
-            </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:imeOptions="actionNext"
+                        android:inputType="number"
+                        android:singleLine="true" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/inputDescription"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Description">
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputEditText
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layoutTime"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/activity_padding_vertical"
+                    app:layout_constraintEnd_toStartOf="@id/layoutDate"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/layoutAmount">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/inputTime"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Time"
+                        android:inputType="none"
+                        android:editable="false"
+                        android:maxLines="1" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layoutDate"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/activity_padding_vertical"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/layoutTime"
+                    app:layout_constraintTop_toTopOf="@id/layoutTime">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/inputDate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Date"
+                        android:inputType="none"
+                        android:editable="false"
+                        android:maxLines="1" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layoutDescription"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:maxLines="8"
-                    android:singleLine="false" />
+                    android:layout_marginTop="@dimen/activity_padding_vertical"
+                    android:hint="Description"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/layoutTime">
 
-            </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="start"
+                        android:maxLines="14"
+                        android:minLines="8"
+                        android:singleLine="false"
+                        android:textAlignment="viewStart" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </LinearLayout>
-
     </androidx.core.widget.NestedScrollView>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
