@@ -24,6 +24,7 @@ import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import dev.n3shemmy3.coffre.R;
+import dev.n3shemmy3.coffre.ui.utils.InsetUtils;
 
 public class ProfileFragment extends BaseFragment {
 
@@ -38,6 +39,7 @@ public class ProfileFragment extends BaseFragment {
 
     @Override
     protected void onFragmentCreated(@NonNull View root, @Nullable Bundle savedInstanceState) {
+        super.onFragmentCreated(root, savedInstanceState);
         if (getArguments() != null) {
             String transitionName = getArguments().getString("transitionName");
             ViewCompat.setTransitionName(root, transitionName);

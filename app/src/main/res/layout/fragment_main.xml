@@ -17,7 +17,7 @@
             style="@style/App.MaterialToolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:minHeight="?attr/actionBarSize"
+            android:minHeight="?actionBarSize"
             app:menu="@menu/main_top_toolbar"
             app:title="$4,500.55">
 

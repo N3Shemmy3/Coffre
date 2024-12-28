@@ -7,7 +7,9 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.appbar.AppBarLayout;
@@ -76,13 +78,15 @@ public abstract class BaseFragment extends Fragment {
     void setDefaults(@NonNull View root) {
         //Appbar
         AppBarLayout topAppBar = root.findViewById(R.id.topAppBar);
-        if (root.findViewById(R.id.topToolBar) != null) {
-            InsetUtils.applyDisplayCutoutInsets(root.findViewById(R.id.topToolBar), true, true, true, false);
-            InsetUtils.applySystemBarsInsets(root.findViewById(R.id.topToolBar), false, true, false, false);
+        MaterialToolbar topToolBar = root.findViewById(R.id.topToolBar);
+        if (topAppBar != null) {
+            InsetUtils.applyAppbarInsets(topAppBar, topToolBar);
+
         }
         //Toolbar
-        MaterialToolbar topToolBar = root.findViewById(R.id.topToolBar);
         if (topToolBar != null) {
+
+
             topToolBar.setNavigationOnClickListener(v -> requireActivity().getSupportFragmentManager().popBackStack());
         }
         //content below Appbar

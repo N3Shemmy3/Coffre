@@ -11,25 +11,24 @@
         android:id="@+id/topAppBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?colorIncomeContainer"
-        android:fitsSystemWindows="true">
+       android:fitsSystemWindows="true">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:id="@+id/collToolBar"
             style="?collapsingToolbarLayoutLargeStyle"
             android:layout_width="match_parent"
             android:layout_height="250dp"
-            app:collapsedTitleTextColor="?attr/colorOnSurface"
             app:collapsedTitleTextAppearance="?textAppearanceTitleLarge"
-            app:expandedTitleTextColor="?attr/colorOnSurface"
+            app:collapsedTitleTextColor="?attr/colorOnSurface"
             app:expandedTitleTextAppearance="?textAppearanceHeadlineLarge"
+            app:expandedTitleTextColor="?attr/colorOnSurface"
             app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:foreground="@drawable/profile_header_foreground"
-                android:fitsSystemWindows="true">
+                android:fitsSystemWindows="true"
+                android:foreground="@drawable/profile_header_foreground">
 
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/headerAvatar"
@@ -59,7 +58,7 @@
                 android:id="@+id/topToolBar"
                 style="@style/App.MaterialToolbar"
                 android:layout_width="match_parent"
-                android:layout_height="?actionBarSize"
+                android:layout_height="wrap_content"
                 app:layout_collapseMode="pin"
                 app:navigationIcon="@drawable/outline_arrow_back_24"
                 app:title="Shemmy" />
@@ -125,7 +124,7 @@
     </androidx.core.widget.NestedScrollView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-       android:id="@+id/fab"
+        android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/activity_padding_horizontal"

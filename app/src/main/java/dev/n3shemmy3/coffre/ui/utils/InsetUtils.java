@@ -1,5 +1,6 @@
 package dev.n3shemmy3.coffre.ui.utils;
 
+import android.content.res.Resources;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -8,6 +9,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.MaterialToolbar;
 
 import dev.n3shemmy3.coffre.R;
@@ -58,6 +60,7 @@ public class InsetUtils {
 
     public static void applyDisplayCutoutMargin(@NonNull View view, boolean left, boolean top, boolean right, boolean bottom) {
         ViewCompat.setOnApplyWindowInsetsListener(view, (v, windowInsets) -> {
+
             Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.displayCutout());
             ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams) v.getLayoutParams();
             int hInsets = insets.left + insets.right;
@@ -68,6 +71,25 @@ public class InsetUtils {
             v.setLayoutParams(mlp);
             // Return CONSUMED if you don't want want the window insets to keep passing
             // down to descendant views.
+            return WindowInsetsCompat.CONSUMED;
+        });
+    }
+
+    public static void applyAppbarInsets(@NonNull AppBarLayout appbar, @NonNull View toolbar) {
+        final int toolbarHeight = (int) (Resources.getSystem().getDisplayMetrics().density * 64);
+        ViewCompat.setOnApplyWindowInsetsListener(appbar, (v, windowInsets) -> {
+            Insets displayCutOutInsets = windowInsets.getInsets(WindowInsetsCompat.Type.displayCutout());
+            Insets systemBarInsets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+            int hInsets = displayCutOutInsets.left + displayCutOutInsets.right;
+            toolbar.setPadding(
+                    displayCutOutInsets.left <= 0 ? hInsets : displayCutOutInsets.left,
+                    systemBarInsets.top,
+                    displayCutOutInsets.right <= 0 ? hInsets : displayCutOutInsets.right,
+                    toolbar.getPaddingBottom()
+            );
+            ViewGroup.LayoutParams layoutParams = toolbar.getLayoutParams();
+            layoutParams.height = toolbarHeight + systemBarInsets.top;
+            toolbar.setLayoutParams(layoutParams);
             return WindowInsetsCompat.CONSUMED;
         });
     }
