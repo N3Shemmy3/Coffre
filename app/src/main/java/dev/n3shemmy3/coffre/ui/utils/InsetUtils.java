@@ -8,6 +8,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.android.material.appbar.MaterialToolbar;
+
 import dev.n3shemmy3.coffre.R;
 
 public class InsetUtils {
@@ -42,7 +44,7 @@ public class InsetUtils {
     }
 
     public static void applyDisplayCutoutInsets(@NonNull View view, boolean left, boolean top, boolean right, boolean bottom) {
-        ViewCompat.setOnApplyWindowInsetsListener(view.findViewById(R.id.topAppBar), (v, insets) -> {
+        ViewCompat.setOnApplyWindowInsetsListener(view, (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.displayCutout());
             v.setPadding(
                     left ? systemBars.left : view.getPaddingLeft(),

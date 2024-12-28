@@ -76,9 +76,9 @@ public abstract class BaseFragment extends Fragment {
     void setDefaults(@NonNull View root) {
         //Appbar
         AppBarLayout topAppBar = root.findViewById(R.id.topAppBar);
-        if (root.findViewById(R.id.topAppBar) != null) {
-            InsetUtils.applyDisplayCutoutInsets(root.findViewById(R.id.topAppBar), true, true, true, false);
-            InsetUtils.applySystemBarsInsets(root.findViewById(R.id.topAppBar), true, true, true, false);
+        if (root.findViewById(R.id.topToolBar) != null) {
+            InsetUtils.applyDisplayCutoutInsets(root.findViewById(R.id.topToolBar), true, true, true, false);
+            InsetUtils.applySystemBarsInsets(root.findViewById(R.id.topToolBar), false, true, false, false);
         }
         //Toolbar
         MaterialToolbar topToolBar = root.findViewById(R.id.topToolBar);
