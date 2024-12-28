@@ -125,10 +125,11 @@
     </androidx.core.widget.NestedScrollView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+       android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/activity_padding_horizontal"
-        android:src="@drawable/outline_widgets_24"
+        android:src="@drawable/outline_add_a_photo_24"
 
         app:layout_anchor="@id/collToolBar"
         app:layout_anchorGravity="bottom|end"
