@@ -5,20 +5,27 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.appbar.MaterialToolbar;
 
 import dev.n3shemmy3.coffre.R;
 
 public class InsetUtils {
+    public static interface InsetsListener {
+        void onInsetsChanged(Insets displayCutOutInsets, Insets systemBarInsets);
+    }
 
-
-    public static void applySystemBarsInsets(@NonNull View view, boolean left, boolean top, boolean right, boolean bottom) {
-        ViewCompat.setOnApplyWindowInsetsListener(view.findViewById(R.id.topAppBar), (v, insets) -> {
+    public static void applySystemBarsInsets(@NonNull View view, boolean left, boolean top,
+                                             boolean right, boolean bottom) {
+        ViewCompat.setOnApplyWindowInsetsListener(view.findViewById(R.id.topAppBar),
+                (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(
                     left ? systemBars.left : view.getPaddingLeft(),
@@ -30,7 +37,8 @@ public class InsetUtils {
         });
     }
 
-    public static void applySystemBarsMargin(@NonNull View view, boolean left, boolean top, boolean right, boolean bottom) {
+    public static void applySystemBarsMargin(@NonNull View view, boolean left, boolean top,
+                                             boolean right, boolean bottom) {
         ViewCompat.setOnApplyWindowInsetsListener(view, (v, windowInsets) -> {
             Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
             ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams) v.getLayoutParams();
@@ -45,7 +53,8 @@ public class InsetUtils {
         });
     }
 
-    public static void applyDisplayCutoutInsets(@NonNull View view, boolean left, boolean top, boolean right, boolean bottom) {
+    public static void applyDisplayCutoutInsets(@NonNull View view, boolean left, boolean top,
+                                                boolean right, boolean bottom) {
         ViewCompat.setOnApplyWindowInsetsListener(view, (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.displayCutout());
             v.setPadding(
@@ -58,7 +67,8 @@ public class InsetUtils {
         });
     }
 
-    public static void applyDisplayCutoutMargin(@NonNull View view, boolean left, boolean top, boolean right, boolean bottom) {
+    public static void applyDisplayCutoutMargin(@NonNull View view, boolean left, boolean top,
+                                                boolean right, boolean bottom) {
         ViewCompat.setOnApplyWindowInsetsListener(view, (v, windowInsets) -> {
 
             Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.displayCutout());
@@ -75,21 +85,61 @@ public class InsetUtils {
         });
     }
 
-    public static void applyAppbarInsets(@NonNull AppBarLayout appbar, @NonNull View toolbar) {
+    public static void applyAppbarInsets(@NonNull AppBarLayout appbar, @Nullable View toolbar,
+                                         @Nullable CollapsingToolbarLayout collToolbar) {
+        final int toolbarHeight = (int) (Resources.getSystem().getDisplayMetrics().density * 64);
+        int initialTitleMargin = (int) (Resources.getSystem().getDisplayMetrics().density * 24);
+        ViewCompat.setOnApplyWindowInsetsListener(appbar, (v, windowInsets) -> {
+            Insets displayCutOutInsets = windowInsets.getInsets(WindowInsetsCompat.Type.displayCutout());
+            Insets systemBarInsets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+            int hInsets = displayCutOutInsets.left + displayCutOutInsets.right;
+            int leftDisplayCutoutInsets = displayCutOutInsets.left <= 0 ? hInsets : displayCutOutInsets.left;
+            int rightDisplayCutoutInsets = displayCutOutInsets.right <= 0 ? hInsets : displayCutOutInsets.right;
+            if (toolbar != null) {
+                toolbar.setPadding(
+                        leftDisplayCutoutInsets,
+                        systemBarInsets.top,
+                        rightDisplayCutoutInsets,
+                        toolbar.getPaddingBottom()
+                );
+                ViewGroup.LayoutParams layoutParams = toolbar.getLayoutParams();
+                layoutParams.height = toolbarHeight + systemBarInsets.top;
+                toolbar.setLayoutParams(layoutParams);
+            }
+            if (collToolbar != null) {
+
+                collToolbar.setExpandedTitleMargin(
+                        leftDisplayCutoutInsets + initialTitleMargin,
+                        initialTitleMargin,
+                        rightDisplayCutoutInsets + initialTitleMargin,
+                        initialTitleMargin);
+            }
+            return WindowInsetsCompat.CONSUMED;
+        });
+    }
+
+    public static void applyAppbarInsets(@NonNull AppBarLayout appbar, @Nullable View toolbar, @Nullable InsetsListener insetsListener) {
         final int toolbarHeight = (int) (Resources.getSystem().getDisplayMetrics().density * 64);
         ViewCompat.setOnApplyWindowInsetsListener(appbar, (v, windowInsets) -> {
             Insets displayCutOutInsets = windowInsets.getInsets(WindowInsetsCompat.Type.displayCutout());
             Insets systemBarInsets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
             int hInsets = displayCutOutInsets.left + displayCutOutInsets.right;
-            toolbar.setPadding(
-                    displayCutOutInsets.left <= 0 ? hInsets : displayCutOutInsets.left,
-                    systemBarInsets.top,
-                    displayCutOutInsets.right <= 0 ? hInsets : displayCutOutInsets.right,
-                    toolbar.getPaddingBottom()
-            );
-            ViewGroup.LayoutParams layoutParams = toolbar.getLayoutParams();
-            layoutParams.height = toolbarHeight + systemBarInsets.top;
-            toolbar.setLayoutParams(layoutParams);
+            int leftDisplayCutoutInsets = displayCutOutInsets.left <= 0 ? hInsets : displayCutOutInsets.left;
+            int rightDisplayCutoutInsets = displayCutOutInsets.right <= 0 ? hInsets : displayCutOutInsets.right;
+            if (toolbar != null) {
+                toolbar.setPadding(
+                        leftDisplayCutoutInsets,
+                        systemBarInsets.top,
+                        rightDisplayCutoutInsets,
+                        toolbar.getPaddingBottom()
+                );
+                ViewGroup.LayoutParams layoutParams = toolbar.getLayoutParams();
+                layoutParams.height = toolbarHeight + systemBarInsets.top;
+                toolbar.setLayoutParams(layoutParams);
+            }
+            if (insetsListener != null) {
+                insetsListener.onInsetsChanged(displayCutOutInsets, systemBarInsets);
+            }
             return WindowInsetsCompat.CONSUMED;
         });
     }

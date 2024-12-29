@@ -13,6 +13,7 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.color.MaterialColors;
 import com.google.android.material.transition.MaterialSharedAxis;
@@ -79,9 +80,9 @@ public abstract class BaseFragment extends Fragment {
         //Appbar
         AppBarLayout topAppBar = root.findViewById(R.id.topAppBar);
         MaterialToolbar topToolBar = root.findViewById(R.id.topToolBar);
+        CollapsingToolbarLayout collToolBar = root.findViewById(R.id.collToolBar);
         if (topAppBar != null) {
-            InsetUtils.applyAppbarInsets(topAppBar, topToolBar);
-
+            InsetUtils.applyAppbarInsets(topAppBar, topToolBar, collToolBar);
         }
         //Toolbar
         if (topToolBar != null) {
