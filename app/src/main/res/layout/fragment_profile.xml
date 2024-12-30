@@ -37,7 +37,6 @@
                     android:fitsSystemWindows="true"
                     android:scaleType="center"
                     android:transitionName="avatar"
-                    android:alpha=".9"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/avatar" />
@@ -52,7 +51,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:alpha=".95"
+                    android:alpha=".85"
                     android:foreground="?android:colorBackground"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />

@@ -3,6 +3,7 @@ package dev.n3shemmy3.coffre.ui.utils;
 import android.content.res.Resources;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,23 +23,15 @@ public class InsetUtils {
         void onInsetsChanged(Insets displayCutOutInsets, Insets systemBarInsets);
     }
 
-    public static void applySystemBarsInsets(@NonNull View view, boolean left, boolean top,
-                                             boolean right, boolean bottom) {
-        ViewCompat.setOnApplyWindowInsetsListener(view.findViewById(R.id.topAppBar),
-                (v, insets) -> {
+    public static void applySystemBarsInsets(@NonNull View view, boolean left, boolean top, boolean right, boolean bottom) {
+        ViewCompat.setOnApplyWindowInsetsListener(view.findViewById(R.id.topAppBar), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(
-                    left ? systemBars.left : view.getPaddingLeft(),
-                    top ? systemBars.top : view.getPaddingTop(),
-                    right ? systemBars.right : view.getPaddingRight(),
-                    bottom ? v.getPaddingBottom() : view.getPaddingBottom()
-            );
+            v.setPadding(left ? systemBars.left : view.getPaddingLeft(), top ? systemBars.top : view.getPaddingTop(), right ? systemBars.right : view.getPaddingRight(), bottom ? v.getPaddingBottom() : view.getPaddingBottom());
             return insets;
         });
     }
 
-    public static void applySystemBarsMargin(@NonNull View view, boolean left, boolean top,
-                                             boolean right, boolean bottom) {
+    public static void applySystemBarsMargin(@NonNull View view, boolean left, boolean top, boolean right, boolean bottom) {
         ViewCompat.setOnApplyWindowInsetsListener(view, (v, windowInsets) -> {
             Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
             ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams) v.getLayoutParams();
@@ -53,22 +46,15 @@ public class InsetUtils {
         });
     }
 
-    public static void applyDisplayCutoutInsets(@NonNull View view, boolean left, boolean top,
-                                                boolean right, boolean bottom) {
+    public static void applyDisplayCutoutInsets(@NonNull View view, boolean left, boolean top, boolean right, boolean bottom) {
         ViewCompat.setOnApplyWindowInsetsListener(view, (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.displayCutout());
-            v.setPadding(
-                    left ? systemBars.left : view.getPaddingLeft(),
-                    top ? systemBars.top : view.getPaddingTop(),
-                    right ? systemBars.right : view.getPaddingRight(),
-                    bottom ? v.getPaddingBottom() : view.getPaddingBottom()
-            );
+            v.setPadding(left ? systemBars.left : view.getPaddingLeft(), top ? systemBars.top : view.getPaddingTop(), right ? systemBars.right : view.getPaddingRight(), bottom ? v.getPaddingBottom() : view.getPaddingBottom());
             return insets;
         });
     }
 
-    public static void applyDisplayCutoutMargin(@NonNull View view, boolean left, boolean top,
-                                                boolean right, boolean bottom) {
+    public static void applyDisplayCutoutMargin(@NonNull View view, boolean left, boolean top, boolean right, boolean bottom) {
         ViewCompat.setOnApplyWindowInsetsListener(view, (v, windowInsets) -> {
 
             Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.displayCutout());
@@ -85,8 +71,7 @@ public class InsetUtils {
         });
     }
 
-    public static void applyAppbarInsets(@NonNull AppBarLayout appbar, @Nullable View toolbar,
-                                         @Nullable CollapsingToolbarLayout collToolbar) {
+    public static void applyAppbarInsets(@NonNull AppBarLayout appbar, @Nullable View toolbar, @Nullable CollapsingToolbarLayout collToolbar) {
         final int toolbarHeight = (int) (Resources.getSystem().getDisplayMetrics().density * 64);
         int initialTitleMargin = (int) (Resources.getSystem().getDisplayMetrics().density * 24);
         ViewCompat.setOnApplyWindowInsetsListener(appbar, (v, windowInsets) -> {
@@ -96,25 +81,32 @@ public class InsetUtils {
             int leftDisplayCutoutInsets = displayCutOutInsets.left <= 0 ? hInsets : displayCutOutInsets.left;
             int rightDisplayCutoutInsets = displayCutOutInsets.right <= 0 ? hInsets : displayCutOutInsets.right;
             if (toolbar != null) {
-                toolbar.setPadding(
-                        leftDisplayCutoutInsets,
-                        systemBarInsets.top,
-                        rightDisplayCutoutInsets,
-                        toolbar.getPaddingBottom()
-                );
+                toolbar.setPadding(leftDisplayCutoutInsets, systemBarInsets.top, rightDisplayCutoutInsets, toolbar.getPaddingBottom());
                 ViewGroup.LayoutParams layoutParams = toolbar.getLayoutParams();
                 layoutParams.height = toolbarHeight + systemBarInsets.top;
                 toolbar.setLayoutParams(layoutParams);
             }
             if (collToolbar != null) {
 
-                collToolbar.setExpandedTitleMargin(
-                        leftDisplayCutoutInsets + initialTitleMargin,
-                        initialTitleMargin,
-                        rightDisplayCutoutInsets + initialTitleMargin,
-                        initialTitleMargin);
+                collToolbar.setExpandedTitleMargin(leftDisplayCutoutInsets + initialTitleMargin, initialTitleMargin, rightDisplayCutoutInsets + initialTitleMargin, initialTitleMargin);
             }
             return WindowInsetsCompat.CONSUMED;
+        });
+    }
+
+    public static void applyContentInsets(@NonNull View view) {
+        ViewCompat.setOnApplyWindowInsetsListener(view, (v, windowInsets) -> {
+            Insets displayCutOutInsets = windowInsets.getInsets(WindowInsetsCompat.Type.displayCutout());
+            Insets systemBarInsets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+            int hInsets = displayCutOutInsets.left + displayCutOutInsets.right;
+            int leftDisplayCutoutInsets = displayCutOutInsets.left <= 0 ? hInsets : displayCutOutInsets.left;
+            int rightDisplayCutoutInsets = displayCutOutInsets.right <= 0 ? hInsets : displayCutOutInsets.right;
+            ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams) v.getLayoutParams();
+            mlp.leftMargin = leftDisplayCutoutInsets;
+            mlp.rightMargin = rightDisplayCutoutInsets;
+            mlp.bottomMargin = systemBarInsets.bottom;
+            v.setLayoutParams(mlp);
+            return windowInsets;
         });
     }
 
@@ -127,12 +119,7 @@ public class InsetUtils {
             int leftDisplayCutoutInsets = displayCutOutInsets.left <= 0 ? hInsets : displayCutOutInsets.left;
             int rightDisplayCutoutInsets = displayCutOutInsets.right <= 0 ? hInsets : displayCutOutInsets.right;
             if (toolbar != null) {
-                toolbar.setPadding(
-                        leftDisplayCutoutInsets,
-                        systemBarInsets.top,
-                        rightDisplayCutoutInsets,
-                        toolbar.getPaddingBottom()
-                );
+                toolbar.setPadding(leftDisplayCutoutInsets, systemBarInsets.top, rightDisplayCutoutInsets, toolbar.getPaddingBottom());
                 ViewGroup.LayoutParams layoutParams = toolbar.getLayoutParams();
                 layoutParams.height = toolbarHeight + systemBarInsets.top;
                 toolbar.setLayoutParams(layoutParams);
@@ -141,6 +128,23 @@ public class InsetUtils {
                 insetsListener.onInsetsChanged(displayCutOutInsets, systemBarInsets);
             }
             return WindowInsetsCompat.CONSUMED;
+        });
+    }
+
+    public static void applyImeInsets(@NonNull Window window, @NonNull View rootView) {
+        ViewCompat.setOnApplyWindowInsetsListener(window.getDecorView().getRootView(), (v, windowInsets) -> {
+            Insets imeInsets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+            //check keyboard
+            boolean isKeyboardVisible = windowInsets.isVisible(WindowInsetsCompat.Type.ime());
+            //navigationBar height
+            int navigationBarHeight = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).bottom;
+            //Keyboard height
+            int keyboardHeight = windowInsets.getInsets(WindowInsetsCompat.Type.ime()).bottom;
+            // apply Bottom margin to the rootView
+            ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams) rootView.getLayoutParams();
+            mlp.bottomMargin = isKeyboardVisible ? keyboardHeight : 0;
+            rootView.setLayoutParams(mlp);
+            return windowInsets;
         });
     }
 

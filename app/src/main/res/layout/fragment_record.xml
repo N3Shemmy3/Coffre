@@ -40,8 +40,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
+                android:layout_height="wrap_content"
                 android:paddingHorizontal="@dimen/activity_padding_horizontal"
                 android:paddingVertical="@dimen/activity_padding_vertical">
 
@@ -94,6 +93,7 @@
                         android:id="@+id/inputTime"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:focusableInTouchMode="false"
                         android:hint="Time"
                         android:inputType="none"
                         android:editable="false"
@@ -115,6 +115,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Date"
+                        android:focusableInTouchMode="false"
                         android:inputType="none"
                         android:editable="false"
                         android:maxLines="1" />
@@ -133,10 +134,9 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:gravity="start"
-                        android:maxLines="14"
-                        android:minLines="8"
-                        android:singleLine="false"
+                        android:minLines="4"
                         android:textAlignment="viewStart" />
 
                 </com.google.android.material.textfield.TextInputLayout>

@@ -76,14 +76,21 @@ public class ProfileFragment extends BaseFragment {
 
         InsetUtils.applyAppbarInsets(topAppBar, topToolBar, (
                 displayCutOutInsets, systemBarInsets) -> {
-            //add insets to HeaderViews
             ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams) appBarExpandedTitle.getLayoutParams();
+
+            //add insets to HeaderViews
             int hInsets = displayCutOutInsets.left + displayCutOutInsets.right;
             mlp.leftMargin = hInsets + mlp.leftMargin;
             mlp.rightMargin = hInsets + mlp.rightMargin;
             appBarExpandedTitle.setLayoutParams(mlp);
-        });
 
+            //Fab
+            mlp = (ViewGroup.MarginLayoutParams) fab.getLayoutParams();
+            hInsets = displayCutOutInsets.left + displayCutOutInsets.right;
+            mlp.leftMargin = hInsets + mlp.leftMargin;
+            mlp.rightMargin = hInsets + mlp.rightMargin;
+            fab.setLayoutParams(mlp);
+        });
 
 
         InsetUtils.applyDisplayCutoutMargin(root.findViewById(R.id.content), true, false, true, false);

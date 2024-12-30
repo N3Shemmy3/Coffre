@@ -1,25 +1,21 @@
 package dev.n3shemmy3.coffre.ui.fragment;
 
+import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.view.ViewCompat;
-import androidx.fragment.app.Fragment;
 
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.color.MaterialColors;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
 import com.google.android.material.timepicker.MaterialTimePicker;
-import com.google.android.material.timepicker.TimeFormat;
 import com.google.android.material.transition.MaterialContainerTransform;
 
 import dev.n3shemmy3.coffre.R;
@@ -59,26 +55,25 @@ public class RecordFragment extends BaseFragment {
             String transitionName = getArguments().getString("transitionName");
             ViewCompat.setTransitionName(root, transitionName);
         }
-
+        InsetUtils.applyImeInsets(requireActivity().getWindow(), root.findViewById(R.id.nestedScrollView));
         inflateInputs(root);
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     void inflateInputs(@NonNull View root) {
 
         inputTime = root.findViewById(R.id.inputTime);
         inputTime.setOnClickListener(v -> {
-            Toast.makeText(requireContext(), "clicked:inputTime", Toast.LENGTH_SHORT).show();
             new MaterialTimePicker.Builder()
                     .build()
                     .show(getChildFragmentManager(), "inputTime");
-
         });
         inputDate = root.findViewById(R.id.inputDate);
         inputDate.setOnClickListener(v -> {
-            Toast.makeText(requireContext(), "clicked:inputDate", Toast.LENGTH_SHORT).show();
             MaterialDatePicker.Builder.datePicker()
                     .build()
                     .show(getChildFragmentManager(), "inputDate");
+
         });
     }
 }

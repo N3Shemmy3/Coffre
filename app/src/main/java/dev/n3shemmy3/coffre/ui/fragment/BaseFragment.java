@@ -92,7 +92,7 @@ public abstract class BaseFragment extends Fragment {
         }
         //content below Appbar
         if (root.findViewById(R.id.content) != null)
-            InsetUtils.applyDisplayCutoutMargin(root.findViewById(R.id.content), true, false, true, false);
+            InsetUtils.applyContentInsets(root.findViewById(R.id.content));
 
     }
 
