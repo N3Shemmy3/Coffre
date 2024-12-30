@@ -9,14 +9,18 @@ import androidx.annotation.Nullable;
 import androidx.core.view.ViewCompat;
 
 import android.view.View;
-import android.widget.Toast;
 
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.color.MaterialColors;
 import com.google.android.material.datepicker.MaterialDatePicker;
+import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.timepicker.MaterialTimePicker;
+import com.google.android.material.timepicker.TimeFormat;
 import com.google.android.material.transition.MaterialContainerTransform;
+
+import java.util.Calendar;
+import java.util.Date;
 
 import dev.n3shemmy3.coffre.R;
 import dev.n3shemmy3.coffre.ui.utils.InsetUtils;
@@ -61,18 +65,30 @@ public class RecordFragment extends BaseFragment {
 
     @SuppressLint("ClickableViewAccessibility")
     void inflateInputs(@NonNull View root) {
-
         inputTime = root.findViewById(R.id.inputTime);
         inputTime.setOnClickListener(v -> {
-            new MaterialTimePicker.Builder()
-                    .build()
-                    .show(getChildFragmentManager(), "inputTime");
+
+            MaterialTimePicker timePicker = new MaterialTimePicker.Builder()
+                    .setHour(new Date().getHours())
+                    .setMinute(new Date().getMinutes())
+                    .build();
+            timePicker.addOnPositiveButtonClickListener(pickerView -> {
+                inputTime.setText(timePicker.getHour() + ":" + timePicker.getMinute());
+
+            });
+            timePicker.show(getChildFragmentManager(), "inputTime");
         });
+
         inputDate = root.findViewById(R.id.inputDate);
         inputDate.setOnClickListener(v -> {
-            MaterialDatePicker.Builder.datePicker()
-                    .build()
-                    .show(getChildFragmentManager(), "inputDate");
+            MaterialDatePicker<Long> datePicker = MaterialDatePicker.Builder.datePicker()
+                    .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
+                    .build();
+            datePicker.addOnPositiveButtonClickListener(selection -> {
+                inputDate.setText(datePicker.getHeaderText());
+
+            });
+            datePicker.show(getChildFragmentManager(), "inputDate");
 
         });
     }

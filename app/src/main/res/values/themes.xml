@@ -68,6 +68,7 @@
         <item name="android:windowLayoutInDisplayCutoutMode" tools:targetApi="r">always</item>
         <!-- Work around b/331383944: PreferenceFragmentCompat permanently mutates activity theme (enables vertical scrollbars) -->
         <item name="android:scrollbars">none</item>
+        <item name="android:windowBackground">?android:colorBackground</item>
         <item name="android:windowLightStatusBar">?isLightTheme</item>
         <item name="android:windowLightNavigationBar">?isLightTheme</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
