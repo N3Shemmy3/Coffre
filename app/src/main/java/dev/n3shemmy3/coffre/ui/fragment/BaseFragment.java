@@ -81,15 +81,11 @@ public abstract class BaseFragment extends Fragment {
         AppBarLayout topAppBar = root.findViewById(R.id.topAppBar);
         MaterialToolbar topToolBar = root.findViewById(R.id.topToolBar);
         CollapsingToolbarLayout collToolBar = root.findViewById(R.id.collToolBar);
-        if (topAppBar != null) {
+        if (topAppBar != null)
             InsetUtils.applyAppbarInsets(topAppBar, topToolBar, collToolBar);
-        }
         //Toolbar
-        if (topToolBar != null) {
-
-
+        if (topToolBar != null)
             topToolBar.setNavigationOnClickListener(v -> requireActivity().getSupportFragmentManager().popBackStack());
-        }
         //content below Appbar
         if (root.findViewById(R.id.content) != null)
             InsetUtils.applyContentInsets(root.findViewById(R.id.content));
