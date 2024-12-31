@@ -81,7 +81,7 @@ public class InsetUtils {
             int leftDisplayCutoutInsets = displayCutOutInsets.left <= 0 ? hInsets : displayCutOutInsets.left;
             int rightDisplayCutoutInsets = displayCutOutInsets.right <= 0 ? hInsets : displayCutOutInsets.right;
             if (toolbar != null) {
-                toolbar.setPadding(leftDisplayCutoutInsets, systemBarInsets.top, rightDisplayCutoutInsets, toolbar.getPaddingBottom());
+                toolbar.setPadding(leftDisplayCutoutInsets, systemBarInsets.top, rightDisplayCutoutInsets + (toolbarHeight / 6), toolbar.getPaddingBottom());
                 ViewGroup.LayoutParams layoutParams = toolbar.getLayoutParams();
                 layoutParams.height = toolbarHeight + systemBarInsets.top;
                 toolbar.setLayoutParams(layoutParams);
@@ -119,7 +119,7 @@ public class InsetUtils {
             int leftDisplayCutoutInsets = displayCutOutInsets.left <= 0 ? hInsets : displayCutOutInsets.left;
             int rightDisplayCutoutInsets = displayCutOutInsets.right <= 0 ? hInsets : displayCutOutInsets.right;
             if (toolbar != null) {
-                toolbar.setPadding(leftDisplayCutoutInsets, systemBarInsets.top, rightDisplayCutoutInsets, toolbar.getPaddingBottom());
+                toolbar.setPadding(leftDisplayCutoutInsets, systemBarInsets.top, rightDisplayCutoutInsets + (toolbarHeight / 6), toolbar.getPaddingBottom());
                 ViewGroup.LayoutParams layoutParams = toolbar.getLayoutParams();
                 layoutParams.height = toolbarHeight + systemBarInsets.top;
                 toolbar.setLayoutParams(layoutParams);

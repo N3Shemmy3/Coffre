@@ -23,6 +23,7 @@ import dev.n3shemmy3.coffre.ui.utils.InsetUtils;
 
 public abstract class BaseFragment extends Fragment {
 
+
     protected BaseFragment() {
     }
 
@@ -33,6 +34,10 @@ public abstract class BaseFragment extends Fragment {
     }
 
     private View root;
+    public AppBarLayout topAppBar;
+    public CollapsingToolbarLayout collToolBar;
+    public MaterialToolbar topToolBar;
+    public View content;
 
     @Override
     public void onDestroyView() {
@@ -54,6 +59,14 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         root = inflater.inflate(getLayoutResId(), container, false);
+        topAppBar = root.findViewById(R.id.topAppBar);
+        topToolBar = root.findViewById(R.id.topToolBar);
+        collToolBar = root.findViewById(R.id.collToolBar);
+        content = root.findViewById(R.id.content);
+        //Toolbar
+        if (topToolBar != null)
+            topToolBar.setNavigationOnClickListener(v -> requireActivity().getSupportFragmentManager().popBackStack());
+
         onFragmentCreated(root, savedInstanceState);
 
         return root;
@@ -78,16 +91,10 @@ public abstract class BaseFragment extends Fragment {
 
     void setDefaults(@NonNull View root) {
         //Appbar
-        AppBarLayout topAppBar = root.findViewById(R.id.topAppBar);
-        MaterialToolbar topToolBar = root.findViewById(R.id.topToolBar);
-        CollapsingToolbarLayout collToolBar = root.findViewById(R.id.collToolBar);
         if (topAppBar != null)
             InsetUtils.applyAppbarInsets(topAppBar, topToolBar, collToolBar);
-        //Toolbar
-        if (topToolBar != null)
-            topToolBar.setNavigationOnClickListener(v -> requireActivity().getSupportFragmentManager().popBackStack());
         //content below Appbar
-        if (root.findViewById(R.id.content) != null)
+        if (content != null)
             InsetUtils.applyContentInsets(root.findViewById(R.id.content));
     }
 

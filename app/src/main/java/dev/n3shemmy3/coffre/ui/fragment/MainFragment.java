@@ -1,8 +1,10 @@
 package dev.n3shemmy3.coffre.ui.fragment;
 
+import android.content.res.Resources;
 import android.os.Bundle;
 
 import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
@@ -42,7 +44,7 @@ public class MainFragment extends BaseFragment {
 
     @Override
     protected void onFragmentCreated(@NonNull View root, @Nullable Bundle savedInstanceState) {
-        super.onFragmentCreated(root, savedInstanceState);
+
         {
             transactionRecycler = root.findViewById(R.id.transactionRecycler);
             transactionRecycler.setLayoutManager(new LinearLayoutManager(requireContext()));
@@ -56,7 +58,7 @@ public class MainFragment extends BaseFragment {
 
                     MaterialElevationScale reenterTransition = new MaterialElevationScale(true);
                     reenterTransition.setDuration(getResources().getInteger(com.google.android.material.R.integer.material_motion_duration_long_1));
-                   // setReenterTransition(reenterTransition);
+                    // setReenterTransition(reenterTransition);
 
                     String transitionName = "shared_element_" + position;
                     ViewCompat.setTransitionName(itemView, transitionName);
@@ -91,7 +93,24 @@ public class MainFragment extends BaseFragment {
         bundle.putString("transitionName", "fab");
         floatingActionButton.setTransitionName("fab");
         floatingActionButton.setOnClickListener(v -> ((MainActivity) requireActivity()).replaceFragment(new RecordFragment() /* , floatingActionButton, bundle */));
-        InsetUtils.applySystemBarsMargin(floatingActionButton, false, false, false, true);
+        InsetUtils.applyAppbarInsets(topAppBar, topToolBar, (
+                displayCutOutInsets, systemBarInsets) -> {
+            int hInsets = displayCutOutInsets.left + displayCutOutInsets.right;
+
+            //add insets to avatar (yes i want horizontal symmetry)
+            ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams) toolBarAvatar.getLayoutParams();
+            if (hInsets > 0) {
+                mlp.leftMargin = (int) (Resources.getSystem().getDisplayMetrics().density * 16);
+                mlp.rightMargin = (int) (Resources.getSystem().getDisplayMetrics().density * 16);
+                toolBarAvatar.setLayoutParams(mlp);
+            }
+            //Fab
+            mlp = (ViewGroup.MarginLayoutParams) floatingActionButton.getLayoutParams();
+            mlp.leftMargin = hInsets + mlp.leftMargin;
+            mlp.rightMargin = hInsets + mlp.rightMargin;
+            floatingActionButton.setLayoutParams(mlp);
+        });
+        InsetUtils.applyContentInsets(content);
     }
 
 
