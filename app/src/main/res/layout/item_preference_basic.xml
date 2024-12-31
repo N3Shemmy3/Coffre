@@ -21,6 +21,7 @@
     style="?materialCardViewFilledStyle"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.None"
     app:cardBackgroundColor="@android:color/transparent">
 
     <LinearLayout
@@ -28,8 +29,7 @@
         android:layout_height="match_parent"
         android:baselineAligned="false"
         android:orientation="horizontal"
-        android:paddingHorizontal="24dp"
-        android:paddingVertical="20dp">
+        android:minHeight="74dp">
 
         <include layout="@layout/item_preference_icon" />
 
@@ -45,7 +45,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="?attr/colorOnSurface"
-                android:textSize="19sp"
+                android:textAppearance="?attr/textAppearanceSubtitle1"
                 tools:text="Title" />
 
             <TextView
@@ -54,7 +54,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1dp"
                 android:textColor="?attr/colorOnSurfaceVariant"
-                android:textSize="15sp"
+                android:textAppearance="?attr/textAppearanceSubtitle2"
                 tools:text="Summary" />
 
         </LinearLayout>

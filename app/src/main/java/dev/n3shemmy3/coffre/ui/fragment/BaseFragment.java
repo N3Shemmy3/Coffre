@@ -89,7 +89,6 @@ public abstract class BaseFragment extends Fragment {
         //content below Appbar
         if (root.findViewById(R.id.content) != null)
             InsetUtils.applyContentInsets(root.findViewById(R.id.content));
-
     }
 
 

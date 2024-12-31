@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@id/itemSectionButton"
             android:layout_marginHorizontal="12dp"
-            android:text="@string/transactions"
+            android:text="@string/label_transactions"
             android:textStyle="bold"
             android:textAppearance="?attr/textAppearanceSubtitle1" />
 

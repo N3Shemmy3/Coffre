@@ -2,35 +2,28 @@
 <androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <Preference
-        android:icon="@drawable/outline_calendar_month_24"
-        android:summary="Item summary"
-        android:title="Item Title" />
-    <Preference
-        android:icon="@drawable/outline_credit_card_24"
-        android:summary="Item summary"
-        android:title="Item Title" />
+        android:icon="@drawable/outline_dashboard_24"
+        android:layout="@layout/item_preference_basic"
+        android:summary="@string/summary_look_and_feel"
+        android:title="@string/label_look_and_feel" />
     <Preference
         android:icon="@drawable/outline_currency_yen_24"
+        android:layout="@layout/item_preference_basic"
         android:summary="Item summary"
         android:title="Item Title" />
     <Preference
         android:icon="@drawable/outline_local_cafe_24"
+        android:layout="@layout/item_preference_basic"
         android:summary="Item summary"
         android:title="Item Title" />
     <Preference
         android:icon="@drawable/outline_dashboard_24"
+        android:layout="@layout/item_preference_basic"
         android:summary="Item summary"
         android:title="Item Title" />
     <Preference
-        android:icon="@drawable/outline_widgets_24"
-        android:summary="Item summary"
-        android:title="Item Title" />
-    <Preference
-        android:icon="@drawable/outline_event_24"
-        android:summary="Item summary"
-        android:title="Item Title" />
-    <Preference
-        android:icon="@drawable/outline_settings_24"
-        android:summary="Item summary"
-        android:title="Item Title" />
+        android:icon="@drawable/outline_info_24"
+        android:layout="@layout/item_preference_basic"
+        android:summary="@string/summary_about"
+        android:title="@string/label_about" />
 </androidx.preference.PreferenceScreen>
