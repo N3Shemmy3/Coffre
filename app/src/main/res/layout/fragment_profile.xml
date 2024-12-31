@@ -33,7 +33,6 @@
                     android:id="@+id/appBarHeader"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:adjustViewBounds="true"
                     android:fitsSystemWindows="true"
                     android:scaleType="center"
                     android:transitionName="avatar"
