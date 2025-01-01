@@ -7,9 +7,5 @@
         android:layout="@layout/item_preference_basic"
         android:summary="@string/summary_look_and_feel"
         android:title="@string/label_look_and_feel" />
-    <Preference
-        android:icon="@drawable/outline_info_24"
-        android:layout="@layout/item_preference_basic"
-        android:summary="@string/summary_about"
-        android:title="@string/label_about" />
+
 </androidx.preference.PreferenceScreen>

@@ -26,6 +26,7 @@ import dev.n3shemmy3.coffre.ui.adapter.ListItemAdapter;
 import dev.n3shemmy3.coffre.ui.interfaces.ItemListener;
 import dev.n3shemmy3.coffre.ui.item.ListItem;
 import dev.n3shemmy3.coffre.ui.utils.InsetUtils;
+import dev.n3shemmy3.coffre.ui.utils.Navigator;
 
 
 public class MainFragment extends BaseFragment {
@@ -64,7 +65,7 @@ public class MainFragment extends BaseFragment {
                     ViewCompat.setTransitionName(itemView, transitionName);
                     Bundle bundle = new Bundle();
                     bundle.putString("transitionName", transitionName);
-                    ((MainActivity) requireActivity()).replaceFragment(new RecordFragment() /* , itemView, bundle */);
+                    Navigator.push(new RecordFragment() /* , itemView, bundle */);
 
                 }
 
@@ -85,14 +86,14 @@ public class MainFragment extends BaseFragment {
         bundle.putString("transitionName", "avatar");
         toolBarAvatar.setTransitionName("avatar");
         toolBarAvatar.setOnClickListener(v -> {
-            ((MainActivity) requireActivity()).replaceFragment(new ProfileFragment() /*, toolBarAvatar, bundle */);
+            Navigator.push(new ProfileFragment() /*, toolBarAvatar, bundle */);
         });
 
 
         floatingActionButton = root.findViewById(R.id.fab);
         bundle.putString("transitionName", "fab");
         floatingActionButton.setTransitionName("fab");
-        floatingActionButton.setOnClickListener(v -> ((MainActivity) requireActivity()).replaceFragment(new RecordFragment() /* , floatingActionButton, bundle */));
+        floatingActionButton.setOnClickListener(v -> Navigator.push(new RecordFragment() /* , floatingActionButton, bundle */));
         InsetUtils.applyAppbarInsets(topAppBar, topToolBar, (
                 displayCutOutInsets, systemBarInsets) -> {
             int hInsets = displayCutOutInsets.left + displayCutOutInsets.right;

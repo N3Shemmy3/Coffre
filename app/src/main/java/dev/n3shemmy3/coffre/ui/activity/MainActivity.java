@@ -25,25 +25,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-    public void replaceFragment(@NonNull Fragment fragment) {
-        replaceFragment(fragment, null, null);
-    }
 
-    public void replaceFragment(@NonNull Fragment fragment, @NonNull Bundle args) {
-        replaceFragment(fragment, null, args);
-    }
-
-    public void replaceFragment(@NonNull Fragment fragment, @Nullable View sharedElement, @Nullable Bundle args) {
-        fragment.setArguments(args);
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.setReorderingAllowed(true);
-        if (sharedElement != null)
-            transaction.addSharedElement(sharedElement, args.getString("transitionName"));
-        transaction
-                .addToBackStack(System.currentTimeMillis() + "")
-                .replace(R.id.fragmentContainer, fragment)
-                .commit();
-    }
     /*
     Define events:
 

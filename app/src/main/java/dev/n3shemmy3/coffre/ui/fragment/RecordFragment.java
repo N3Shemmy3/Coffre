@@ -76,7 +76,7 @@ public class RecordFragment extends BaseFragment {
                 inputTime.setText(timePicker.getHour() + ":" + timePicker.getMinute());
 
             });
-            timePicker.show(getChildFragmentManager(), "inputTime");
+            timePicker.show(getChildFragmentManager(), String.valueOf(System.currentTimeMillis()));
         });
 
         inputDate = root.findViewById(R.id.inputDate);
@@ -88,7 +88,7 @@ public class RecordFragment extends BaseFragment {
                 inputDate.setText(datePicker.getHeaderText());
 
             });
-            datePicker.show(getChildFragmentManager(), "inputDate");
+            datePicker.show(getChildFragmentManager(), String.valueOf(System.currentTimeMillis()));
 
         });
     }

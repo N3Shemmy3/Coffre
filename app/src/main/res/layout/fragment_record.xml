@@ -61,6 +61,40 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/chipsMode"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    app:chipSpacing="@dimen/activity_padding_vertical"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/layoutName"
+                    app:singleLine="true"
+                    app:singleSelection="true"
+
+                    >
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipIncome"
+                        style="@style/Widget.Material3.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        app:rippleColor="?colorIncomeContainer"
+                        android:text="Income"
+                        app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.ExtraSmall" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipExpense"
+                        style="@style/Widget.Material3.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Expense"
+                        app:rippleColor="?colorErrorContainer"
+                        app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.ExtraSmall" />
+                </com.google.android.material.chip.ChipGroup>
+
+
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/layoutAmount"
                     android:layout_width="match_parent"
@@ -68,7 +102,7 @@
                     android:layout_marginTop="@dimen/activity_padding_vertical"
                     android:hint="Amount"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/layoutName"
+                    app:layout_constraintTop_toBottomOf="@id/chipsMode"
                     app:prefixText="$">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -93,10 +127,10 @@
                         android:id="@+id/inputTime"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:editable="false"
                         android:focusableInTouchMode="false"
                         android:hint="Time"
                         android:inputType="none"
-                        android:editable="false"
                         android:maxLines="1" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -114,10 +148,10 @@
                         android:id="@+id/inputDate"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Date"
-                        android:focusableInTouchMode="false"
-                        android:inputType="none"
                         android:editable="false"
+                        android:focusableInTouchMode="false"
+                        android:hint="Date"
+                        android:inputType="none"
                         android:maxLines="1" />
 
                 </com.google.android.material.textfield.TextInputLayout>

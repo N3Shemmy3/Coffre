@@ -11,6 +11,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
@@ -98,5 +99,8 @@ public abstract class BaseFragment extends Fragment {
             InsetUtils.applyContentInsets(root.findViewById(R.id.content));
     }
 
-
+    @NonNull
+    public FragmentManager getSupportFragmentManager() {
+        return requireActivity().getSupportFragmentManager();
+    }
 }
