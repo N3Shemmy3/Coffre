@@ -101,7 +101,7 @@ public class SettingsFragment extends BaseFragment {
             @NonNull FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
             switch (preference.getKey()) {
                 case "lookFeel": {
-                    Navigator.push(fragmentManager, new LookFeelSettingsFragment());
+                    Navigator.push(fragmentManager, new SettingsFragment());
                     break;
                 }
                 case "about": {
