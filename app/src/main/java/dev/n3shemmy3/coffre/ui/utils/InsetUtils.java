@@ -119,10 +119,10 @@ public class InsetUtils {
             int leftDisplayCutoutInsets = displayCutOutInsets.left <= 0 ? hInsets : displayCutOutInsets.left;
             int rightDisplayCutoutInsets = displayCutOutInsets.right <= 0 ? hInsets : displayCutOutInsets.right;
             if (toolbar != null) {
-                toolbar.setPadding(leftDisplayCutoutInsets, systemBarInsets.top, rightDisplayCutoutInsets + (toolbarHeight / 6), toolbar.getPaddingBottom());
-                ViewGroup.LayoutParams layoutParams = toolbar.getLayoutParams();
-                layoutParams.height = toolbarHeight + systemBarInsets.top;
-                toolbar.setLayoutParams(layoutParams);
+                toolbar.setPadding(leftDisplayCutoutInsets, toolbar.getPaddingTop(), rightDisplayCutoutInsets + (initialTitleMargin - 8 ), toolbar.getPaddingBottom());
+                ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams) v.getLayoutParams();
+                mlp.topMargin = systemBarInsets.top;
+                v.setLayoutParams(mlp);
             }
             if (insetsListener != null) {
                 insetsListener.onInsetsChanged(displayCutOutInsets, systemBarInsets);
