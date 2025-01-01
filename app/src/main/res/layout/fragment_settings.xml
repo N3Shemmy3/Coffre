@@ -17,13 +17,71 @@
             android:id="@+id/collToolBar"
             style="?collapsingToolbarLayoutLargeStyle"
             android:layout_width="match_parent"
-            android:layout_height="?collapsingToolbarLayoutLargeSize"
+            android:layout_height="300dp"
             app:collapsedTitleTextAppearance="?textAppearanceTitleLarge"
             app:collapsedTitleTextColor="?attr/colorOnSurface"
             app:expandedTitleTextAppearance="?textAppearanceHeadlineLarge"
-            app:expandedTitleTextColor="?colorOnSurface"
+            app:expandedTitleTextColor="@android:color/transparent"
             app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fitsSystemWindows="true">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/appBarHeader"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:adjustViewBounds="true"
+                    android:fitsSystemWindows="true"
+                    android:scaleType="centerCrop"
+                    android:transitionName="avatar"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/avatar" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:foreground="@drawable/profile_header_foreground"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:alpha=".85"
+                    android:foreground="?android:colorBackground"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/appBarAvatar"
+                    android:layout_width="144dp"
+                    android:layout_height="144dp"
+                    android:layout_marginBottom="8dp"
+                    android:adjustViewBounds="true"
+                    android:fitsSystemWindows="true"
+                    android:scaleType="centerCrop"
+                    android:transitionName="avatar"
+                    app:layout_constraintBottom_toTopOf="@id/appBarExpandedTitle"
+                    app:layout_constraintStart_toStartOf="@id/appBarExpandedTitle"
+                    app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Full"
+                    app:srcCompat="@drawable/avatar" />
+
+                <TextView
+                    android:id="@+id/appBarExpandedTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="24dp"
+                    android:layout_marginTop="8dp"
+                    android:text="Shemmy"
+                    android:textAppearance="?textAppearanceHeadlineLarge"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/topToolBar"
@@ -32,7 +90,7 @@
                 android:layout_height="?actionBarSize"
                 app:layout_collapseMode="pin"
                 app:navigationIcon="@drawable/outline_arrow_back_24"
-                app:title="@string/label_settings" />
+                app:title="Shemmy" />
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
@@ -71,7 +129,7 @@
                         android:layout_marginHorizontal="16dp"
                         android:gravity="center_vertical"
                         android:minHeight="?minTouchTargetSize"
-                        tools:text="@string/label_settings"
+                        android:text="@string/label_settings"
                         android:textAlignment="gravity"
                         android:textAppearance="?attr/textAppearanceSubtitle1"
                         android:textStyle="bold"
@@ -80,7 +138,6 @@
 
                     <androidx.fragment.app.FragmentContainerView
                         android:id="@+id/SettingsContainer"
-                        android:name="dev.n3shemmy3.coffre.ui.fragment.settings.SettingsFragment"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginBottom="8dp"
@@ -94,4 +151,13 @@
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
-  </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/activity_padding_horizontal"
+        android:src="@drawable/outline_add_a_photo_24"
+        app:layout_anchor="@id/collToolBar"
+        app:layout_anchorGravity="bottom|end"
+        app:layout_behavior="com.google.android.material.floatingactionbutton.FloatingActionButton$Behavior" />
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

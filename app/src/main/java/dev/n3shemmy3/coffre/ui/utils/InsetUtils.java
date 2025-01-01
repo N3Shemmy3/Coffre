@@ -7,21 +7,17 @@ import android.view.Window;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.Toolbar;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
-import com.google.android.material.appbar.MaterialToolbar;
 
 import dev.n3shemmy3.coffre.R;
+import dev.n3shemmy3.coffre.ui.interfaces.InsetsListener;
 
 public class InsetUtils {
-    public static interface InsetsListener {
-        void onInsetsChanged(Insets displayCutOutInsets, Insets systemBarInsets);
-    }
 
     public static void applySystemBarsInsets(@NonNull View view, boolean left, boolean top, boolean right, boolean bottom) {
         ViewCompat.setOnApplyWindowInsetsListener(view.findViewById(R.id.topAppBar), (v, insets) -> {
@@ -72,7 +68,6 @@ public class InsetUtils {
     }
 
     public static void applyAppbarInsets(@NonNull AppBarLayout appbar, @Nullable View toolbar, @Nullable CollapsingToolbarLayout collToolbar) {
-        final int toolbarHeight = (int) (Resources.getSystem().getDisplayMetrics().density * 64);
         int initialTitleMargin = (int) (Resources.getSystem().getDisplayMetrics().density * 24);
         ViewCompat.setOnApplyWindowInsetsListener(appbar, (v, windowInsets) -> {
             Insets displayCutOutInsets = windowInsets.getInsets(WindowInsetsCompat.Type.displayCutout());

@@ -15,12 +15,11 @@ public class BaseSettingsFragment extends BaseFragment {
 
     @Override
     protected int getLayoutResId() {
-        return R.layout.fragment_settings;
+        return R.layout.fragment_preference;
     }
 
     @Override
     protected void onFragmentCreated(@NonNull View root, @Nullable Bundle savedInstanceState) {
         super.onFragmentCreated(root, savedInstanceState);
-
     }
 }

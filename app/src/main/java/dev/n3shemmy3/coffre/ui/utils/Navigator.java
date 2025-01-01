@@ -14,6 +14,13 @@ import dev.n3shemmy3.coffre.R;
 
 public class Navigator {
 
+    public static void add(@IdRes int layoutId, @NonNull FragmentManager fragmentManager, @NonNull Fragment fragment) {
+        fragmentManager.beginTransaction()
+                .addToBackStack(String.valueOf(System.currentTimeMillis()))
+                .replace(layoutId, fragment)
+                .commit();
+    }
+
     public static void push(@NonNull FragmentManager fragmentManager, @NonNull Fragment fragment) {
         push(fragmentManager, fragment, null, null);
     }

@@ -21,8 +21,8 @@ import com.google.android.material.transition.MaterialElevationScale;
 import java.util.ArrayList;
 
 import dev.n3shemmy3.coffre.R;
-import dev.n3shemmy3.coffre.ui.activity.MainActivity;
 import dev.n3shemmy3.coffre.ui.adapter.ListItemAdapter;
+import dev.n3shemmy3.coffre.ui.fragment.settings.SettingsFragment;
 import dev.n3shemmy3.coffre.ui.interfaces.ItemListener;
 import dev.n3shemmy3.coffre.ui.item.ListItem;
 import dev.n3shemmy3.coffre.ui.utils.InsetUtils;
@@ -86,7 +86,7 @@ public class MainFragment extends BaseFragment {
         bundle.putString("transitionName", "avatar");
         toolBarAvatar.setTransitionName("avatar");
         toolBarAvatar.setOnClickListener(v -> {
-            Navigator.push(getSupportFragmentManager(), new ProfileFragment() /*, toolBarAvatar, bundle */);
+            Navigator.push(getSupportFragmentManager(), new SettingsFragment() /*, toolBarAvatar, bundle */);
         });
 
 
