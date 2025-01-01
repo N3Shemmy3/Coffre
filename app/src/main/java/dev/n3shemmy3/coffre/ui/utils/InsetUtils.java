@@ -111,7 +111,7 @@ public class InsetUtils {
     }
 
     public static void applyAppbarInsets(@NonNull AppBarLayout appbar, @Nullable View toolbar, @Nullable InsetsListener insetsListener) {
-        final int toolbarHeight = (int) (Resources.getSystem().getDisplayMetrics().density * 64);
+        int initialTitleMargin = (int) (Resources.getSystem().getDisplayMetrics().density * 24);
         ViewCompat.setOnApplyWindowInsetsListener(appbar, (v, windowInsets) -> {
             Insets displayCutOutInsets = windowInsets.getInsets(WindowInsetsCompat.Type.displayCutout());
             Insets systemBarInsets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
