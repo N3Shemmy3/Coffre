@@ -65,7 +65,7 @@ public class MainFragment extends BaseFragment {
                     ViewCompat.setTransitionName(itemView, transitionName);
                     Bundle bundle = new Bundle();
                     bundle.putString("transitionName", transitionName);
-                    Navigator.push(new RecordFragment() /* , itemView, bundle */);
+                    Navigator.push(getSupportFragmentManager(), new RecordFragment() /* , itemView, bundle */);
 
                 }
 
@@ -86,14 +86,14 @@ public class MainFragment extends BaseFragment {
         bundle.putString("transitionName", "avatar");
         toolBarAvatar.setTransitionName("avatar");
         toolBarAvatar.setOnClickListener(v -> {
-            Navigator.push(new ProfileFragment() /*, toolBarAvatar, bundle */);
+            Navigator.push(getSupportFragmentManager(), new ProfileFragment() /*, toolBarAvatar, bundle */);
         });
 
 
         floatingActionButton = root.findViewById(R.id.fab);
         bundle.putString("transitionName", "fab");
         floatingActionButton.setTransitionName("fab");
-        floatingActionButton.setOnClickListener(v -> Navigator.push(new RecordFragment() /* , floatingActionButton, bundle */));
+        floatingActionButton.setOnClickListener(v -> Navigator.push(getSupportFragmentManager(), new RecordFragment() /* , floatingActionButton, bundle */));
         InsetUtils.applyAppbarInsets(topAppBar, topToolBar, (
                 displayCutOutInsets, systemBarInsets) -> {
             int hInsets = displayCutOutInsets.left + displayCutOutInsets.right;

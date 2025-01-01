@@ -13,9 +13,6 @@ import androidx.fragment.app.FragmentTransaction;
 import dev.n3shemmy3.coffre.R;
 
 public class Navigator {
-    public static void push(@NonNull Fragment fragment) {
-        push(fragment.requireActivity().getSupportFragmentManager(), fragment, null, null);
-    }
 
     public static void push(@NonNull FragmentManager fragmentManager, @NonNull Fragment fragment) {
         push(fragmentManager, fragment, null, null);
