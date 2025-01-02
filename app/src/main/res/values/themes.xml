@@ -62,6 +62,8 @@
 
     <style name="Theme.Coffre" parent="Base.Theme.Coffre">
         <item name="toolbarStyle">@style/App.MaterialToolbar</item>
+        <!-- custom height to fixed insets shrinking height-->
+        <item name="collapsingToolbarLayoutLargeSize">@dimen/appbar_collapsing_height</item>
         <!-- fixes some UI issues on MIUI devices -->
         <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
         <!-- true edge-to-edge, no black bars in display notch -->
@@ -73,5 +75,8 @@
         <item name="android:windowLightNavigationBar">?isLightTheme</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
+    </style>
+
+    <style name="Theme.Splash" parent="Theme.Coffre">
     </style>
 </resources>

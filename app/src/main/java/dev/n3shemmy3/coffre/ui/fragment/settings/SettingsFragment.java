@@ -89,7 +89,7 @@ public class SettingsFragment extends BaseFragment {
         InsetUtils.applyDisplayCutoutMargin(root.findViewById(R.id.content), true, false, true, false);
     }
 
-    public static class PreferencesFragment extends PreferenceFragmentCompat {
+    public static class PreferencesFragment extends BasePreferenceFragment {
         @Override
         public void onCreatePreferences(@Nullable Bundle savedInstanceState, @Nullable String rootKey) {
             addPreferencesFromResource(R.xml.preferences);
@@ -101,11 +101,11 @@ public class SettingsFragment extends BaseFragment {
             @NonNull FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
             switch (preference.getKey()) {
                 case "lookFeel": {
-                    Navigator.push(fragmentManager, new SettingsFragment());
+                    Navigator.push(fragmentManager, new LookFeelSettingsFragment(preference));
                     break;
                 }
                 case "about": {
-                    Navigator.push(fragmentManager, new AboutSettingsFragment());
+                    Navigator.push(fragmentManager, new AboutSettingsFragment(preference));
                     break;
                 }
             }

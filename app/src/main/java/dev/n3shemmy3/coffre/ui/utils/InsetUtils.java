@@ -76,7 +76,7 @@ public class InsetUtils {
             int leftDisplayCutoutInsets = displayCutOutInsets.left <= 0 ? hInsets : displayCutOutInsets.left;
             int rightDisplayCutoutInsets = displayCutOutInsets.right <= 0 ? hInsets : displayCutOutInsets.right;
             if (toolbar != null) {
-                toolbar.setPadding(leftDisplayCutoutInsets, toolbar.getPaddingTop(), rightDisplayCutoutInsets + (initialTitleMargin - 8 ), toolbar.getPaddingBottom());
+                toolbar.setPadding(leftDisplayCutoutInsets, toolbar.getPaddingTop(), rightDisplayCutoutInsets + (initialTitleMargin / 4 ), toolbar.getPaddingBottom());
                 ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams) toolbar.getLayoutParams();
                 mlp.topMargin = systemBarInsets.top;
                 toolbar.setLayoutParams(mlp);
@@ -114,10 +114,9 @@ public class InsetUtils {
             int leftDisplayCutoutInsets = displayCutOutInsets.left <= 0 ? hInsets : displayCutOutInsets.left;
             int rightDisplayCutoutInsets = displayCutOutInsets.right <= 0 ? hInsets : displayCutOutInsets.right;
             if (toolbar != null) {
-                toolbar.setPadding(leftDisplayCutoutInsets, toolbar.getPaddingTop(), rightDisplayCutoutInsets + (initialTitleMargin - 8 ), toolbar.getPaddingBottom());
+                toolbar.setPadding(leftDisplayCutoutInsets, toolbar.getPaddingTop(), rightDisplayCutoutInsets + (initialTitleMargin / 4 ), toolbar.getPaddingBottom());
                 ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams) toolbar.getLayoutParams();
                 mlp.topMargin = systemBarInsets.top;
-
                 toolbar.setLayoutParams(mlp);
             }
             if (insetsListener != null) {
