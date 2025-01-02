@@ -41,7 +41,7 @@
 
             <include
                 android:id="@+id/accountCard"
-                layout="@layout/item_pager_account"
+                layout="@layout/item_account_card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
