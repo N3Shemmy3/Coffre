@@ -38,7 +38,7 @@ public class InsetUtils {
             v.setLayoutParams(mlp);
             // Return CONSUMED if you don't want want the window insets to keep passing
             // down to descendant views.
-            return WindowInsetsCompat.CONSUMED;
+            return windowInsets;
         });
     }
 
@@ -63,7 +63,7 @@ public class InsetUtils {
             v.setLayoutParams(mlp);
             // Return CONSUMED if you don't want want the window insets to keep passing
             // down to descendant views.
-            return WindowInsetsCompat.CONSUMED;
+            return windowInsets;
         });
     }
 
@@ -76,7 +76,7 @@ public class InsetUtils {
             int leftDisplayCutoutInsets = displayCutOutInsets.left <= 0 ? hInsets : displayCutOutInsets.left;
             int rightDisplayCutoutInsets = displayCutOutInsets.right <= 0 ? hInsets : displayCutOutInsets.right;
             if (toolbar != null) {
-                toolbar.setPadding(leftDisplayCutoutInsets, toolbar.getPaddingTop(), rightDisplayCutoutInsets + (initialTitleMargin / 4 ), toolbar.getPaddingBottom());
+                toolbar.setPadding(leftDisplayCutoutInsets, toolbar.getPaddingTop(), rightDisplayCutoutInsets + (initialTitleMargin / 4), toolbar.getPaddingBottom());
                 ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams) toolbar.getLayoutParams();
                 mlp.topMargin = systemBarInsets.top;
                 toolbar.setLayoutParams(mlp);
@@ -85,7 +85,7 @@ public class InsetUtils {
 
                 collToolbar.setExpandedTitleMargin(leftDisplayCutoutInsets + initialTitleMargin, initialTitleMargin, rightDisplayCutoutInsets + initialTitleMargin, initialTitleMargin);
             }
-            return WindowInsetsCompat.CONSUMED;
+            return windowInsets;
         });
     }
 
@@ -99,7 +99,13 @@ public class InsetUtils {
             ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams) v.getLayoutParams();
             mlp.leftMargin = leftDisplayCutoutInsets;
             mlp.rightMargin = rightDisplayCutoutInsets;
-            mlp.bottomMargin = systemBarInsets.bottom;
+            v.setPadding(
+                    v.getPaddingLeft(),
+                    v.getPaddingTop(),
+                    v.getPaddingRight(),
+                    systemBarInsets.bottom
+            );
+            // mlp.bottomMargin = systemBarInsets.bottom;
             v.setLayoutParams(mlp);
             return windowInsets;
         });
@@ -114,7 +120,7 @@ public class InsetUtils {
             int leftDisplayCutoutInsets = displayCutOutInsets.left <= 0 ? hInsets : displayCutOutInsets.left;
             int rightDisplayCutoutInsets = displayCutOutInsets.right <= 0 ? hInsets : displayCutOutInsets.right;
             if (toolbar != null) {
-                toolbar.setPadding(leftDisplayCutoutInsets, toolbar.getPaddingTop(), rightDisplayCutoutInsets + (initialTitleMargin / 4 ), toolbar.getPaddingBottom());
+                toolbar.setPadding(leftDisplayCutoutInsets, toolbar.getPaddingTop(), rightDisplayCutoutInsets + (initialTitleMargin / 4), toolbar.getPaddingBottom());
                 ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams) toolbar.getLayoutParams();
                 mlp.topMargin = systemBarInsets.top;
                 toolbar.setLayoutParams(mlp);
@@ -122,7 +128,7 @@ public class InsetUtils {
             if (insetsListener != null) {
                 insetsListener.onInsetsChanged(displayCutOutInsets, systemBarInsets);
             }
-            return WindowInsetsCompat.CONSUMED;
+            return windowInsets;
         });
     }
 

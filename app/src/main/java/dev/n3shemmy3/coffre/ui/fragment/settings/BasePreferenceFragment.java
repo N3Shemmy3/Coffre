@@ -2,11 +2,19 @@ package dev.n3shemmy3.coffre.ui.fragment.settings;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.FragmentContainerView;
 import androidx.preference.PreferenceFragmentCompat;
+import androidx.preference.PreferenceScreen;
+import androidx.preference.PreferenceViewHolder;
 import androidx.recyclerview.widget.RecyclerView;
+
+import dev.n3shemmy3.coffre.R;
+import dev.n3shemmy3.coffre.ui.adapter.PreferencesAdapter;
+import dev.n3shemmy3.coffre.ui.utils.InsetUtils;
 
 public abstract class BasePreferenceFragment extends PreferenceFragmentCompat {
     @Override
@@ -14,7 +22,21 @@ public abstract class BasePreferenceFragment extends PreferenceFragmentCompat {
         super.onViewCreated(view, savedInstanceState);
         RecyclerView recyclerView = getListView();
         if (recyclerView != null) {
-           // recyclerView.setOverScrollMode(View.OVER_SCROLL_NEVER);
+            int padding = getResources().getDimensionPixelSize(R.dimen.activity_padding_vertical);
+            recyclerView.setClipToPadding(false);
+            if (view.findViewById(android.R.id.list_container) instanceof FrameLayout)
+                ((FrameLayout) view.findViewById(android.R.id.list_container)).setClipToPadding(false);
+            recyclerView.setPadding(recyclerView.getPaddingLeft(), recyclerView.getPaddingTop(), recyclerView.getPaddingRight(), padding);
+            InsetUtils.applyContentInsets(recyclerView);
         }
+    }
+
+    // Add this with modified logic
+    @NonNull
+    @Override
+    protected RecyclerView.Adapter<PreferenceViewHolder> onCreateAdapter(@NonNull PreferenceScreen preferenceScreen) {
+        PreferencesAdapter adapter = new PreferencesAdapter(preferenceScreen);
+        adapter.notifyItemRangeChanged(0, adapter.getItemCount());
+        return adapter;
     }
 }

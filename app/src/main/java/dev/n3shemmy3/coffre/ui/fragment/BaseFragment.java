@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.graphics.Insets;
+import androidx.core.view.HapticFeedbackConstantsCompat;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
@@ -65,9 +66,10 @@ public abstract class BaseFragment extends Fragment {
         collToolBar = root.findViewById(R.id.collToolBar);
         content = root.findViewById(R.id.content);
         //Toolbar
-        if (topToolBar != null)
+        if (topToolBar != null) {
             topToolBar.setNavigationOnClickListener(v -> requireActivity().getSupportFragmentManager().popBackStack());
-
+            ViewCompat.performHapticFeedback(topToolBar, HapticFeedbackConstantsCompat.CONTEXT_CLICK);
+        }
         onFragmentCreated(root, savedInstanceState);
 
         return root;
@@ -90,7 +92,7 @@ public abstract class BaseFragment extends Fragment {
 
     }
 
-    void setDefaults(@NonNull View root) {
+    public void setDefaults(@NonNull View root) {
         //Appbar
         if (topAppBar != null)
             InsetUtils.applyAppbarInsets(topAppBar, topToolBar, collToolBar);

@@ -22,15 +22,14 @@
     style="?materialCardViewFilledStyle"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.None"
-    app:cardBackgroundColor="@android:color/transparent">
+    app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.None">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:baselineAligned="false"
         android:orientation="horizontal"
-        android:minHeight="74dp">
+        android:minHeight="?listPreferredItemHeightLarge">
 
         <include layout="@layout/item_preference_icon" />
 

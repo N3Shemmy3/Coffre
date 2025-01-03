@@ -20,17 +20,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/itemCard"
     style="?materialCardViewFilledStyle"
-    app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.None"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardBackgroundColor="@android:color/transparent">
+    app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.None">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:baselineAligned="false"
-        android:orientation="horizontal"
-        android:minHeight="74dp">
+        android:minHeight="?listPreferredItemHeightLarge"
+        android:orientation="horizontal">
 
         <include layout="@layout/item_preference_icon" />
 
@@ -38,7 +37,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginEnd="16dp"
+            android:layout_marginEnd="?listPreferredItemPaddingEnd"
             android:layout_weight="1"
             android:orientation="vertical">
 
@@ -46,8 +45,8 @@
                 android:id="@android:id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="?attr/colorOnSurface"
                 android:textAppearance="?textAppearanceBody1"
+                android:textColor="?attr/colorOnSurface"
                 tools:text="Title" />
 
             <TextView
@@ -55,8 +54,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1dp"
-                android:textColor="?attr/colorOnSurfaceVariant"
                 android:textAppearance="?textAppearanceBody2"
+                android:textColor="?attr/colorOnSurfaceVariant"
                 tools:text="Summary" />
 
         </LinearLayout>
@@ -66,8 +65,8 @@
             android:id="@android:id/widget_frame"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
             android:layout_gravity="center_vertical"
+            android:layout_marginEnd="?listPreferredItemPaddingEnd"
             android:orientation="vertical" />
 
     </LinearLayout>

@@ -23,13 +23,18 @@ import dev.n3shemmy3.coffre.ui.fragment.BaseFragment;
 import dev.n3shemmy3.coffre.ui.utils.InsetUtils;
 import dev.n3shemmy3.coffre.ui.utils.Navigator;
 
-public class SettingsFragment extends BaseFragment {
+public class SettingsFragment extends BaseSettingsFragment {
 
 
     //Appbar header views
     private ShapeableImageView appBarHeader, appBarAvatar;
     private TextView appBarExpandedTitle;
     private FloatingActionButton fab;
+
+    @Override
+    public PreferenceFragmentCompat getPreferenceFragment() {
+        return new PreferencesFragment();
+    }
 
     @Override
     protected int getLayoutResId() {
@@ -46,9 +51,6 @@ public class SettingsFragment extends BaseFragment {
         appBarAvatar = root.findViewById(R.id.appBarAvatar);
         appBarExpandedTitle = root.findViewById(R.id.appBarExpandedTitle);
         fab = root.findViewById(R.id.fab);
-
-        Navigator.add(R.id.SettingsContainer, getChildFragmentManager(), new PreferencesFragment());
-
 
         topAppBar.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             int scrollRange = -1;
@@ -85,8 +87,6 @@ public class SettingsFragment extends BaseFragment {
             fab.setLayoutParams(mlp);
         });
 
-
-        InsetUtils.applyDisplayCutoutMargin(root.findViewById(R.id.content), true, false, true, false);
     }
 
     public static class PreferencesFragment extends BasePreferenceFragment {
@@ -101,11 +101,11 @@ public class SettingsFragment extends BaseFragment {
             @NonNull FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
             switch (preference.getKey()) {
                 case "lookFeel": {
-                    Navigator.push(fragmentManager, new LookFeelSettingsFragment(preference));
+                    Navigator.push(fragmentManager, new LookFeelSettingsFragment());
                     break;
                 }
                 case "about": {
-                    Navigator.push(fragmentManager, new AboutSettingsFragment(preference));
+                    Navigator.push(fragmentManager, new AboutSettingsFragment());
                     break;
                 }
             }

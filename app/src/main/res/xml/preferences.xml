@@ -2,16 +2,20 @@
 <androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <PreferenceCategory
+        android:layout="@layout/item_preference_category"
+        android:title="@string/label_settings"
+        app:iconSpaceReserved="false" />
     <Preference
-        android:key="lookFeel"
         android:icon="@drawable/outline_dashboard_24"
+        android:key="lookFeel"
         android:layout="@layout/item_preference_basic"
         android:summary="@string/summary_look_and_feel"
         android:title="@string/label_look_and_feel" />
 
     <Preference
-        android:key="about"
         android:icon="@drawable/outline_info_24"
+        android:key="about"
         android:layout="@layout/item_preference_basic"
         android:summary="@string/summary_about"
         android:title="@string/label_about" />

@@ -5,19 +5,20 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.FragmentContainerView;
 import androidx.preference.Preference;
+import androidx.preference.PreferenceFragmentCompat;
 
 import dev.n3shemmy3.coffre.R;
 import dev.n3shemmy3.coffre.ui.fragment.BaseFragment;
+import dev.n3shemmy3.coffre.ui.utils.InsetUtils;
+import dev.n3shemmy3.coffre.ui.utils.Navigator;
 
 
 public abstract class BaseSettingsFragment extends BaseFragment {
 
-    public Preference preference;
+    public abstract PreferenceFragmentCompat getPreferenceFragment();
 
-    public BaseSettingsFragment(@NonNull Preference preference) {
-        this.preference = preference;
-    }
 
     @Override
     protected int getLayoutResId() {
@@ -26,8 +27,8 @@ public abstract class BaseSettingsFragment extends BaseFragment {
 
 
     @Override
-    protected void onFragmentCreated(@NonNull View root, @Nullable Bundle savedInstanceState) {
-        super.onFragmentCreated(root, savedInstanceState);
-        topToolBar.setTitle(preference.getTitle());
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        Navigator.add(R.id.SettingsContainer, getChildFragmentManager(), getPreferenceFragment());
     }
 }
