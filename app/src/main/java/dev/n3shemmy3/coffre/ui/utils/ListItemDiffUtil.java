@@ -1,4 +1,4 @@
-package dev.n3shemmy3.coffre.ui.diffutils;
+package dev.n3shemmy3.coffre.ui.utils;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;

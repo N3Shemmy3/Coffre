@@ -3,11 +3,10 @@ package dev.n3shemmy3.coffre.ui.adapter;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
-import dev.n3shemmy3.coffre.ui.diffutils.ListItemDiffUtil;
+import dev.n3shemmy3.coffre.ui.utils.ListItemDiffUtil;
 import dev.n3shemmy3.coffre.ui.interfaces.ItemListener;
 import dev.n3shemmy3.coffre.ui.item.ListItem;
 import dev.n3shemmy3.coffre.ui.viewholder.SingleLineItemViewHolder;
