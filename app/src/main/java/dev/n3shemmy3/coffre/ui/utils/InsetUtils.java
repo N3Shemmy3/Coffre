@@ -20,7 +20,7 @@ import dev.n3shemmy3.coffre.ui.interfaces.InsetsListener;
 public class InsetUtils {
 
     public static void applySystemBarsInsets(@NonNull View view, boolean left, boolean top, boolean right, boolean bottom) {
-        ViewCompat.setOnApplyWindowInsetsListener(view.findViewById(R.id.topAppBar), (v, insets) -> {
+        ViewCompat.setOnApplyWindowInsetsListener(view, (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(left ? systemBars.left : view.getPaddingLeft(), top ? systemBars.top : view.getPaddingTop(), right ? systemBars.right : view.getPaddingRight(), bottom ? v.getPaddingBottom() : view.getPaddingBottom());
             return insets;
@@ -68,22 +68,22 @@ public class InsetUtils {
     }
 
     public static void applyAppbarInsets(@NonNull AppBarLayout appbar, @Nullable View toolbar, @Nullable CollapsingToolbarLayout collToolbar) {
-        int initialTitleMargin = (int) (Resources.getSystem().getDisplayMetrics().density * 24);
         ViewCompat.setOnApplyWindowInsetsListener(appbar, (v, windowInsets) -> {
             Insets displayCutOutInsets = windowInsets.getInsets(WindowInsetsCompat.Type.displayCutout());
             Insets systemBarInsets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
-            int hInsets = displayCutOutInsets.left + displayCutOutInsets.right;
-            int leftDisplayCutoutInsets = displayCutOutInsets.left <= 0 ? hInsets : displayCutOutInsets.left;
-            int rightDisplayCutoutInsets = displayCutOutInsets.right <= 0 ? hInsets : displayCutOutInsets.right;
+
             if (toolbar != null) {
-                toolbar.setPadding(leftDisplayCutoutInsets, toolbar.getPaddingTop(), rightDisplayCutoutInsets + (initialTitleMargin / 4), toolbar.getPaddingBottom());
                 ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams) toolbar.getLayoutParams();
                 mlp.topMargin = systemBarInsets.top;
+                mlp.leftMargin = displayCutOutInsets.left;
+                mlp.rightMargin = displayCutOutInsets.right;
                 toolbar.setLayoutParams(mlp);
             }
-            if (collToolbar != null) {
 
-                collToolbar.setExpandedTitleMargin(leftDisplayCutoutInsets + initialTitleMargin, initialTitleMargin, rightDisplayCutoutInsets + initialTitleMargin, initialTitleMargin);
+            if (collToolbar != null) {
+                int initialTitleMargin = (int) (Resources.getSystem().getDisplayMetrics().density * 24);
+                collToolbar.setExpandedTitleMarginStart(displayCutOutInsets.left + initialTitleMargin);
+                collToolbar.setExpandedTitleMarginEnd(displayCutOutInsets.right + initialTitleMargin);
             }
             return windowInsets;
         });
