@@ -89,27 +89,6 @@ public class InsetUtils {
         });
     }
 
-    public static void applyContentInsets(@NonNull View view) {
-        ViewCompat.setOnApplyWindowInsetsListener(view, (v, windowInsets) -> {
-            Insets displayCutOutInsets = windowInsets.getInsets(WindowInsetsCompat.Type.displayCutout());
-            Insets systemBarInsets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
-            int hInsets = displayCutOutInsets.left + displayCutOutInsets.right;
-            int leftDisplayCutoutInsets = displayCutOutInsets.left <= 0 ? hInsets : displayCutOutInsets.left;
-            int rightDisplayCutoutInsets = displayCutOutInsets.right <= 0 ? hInsets : displayCutOutInsets.right;
-            ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams) v.getLayoutParams();
-            mlp.leftMargin = leftDisplayCutoutInsets;
-            mlp.rightMargin = rightDisplayCutoutInsets;
-            v.setPadding(
-                    v.getPaddingLeft(),
-                    v.getPaddingTop(),
-                    v.getPaddingRight(),
-                    systemBarInsets.bottom
-            );
-            // mlp.bottomMargin = systemBarInsets.bottom;
-            v.setLayoutParams(mlp);
-            return windowInsets;
-        });
-    }
 
     public static void applyAppbarInsets(@NonNull AppBarLayout appbar, @Nullable View toolbar, @Nullable InsetsListener insetsListener) {
         int initialTitleMargin = (int) (Resources.getSystem().getDisplayMetrics().density * 24);
@@ -128,6 +107,27 @@ public class InsetUtils {
             if (insetsListener != null) {
                 insetsListener.onInsetsChanged(displayCutOutInsets, systemBarInsets);
             }
+            return windowInsets;
+        });
+    }
+    public static void applyContentInsets(@NonNull View view) {
+        ViewCompat.setOnApplyWindowInsetsListener(view, (v, windowInsets) -> {
+            Insets displayCutOutInsets = windowInsets.getInsets(WindowInsetsCompat.Type.displayCutout());
+            Insets systemBarInsets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+            int hInsets = displayCutOutInsets.left + displayCutOutInsets.right;
+            int leftDisplayCutoutInsets = displayCutOutInsets.left <= 0 ? hInsets : displayCutOutInsets.left;
+            int rightDisplayCutoutInsets = displayCutOutInsets.right <= 0 ? hInsets : displayCutOutInsets.right;
+            ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams) v.getLayoutParams();
+            mlp.leftMargin = leftDisplayCutoutInsets;
+            mlp.rightMargin = rightDisplayCutoutInsets;
+            v.setPadding(
+                    v.getPaddingLeft(),
+                    v.getPaddingTop(),
+                    v.getPaddingRight(),
+                    systemBarInsets.bottom
+            );
+            // mlp.bottomMargin = systemBarInsets.bottom;
+            v.setLayoutParams(mlp);
             return windowInsets;
         });
     }

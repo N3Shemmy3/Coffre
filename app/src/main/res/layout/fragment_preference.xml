@@ -15,7 +15,7 @@
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:id="@+id/collToolBar"
-            style="?collapsingToolbarLayoutLargeStyle"
+            style="@style/App.CollapsingToolbar.Large"
             android:layout_width="match_parent"
             android:layout_height="?collapsingToolbarLayoutLargeSize"
             app:collapsedTitleTextAppearance="?textAppearanceTitleLarge"
