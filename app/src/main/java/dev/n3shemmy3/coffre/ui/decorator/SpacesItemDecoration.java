@@ -1,4 +1,4 @@
-package dev.n3shemmy3.coffre.ui.spacer;
+package dev.n3shemmy3.coffre.ui.decorator;
 
 import android.content.Context;
 import android.graphics.Rect;

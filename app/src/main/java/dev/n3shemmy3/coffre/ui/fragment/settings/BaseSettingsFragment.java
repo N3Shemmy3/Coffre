@@ -2,6 +2,8 @@ package dev.n3shemmy3.coffre.ui.fragment.settings;
 
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,8 +19,10 @@ import dev.n3shemmy3.coffre.ui.utils.Navigator;
 
 public abstract class BaseSettingsFragment extends BaseFragment {
 
+
     public abstract PreferenceFragmentCompat getPreferenceFragment();
 
+    private TextView appBarExpandedTitle;
 
     @Override
     protected int getLayoutResId() {
