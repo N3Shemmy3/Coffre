@@ -67,8 +67,10 @@ public abstract class BaseFragment extends Fragment {
         content = root.findViewById(R.id.content);
         //Toolbar
         if (topToolBar != null) {
-            topToolBar.setNavigationOnClickListener(v -> requireActivity().getSupportFragmentManager().popBackStack());
-            ViewCompat.performHapticFeedback(topToolBar, HapticFeedbackConstantsCompat.CONTEXT_CLICK);
+            topToolBar.setNavigationOnClickListener(v -> {
+                topToolBar.performHapticFeedback(HapticFeedbackConstantsCompat.CONTEXT_CLICK);
+                requireActivity().getSupportFragmentManager().popBackStack();
+            });
         }
         onFragmentCreated(root, savedInstanceState);
 
