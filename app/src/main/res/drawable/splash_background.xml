@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@color/ic_launcher_background" />
-
+    <!-- Background color -->
     <item>
-        <bitmap
-            android:gravity="center"
-            android:src="@drawable/outline_dashboard_24" />
+        <color android:color="@color/ic_launcher_background" />
     </item>
 
+    <!-- Launcher icon (centered) -->
+    <item
+        android:drawable="@drawable/ic_launcher_foreground"
+        android:gravity="center" />
+
+    <!-- Branding -->
+    <item
+        android:drawable="@drawable/ic_branding_foreground"
+        android:gravity="center_horizontal|bottom"
+        android:bottom="16dp" />
 </layer-list>
