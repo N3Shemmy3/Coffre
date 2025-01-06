@@ -1,117 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+    <PreferenceCategory android:layout="@layout/item_preference_separator">
+        <PreferenceCategory
+            android:layout="@layout/item_preference_category"
+            android:title="@string/label_settings"
+            app:iconSpaceReserved="false" />
+        <Preference android:layout="@layout/item_account_card" />
 
-    <PreferenceCategory
-        android:key="separator"
-        android:layout="@layout/item_preference_separator" />
+    </PreferenceCategory>
 
-    <Preference android:layout="@layout/item_account_card" />
+    <PreferenceCategory android:layout="@layout/item_preference_separator">
+        <PreferenceCategory
+            android:layout="@layout/item_preference_category"
+            android:title="@string/label_settings"
+            app:iconSpaceReserved="false" />
+        <SwitchPreferenceCompat
+            android:icon="@drawable/outline_colorize_24"
+            android:key="dynamic_color"
+            android:layout="@layout/item_preference_switch"
+            android:summary="@string/pref_summary_dynamic_color"
+            android:title="@string/pref_dynamic_color"
+            android:widgetLayout="@layout/item_preference_switch_widget" />
 
-    <PreferenceCategory
-        android:key="separator"
-        android:layout="@layout/item_preference_separator" />
+        <Preference
+            android:icon="@drawable/outline_dark_mode_24"
+            android:key="theme"
+            android:layout="@layout/item_preference_basic"
+            android:persistent="true"
+            android:summary="@string/theme_system"
+            android:title="@string/pref_dark_theme"
+            app:entries="@array/preference_theme"
+            app:entryValues="@array/preference_theme_val" />
 
-
-    <PreferenceCategory
-        android:key="separator"
-        android:layout="@layout/item_preference_separator" />
-
-    <SwitchPreferenceCompat
-        android:icon="@drawable/outline_dark_mode_24"
-        android:key="theme"
-        android:layout="@layout/item_preference_switch"
-        android:summary="@string/theme_system"
-        android:title="@string/pref_dark_theme"
-        android:widgetLayout="@layout/item_preference_switch_widget" />
-
-    <SwitchPreferenceCompat
-        android:icon="@drawable/outline_colorize_24"
-        android:key="dynamic_color"
-        android:layout="@layout/item_preference_switch"
-        android:summary="@string/pref_summary_dynamic_color"
-        android:title="@string/pref_dynamic_color"
-        android:widgetLayout="@layout/item_preference_switch_widget" />
-
-    <SwitchPreferenceCompat
-        android:icon="@drawable/outline_colorize_24"
-        android:key="dynamic_color"
-        android:layout="@layout/item_preference_switch"
-        android:summary="@string/pref_summary_dynamic_color"
-        android:title="@string/pref_dynamic_color"
-        android:widgetLayout="@layout/item_preference_switch_widget" />
-
-    <PreferenceCategory
-        android:key="separator"
-        android:layout="@layout/item_preference_separator" />
+    </PreferenceCategory>
 
 
 
-    <PreferenceCategory
-        android:key="separator"
-        android:layout="@layout/item_preference_separator" />
+    <PreferenceCategory android:layout="@layout/item_preference_separator">
+        <PreferenceCategory
+            android:layout="@layout/item_preference_category"
+            android:title="@string/label_settings"
+            app:iconSpaceReserved="false" />
+        <SwitchPreferenceCompat
+            android:icon="@drawable/outline_colorize_24"
+            android:key="dynamic_color"
+            android:layout="@layout/item_preference_switch"
+            android:summary="@string/pref_summary_dynamic_color"
+            android:title="@string/pref_dynamic_color"
+            android:widgetLayout="@layout/item_preference_switch_widget" />
 
-    <SwitchPreferenceCompat
-        android:icon="@drawable/outline_dark_mode_24"
-        android:key="theme"
-        android:layout="@layout/item_preference_switch"
-        android:summary="@string/theme_system"
-        android:title="@string/pref_dark_theme"
-        android:widgetLayout="@layout/item_preference_switch_widget" />
+        <Preference
+            android:icon="@drawable/outline_dark_mode_24"
+            android:key="theme"
+            android:layout="@layout/item_preference_basic"
+            android:persistent="true"
+            android:summary="@string/theme_system"
+            android:title="@string/pref_dark_theme"
+            app:entries="@array/preference_theme"
+            app:entryValues="@array/preference_theme_val" />
 
-    <SwitchPreferenceCompat
-        android:icon="@drawable/outline_colorize_24"
-        android:key="dynamic_color"
-        android:layout="@layout/item_preference_switch"
-        android:summary="@string/pref_summary_dynamic_color"
-        android:title="@string/pref_dynamic_color"
-        android:widgetLayout="@layout/item_preference_switch_widget" />
-
-    <SwitchPreferenceCompat
-        android:icon="@drawable/outline_colorize_24"
-        android:key="dynamic_color"
-        android:layout="@layout/item_preference_switch"
-        android:summary="@string/pref_summary_dynamic_color"
-        android:title="@string/pref_dynamic_color"
-        android:widgetLayout="@layout/item_preference_switch_widget" />
-
-    <PreferenceCategory
-        android:key="separator"
-        android:layout="@layout/item_preference_separator" />
-
-
-
-    <PreferenceCategory
-        android:key="separator"
-        android:layout="@layout/item_preference_separator" />
-    <SwitchPreferenceCompat
-        android:icon="@drawable/outline_dark_mode_24"
-        android:key="theme"
-        android:layout="@layout/item_preference_switch"
-        android:summary="@string/theme_system"
-        android:title="@string/pref_dark_theme"
-        android:widgetLayout="@layout/item_preference_switch_widget" />
-
-    <SwitchPreferenceCompat
-        android:icon="@drawable/outline_colorize_24"
-        android:key="dynamic_color"
-        android:layout="@layout/item_preference_switch"
-        android:summary="@string/pref_summary_dynamic_color"
-        android:title="@string/pref_dynamic_color"
-        android:widgetLayout="@layout/item_preference_switch_widget" />
-
-    <SwitchPreferenceCompat
-        android:icon="@drawable/outline_colorize_24"
-        android:key="dynamic_color"
-        android:layout="@layout/item_preference_switch"
-        android:summary="@string/pref_summary_dynamic_color"
-        android:title="@string/pref_dynamic_color"
-        android:widgetLayout="@layout/item_preference_switch_widget" />
-
-    <PreferenceCategory
-        android:key="separator"
-        android:layout="@layout/item_preference_separator" />
-
-
-
+    </PreferenceCategory>
 </androidx.preference.PreferenceScreen>

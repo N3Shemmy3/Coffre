@@ -2,9 +2,7 @@ package dev.n3shemmy3.coffre.ui.fragment.settings;
 
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 
 import dev.n3shemmy3.coffre.R;
@@ -24,4 +22,6 @@ public class LookFeelSettingsFragment extends BaseSettingsFragment {
             addPreferencesFromResource(R.xml.preferences_look_n_feel);
         }
     }
+
+
 }

@@ -1,9 +1,12 @@
 package dev.n3shemmy3.coffre.ui.adapter;
 
 import android.annotation.SuppressLint;
+import android.util.Log;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceCategory;
 import androidx.preference.PreferenceGroup;
@@ -11,8 +14,13 @@ import androidx.preference.PreferenceGroupAdapter;
 import androidx.preference.PreferenceViewHolder;
 
 import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.datepicker.MaterialCalendar;
 import com.google.android.material.shape.CornerFamily;
+import com.google.android.material.shape.CornerTreatment;
 import com.google.android.material.shape.ShapeAppearanceModel;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import dev.n3shemmy3.coffre.R;
 
@@ -46,28 +54,35 @@ public class PreferencesAdapter extends PreferenceGroupAdapter {
     @Override
     public void onBindViewHolder(@NonNull PreferenceViewHolder holder, int position) {
         super.onBindViewHolder(holder, position);
-        Preference current = getItem(position);
 
         //Heart of the card separation code
         if (holder.itemView instanceof MaterialCardView) {
             MaterialCardView cardView = (MaterialCardView) holder.itemView;
+            Preference current = getItem(position);
             float radius = holder.itemView.getResources().getDimension(R.dimen.material_card_corner_radius);
 
-            // Check if the current preference has a parent category
-            boolean isInCategory = current.getParent() instanceof PreferenceCategory;
+            // Check if the current item is part of a category
+            boolean isPartOfCategory = current.getParent() instanceof PreferenceCategory;
 
-            // Determine if the current item is the first or last within the category
-            boolean isFirstInCategory = isInCategory && isFirstItemInCategory(position);
-            boolean isLastInCategory = isInCategory && isLastItemInCategory(position);
+            // Get the category and its children, if applicable
+            PreferenceCategory parentCategory = isPartOfCategory ? (PreferenceCategory) current.getParent() : null;
+            List<Preference> categoryChildren = isPartOfCategory ? getPreferences(parentCategory) : null;
 
-            // If the preference is not in a category, treat it as a standalone item
-            boolean isStandalone = !isInCategory;
+            // Determine position in the category
+            boolean isFirstInCategory = isPartOfCategory && isFirstInCategory(position, categoryChildren);
+            boolean isLastInCategory = isPartOfCategory && isLastInCategory(position, categoryChildren);
 
-            // Set the corner radii
-            float topRadius = (isFirstInCategory || isStandalone) ? radius : 0f;
-            float bottomRadius = (isLastInCategory || isStandalone) ? radius : 0f;
+            // Fallback for standalone items
+            boolean isFirstItem = position == 0;
+            boolean isLastItem = position == getItemCount() - 1;
 
-            // Apply the corner radius to the MaterialCardView
+            boolean isTopRounded = isPartOfCategory ? isFirstInCategory : isFirstItem;
+            boolean isBottomRounded = isPartOfCategory ? isLastInCategory : isLastItem;
+
+            float topRadius = isTopRounded ? radius : 0f;
+            float bottomRadius = isBottomRounded ? radius : 0f;
+
+            // Apply the rounded corners to the MaterialCardView
             ShapeAppearanceModel shapeModel = cardView.getShapeAppearanceModel()
                     .toBuilder()
                     .setTopLeftCorner(CornerFamily.ROUNDED, topRadius)
@@ -80,25 +95,41 @@ public class PreferencesAdapter extends PreferenceGroupAdapter {
 
     }
 
-    private boolean isFirstItemInCategory(int position) {
-        for (int i = position - 1; i >= 0; i--) {
-            Preference previous = getItem(i);
-            if (previous instanceof PreferenceCategory) {
-                return true; // Current item is the first after the category header
-            }
+    public List<Preference> getPreferenceList() {
+        List<Preference> preferences = new ArrayList<>();
+        int count = getItemCount();
+
+        for (int i = 0; i < count; i++) {
+            preferences.add(getItem(i));
         }
-        return false;
+
+        return preferences;
     }
 
-    private boolean isLastItemInCategory(int position) {
-        for (int i = position + 1; i < getItemCount(); i++) {
-            Preference next = getItem(i);
-            if (next instanceof PreferenceCategory) {
-                return true; // Current item is the last before the next category
-            }
+    public List<Preference> getPreferences(PreferenceCategory preferenceCategory) {
+        List<Preference> preferences = new ArrayList<>();
+        int count = preferenceCategory.getPreferenceCount();
+
+        for (int i = 0; i < count; i++) {
+            preferences.add(preferenceCategory.getPreference(i));
         }
-        return position == getItemCount() - 1; // Check if it's the last item in the list
+
+        return preferences;
     }
+    private boolean isFirstInCategory(int position, List<Preference> categoryChildren) {
+        if (categoryChildren == null) return false;
+
+        Preference current = getItem(position);
+        return categoryChildren.get(0).equals(current); // First in the category
+    }
+
+    private boolean isLastInCategory(int position, List<Preference> categoryChildren) {
+        if (categoryChildren == null) return false;
+
+        Preference current = getItem(position);
+        return categoryChildren.get(categoryChildren.size() - 1).equals(current); // Last in the category
+    }
+
 
 
 }

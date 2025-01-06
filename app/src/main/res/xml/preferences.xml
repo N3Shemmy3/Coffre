@@ -5,18 +5,20 @@
     <PreferenceCategory
         android:layout="@layout/item_preference_category"
         android:title="@string/label_settings"
-        app:iconSpaceReserved="false" />
-    <Preference
-        android:icon="@drawable/outline_dashboard_24"
-        android:key="lookFeel"
-        android:layout="@layout/item_preference_basic"
-        android:summary="@string/summary_look_and_feel"
-        android:title="@string/label_look_and_feel" />
+        app:iconSpaceReserved="false">
+    </PreferenceCategory>
 
-    <Preference
-        android:icon="@drawable/outline_info_24"
-        android:key="about"
-        android:layout="@layout/item_preference_basic"
-        android:summary="@string/summary_about"
-        android:title="@string/label_about" />
+        <Preference
+            android:icon="@drawable/outline_dashboard_24"
+            android:key="lookFeel"
+            android:layout="@layout/item_preference_basic"
+            android:summary="@string/summary_look_and_feel"
+            android:title="@string/label_look_and_feel" />
+
+        <Preference
+            android:icon="@drawable/outline_info_24"
+            android:key="about"
+            android:layout="@layout/item_preference_basic"
+            android:summary="@string/summary_about"
+            android:title="@string/label_about" />
 </androidx.preference.PreferenceScreen>
