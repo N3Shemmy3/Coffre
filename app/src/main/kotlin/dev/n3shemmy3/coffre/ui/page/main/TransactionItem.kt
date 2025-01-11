@@ -68,7 +68,7 @@ fun TransactionItem(index: Int, shape: Shape) {
                         MaterialTheme.colorScheme.surfaceColorAtElevation(10.dp),
                         shape = CircleShape
                     )
-                    .padding(all = 8.dp)
+                    .padding(all = 4.dp)
                     .clip(CircleShape),
                 tint = MaterialTheme.colorScheme.onSurface,
                 imageVector = Icons.Outlined.Edit,

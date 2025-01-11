@@ -77,7 +77,7 @@ fun MainPage() {
         },
         content = {
             val numbers = remember {
-                mutableListOf(1, 2, 3, 4, 5)
+                mutableListOf(1, 2, 3, 4, 5, 6, 7, 8, 9)
             }
             TransactionList(paddingValues = it, hInsets, numbers)
         })
@@ -158,7 +158,13 @@ fun TransactionList(paddingValues: PaddingValues, hInsets: Dp, numbers: MutableL
     }
 }
 
-@Preview(device = "id:pixel")
+@Preview(
+    device = "spec:width=1080px,height=1920px,isRound=true,cutout=punch_hole",
+    showSystemUi = true,
+    uiMode = android.content.res.Configuration.UI_MODE_NIGHT_YES,
+    wallpaper = androidx.compose.ui.tooling.preview.Wallpapers.GREEN_DOMINATED_EXAMPLE,
+    name = "Spark 5pro"
+)
 @Composable
 fun MainPagePreview() {
     MainPage()

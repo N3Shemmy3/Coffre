@@ -1,5 +1,5 @@
 [versions]
-agp = "8.9.0-alpha07"
+agp = "8.9.0-alpha08"
 kotlin = "2.0.0"
 coreKtx = "1.15.0"
 junit = "4.13.2"
@@ -11,6 +11,7 @@ constraintCompose = "1.1.0"
 composeBom = "2024.12.01"
 googleMaterial = "1.12.0"
 androidxAppCompat = "1.7.0"
+navigationCompose = "2.8.5"
 splashscreen = "1.0.1"
 
 [libraries]
@@ -30,8 +31,9 @@ androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-toolin
 androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
-androidx-core-splashscreen = { group = "androidx.core", name = "core-splashscreen", version.ref="splashscreen" }
-androidx-constraintlayout-compose = { group = "androidx.constraintlayout", name = "constraintlayout-compose", version.ref="constraintCompose" }
+androidx-core-splashscreen = { group = "androidx.core", name = "core-splashscreen", version.ref = "splashscreen" }
+androidx-constraintlayout-compose = { group = "androidx.constraintlayout", name = "constraintlayout-compose", version.ref = "constraintCompose" }
+androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigationCompose" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
