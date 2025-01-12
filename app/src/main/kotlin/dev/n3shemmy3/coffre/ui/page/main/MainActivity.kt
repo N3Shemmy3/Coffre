@@ -5,32 +5,19 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.DateRange
-import androidx.compose.material.icons.outlined.Search
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
-import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.lifecycleScope
-import dev.n3shemmy3.coffre.R
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.rememberNavController
+import dev.n3shemmy3.coffre.ui.ext.animatedComposable
+import dev.n3shemmy3.coffre.ui.page.profile.ProfilePage
 import dev.n3shemmy3.coffre.ui.theme.CoffreTheme
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -50,9 +37,29 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             CoffreTheme {
-                MainPage()
+                App()
             }
         }
+    }
+}
+
+@Composable
+fun App() {
+    val navController = rememberNavController()
+    NavHost(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(MaterialTheme.colorScheme.background),
+        navController = navController,
+        startDestination = RouteName.MAIN
+    ) {
+        animatedComposable(route = RouteName.MAIN) {
+            MainPage(navController)
+        }
+        animatedComposable(route = RouteName.PROFILE) {
+            ProfilePage(navController)
+        }
+
     }
 }
 
@@ -60,6 +67,7 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun GreetingPreview() {
     CoffreTheme {
-        MainPage()
+        App()
     }
 }
+
