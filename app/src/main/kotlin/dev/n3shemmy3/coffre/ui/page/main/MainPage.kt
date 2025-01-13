@@ -191,7 +191,8 @@ fun TransactionList(paddingValues: PaddingValues, hInsets: Dp, numbers: MutableL
                                 bottom.linkTo(expenseTitle.bottom)
                             })
                     LinearProgressIndicator(
-                        progress = { .7f },
+                        progress = { .5f },
+                        color = MaterialTheme.colorScheme.error,
                         modifier = Modifier
                             .fillMaxWidth()
                             .clip(CircleShape)
