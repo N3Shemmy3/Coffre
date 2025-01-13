@@ -10,10 +10,13 @@ import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.displayCutout
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBars
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.ArrowBack
@@ -61,15 +64,25 @@ fun ProfilePage(navController: NavHostController) {
             TopAppBar(
                 scrollBehavior = scrollBehavior,
                 navigationIcon = {
-                    FeedBackIcon(
-                        Icons.AutoMirrored.Outlined.ArrowBack,
-                        null,
-                        onClick = { navController.popBackStack() })
+                    Box(modifier = Modifier.padding(start = hInsets - 12.dp)) {
+                        FeedBackIcon(
+                            Icons.AutoMirrored.Outlined.ArrowBack,
+                            null,
+                            onClick = { navController.popBackStack() })
+                    }
                 },
                 title = { if (scrollBehavior.state.contentOffset == 500f) Text(text = "N3Shemmy3") },
+                actions = {
+                    Spacer(
+                        Modifier
+                            .fillMaxHeight()
+                            .width(hInsets - 12.dp)
+                    )
+                },
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = Color.Transparent
                 )
+
             )
         },
         content = {
