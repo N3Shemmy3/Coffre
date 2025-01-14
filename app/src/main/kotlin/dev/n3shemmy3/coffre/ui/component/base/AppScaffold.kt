@@ -145,7 +145,6 @@ fun AppScaffold(
             Box(
                 modifier = Modifier.padding(
                     horizontal = hInsets - 12.dp,
-                    vertical = systemInsets.calculateBottomPadding()
                 )
             ) {
                 floatingActionButton?.invoke()
