@@ -100,7 +100,7 @@ fun TransactionList(paddingValues: PaddingValues, numbers: MutableList<Int>) {
         }
         item(key = "spacer".hashCode()) {
             Spacer(modifier = Modifier.height(104.dp))
-            Spacer(modifier = Modifier.windowInsetsBottomHeight(WindowInsets.navigationBars))
+            Spacer(modifier = Modifier.height(paddingValues.calculateBottomPadding()))
         }
     }
 }

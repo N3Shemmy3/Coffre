@@ -137,7 +137,7 @@ fun AppScaffold(
                 start = hInsets,
                 top = it.calculateTopPadding(),
                 end = hInsets,
-                bottom = it.calculateBottomPadding()
+                bottom = systemInsets.calculateBottomPadding()
             )
             content?.invoke(paddingValues)
         },
