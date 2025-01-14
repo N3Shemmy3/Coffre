@@ -4,15 +4,12 @@ import android.annotation.SuppressLint
 import android.view.HapticFeedbackConstants
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.absolutePadding
 import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.windowInsetsBottomHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
@@ -39,6 +36,7 @@ import dev.n3shemmy3.coffre.ui.component.base.AppScaffold
 import dev.n3shemmy3.coffre.ui.component.base.FeedBackIcon
 import dev.n3shemmy3.coffre.ui.theme.Shape20
 import dev.n3shemmy3.coffre.ui.theme.ShapeBottom20
+import dev.n3shemmy3.coffre.ui.theme.Spacing_content_horizontal
 
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -69,6 +67,7 @@ fun MainPage(navController: NavHostController) {
         val view = LocalView.current
         FloatingActionButton(modifier = Modifier.size(64.dp), shape = Shape20, onClick = {
             view.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP)
+            navController.navigate(RouteName.RECORD)
         }) {
             Icon(Icons.Outlined.Add, null)
         }

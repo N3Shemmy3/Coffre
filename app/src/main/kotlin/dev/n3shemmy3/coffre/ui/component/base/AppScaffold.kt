@@ -56,12 +56,12 @@ fun AppScaffold(
     val hInsets =
         cutOutInsets.calculateStartPadding(layoutDirection) + cutOutInsets.calculateEndPadding(
             layoutDirection
-        ) + 12.dp
+        )
 
     fun backIcon() = @Composable() {
         Row(
             modifier = Modifier
-                .padding(start = hInsets)
+                .padding(start = hInsets + Spacing_content_vertical)
                 .fillMaxHeight(),
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
@@ -74,7 +74,7 @@ fun AppScaffold(
         Row(
             modifier = Modifier
                 .padding(
-                    start = if (!useLargeAppBar) Spacing_content_horizontal else
+                    start = if (!useLargeAppBar) Spacing_content_vertical else
                         if (isExpanded) hInsets + Spacing_content_vertical else Spacing_content_vertical,
                 )
                 .fillMaxHeight(),
@@ -134,9 +134,9 @@ fun AppScaffold(
         },
         content = { it ->
             val paddingValues = PaddingValues(
-                start = hInsets,
+                start = hInsets + Spacing_content_horizontal,
                 top = it.calculateTopPadding(),
-                end = hInsets,
+                end = hInsets + Spacing_content_horizontal,
                 bottom = systemInsets.calculateBottomPadding()
             )
             content?.invoke(paddingValues)
@@ -144,7 +144,7 @@ fun AppScaffold(
         floatingActionButton = {
             Box(
                 modifier = Modifier.padding(
-                    horizontal = hInsets - 12.dp,
+                    horizontal = hInsets,
                 )
             ) {
                 floatingActionButton?.invoke()

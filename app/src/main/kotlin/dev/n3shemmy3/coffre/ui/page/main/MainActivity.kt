@@ -18,6 +18,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import dev.n3shemmy3.coffre.ui.ext.animatedComposable
 import dev.n3shemmy3.coffre.ui.page.profile.ProfilePage
+import dev.n3shemmy3.coffre.ui.page.record.RecordPage
 import dev.n3shemmy3.coffre.ui.theme.CoffreTheme
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -58,6 +59,9 @@ fun App() {
         }
         animatedComposable(route = RouteName.PROFILE) {
             ProfilePage(navController)
+        }
+        animatedComposable(route = RouteName.RECORD) {
+            RecordPage(navController)
         }
 
     }

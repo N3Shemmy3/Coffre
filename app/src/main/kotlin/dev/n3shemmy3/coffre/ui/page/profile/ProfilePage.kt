@@ -77,9 +77,13 @@ fun ProfilePage(navController: NavHostController) {
 
             )
         },
-        content = { it ->
-            val paddingValues =
-                PaddingValues(horizontal = hInsets, vertical = it.calculateTopPadding())
+        content = { paddingValues ->
+            val paddingValues = PaddingValues(
+                start = hInsets,
+                top = paddingValues.calculateTopPadding(),
+                end = hInsets,
+                bottom = systemInsets.calculateBottomPadding()
+            )
             LazyColumn {
                 item(key = "itemHeader".hashCode()) {
                     ProfileHeader(paddingValues)
