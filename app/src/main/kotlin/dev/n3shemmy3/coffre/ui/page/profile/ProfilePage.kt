@@ -1,8 +1,8 @@
 package dev.n3shemmy3.coffre.ui.page.profile
 
 import android.annotation.SuppressLint
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
@@ -21,27 +21,19 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.draw.blur
-import androidx.compose.ui.draw.drawWithContent
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalLayoutDirection
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import dev.n3shemmy3.coffre.R
 import dev.n3shemmy3.coffre.ui.component.base.FeedBackIcon
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -55,7 +47,7 @@ fun ProfilePage(navController: NavHostController) {
     val hInsets =
         cutOutInsets.calculateStartPadding(LocalLayoutDirection.current) + cutOutInsets.calculateEndPadding(
             LocalLayoutDirection.current
-        ) + 12.dp;
+        ) + 12.dp
     Scaffold(
         modifier = Modifier
             .fillMaxSize()
@@ -85,47 +77,22 @@ fun ProfilePage(navController: NavHostController) {
 
             )
         },
-        content = {
+        content = { it ->
+            val paddingValues =
+                PaddingValues(horizontal = hInsets, vertical = it.calculateTopPadding())
             LazyColumn {
+                item(key = "itemHeader".hashCode()) {
+                    ProfileHeader(paddingValues)
+                }
                 item {
-                    Box(
+                    Row(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .height(250.dp)
+                            .height(64.dp)
                     ) {
-                        val backdropGradientColors = listOf(
-                            Color.Transparent,
-                            MaterialTheme.colorScheme.background,
-                        )
-                        Image(
-                            painter = painterResource(R.drawable.avatar),
-                            contentDescription = null,
-                            contentScale = ContentScale.Crop,
-                            modifier = Modifier
-                                .matchParentSize()
-                                .drawWithContent {
-                                    drawContent()
-                                    drawRect(
-                                        brush = Brush.verticalGradient(colors = backdropGradientColors),
-                                    )
-                                }
-                                .blur(4.dp)
-                                .alpha(0.2f),
-                        )
                     }
                 }
-                item {
-                    var i = 0
-                    while (i < 10) {
-                        i++
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .height(64.dp)
-                        ) { }
-                    }
-                }
-                item {
+                item(key = "bottomPadding".hashCode()) {
                     Spacer(modifier = Modifier.height(systemInsets.calculateBottomPadding()))
                 }
             }
