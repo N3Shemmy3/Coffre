@@ -30,7 +30,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalLayoutDirection
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import dev.n3shemmy3.coffre.ui.theme.Spacing_content_horizontal
 import dev.n3shemmy3.coffre.ui.theme.Spacing_content_vertical
@@ -41,7 +40,7 @@ fun AppScaffold(
     useLargeAppBar: Boolean = true,
     navigationIcon: (@Composable () -> Unit)? = null,
     title: String,
-    content: (@Composable (paddingValues: PaddingValues, hInsets: Dp) -> Unit)? = null,
+    content: (@Composable (paddingValues: PaddingValues) -> Unit)? = null,
     floatingActionButton: (@Composable () -> Unit)? = null,
     actions: (@Composable () -> Unit)? = {}
 ) {
@@ -57,7 +56,8 @@ fun AppScaffold(
     val hInsets =
         cutOutInsets.calculateStartPadding(layoutDirection) + cutOutInsets.calculateEndPadding(
             layoutDirection
-        ) + 12.dp;
+        ) + 12.dp
+
     fun backIcon() = @Composable() {
         Row(
             modifier = Modifier
@@ -133,7 +133,13 @@ fun AppScaffold(
             }
         },
         content = { it ->
-            content?.invoke(it, hInsets)
+            val paddingValues = PaddingValues(
+                start = hInsets,
+                top = it.calculateTopPadding(),
+                end = hInsets,
+                bottom = it.calculateBottomPadding()
+            )
+            content?.invoke(paddingValues)
         },
         floatingActionButton = {
             Box(

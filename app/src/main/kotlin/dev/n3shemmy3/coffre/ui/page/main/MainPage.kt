@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.absolutePadding
+import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBars
@@ -26,10 +27,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.Wallpapers
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
@@ -59,10 +60,10 @@ fun MainPage(navController: NavHostController) {
                 imageVector = Icons.Outlined.DateRange, contentDescription = "Calender"
             )
         }
-    }, content = { paddingValues, hInsets ->
+    }, content = { paddingValues ->
         val numbers = remember { mutableListOf(1, 2, 3, 4, 5, 6, 7) }
         TransactionList(
-            paddingValues = paddingValues, hInsets = hInsets, numbers = numbers
+            paddingValues = paddingValues, numbers = numbers
         )
     }, floatingActionButton = {
         val view = LocalView.current
@@ -76,14 +77,15 @@ fun MainPage(navController: NavHostController) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TransactionList(paddingValues: PaddingValues, hInsets: Dp, numbers: MutableList<Int>) {
+fun TransactionList(paddingValues: PaddingValues, numbers: MutableList<Int>) {
+    val hPaddingValues = paddingValues.calculateStartPadding(LocalLayoutDirection.current)
     LazyColumn(
         modifier = Modifier
             .padding(
                 top = paddingValues.calculateTopPadding()
             )
             .fillMaxSize()
-            .absolutePadding(left = hInsets, right = hInsets)
+            .absolutePadding(left = hPaddingValues, right = hPaddingValues)
     ) {
         item(key = "card".hashCode()) {
             MainBalanceCard()
