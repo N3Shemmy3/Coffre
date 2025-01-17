@@ -39,8 +39,7 @@ fun TransactionCategoryItem() {
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Text(
-            text = "Transactions",
-
+            text = "Today's Transactions",
             style = MaterialTheme.typography.bodyMedium,
         )
         Button(
