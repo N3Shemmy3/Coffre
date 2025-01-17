@@ -15,7 +15,7 @@ navigationCompose = "2.8.5"
 splashscreen = "1.0.1"
 viewmodelCompose = "2.8.7"
 androidxRoom = "2.6.1"
-
+dotsIndicator = "5.1.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -40,7 +40,7 @@ androidx-navigation-compose = { group = "androidx.navigation", name = "navigatio
 androidx-viewmodel-compose = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-compose", version.ref = "viewmodelCompose" }
 androidx-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "androidxRoom" }
 androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "androidxRoom" }
-
+tbuonomo-dotsindicator = { group = "com.tbuonomo", name = "dotsindicator", version.ref = "dotsIndicator" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
