@@ -1,22 +1,31 @@
 package dev.n3shemmy3.coffre.ui.page.main
 
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.absolutePadding
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ProgressIndicatorDefaults
+import androidx.compose.material3.ProgressIndicatorDefaults.drawStopIndicator
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
+import dev.n3shemmy3.coffre.ui.theme.ExtendedDarkColorScheme
+import dev.n3shemmy3.coffre.ui.theme.ExtendedLightColorScheme
 import dev.n3shemmy3.coffre.ui.theme.Spacing_content_horizontal
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainBalanceCard() {
     Surface(
@@ -60,6 +69,7 @@ fun MainBalanceCard() {
                         top.linkTo(accountName.top, 24.dp)
                         end.linkTo(balanceDecimal.start, 2.dp)
                     })
+
             Text(
                 text = "45",
                 style = MaterialTheme.typography.headlineMedium,
@@ -110,9 +120,11 @@ fun MainBalanceCard() {
                         end.linkTo(balanceDecimal.end)
                         bottom.linkTo(expenseTitle.bottom)
                     })
+            val successColor = if (isSystemInDarkTheme()) ExtendedDarkColorScheme.success.color else ExtendedLightColorScheme.success.color
             LinearProgressIndicator(
-                progress = { .5f },
+                progress = { .7f },
                 color = MaterialTheme.colorScheme.error,
+                trackColor = successColor,
                 modifier = Modifier
                     .fillMaxWidth()
                     .clip(CircleShape)
@@ -120,7 +132,21 @@ fun MainBalanceCard() {
                         start.linkTo(expenseTitle.start)
                         top.linkTo(expenseTitle.bottom, margin = 16.dp)
                     },
+                drawStopIndicator = {
+                    drawStopIndicator(
+                        drawScope = this,
+                        stopSize = ProgressIndicatorDefaults.LinearTrackStopIndicatorSize,
+                        color = successColor,
+                        strokeCap = StrokeCap.Round,
+                    )
+                }
             )
         }
     }
+}
+@OptIn(ExperimentalMaterial3Api::class)
+@Preview
+@Composable
+fun MainBalanceCardPreview() {
+    MainBalanceCard()
 }

@@ -36,7 +36,6 @@ import dev.n3shemmy3.coffre.ui.component.base.AppScaffold
 import dev.n3shemmy3.coffre.ui.component.base.FeedBackIcon
 import dev.n3shemmy3.coffre.ui.theme.Shape20
 import dev.n3shemmy3.coffre.ui.theme.ShapeBottom20
-import dev.n3shemmy3.coffre.ui.theme.Spacing_content_horizontal
 
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -102,7 +101,9 @@ fun TransactionList(paddingValues: PaddingValues, numbers: MutableList<Int>) {
             Spacer(modifier = Modifier.height(paddingValues.calculateBottomPadding()))
         }
     }
+
 }
+
 
 @Preview(
     device = "spec:width=1080px,height=1920px",
