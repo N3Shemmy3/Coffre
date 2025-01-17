@@ -6,10 +6,9 @@ junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
 lifecycleRuntimeKtx = "2.8.7"
-activityCompose = "1.9.3"
+activityCompose = "1.10.0"
 constraintCompose = "1.1.0"
-composeBom = "2024.12.01"
-googleMaterial = "1.12.0"
+composeBom = "2025.01.00"
 androidxAppCompat = "1.7.0"
 navigationCompose = "2.8.5"
 splashscreen = "1.0.1"
@@ -19,7 +18,6 @@ dotsIndicator = "5.1.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
-google-material = { group = "com.google.android.material", name = "material", version.ref = "googleMaterial" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "androidxAppCompat" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }

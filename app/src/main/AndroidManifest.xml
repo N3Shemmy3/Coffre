@@ -20,6 +20,7 @@
             android:name=".ui.page.main.MainActivity"
             android:exported="true"
             android:theme="@style/Theme.Splash"
+            android:launchMode="singleInstance"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
