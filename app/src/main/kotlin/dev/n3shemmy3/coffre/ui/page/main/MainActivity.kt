@@ -17,6 +17,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import dev.n3shemmy3.coffre.ui.ext.animatedComposable
+import dev.n3shemmy3.coffre.ui.page.currency.CurrencyPage
 import dev.n3shemmy3.coffre.ui.page.onboarding.OnBoardingPage
 import dev.n3shemmy3.coffre.ui.page.profile.ProfilePage
 import dev.n3shemmy3.coffre.ui.page.record.RecordPage
@@ -55,11 +56,14 @@ fun App() {
         navController = navController,
         startDestination = RouteName.ONBOARDING
     ) {
-        animatedComposable(route = RouteName.MAIN) {
-            MainPage(navController)
-        }
         animatedComposable(route = RouteName.ONBOARDING) {
             OnBoardingPage(navController)
+        }
+        animatedComposable(route = RouteName.Currency) {
+            CurrencyPage(navController)
+        }
+        animatedComposable(route = RouteName.MAIN) {
+            MainPage(navController)
         }
         animatedComposable(route = RouteName.PROFILE) {
             ProfilePage(navController)

@@ -2,16 +2,23 @@ package dev.n3shemmy3.coffre.ui.page.onboarding
 
 import android.annotation.SuppressLint
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.EaseInOut
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.rememberInfiniteTransition
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.displayCutout
@@ -29,6 +36,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -38,12 +46,19 @@ import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.graphics.shapes.CornerRounding
+import androidx.graphics.shapes.Morph
+import androidx.graphics.shapes.RoundedPolygon
+import androidx.graphics.shapes.star
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.tbuonomo.viewpagerdotsindicator.compose.DotsIndicator
 import com.tbuonomo.viewpagerdotsindicator.compose.model.DotGraphic
 import com.tbuonomo.viewpagerdotsindicator.compose.type.ShiftIndicatorType
 import dev.n3shemmy3.coffre.R
+import dev.n3shemmy3.coffre.ui.page.main.RouteName
+import dev.n3shemmy3.coffre.ui.theme.CustomRotatingMorphShape
 import dev.n3shemmy3.coffre.ui.theme.Spacing_page_horizontal
 import dev.n3shemmy3.coffre.ui.theme.Spacing_page_vertical
 import kotlinx.coroutines.launch
@@ -68,40 +83,80 @@ fun OnBoardingPage(navController: NavHostController) {
             .padding(horizontal = hInsets, vertical = systemInsets.calculateBottomPadding())
             .background(MaterialTheme.colorScheme.background)
     ) {
-        Column(
+        ConstraintLayout(
             modifier = Modifier
                 .fillMaxSize()
                 .weight(1f),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-
+            val (pager, centerSpacer, actionRow) = createRefs()
             HorizontalPager(
                 state = pagerState,
-                contentPadding = PaddingValues(horizontal = 32.dp),
-                pageSpacing = 4.dp,
+                pageSpacing = 16.dp,
                 modifier = Modifier
-                    .height(450.dp)
-                    .fillMaxWidth(),
+                    .fillMaxSize()
+                    .constrainAs(pager) {
+                        start.linkTo(parent.start)
+                        top.linkTo(parent.top)
+                        end.linkTo(parent.end)
+                        bottom.linkTo(parent.bottom)
+                    },
             ) { page ->
                 Column(
                     Modifier
-                        .fillMaxSize()
-                        .padding(all = 16.dp),
+                        .fillMaxSize(),
                     verticalArrangement = Arrangement.Center,
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
+
+                    val morph = remember {
+                        Morph(
+                            RoundedPolygon(
+                                12,
+                                rounding = CornerRounding(0.2f)
+                            ), RoundedPolygon.star(
+                                12,
+                                rounding = CornerRounding(0.2f)
+                            )
+                        )
+                    }
+                    val infiniteTransition = rememberInfiniteTransition("infinite outline movement")
+                    val animatedProgress = infiniteTransition.animateFloat(
+                        initialValue = 0f,
+                        targetValue = 1f,
+                        animationSpec = infiniteRepeatable(
+                            tween(2000, easing = LinearEasing),
+                            repeatMode = RepeatMode.Reverse
+                        ),
+                        label = "animatedMorphProgress"
+                    )
+                    val animatedRotation = infiniteTransition.animateFloat(
+                        initialValue = 0f,
+                        targetValue = 360f,
+                        animationSpec = infiniteRepeatable(
+                            tween(6000, easing = EaseInOut),
+                            repeatMode = RepeatMode.Reverse
+                        ),
+                        label = "animatedMorphProgress"
+                    )
 
                     Image(
                         painter = painterResource(R.drawable.avatar),
                         contentDescription = null,
                         contentScale = ContentScale.Fit,
                         modifier = Modifier
-                            .fillMaxSize()
-                            .weight(1f)
-                            .clip(shape = MaterialTheme.shapes.large)
                             .padding(all = 24.dp)
+                            .clip(
+                                CustomRotatingMorphShape(
+                                    morph,
+                                    animatedProgress.value,
+                                    animatedRotation.value
+                                )
+                            )
+                            .aspectRatio(1f)
+                            .size(120.dp)
+
                     )
+                    Spacer(Modifier.height(24.dp))
                     Text(
                         text = "(\u2060・\u2060o\u2060・)",
                         style = MaterialTheme.typography.titleMedium,
@@ -109,27 +164,54 @@ fun OnBoardingPage(navController: NavHostController) {
                     )
                 }
             }
-            Spacer(Modifier.size(Spacing_page_horizontal))
-            DotsIndicator(
-                dotCount = pageCount,
-                type = ShiftIndicatorType(
-                    dotsGraphic = DotGraphic(
-                        size = 8.dp,
-                        color = MaterialTheme.colorScheme.primary
-                    )
-                ),
-                pagerState = pagerState
+            PagerIndicator(
+                modifier = Modifier
+                    .constrainAs(centerSpacer) {
+                        verticalBias = .85f
+                        start.linkTo(parent.start)
+                        top.linkTo(parent.top)
+                        end.linkTo(parent.end)
+                        bottom.linkTo(parent.bottom)
+                    }, pagerState
             )
+
+            ActionRow(navController, modifier = Modifier.constrainAs(actionRow) {
+                start.linkTo(parent.start)
+                end.linkTo(parent.end)
+                bottom.linkTo(parent.bottom)
+            }, pagerState = pagerState)
         }
-        ActionRow(pagerState)
     }
 }
 
 @Composable
-fun ActionRow(pagerState: PagerState) {
+fun PagerIndicator(modifier: Modifier, pagerState: PagerState) {
+    AnimatedVisibility(
+        modifier = modifier,
+        visible = pagerState.currentPage != pagerState.pageCount - 1
+    ) {
+        DotsIndicator(
+            dotCount = pagerState.pageCount,
+            pagerState = pagerState,
+            type = ShiftIndicatorType(
+                dotsGraphic = DotGraphic(
+                    size = 8.dp,
+                    color = MaterialTheme.colorScheme.primary
+                )
+            ),
+        )
+    }
+}
+
+@Composable
+fun ActionRow(
+    navController: NavHostController,
+    modifier: Modifier = Modifier,
+    pagerState: PagerState
+) {
     val animationScope = rememberCoroutineScope()
     Row(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .padding(horizontal = Spacing_page_horizontal, vertical = Spacing_page_vertical)
             .height(IntrinsicSize.Min),
@@ -140,14 +222,21 @@ fun ActionRow(pagerState: PagerState) {
         AnimatedVisibility(visible = !isFinalPage) {
             TextButton(
                 onClick = {
-                    isFinalPage = true
+                    animationScope.launch {
+                        pagerState.animateScrollToPage(pagerState.pageCount - 1)
+                        navController.navigate(RouteName.Currency)
+                    }
+
                 }) {
                 Text(text = "Skip")
             }
         }
         AnimatedVisibility(visible = isFinalPage) {
             Button(modifier = Modifier.fillMaxWidth(), onClick = {
-                animationScope.launch { pagerState.animateScrollToPage(pagerState.currentPage + 1) }
+                animationScope.launch {
+                    pagerState.animateScrollToPage(pagerState.currentPage + 1)
+                    navController.navigate(RouteName.Currency)
+                }
             }) {
                 Text(text = "Continue")
             }
@@ -159,9 +248,9 @@ fun ActionRow(pagerState: PagerState) {
                 Text(text = "Next")
             }
         }
-
     }
 }
+
 
 @Preview
 @Composable

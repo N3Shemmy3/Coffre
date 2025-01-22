@@ -5,4 +5,5 @@ object RouteName {
     const val PROFILE = "profile"
     const val RECORD = "record"
     const val ONBOARDING = "onboarding"
+    const val Currency = "currency"
 }
