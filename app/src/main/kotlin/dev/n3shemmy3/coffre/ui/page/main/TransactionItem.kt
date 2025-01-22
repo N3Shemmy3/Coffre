@@ -28,7 +28,7 @@ import dev.n3shemmy3.coffre.ui.theme.Spacing_content_vertical
 
 @Composable
 fun TransactionItem(index: Int, shape: Shape) {
-    Column(
+    Row(
         modifier = Modifier
             .background(
                 MaterialTheme.colorScheme.surfaceColorAtElevation(4.dp),
