@@ -46,19 +46,17 @@ fun CurrencyItem(
     onClick: () -> Unit = {},
 ) {
     var layoutDirection = LocalLayoutDirection.current
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clickable(true) {
-                onClick()
-            }
-            .background(MaterialTheme.colorScheme.background)
-            .padding(
-                horizontal = WindowInsets.displayCutout.asPaddingValues()
-                    .calculateStartPadding(layoutDirection) + Spacing_page_horizontal,
-                vertical = Spacing_content_horizontal
-            ),
-        verticalAlignment = Alignment.CenterVertically
+    Row(modifier = Modifier
+        .fillMaxWidth()
+        .clickable(true) {
+            onClick()
+        }
+        .background(MaterialTheme.colorScheme.background)
+        .padding(
+            horizontal = WindowInsets.displayCutout.asPaddingValues()
+                .calculateStartPadding(layoutDirection) + Spacing_page_horizontal,
+            vertical = Spacing_content_horizontal
+        ), verticalAlignment = Alignment.CenterVertically
 
     ) {
         Box(
@@ -67,14 +65,15 @@ fun CurrencyItem(
                     MaterialTheme.colorScheme.surfaceColorAtElevation(1.dp), shape = CircleShape
                 )
                 .size(48.dp)
-                .clip(CircleShape),
-            contentAlignment = Alignment.Center
+                .clip(CircleShape), contentAlignment = Alignment.Center
         ) {
-
+            val sign = if (currency.symbolNative.trim()
+                    .isEmpty()
+            ) currency.symbol else currency.symbolNative
             Text(
-                text = if (currency.symbolNative.trim().isEmpty()) currency.symbol else currency.symbolNative,
+                text = sign,
                 textAlign = TextAlign.Center,
-                style = MaterialTheme.typography.bodyMedium
+                style = if (sign.length > 1) MaterialTheme.typography.bodyMedium else MaterialTheme.typography.bodyLarge
             )
         }
 
@@ -85,13 +84,11 @@ fun CurrencyItem(
         ) {
 
             Text(
-                text = currency.name,
-                style = MaterialTheme.typography.bodyLarge
+                text = currency.name, style = MaterialTheme.typography.bodyLarge
             )
             Text(
                 text = currency.code,
-                modifier = Modifier
-                    .alpha(.6f),
+                modifier = Modifier.alpha(.6f),
                 style = MaterialTheme.typography.bodyMedium,
                 textAlign = TextAlign.Start
             )
@@ -104,8 +101,7 @@ fun CurrencyItem(
                     .background(
                         MaterialTheme.colorScheme.surfaceColorAtElevation(1.dp), shape = CircleShape
                     )
-                    .clip(CircleShape),
-                contentAlignment = Alignment.Center
+                    .clip(CircleShape), contentAlignment = Alignment.Center
 
             ) {
                 Icon(
