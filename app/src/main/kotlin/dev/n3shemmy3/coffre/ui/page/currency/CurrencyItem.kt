@@ -72,7 +72,7 @@ fun CurrencyItem(
         ) {
 
             Text(
-                text = currency.symbol,
+                text = if (currency.symbolNative.trim().isEmpty()) currency.symbol else currency.symbolNative,
                 textAlign = TextAlign.Center,
                 style = MaterialTheme.typography.bodyMedium
             )
@@ -104,7 +104,6 @@ fun CurrencyItem(
                     .background(
                         MaterialTheme.colorScheme.surfaceColorAtElevation(1.dp), shape = CircleShape
                     )
-                    .padding(all = Spacing_content_vertical)
                     .clip(CircleShape),
                 contentAlignment = Alignment.Center
 
@@ -112,6 +111,7 @@ fun CurrencyItem(
                 Icon(
                     Icons.Outlined.Check,
                     contentDescription = null,
+                    modifier = Modifier.padding(all = Spacing_content_vertical),
                     tint = MaterialTheme.colorScheme.onSurface
                 )
             }
