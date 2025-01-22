@@ -6,6 +6,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.calculateStartPadding
@@ -30,7 +31,6 @@ import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.constraintlayout.compose.ConstraintLayout
 import dev.n3shemmy3.coffre.domain.currency.Currency
 import dev.n3shemmy3.coffre.ui.theme.Spacing_content_horizontal
 import dev.n3shemmy3.coffre.ui.theme.Spacing_content_vertical
@@ -46,7 +46,7 @@ fun CurrencyItem(
     onClick: () -> Unit = {},
 ) {
     var layoutDirection = LocalLayoutDirection.current
-    ConstraintLayout(
+    Row(
         modifier = Modifier
             .fillMaxWidth()
             .clickable(true) {
@@ -58,16 +58,11 @@ fun CurrencyItem(
                     .calculateStartPadding(layoutDirection) + Spacing_page_horizontal,
                 vertical = Spacing_content_horizontal
             ),
+        verticalAlignment = Alignment.CenterVertically
 
-        ) {
-        val (itemIcon, itemContent, itemAction) = createRefs()
+    ) {
         Box(
             modifier = Modifier
-                .constrainAs(itemIcon) {
-                    start.linkTo(parent.start)
-                    top.linkTo(parent.top)
-                    bottom.linkTo(parent.bottom)
-                }
                 .background(
                     MaterialTheme.colorScheme.surfaceColorAtElevation(1.dp), shape = CircleShape
                 )
@@ -83,11 +78,11 @@ fun CurrencyItem(
             )
         }
 
-        Column(modifier = Modifier.constrainAs(itemContent) {
-            start.linkTo(itemIcon.end)
-            top.linkTo(itemIcon.top)
-            end.linkTo(itemAction.start)
-        }) {
+        Column(
+            modifier = Modifier
+                .weight(1f)
+                .padding(horizontal = Spacing_content_horizontal)
+        ) {
 
             Text(
                 text = currency.name,
@@ -103,19 +98,15 @@ fun CurrencyItem(
         }
         AnimatedVisibility(
             visible = isSelected,
-            modifier = Modifier
-                .constrainAs(itemAction) {
-                    end.linkTo(parent.end)
-                    top.linkTo(itemContent.top)
-                    bottom.linkTo(itemIcon.bottom)
-                }) {
+        ) {
             Box(
                 modifier = Modifier
                     .background(
                         MaterialTheme.colorScheme.surfaceColorAtElevation(1.dp), shape = CircleShape
                     )
                     .padding(all = Spacing_content_vertical)
-                    .clip(CircleShape)
+                    .clip(CircleShape),
+                contentAlignment = Alignment.Center
 
             ) {
                 Icon(
