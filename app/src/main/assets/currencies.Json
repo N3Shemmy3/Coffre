@@ -1008,12 +1008,6 @@
     "symbolNative": "ZK"
   },
   {
-    "code": "ZWB",
-    "name": "RTGS Dollar",
-    "symbol": "",
-    "symbolNative": ""
-  },
-  {
     "code": "ZWL",
     "name": "Zimbabwean Dollar",
     "symbol": "Z$",
@@ -1022,8 +1016,8 @@
   {
     "code": "Abkhazia",
     "name": "Abkhazian Apsar",
-    "symbol": "",
-    "symbolNative": ""
+    "symbol": "АПС",
+    "symbolNative": "АПС"
   },
   {
     "code": "Artsakh",
