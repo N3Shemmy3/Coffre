@@ -1,3 +1,36 @@
 <resources>
-    <string name="app_name">Coffre</string>
+    <string name="app_name" translatable="false">Coffre</string>
+
+
+    <!-- Pages -->
+    <string name="page_onboarding">OnBoarding</string>
+    <string name="page_currency">Currency</string>
+    <string name="page_main">Main</string>
+    <string name="page_record">Record</string>
+    <string name="page_profile">Profile</string>
+    <string name="page_settings">Settings</string>
+
+
+    <!-- Actions -->
+    <string name="action_add">Add</string>
+    <string name="action_remove">Remove</string>
+    <string name="action_delete">Delete</string>
+    <string name="action_pause">Pause</string>
+    <string name="action_play">Play</string>
+    <string name="action_stop">Stop</string>
+    <string name="action_continue">Continue</string>
+    <string name="action_search">Search</string>
+    <string name="action_clear">Clear</string>
+    <string name="action_next">Next</string>
+    <string name="action_previous">Previous</string>
+    <string name="action_skip">Skip</string>
+    <string name="action_see_all">See all</string>
+
+
+    <!-- Account Text -->
+    <string name="account">Account</string>
+    <string name="balance">Balance</string>
+    <string name="income">Income</string>
+    <string name="expense">Expense</string>
+    <string name="expenses">Expenses</string>
 </resources>

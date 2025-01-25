@@ -17,10 +17,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
+import dev.n3shemmy3.coffre.R
 import dev.n3shemmy3.coffre.ui.theme.ExtendedDarkColorScheme
 import dev.n3shemmy3.coffre.ui.theme.ExtendedLightColorScheme
 import dev.n3shemmy3.coffre.ui.theme.Spacing_content_horizontal
@@ -43,7 +45,7 @@ fun MainBalanceCard() {
         ) {
             val (accountName, balanceCurrency, balanceRound, balanceDecimal, incomeTitle, incomeValue, expenseTitle, expenseValue, balanceBar) = createRefs()
             Text(
-                text = "Expenses",
+                text = stringResource(R.string.expenses),
                 fontWeight = FontWeight.W600,
                 style = MaterialTheme.typography.bodyMedium,
                 modifier = Modifier
@@ -79,7 +81,7 @@ fun MainBalanceCard() {
                         bottom.linkTo(balanceRound.bottom, 4.dp)
                     })
             Text(
-                text = "Income",
+                text = stringResource(R.string.income),
                 fontWeight = FontWeight.W600,
                 style = MaterialTheme.typography.bodyMedium,
                 modifier = Modifier
@@ -100,7 +102,7 @@ fun MainBalanceCard() {
                         bottom.linkTo(incomeTitle.bottom)
                     })
             Text(
-                text = "Expenses",
+                text = stringResource(R.string.expenses),
                 fontWeight = FontWeight.W600,
                 style = MaterialTheme.typography.bodyMedium,
                 modifier = Modifier

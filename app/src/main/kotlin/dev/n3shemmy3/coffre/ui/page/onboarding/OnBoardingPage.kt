@@ -44,6 +44,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
@@ -158,7 +159,7 @@ fun OnBoardingPage(navController: NavHostController) {
                     )
                     Spacer(Modifier.height(24.dp))
                     Text(
-                        text = "(\u2060・\u2060o\u2060・)",
+                        text = "Moshi moshi",
                         style = MaterialTheme.typography.titleMedium,
                         color = MaterialTheme.colorScheme.secondary
                     )
@@ -223,29 +224,27 @@ fun ActionRow(
             TextButton(
                 onClick = {
                     animationScope.launch {
-                        pagerState.animateScrollToPage(pagerState.pageCount - 1)
-                        navController.navigate(RouteName.Currency)
+                       navController.navigate(RouteName.Currency)
                     }
 
                 }) {
-                Text(text = "Skip")
+                Text(text = stringResource(R.string.action_skip))
             }
         }
         AnimatedVisibility(visible = isFinalPage) {
             Button(modifier = Modifier.fillMaxWidth(), onClick = {
                 animationScope.launch {
-                    pagerState.animateScrollToPage(pagerState.currentPage + 1)
                     navController.navigate(RouteName.Currency)
                 }
             }) {
-                Text(text = "Continue")
+                Text(text = stringResource(R.string.action_continue))
             }
         }
         AnimatedVisibility(visible = !isFinalPage) {
             Button(onClick = {
                 animationScope.launch { pagerState.animateScrollToPage(pagerState.currentPage + 1) }
             }) {
-                Text(text = "Next")
+                Text(text = stringResource(R.string.action_next))
             }
         }
     }

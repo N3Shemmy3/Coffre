@@ -42,12 +42,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalLayoutDirection
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import dev.n3shemmy3.coffre.R
 import dev.n3shemmy3.coffre.ui.component.base.AppScaffold
 import dev.n3shemmy3.coffre.ui.component.base.ExpandableColumn
 import dev.n3shemmy3.coffre.ui.component.base.FeedBackIcon
@@ -59,7 +61,7 @@ fun RecordPage(navController: NavHostController) {
     AppScaffold(useLargeAppBar = false, navigationIcon = {
         FeedBackIcon(
             Icons.AutoMirrored.Outlined.ArrowBack, null, onClick = { navController.popBackStack() })
-    }, title = "Record", content = { paddingValues ->
+    }, title = stringResource(R.string.page_record), content = { paddingValues ->
         var layoutDirection = LocalLayoutDirection.current
         val paddingValues = PaddingValues(
             start = paddingValues.calculateLeftPadding(layoutDirection) + Spacing_content_vertical,

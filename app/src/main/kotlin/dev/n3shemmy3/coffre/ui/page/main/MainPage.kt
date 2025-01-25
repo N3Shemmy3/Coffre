@@ -2,6 +2,7 @@ package dev.n3shemmy3.coffre.ui.page.main
 
 import android.annotation.SuppressLint
 import android.view.HapticFeedbackConstants
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.absolutePadding
@@ -19,27 +20,27 @@ import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.platform.LocalView
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.Wallpapers
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import dev.n3shemmy3.coffre.R
+import dev.n3shemmy3.coffre.ui.component.base.AppBarIconButton
 import dev.n3shemmy3.coffre.ui.component.base.AppScaffold
 import dev.n3shemmy3.coffre.ui.component.base.FeedBackIcon
-import dev.n3shemmy3.coffre.ui.theme.Shape20
 import dev.n3shemmy3.coffre.ui.theme.ShapeBottom20
 
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 @Composable
 fun MainPage(navController: NavHostController) {
     AppScaffold(useLargeAppBar = false, title = "", navigationIcon = {
@@ -47,16 +48,15 @@ fun MainPage(navController: NavHostController) {
             navController.navigate(RouteName.PROFILE)
         })
     }, actions = {
-        IconButton(onClick = {}) {
-            Icon(
-                imageVector = Icons.Outlined.Search, contentDescription = "Search",
-            )
-        }
-        IconButton(onClick = {}) {
-            Icon(
-                imageVector = Icons.Outlined.DateRange, contentDescription = "Calender"
-            )
-        }
+
+        AppBarIconButton(
+            imageVector = Icons.Outlined.Search,
+            contentDescription = stringResource(R.string.action_search),
+        )
+
+        AppBarIconButton(
+            imageVector = Icons.Outlined.DateRange, contentDescription = "Calender"
+        )
     }, content = { paddingValues ->
         val numbers = remember { mutableListOf(1, 2, 3, 4, 5, 6, 7) }
         TransactionList(
@@ -64,11 +64,11 @@ fun MainPage(navController: NavHostController) {
         )
     }, floatingActionButton = {
         val view = LocalView.current
-        FloatingActionButton(modifier = Modifier.size(64.dp), shape = Shape20, onClick = {
+        FloatingActionButton(modifier = Modifier.size(64.dp), onClick = {
             view.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP)
             navController.navigate(RouteName.RECORD)
         }) {
-            Icon(Icons.Outlined.Add, null)
+            Icon(Icons.Outlined.Add, stringResource(R.string.action_add))
         }
     })
 }
@@ -106,7 +106,6 @@ fun TransactionList(paddingValues: PaddingValues, numbers: MutableList<Int>) {
 
 
 @Preview(
-    device = "spec:width=1080px,height=1920px",
     wallpaper = Wallpapers.GREEN_DOMINATED_EXAMPLE,
     name = "Spark 5pro"
 )

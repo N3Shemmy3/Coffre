@@ -89,7 +89,7 @@ fun ProfileHeader(paddingValues: PaddingValues) {
                     start.linkTo(
                         parent.start, margin = paddingValues.calculateStartPadding(
                             layoutDirection
-                        )
+                        ) + Spacing_page_horizontal
                     )
                     bottom.linkTo(parent.bottom)
                 })

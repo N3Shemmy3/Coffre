@@ -79,8 +79,8 @@ fun CurrencyItem(
 
         Column(
             modifier = Modifier
-                .weight(1f)
                 .padding(horizontal = Spacing_content_horizontal)
+                .weight(1f)
         ) {
 
             Text(
