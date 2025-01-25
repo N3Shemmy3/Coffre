@@ -76,8 +76,14 @@ fun OnBoardingPage(navController: NavHostController) {
         )
     var pageCount = 3
     val pagerState = rememberPagerState(pageCount = { pageCount })
-
-
+    val animationScope = rememberCoroutineScope()
+    BackHandler(enabled = pagerState.currentPage != 0) {
+        animationScope.launch {
+            if (pagerState.currentPage != 0) {
+                pagerState.animateScrollToPage(pagerState.currentPage - 1)
+            }
+        }
+    }
     Column(
         modifier = Modifier
             .fillMaxSize()
