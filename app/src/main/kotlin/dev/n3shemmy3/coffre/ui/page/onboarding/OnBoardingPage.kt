@@ -74,8 +74,8 @@ fun OnBoardingPage(navController: NavHostController) {
         cutOutInsets.calculateStartPadding(layoutDirection) + cutOutInsets.calculateEndPadding(
             layoutDirection
         )
-    var pageCount = 3
-    val pagerState = rememberPagerState(pageCount = { pageCount })
+
+    val pagerState = rememberPagerState(pageCount = { 3 })
     val animationScope = rememberCoroutineScope()
     BackHandler(enabled = pagerState.currentPage != 0) {
         animationScope.launch {
