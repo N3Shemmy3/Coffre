@@ -84,6 +84,7 @@ fun OnBoardingPage(navController: NavHostController) {
             }
         }
     }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
