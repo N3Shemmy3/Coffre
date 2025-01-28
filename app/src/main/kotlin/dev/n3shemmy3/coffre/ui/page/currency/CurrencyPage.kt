@@ -55,12 +55,12 @@ fun CurrencyPage(navController: NavController) {
         currencyList = ReadCurrencyData(context)
     }
     AppScaffold(
-        useLargeAppBar = true, navigationIcon = {
-            FeedBackIcon(
-                Icons.AutoMirrored.Outlined.ArrowBack,
-                null,
-                onClick = { navController.popBackStack() })
-        }, title = "Currency",
+        navigationIcon = {
+        FeedBackIcon(
+            Icons.AutoMirrored.Outlined.ArrowBack,
+            null,
+            onClick = { navController.popBackStack() })
+    }, title = "Currency",
         content = { paddingValues ->
             var layoutDirection = LocalLayoutDirection.current
             val paddingValues = PaddingValues(

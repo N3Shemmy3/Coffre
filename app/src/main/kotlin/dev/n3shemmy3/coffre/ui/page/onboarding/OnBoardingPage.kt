@@ -1,6 +1,7 @@
 package dev.n3shemmy3.coffre.ui.page.onboarding
 
 import android.annotation.SuppressLint
+import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.EaseInOut
 import androidx.compose.animation.core.LinearEasing
@@ -231,7 +232,7 @@ fun ActionRow(
             TextButton(
                 onClick = {
                     animationScope.launch {
-                       navController.navigate(RouteName.Currency)
+                        navController.navigate(RouteName.Currency)
                     }
 
                 }) {
