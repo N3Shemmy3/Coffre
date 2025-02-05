@@ -118,7 +118,7 @@ fun AppScaffold(
         }
         Spacer(
             modifier = Modifier
-                .width(if (actions.isEmpty()) hInsets + Spacing_content_vertical else hInsets)
+                .width(hInsets + Spacing_content_vertical)
                 .fillMaxHeight()
         )
     }
