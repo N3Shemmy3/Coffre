@@ -50,7 +50,7 @@ fun AppScaffold(
     title: String,
     content: (@Composable (paddingValues: PaddingValues) -> Unit)? = null,
     floatingActionButton: (@Composable () -> Unit)? = null,
-    actions: MutableList<AppBarItem>
+    actions: MutableList<AppBarItem>?
 ) {
     val scrollBehavior = if (useLargeAppBar) TopAppBarDefaults.exitUntilCollapsedScrollBehavior(
         rememberTopAppBarState()
@@ -108,7 +108,7 @@ fun AppScaffold(
     }
 
     fun optionsMenu() = @Composable {
-        actions.forEach { item ->
+        actions?.forEach { item ->
             AppBarIconButton(
                 imageVector = item.icon,
                 enabled = item.isEnabled,
