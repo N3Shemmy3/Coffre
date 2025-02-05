@@ -15,7 +15,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Add
-import androidx.compose.material.icons.outlined.DateRange
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
@@ -33,7 +32,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import dev.n3shemmy3.coffre.R
-import dev.n3shemmy3.coffre.ui.component.base.AppBarIconButton
+import dev.n3shemmy3.coffre.ui.component.base.AppBarItem
 import dev.n3shemmy3.coffre.ui.component.base.AppScaffold
 import dev.n3shemmy3.coffre.ui.component.base.FeedBackIcon
 import dev.n3shemmy3.coffre.ui.theme.ShapeBottom20
@@ -43,34 +42,32 @@ import dev.n3shemmy3.coffre.ui.theme.ShapeBottom20
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 @Composable
 fun MainPage(navController: NavHostController) {
-    AppScaffold(useLargeAppBar = false, title = "", navigationIcon = {
-        FeedBackIcon(R.drawable.avatar, null, onClick = {
-            navController.navigate(RouteName.PROFILE)
+    AppScaffold(
+        useLargeAppBar = false, title = "", navigationIcon = {
+            FeedBackIcon(R.drawable.avatar, null, onClick = {
+                navController.navigate(RouteName.PROFILE)
+            })
+        }, actions = mutableListOf(
+            AppBarItem(
+                id = "Search",
+                icon = Icons.Outlined.Search,
+                contentDescription = stringResource(R.string.action_search),
+                onClick = {}
+            ),
+        ), content = { paddingValues ->
+            val numbers = remember { mutableListOf(1, 2, 3, 4, 5, 6, 7) }
+            TransactionList(
+                paddingValues = paddingValues, numbers = numbers
+            )
+        }, floatingActionButton = {
+            val view = LocalView.current
+            FloatingActionButton(modifier = Modifier.size(64.dp), onClick = {
+                view.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP)
+                navController.navigate(RouteName.RECORD)
+            }) {
+                Icon(Icons.Outlined.Add, stringResource(R.string.action_add))
+            }
         })
-    }, actions = {
-
-        AppBarIconButton(
-            imageVector = Icons.Outlined.Search,
-            contentDescription = stringResource(R.string.action_search),
-        )
-
-        AppBarIconButton(
-            imageVector = Icons.Outlined.DateRange, contentDescription = "Calender"
-        )
-    }, content = { paddingValues ->
-        val numbers = remember { mutableListOf(1, 2, 3, 4, 5, 6, 7) }
-        TransactionList(
-            paddingValues = paddingValues, numbers = numbers
-        )
-    }, floatingActionButton = {
-        val view = LocalView.current
-        FloatingActionButton(modifier = Modifier.size(64.dp), onClick = {
-            view.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP)
-            navController.navigate(RouteName.RECORD)
-        }) {
-            Icon(Icons.Outlined.Add, stringResource(R.string.action_add))
-        }
-    })
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -92,8 +89,7 @@ fun TransactionList(paddingValues: PaddingValues, numbers: MutableList<Int>) {
             TransactionCategoryItem()
         }
         items(items = numbers, key = { it.hashCode() }) {
-            val shape =
-                if (it == numbers[numbers.size - 1]) ShapeBottom20 else RectangleShape
+            val shape = if (it == numbers[numbers.size - 1]) ShapeBottom20 else RectangleShape
             TransactionItem(it, shape = shape)
         }
         item(key = "spacer".hashCode()) {
@@ -106,8 +102,7 @@ fun TransactionList(paddingValues: PaddingValues, numbers: MutableList<Int>) {
 
 
 @Preview(
-    wallpaper = Wallpapers.GREEN_DOMINATED_EXAMPLE,
-    name = "Spark 5pro"
+    wallpaper = Wallpapers.GREEN_DOMINATED_EXAMPLE, name = "Spark 5pro"
 )
 @Composable
 fun MainPagePreview() {

@@ -53,10 +53,9 @@ fun AppScaffold(
     floatingActionButton: (@Composable () -> Unit)? = null,
     actions: (@Composable () -> Unit)? = {}
 ) {
-    val scrollBehavior =
-        if (useLargeAppBar) TopAppBarDefaults.exitUntilCollapsedScrollBehavior(
-            rememberTopAppBarState()
-        ) else TopAppBarDefaults.pinnedScrollBehavior()
+    val scrollBehavior = if (useLargeAppBar) TopAppBarDefaults.exitUntilCollapsedScrollBehavior(
+        rememberTopAppBarState()
+    ) else TopAppBarDefaults.pinnedScrollBehavior()
     var isExpanded = scrollBehavior.state.collapsedFraction <= 0.65f
     var layoutDirection = LocalLayoutDirection.current
     val cutOutInsets = WindowInsets.displayCutout.asPaddingValues()
@@ -83,8 +82,7 @@ fun AppScaffold(
         Row(
             modifier = Modifier
                 .padding(
-                    start = if (!useLargeAppBar) Spacing_content_vertical else
-                        if (isExpanded) hInsets + Spacing_content_vertical else Spacing_content_vertical,
+                    start = if (!useLargeAppBar) Spacing_content_vertical else if (isExpanded) hInsets + Spacing_content_vertical else Spacing_content_vertical,
                 )
                 .fillMaxHeight(),
             horizontalArrangement = Arrangement.Center,
@@ -143,16 +141,11 @@ fun AppScaffold(
                     )
                 }
             } else {
-                TopAppBar(
-                    scrollBehavior = scrollBehavior,
-                    navigationIcon = {
-                        backIcon().invoke()
-                    },
-                    title = { titleText().invoke() },
-                    actions = {
-                        optionsMenu().invoke()
-                    }
-                )
+                TopAppBar(scrollBehavior = scrollBehavior, navigationIcon = {
+                    backIcon().invoke()
+                }, title = { titleText().invoke() }, actions = {
+                    optionsMenu().invoke()
+                })
             }
         },
         content = { it ->
@@ -172,6 +165,139 @@ fun AppScaffold(
             ) {
                 floatingActionButton?.invoke()
             }
+        })
+}
+
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun AppScaffold(
+    useLargeAppBar: Boolean = true,
+    useSearchBar: Boolean = true,
+    navigationIcon: (@Composable () -> Unit)? = null,
+    title: String,
+    content: (@Composable (paddingValues: PaddingValues) -> Unit)? = null,
+    floatingActionButton: (@Composable () -> Unit)? = null,
+    actions: MutableList<AppBarItem>
+) {
+    val scrollBehavior = if (useLargeAppBar) TopAppBarDefaults.exitUntilCollapsedScrollBehavior(
+        rememberTopAppBarState()
+    ) else TopAppBarDefaults.pinnedScrollBehavior()
+    var isExpanded = scrollBehavior.state.collapsedFraction <= 0.65f
+    var layoutDirection = LocalLayoutDirection.current
+    val cutOutInsets = WindowInsets.displayCutout.asPaddingValues()
+    val systemInsets = WindowInsets.systemBars.asPaddingValues()
+
+    val hInsets =
+        cutOutInsets.calculateStartPadding(layoutDirection) + cutOutInsets.calculateEndPadding(
+            layoutDirection
+        )
+
+    fun backIcon() = @Composable() {
+        Row(
+            modifier = Modifier
+                .padding(start = hInsets + Spacing_content_vertical)
+                .fillMaxHeight(),
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            navigationIcon?.invoke()
         }
-    )
+    }
+
+    fun titleText() = @Composable {
+        Row(
+            modifier = Modifier
+                .padding(
+                    start = if (!useLargeAppBar) Spacing_content_vertical else if (isExpanded) hInsets + Spacing_content_vertical else Spacing_content_vertical,
+                )
+                .fillMaxHeight(),
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            var textState by remember { mutableStateOf(TextFieldValue(title)) }
+            if (scrollBehavior.state.collapsedFraction >= 0.65f) {
+                BasicTextField(
+                    value = textState,
+                    onValueChange = {
+                        textState = it
+                    },
+                    textStyle = MaterialTheme.typography.titleLarge,
+                    singleLine = true,
+                    keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
+                    keyboardActions = KeyboardActions(onSearch = { }),
+
+                    )
+            } else {
+                Text(title)
+            }
+
+        }
+    }
+
+    fun optionsMenu() = @Composable {
+        actions.forEach { item ->
+            AppBarIconButton(
+                imageVector = item.icon,
+                enabled = item.isEnabled,
+                onClick = item.onClick,
+                contentDescription = item.contentDescription,
+            )
+        }
+        Spacer(
+            modifier = Modifier
+                .width(if (actions.isEmpty()) hInsets + Spacing_content_vertical else hInsets)
+                .fillMaxHeight()
+        )
+    }
+
+    Scaffold(
+        modifier = Modifier
+            .fillMaxSize()
+            .nestedScroll(scrollBehavior.nestedScrollConnection),
+        topBar = {
+            if (useLargeAppBar) {
+                val typography = MaterialTheme.typography
+                val overrideTypography =
+                    remember(typography) { typography.copy(headlineMedium = typography.displaySmall) }
+
+                MaterialTheme(typography = overrideTypography) {
+                    LargeTopAppBar(
+                        scrollBehavior = scrollBehavior,
+                        navigationIcon = {
+                            backIcon().invoke()
+                        },
+                        title = { titleText().invoke() },
+                        actions = {
+                            optionsMenu().invoke()
+                        },
+                        expandedHeight = TopAppBarDefaults.LargeAppBarExpandedHeight + 24.dp,
+                    )
+                }
+            } else {
+                TopAppBar(scrollBehavior = scrollBehavior, navigationIcon = {
+                    backIcon().invoke()
+                }, title = { titleText().invoke() }, actions = {
+                    optionsMenu().invoke()
+                })
+            }
+        },
+        content = { it ->
+            val paddingValues = PaddingValues(
+                start = hInsets + Spacing_content_horizontal,
+                top = it.calculateTopPadding(),
+                end = hInsets + Spacing_content_horizontal,
+                bottom = systemInsets.calculateBottomPadding()
+            )
+            content?.invoke(paddingValues)
+        },
+        floatingActionButton = {
+            Box(
+                modifier = Modifier.padding(
+                    horizontal = hInsets,
+                )
+            ) {
+                floatingActionButton?.invoke()
+            }
+        })
 }
