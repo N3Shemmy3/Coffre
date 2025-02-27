@@ -90,7 +90,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="- $300"
-            android:textAppearance="?textAppearanceBodyLarge"
+            android:textAppearance="?textAppearanceBodySmall"
             android:textColor="?colorOnErrorContainer" />
 
     </com.google.android.material.card.MaterialCardView>
