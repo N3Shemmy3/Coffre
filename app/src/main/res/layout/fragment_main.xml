@@ -61,7 +61,7 @@
                 android:id="@+id/mainBalanceCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:name="dev.n3shemmy3.coffre.ui.main.MainBalanceCard"/>
+                android:name="dev.n3shemmy3.coffre.ui.screen.main.MainBalanceCard"/>
 
             <!-- Transaction List -->
             <com.google.android.material.card.MaterialCardView
@@ -102,7 +102,7 @@
                         android:id="@+id/transactionRecycler"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:name="dev.n3shemmy3.coffre.ui.main.MainTransactionsList"
+                        android:name="dev.n3shemmy3.coffre.ui.screen.main.MainTransactionsList"
                         android:layout_below="@id/transactionHeader"
                         android:layout_marginVertical="12dp" />
                 </RelativeLayout>

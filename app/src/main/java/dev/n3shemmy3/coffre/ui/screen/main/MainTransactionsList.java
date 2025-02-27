@@ -1,4 +1,4 @@
-package dev.n3shemmy3.coffre.ui.main;
+package dev.n3shemmy3.coffre.ui.screen.main;
 
 import android.os.Bundle;
 import android.view.View;
