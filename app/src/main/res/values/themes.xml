@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <style name="BaseTheme" parent="Theme.Material3.DynamicColors.DayNight.NoActionBar">
         <item name="colorPrimary">@color/md_theme_primary</item>
         <item name="colorOnPrimary">@color/md_theme_onPrimary</item>
@@ -52,6 +52,21 @@
         <item name="android:windowBackground">?android:colorBackground</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="toolbarStyle">@style/App.MaterialToolbar</item>
+        <item name="collapsingToolbarLayoutStyle">@style/App.CollapsingToolbar.Large</item>
+        <!-- custom height to fixed insets shrinking height-->
+        <item name="collapsingToolbarLayoutLargeSize">@dimen/appbar_collapsing_height</item>
+        <item name="listPreferredItemHeightLarge">@dimen/item_height_large</item>
+        <item name="android:listPreferredItemPaddingStart">@dimen/item_padding_horizontal</item>
+        <item name="android:listPreferredItemPaddingEnd">@dimen/item_padding_horizontal</item>
+        <item name="listPreferredItemPaddingStart">@dimen/item_padding_horizontal</item>
+        <item name="listPreferredItemPaddingEnd">@dimen/item_padding_horizontal</item>
+        <!-- fixes some UI issues on MIUI devices -->
+        <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
+        <!-- true edge-to-edge, no black bars in display notch -->
+        <item name="android:windowLayoutInDisplayCutoutMode" tools:targetApi="r">always</item>
+        <!-- Work around b/331383944: PreferenceFragmentCompat permanently mutates activity theme (enables vertical scrollbars) -->
+        <item name="android:scrollbars">none</item>
     </style>
 
     <style name="LaunchTheme" parent="BaseTheme">

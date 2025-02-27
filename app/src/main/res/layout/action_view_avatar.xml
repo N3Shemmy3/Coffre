@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="40dp"
+    android:layout_height="40dp"
+    android:clickable="true"
+    android:foreground="?actionBarItemBackground"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_gravity="center"
+        android:scaleType="centerCrop"
+        app:strokeWidth="1dp"
+        app:strokeColor="?colorOutline"
+        app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Full"
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"
+        app:srcCompat="@drawable/avatar" />
+
+</FrameLayout>

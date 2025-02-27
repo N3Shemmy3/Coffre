@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="activity_padding_horizontal">20dp</dimen>
+    <dimen name="activity_padding_vertical">16dp</dimen>
+    <dimen name="appbar_collapsing_height">196dp</dimen>
+    <dimen name="material_card_corner_radius">22dp</dimen>
+    <dimen name="item_padding_horizontal">16dp</dimen>
+    <dimen name="item_height_large">94dp</dimen>
+</resources>

@@ -1,3 +1,53 @@
 <resources>
     <string name="app_name">Coffre</string>
+
+    <!--Main Screens -->
+    <string name="label_transactions">Transactions</string>
+
+    <!--Settings Screens -->
+    <string name="label_settings">Settings</string>
+    <string name="summary_settings">Tweaks and treats</string>
+    <string name="label_look_and_feel">Look &amp; feel</string>
+    <string name="summary_look_and_feel">Dark theme, languages</string>
+    <string name="label_about">About</string>
+    <string name="summary_about">App version, feedback</string>
+
+    <!--Preferences -->
+    <!--Look & feel -->
+    <string name="pref_dynamic_color">Dynamic color</string>
+    <string name="pref_summary_dynamic_color">Use colors from wallpaper for app theme</string>
+    <string name="pref_dark_theme">Dark Theme</string>
+    <string name="theme_system">System</string>
+    <string name="theme_light">Off</string>
+    <string name="theme_dark">On</string>
+
+    <!--Actions -->
+    <string name="action_open">Open</string>
+    <string name="action_close">Close</string>
+    <string name="action_start">Start</string>
+    <string name="action_stop">Stop</string>
+    <string name="action_save">Save</string>
+    <string name="action_search">Search</string>
+    <string name="action_clear">Clear</string>
+    <string name="action_history">History</string>
+    <string name="action_present">Present</string>
+    <string name="action_future">Future</string>
+    <string name="action_delete">Delete</string>
+
+    <!--Content Descriptions -->
+    <!--User Profile-->
+    <string name="user_profile_picture">User profile picture</string>
+    <string name="profile_avatar">Avatar</string>
+
+
+    <!--Views-->
+    <string name="record_new_transaction">Record new transaction</string>
+    <!--List Item-->
+    <string name="list_item_icon">List item icon</string>
+    <string name="list_item_title">List item title</string>
+    <string name="list_item_sub_title">List item subtitle</string>
+    <string name="see_all">See all</string>
+    <string name="income">Income</string>
+    <string name="expenses">Expenses</string>
+
 </resources>
