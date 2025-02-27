@@ -55,6 +55,6 @@
     </style>
 
     <style name="LaunchTheme" parent="BaseTheme">
-        <item name="android:windowBackground">?colorSurface</item>
+        <item name="android:windowBackground">@drawable/launch_background</item>
     </style>
 </resources>
