@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/budgetCard"
+    style="?materialCardViewFilledStyle"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="16dp"
+    android:layout_marginEnd="16dp"
+    app:cardBackgroundColor="?colorPrimary"
+    app:cardCornerRadius="22dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingVertical="20dp">
+
+        <TextView
+            android:id="@+id/account_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:alpha="0.72"
+            android:text="My Balance"
+            android:textColor="?colorOnPrimary"
+            android:textFontWeight="600"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/currency"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:alpha="0.72"
+            android:text="$"
+            android:textColor="?colorOnPrimary"
+            android:textSize="32sp"
+            app:layout_constraintBottom_toBottomOf="@id/decimal"
+            app:layout_constraintStart_toStartOf="@id/account_title"
+            app:layout_constraintTop_toTopOf="@id/decimal" />
+
+        <TextView
+            android:id="@+id/round"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="2dp"
+            android:text="-123."
+            android:textColor="?colorOnPrimary"
+            android:textSize="54sp"
+            app:layout_constraintEnd_toStartOf="@id/decimal"
+            app:layout_constraintTop_toTopOf="@id/account_title" />
+
+        <TextView
+            android:id="@+id/decimal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="4dp"
+            android:text="45"
+            android:textColor="?colorOnPrimary"
+            android:textSize="36sp"
+            app:layout_constraintBottom_toBottomOf="@id/round"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <TextView
+            android:id="@+id/income_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:alpha="0.72"
+            android:text="@string/income"
+            android:textColor="?colorOnPrimary"
+            android:textFontWeight="600"
+            app:layout_constraintStart_toStartOf="@id/account_title"
+            app:layout_constraintTop_toBottomOf="@id/round" />
+
+        <TextView
+            android:id="@+id/income"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="+ $12839"
+            android:textColor="?colorOnPrimary"
+            android:textFontWeight="700"
+            app:layout_constraintBottom_toBottomOf="@id/income_title"
+            app:layout_constraintEnd_toEndOf="@id/decimal"
+            app:layout_constraintTop_toTopOf="@id/income_title" />
+
+        <TextView
+            android:id="@+id/expenses_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:alpha="0.72"
+            android:text="@string/expenses"
+            android:textColor="?colorErrorContainer"
+            android:textFontWeight="600"
+            app:layout_constraintStart_toStartOf="@id/account_title"
+            app:layout_constraintTop_toBottomOf="@id/income_title" />
+
+        <TextView
+            android:id="@+id/expenses"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="- $5678"
+            android:textColor="?colorErrorContainer"
+            android:textFontWeight="700"
+            app:layout_constraintBottom_toBottomOf="@id/expenses_title"
+            app:layout_constraintEnd_toEndOf="@id/decimal"
+            app:layout_constraintTop_toTopOf="@id/expenses_title" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

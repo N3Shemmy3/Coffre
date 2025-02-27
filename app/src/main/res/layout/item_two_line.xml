@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:foreground="?attr/selectableItemBackground"
+    android:clickable="true"
+    android:minHeight="64dp">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/itemStartCard"
+        style="@style/Widget.Material3.CardView.Filled"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="16dp"
+        app:cardBackgroundColor="?colorSurfaceBright"
+        app:contentPadding="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full">
+
+        <ImageView
+            android:id="@+id/itemIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/list_item_icon"
+            app:tint="@color/list_item_tint"
+            tools:src="@drawable/outline_local_cafe_24" />
+    </com.google.android.material.card.MaterialCardView>
+
+    <TextView
+        android:id="@+id/itemTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:contentDescription="@string/list_item_title"
+        android:maxLines="1"
+        android:layout_marginTop="-2dp"
+        android:textAppearance="?attr/textAppearanceSubtitle1"
+        android:textColor="@color/list_item_tint"
+        app:layout_constraintEnd_toStartOf="@id/itemEndCard"
+        app:layout_constraintStart_toEndOf="@id/itemStartCard"
+        app:layout_constraintTop_toTopOf="@id/itemStartCard"
+        tools:ignore="RtlSymmetry"
+        tools:text="@string/list_item_title" />
+
+    <TextView
+        android:id="@+id/itemSubTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/list_item_sub_title"
+        android:maxLines="2"
+        android:textAppearance="?attr/textAppearanceBody2"
+        android:textColor="@color/list_item_subtitle_tint"
+        app:layout_constraintEnd_toEndOf="@id/itemTitle"
+        app:layout_constraintStart_toStartOf="@id/itemTitle"
+        app:layout_constraintTop_toBottomOf="@id/itemTitle"
+        tools:ignore="RtlSymmetry"
+        tools:text="@string/list_item_sub_title" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/itemEndCard"
+        style="@style/Widget.Material3.CardView.Filled"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="16dp"
+        app:cardBackgroundColor="?colorErrorContainer"
+        app:contentPadding="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full">
+
+        <ImageView
+            android:id="@+id/itemEndIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/list_item_icon"
+            android:src="@drawable/outline_local_cafe_24"
+            android:visibility="gone"
+            app:tint="?colorOnErrorContainer" />
+
+        <TextView
+            android:id="@+id/itemEndText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="- $300"
+            android:textAppearance="?textAppearanceBodyLarge"
+            android:textColor="?colorOnErrorContainer" />
+
+    </com.google.android.material.card.MaterialCardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

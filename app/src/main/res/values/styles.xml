@@ -12,4 +12,8 @@
         <item name="titleCollapseMode">fade</item>
         <item name="contentScrim">?attr/colorSurfaceContainer</item>
     </style>
+    <style name="Widget.AppTheme.MyView" parent="">
+        <item name="android:background">@color/gray_400</item>
+        <item name="exampleColor">@color/light_blue_400</item>
+    </style>
 </resources>

@@ -51,10 +51,67 @@
         <LinearLayout
             android:id="@+id/content"
             android:layout_width="match_parent"
-            android:layout_height="10000dp"
+            android:layout_height="match_parent"
             android:orientation="vertical"
             android:paddingTop="@dimen/activity_padding_vertical"
             android:paddingBottom="84dp">
+
+            <!-- Current Balance Card-->
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/mainBalanceCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:name="dev.n3shemmy3.coffre.ui.main.MainBalanceCard"/>
+
+            <!-- Transaction List -->
+            <com.google.android.material.card.MaterialCardView
+                style="?materialCardViewFilledStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/activity_padding_vertical"
+                app:cardCornerRadius="22dp"
+                app:contentPaddingTop="8dp">
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/transactionHeader"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBaseline="@id/transactionAllButton"
+                        android:layout_marginHorizontal="16dp"
+                        android:text="@string/label_transactions"
+                        android:textAppearance="?attr/textAppearanceSubtitle1"
+                        android:textStyle="bold" />
+
+                    <Button
+                        android:id="@+id/transactionAllButton"
+                        style="@style/Widget.Material3.Button.TextButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignEnd="@id/transactionHeader"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginHorizontal="12dp"
+                        android:text="@string/see_all" />
+
+                    <androidx.fragment.app.FragmentContainerView
+                        android:id="@+id/transactionRecycler"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:name="dev.n3shemmy3.coffre.ui.main.MainTransactionsList"
+                        android:layout_below="@id/transactionHeader"
+                        android:layout_marginVertical="12dp" />
+                </RelativeLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1000dp"/>
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

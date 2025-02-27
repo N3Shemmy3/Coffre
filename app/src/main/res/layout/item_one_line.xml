@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:foreground="?attr/selectableItemBackground"
+    android:gravity="center_vertical"
+    android:minHeight="?attr/minTouchTargetSize">
+
+    <ImageView
+        android:id="@+id/itemIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:contentDescription="@string/list_item_icon"
+        android:paddingStart="20dp"
+        android:paddingTop="8dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="8dp"
+        app:layout_constraintEnd_toStartOf="@+id/itemTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/outline_local_cafe_24" />
+
+    <TextView
+        android:id="@+id/itemTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/list_item_title"
+        android:maxLines="1"
+        android:textAppearance="?attr/textAppearanceSubtitle1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/itemEndCard"
+        app:layout_constraintStart_toEndOf="@+id/itemIcon"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="RtlSymmetry"
+        tools:text="@string/list_item_title" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/itemEndCard"
+        style="@style/Widget.Material3.CardView.Filled"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="16dp"
+        app:cardBackgroundColor="?colorErrorContainer"
+        app:contentPadding="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/itemTitle"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full">
+
+        <ImageView
+            android:id="@+id/itemEndIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/list_item_icon"
+            android:src="@drawable/outline_local_cafe_24"
+            android:visibility="gone"
+            app:tint="?colorOnErrorContainer" />
+
+        <TextView
+            android:id="@+id/itemEndText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="- $300"
+            android:textAppearance="?textAppearanceBodyLarge"
+            android:textColor="?colorOnErrorContainer" />
+
+    </com.google.android.material.card.MaterialCardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

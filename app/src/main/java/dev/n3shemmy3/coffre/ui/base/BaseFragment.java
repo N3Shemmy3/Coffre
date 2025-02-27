@@ -76,7 +76,7 @@ public abstract class BaseFragment extends Fragment {
             InsetsUtils.applyAppbarInsets(topAppBar, topToolBar, collToolBar);
         //content below Appbar
         if (content != null) {
-            //InsetsUtils.applyContentInsets(root.findViewById(R.id.content));
+            InsetsUtils.applyContentInsets(root.findViewById(R.id.content));
         }
     }
     @NonNull
