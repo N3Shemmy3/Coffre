@@ -51,7 +51,7 @@ public class MainTransactionsList extends BaseFragment {
         transaction.setId(transactions.size() - 1);
         transaction.setTitle("Salary");
         transaction.setDescription("Income");
-        transaction.setAmount(200);
+        transaction.setAmount(20.00);
         transaction.setTransactionType(Transaction.TransactionType.INCOME);
         transactions.add(transaction);
 
@@ -60,7 +60,7 @@ public class MainTransactionsList extends BaseFragment {
         transaction.setId(transactions.size() - 1);
         transaction.setTitle("Bank to Cash");
         transaction.setDescription("Transfer");
-        transaction.setAmount(100);
+        transaction.setAmount(10.00);
         transaction.setTransactionType(Transaction.TransactionType.TRANSFER);
         transactions.add(transaction);
         adapter.submitList(transactions);
