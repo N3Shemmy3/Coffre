@@ -1,0 +1,86 @@
+package dev.n3shemmy3.coffre.ui.base;
+
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.view.HapticFeedbackConstantsCompat;
+import androidx.fragment.app.FragmentManager;
+
+import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.appbar.CollapsingToolbarLayout;
+import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.transition.MaterialSharedAxis;
+
+import dev.n3shemmy3.coffre.R;
+import dev.n3shemmy3.coffre.ui.utils.InsetsUtils;
+
+public abstract class BaseScreen extends BaseFragment {
+
+    public AppBarLayout topAppBar;
+    public CollapsingToolbarLayout collToolBar;
+    public MaterialToolbar topToolBar;
+    public View content;
+
+    protected void onScreenCreated(View root, Bundle savedInstanceState) {
+        applyInsets(root);
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // Enable material transitions.
+        setEnterTransition(new MaterialSharedAxis(MaterialSharedAxis.X, /* forward= */ true));
+        setReturnTransition(new MaterialSharedAxis(MaterialSharedAxis.X, /* forward= */ false));
+        setExitTransition(new MaterialSharedAxis(MaterialSharedAxis.X, /* forward= */ true));
+        setReenterTransition(new MaterialSharedAxis(MaterialSharedAxis.X, /* forward= */ false));
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        root = inflater.inflate(getLayoutResId(), container, false);
+        topAppBar = root.findViewById(R.id.topAppBar);
+        topToolBar = root.findViewById(R.id.topToolBar);
+        // collToolBar = root.findViewById(R.id.collToolBar);
+        content = root.findViewById(R.id.content);
+        //Toolbar
+        if (topToolBar != null) {
+            topToolBar.setNavigationOnClickListener(v -> {
+                topToolBar.performHapticFeedback(HapticFeedbackConstantsCompat.CONTEXT_CLICK);
+                requireActivity().getSupportFragmentManager().popBackStack();
+            });
+        }
+        onScreenCreated(root, savedInstanceState);
+
+        return root;
+    }
+
+    public void applyInsets(@NonNull View root) {
+        //Appbar
+        if (topAppBar != null)
+            InsetsUtils.applyAppbarInsets(topAppBar, topToolBar, collToolBar);
+        //content below Appbar
+        if (content != null) {
+            InsetsUtils.applyContentInsets(root.findViewById(R.id.content));
+        }
+    }
+
+    /*
+        Why?
+        Because its cool
+     */
+    @NonNull
+    public FragmentManager getNavigator() {
+        return getSupportFragmentManager();
+    }
+
+    @NonNull
+    public FragmentManager getChildNavigator(){
+        return getChildFragmentManager();
+    }
+
+}

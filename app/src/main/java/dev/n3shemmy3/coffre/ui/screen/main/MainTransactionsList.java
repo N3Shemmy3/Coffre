@@ -27,8 +27,7 @@ public class MainTransactionsList extends BaseFragment {
     }
 
     @Override
-    protected void onFragmentCreated(@NonNull View root, @Nullable Bundle savedInstanceState) {
-        super.onFragmentCreated(root, savedInstanceState);
+    public void onFragmentCreated(@NonNull View root, @Nullable Bundle savedInstanceState) {
         recycler = root.findViewById(R.id.recycler);
         recycler.setItemAnimator(new DefaultItemAnimator());
         layoutManager = new LinearLayoutManager(getContext());

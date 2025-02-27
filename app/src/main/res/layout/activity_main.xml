@@ -5,7 +5,7 @@
     android:id="@+id/fragmentContainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:name="dev.n3shemmy3.coffre.ui.screen.main.MainFragment"
+    android:name="dev.n3shemmy3.coffre.ui.screen.main.MainScreen"
     tools:context=".ui.MainActivity">
 
 </androidx.fragment.app.FragmentContainerView>
