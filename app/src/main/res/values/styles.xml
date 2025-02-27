@@ -8,6 +8,7 @@
         <item name="iconTint">@color/color_on_surface</item>
         <item name="android:minHeight">?actionBarSize</item>
     </style>
+
     <style name="App.CollapsingToolbar.Large" parent="Widget.Material3.CollapsingToolbar.Large">
         <item name="titleCollapseMode">fade</item>
         <item name="contentScrim">?attr/colorSurfaceContainer</item>
