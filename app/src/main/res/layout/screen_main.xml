@@ -84,7 +84,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignBaseline="@id/transactionAllButton"
                         android:layout_marginHorizontal="16dp"
-                        android:text="@string/label_transactions"
+                        android:text="@string/screen_transactions"
                         android:textAppearance="?attr/textAppearanceSubtitle1"
                         android:textStyle="bold" />
 

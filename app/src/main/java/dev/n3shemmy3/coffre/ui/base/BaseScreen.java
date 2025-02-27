@@ -13,6 +13,7 @@ import androidx.fragment.app.FragmentManager;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.color.MaterialColors;
 import com.google.android.material.transition.MaterialSharedAxis;
 
 import dev.n3shemmy3.coffre.R;
@@ -45,6 +46,7 @@ public abstract class BaseScreen extends BaseFragment {
         root = inflater.inflate(getLayoutResId(), container, false);
         topAppBar = root.findViewById(R.id.topAppBar);
         topToolBar = root.findViewById(R.id.topToolBar);
+
         // collToolBar = root.findViewById(R.id.collToolBar);
         content = root.findViewById(R.id.content);
         //Toolbar
@@ -57,6 +59,14 @@ public abstract class BaseScreen extends BaseFragment {
         onScreenCreated(root, savedInstanceState);
 
         return root;
+    }
+
+    // https://github.com/material-components/material-components-android/issues/1984#issuecomment-1089710991
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        // Prevent previous content flicker when navigating.
+        view.setBackgroundColor(MaterialColors.getColor(view, android.R.attr.colorBackground));
     }
 
     public void applyInsets(@NonNull View root) {

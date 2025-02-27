@@ -15,6 +15,7 @@ import androidx.fragment.app.FragmentManager;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.color.MaterialColors;
 import com.google.android.material.transition.MaterialSharedAxis;
 
 import dev.n3shemmy3.coffre.R;
@@ -42,9 +43,9 @@ public abstract class BaseFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         root = inflater.inflate(getLayoutResId(), container, false);
         onFragmentCreated(root, savedInstanceState);
-
         return root;
     }
+
     @NonNull
     public FragmentManager getSupportFragmentManager() {
         return requireActivity().getSupportFragmentManager();
