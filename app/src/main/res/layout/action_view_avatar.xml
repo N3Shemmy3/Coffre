@@ -4,6 +4,7 @@
     android:layout_height="40dp"
     android:clickable="true"
     android:foreground="?actionBarItemBackground"
+    android:contentDescription="@string/profile_avatar"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
