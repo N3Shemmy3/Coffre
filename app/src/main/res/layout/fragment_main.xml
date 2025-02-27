@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/coordinator"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:targetApi="28" >
+    android:layout_height="match_parent">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/topAppBar"
@@ -19,9 +18,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minHeight="?actionBarSize"
-            app:menu="@menu/main_top_toolbar"
+            app:menu="@menu/main_top_toolbar">
 
-            >
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent">
@@ -32,11 +30,11 @@
                     android:layout_height="32dp"
                     android:layout_centerVertical="true"
                     android:adjustViewBounds="true"
+                    android:background="@drawable/ic_launcher_background"
                     android:clickable="false"
                     android:contentDescription="@string/profile_avatar"
                     android:scaleType="centerCrop"
                     app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"
-                    android:background="@drawable/ic_launcher_background"
                     app:srcCompat="@drawable/ic_launcher_foreground" />
 
             </RelativeLayout>
@@ -53,7 +51,7 @@
         <LinearLayout
             android:id="@+id/content"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="10000dp"
             android:orientation="vertical"
             android:paddingTop="@dimen/activity_padding_vertical"
             android:paddingBottom="84dp">
