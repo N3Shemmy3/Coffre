@@ -17,8 +17,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minHeight="?actionBarSize"
-            app:title=""
-            app:navigationIcon="@drawable/outline_arrow_back_24"/>
+            app:navigationIcon="@drawable/outline_arrow_back_24"
+            app:title="" />
     </com.google.android.material.appbar.AppBarLayout>
 
 
@@ -34,11 +34,30 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:paddingTop="@dimen/activity_padding_vertical"
+            android:paddingHorizontal="@dimen/activity_padding_horizontal"
             android:paddingBottom="84dp">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/inputTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:counterEnabled="true"
+                app:counterMaxLength="30"
+                app:errorEnabled="true"
+                android:hint="Title">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:lines="1"
+                    android:maxLength="30"
+                    android:imeOptions="actionNext"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1000dp"/>
+                android:layout_height="1000dp" />
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

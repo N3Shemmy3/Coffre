@@ -1,9 +1,48 @@
 package dev.n3shemmy3.coffre.backend.item;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
+
 import java.util.Date;
 import java.util.Objects;
 
-public class Transaction {
+public class Transaction implements Parcelable {
+
+    protected Transaction(Parcel in) {
+        id = in.readInt();
+        title = in.readString();
+        description = in.readString();
+        amount = in.readDouble();
+        accountId = in.readInt();
+    }
+
+    public static final Creator<Transaction> CREATOR = new Creator<Transaction>() {
+        @Override
+        public Transaction createFromParcel(Parcel in) {
+            return new Transaction(in);
+        }
+
+        @Override
+        public Transaction[] newArray(int size) {
+            return new Transaction[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel parcel, int i) {
+        parcel.writeInt(id);
+        parcel.writeString(title);
+        parcel.writeString(description);
+        parcel.writeDouble(amount);
+        parcel.writeInt(accountId);
+    }
 
     public enum TransactionType {
         INCOME,

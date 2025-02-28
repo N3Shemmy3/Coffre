@@ -52,8 +52,11 @@
         <item name="android:windowBackground">?android:colorBackground</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
+        <!-- Component styles-->
         <item name="toolbarStyle">@style/App.MaterialToolbar</item>
         <item name="collapsingToolbarLayoutStyle">@style/App.CollapsingToolbar.Large</item>
+        <item name="textInputStyle">?textInputOutlinedStyle</item>
+
         <!-- custom height to fixed insets shrinking height-->
         <item name="collapsingToolbarLayoutLargeSize">@dimen/appbar_collapsing_height</item>
         <item name="listPreferredItemHeightLarge">@dimen/item_height_large</item>

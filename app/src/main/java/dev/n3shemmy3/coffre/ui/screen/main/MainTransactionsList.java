@@ -15,8 +15,11 @@ import dev.n3shemmy3.coffre.R;
 import dev.n3shemmy3.coffre.backend.item.Transaction;
 import dev.n3shemmy3.coffre.ui.adapters.TransactionsAdapter;
 import dev.n3shemmy3.coffre.ui.base.BaseFragment;
+import dev.n3shemmy3.coffre.ui.interfaces.ItemListener;
+import dev.n3shemmy3.coffre.ui.navigator.Navigator;
+import dev.n3shemmy3.coffre.ui.screen.record.RecordScreen;
 
-public class MainTransactionsList extends BaseFragment {
+public class MainTransactionsList extends BaseFragment implements ItemListener<Transaction> {
     private RecyclerView recycler;
     private LinearLayoutManager layoutManager;
     private TransactionsAdapter adapter;
@@ -33,6 +36,7 @@ public class MainTransactionsList extends BaseFragment {
         layoutManager = new LinearLayoutManager(getContext());
         recycler.setLayoutManager(layoutManager);
         adapter = new TransactionsAdapter();
+        adapter.setItemListener(this);
         recycler.setAdapter(adapter);
 
         ArrayList<Transaction> transactions = new ArrayList<>();
@@ -63,5 +67,17 @@ public class MainTransactionsList extends BaseFragment {
         transaction.setTransactionType(Transaction.TransactionType.TRANSFER);
         transactions.add(transaction);
         adapter.submitList(transactions);
+    }
+
+    @Override
+    public void onItemClicked(@NonNull View itemView, Transaction item, int position) {
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("transaction", item);
+        Navigator.push(getSupportFragmentManager(), new RecordScreen(),bundle);
+    }
+
+    @Override
+    public void onItemLongClicked(@NonNull View itemView, Transaction item, int position) {
+
     }
 }
