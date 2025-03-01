@@ -10,40 +10,6 @@ import java.util.Objects;
 
 public class Transaction implements Parcelable {
 
-    protected Transaction(Parcel in) {
-        id = in.readInt();
-        title = in.readString();
-        description = in.readString();
-        amount = in.readDouble();
-        accountId = in.readInt();
-    }
-
-    public static final Creator<Transaction> CREATOR = new Creator<Transaction>() {
-        @Override
-        public Transaction createFromParcel(Parcel in) {
-            return new Transaction(in);
-        }
-
-        @Override
-        public Transaction[] newArray(int size) {
-            return new Transaction[size];
-        }
-    };
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(@NonNull Parcel parcel, int i) {
-        parcel.writeInt(id);
-        parcel.writeString(title);
-        parcel.writeString(description);
-        parcel.writeDouble(amount);
-        parcel.writeInt(accountId);
-    }
-
     public enum TransactionType {
         INCOME,
         EXPENSE,
@@ -126,6 +92,54 @@ public class Transaction implements Parcelable {
         this.id = id;
     }
 
+    protected Transaction(Parcel in) {
+        id = in.readInt();
+        title = in.readString();
+        description = in.readString();
+        amount = in.readDouble();
+        accountId = in.readInt();
+    }
+
+    public static final Creator<Transaction> CREATOR = new Creator<Transaction>() {
+        @Override
+        public Transaction createFromParcel(Parcel in) {
+            return new Transaction(in);
+        }
+
+        @Override
+        public Transaction[] newArray(int size) {
+            return new Transaction[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel parcel, int i) {
+        parcel.writeInt(id);
+        parcel.writeString(title);
+        parcel.writeString(description);
+        parcel.writeDouble(amount);
+        parcel.writeInt(accountId);
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return "Transaction{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", amount=" + amount +
+                ", type=" + type +
+                ", accountId=" + accountId +
+                ", date=" + date +
+                '}';
+    }
+
     @Override
     public final boolean equals(Object o) {
         if (!(o instanceof Transaction)) return false;
@@ -146,4 +160,5 @@ public class Transaction implements Parcelable {
         result = 31 * result + Objects.hashCode(getTransactionType());
         return result;
     }
+
 }

@@ -26,7 +26,7 @@ public abstract class BaseScreen extends BaseFragment {
     public MaterialToolbar topToolBar;
     public View content;
 
-    protected void onScreenCreated(View root, Bundle savedInstanceState) {
+    protected void onScreenCreated(View root, Bundle state) {
         applyInsets(root);
     }
 
