@@ -43,6 +43,7 @@ public class MainScreen extends BaseScreen {
             mlp = (ViewGroup.MarginLayoutParams) fab.getLayoutParams();
             mlp.leftMargin = hInsets + mlp.leftMargin;
             mlp.rightMargin = hInsets + mlp.rightMargin;
+            mlp.bottomMargin = mlp.bottomMargin + systemBarInsets.bottom;
             fab.setLayoutParams(mlp);
         });
         fab.setOnClickListener(view -> Navigator.push(getNavigator(), new RecordScreen()));
