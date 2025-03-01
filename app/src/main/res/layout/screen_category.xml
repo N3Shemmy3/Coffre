@@ -17,8 +17,43 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minHeight="?actionBarSize"
+            app:menu="@menu/category_top_toolbar"
             app:navigationIcon="@drawable/outline_arrow_back_24"
-            app:title="" />
+            app:title="@string/screen_category">
+
+            <LinearLayout
+                android:id="@+id/searchBar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:animateLayoutChanges="true"
+                android:gravity="center_vertical"
+                android:visibility="gone">
+
+                <EditText
+                    android:id="@+id/searchView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/activity_padding_vertical"
+                    android:layout_weight="1"
+                    android:autofillHints="name"
+                    android:background="@android:color/transparent"
+                    android:hint="@string/action_search"
+                    android:imeOptions="actionSearch"
+                    android:inputType="text"
+                    android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+                    android:textColorHint="@color/list_item_subtitle_tint"
+                    android:textSize="20sp" />
+
+                <Button
+                    android:id="@+id/clearButton"
+                    style="?attr/materialIconButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/action_clear"
+                    android:visibility="invisible"
+                    app:icon="@drawable/outline_close_24" />
+            </LinearLayout>
+        </com.google.android.material.appbar.MaterialToolbar>
     </com.google.android.material.appbar.AppBarLayout>
 
 

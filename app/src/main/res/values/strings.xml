@@ -7,6 +7,7 @@
     <string name="screen_save">Save</string>
     <string name="screen_record">Record</string>
     <string name="screen_about">About</string>
+    <string name="screen_category">Category</string>
 
     <!--Settings Screens -->
     <string name="summary_settings">Tweaks and treats</string>
@@ -35,6 +36,7 @@
     <string name="action_present">Present</string>
     <string name="action_future">Future</string>
     <string name="action_delete">Delete</string>
+    <string name="action_select">Select</string>
 
     <!--Content Descriptions -->
     <!--User Profile-->

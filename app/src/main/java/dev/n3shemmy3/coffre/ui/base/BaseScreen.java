@@ -55,10 +55,7 @@ public abstract class BaseScreen extends BaseFragment {
         content = root.findViewById(R.id.content);
         //Toolbar
         if (topToolBar != null) {
-            topToolBar.setNavigationOnClickListener(v -> {
-                topToolBar.performHapticFeedback(HapticFeedbackConstantsCompat.CONTEXT_CLICK);
-                requireActivity().getSupportFragmentManager().popBackStack();
-            });
+            topToolBar.setNavigationOnClickListener(v -> navigateUp());
         }
         onCreateScreen(root, savedInstanceState);
 
@@ -96,6 +93,11 @@ public abstract class BaseScreen extends BaseFragment {
     @NonNull
     public FragmentManager getChildNavigator() {
         return getChildFragmentManager();
+    }
+
+    public void navigateUp() {
+        topToolBar.performHapticFeedback(HapticFeedbackConstantsCompat.CONTEXT_CLICK);
+        requireActivity().getSupportFragmentManager().popBackStack();
     }
 
 }
