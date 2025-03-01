@@ -5,6 +5,7 @@ import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Objects;
 
@@ -19,12 +20,15 @@ public class Transaction implements Parcelable {
     private int id;
     private String title;
     private String description;
-    private double amount;
+    private BigDecimal amount;
     private TransactionType type;
     private int accountId;
     private Date date;
-    public Transaction() {}
-    public Transaction(int id, String title, String description, double amount, int type, int accountId, Date date) {
+
+    public Transaction() {
+    }
+
+    public Transaction(int id, String title, String description, BigDecimal amount, int type, int accountId, Date date) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -33,7 +37,6 @@ public class Transaction implements Parcelable {
         this.accountId = accountId;
         this.date = date;
     }
-
 
 
     public Date getDate() {
@@ -51,6 +54,7 @@ public class Transaction implements Parcelable {
     public void setTransactionType(TransactionType transactionType) {
         this.type = transactionType;
     }
+
     public int getAccountId() {
         return accountId;
     }
@@ -59,11 +63,11 @@ public class Transaction implements Parcelable {
         this.accountId = accountId;
     }
 
-    public double getAmount() {
+    public BigDecimal getAmount() {
         return amount;
     }
 
-    public void setAmount(double amount) {
+    public void setAmount(BigDecimal amount) {
         this.amount = amount;
     }
 
@@ -96,7 +100,7 @@ public class Transaction implements Parcelable {
         id = in.readInt();
         title = in.readString();
         description = in.readString();
-        amount = in.readDouble();
+        amount = BigDecimal.valueOf(in.readDouble());
         accountId = in.readInt();
     }
 
@@ -122,7 +126,7 @@ public class Transaction implements Parcelable {
         parcel.writeInt(id);
         parcel.writeString(title);
         parcel.writeString(description);
-        parcel.writeDouble(amount);
+        parcel.writeDouble(amount.doubleValue());
         parcel.writeInt(accountId);
     }
 
@@ -145,7 +149,19 @@ public class Transaction implements Parcelable {
         if (!(o instanceof Transaction)) return false;
 
         Transaction that = (Transaction) o;
-        return getId() == that.getId() && Double.compare(getAmount(), that.getAmount()) == 0 && getAccountId() == that.getAccountId() && Objects.equals(getTitle(), that.getTitle()) && Objects.equals(getDescription(), that.getDescription()) && Objects.equals(getDate(), that.getDate()) && type == that.type;
+        return getId() == that.getId()
+                &&
+                Double.compare(getAmount().doubleValue(), that.getAmount().doubleValue()) == 0
+                &&
+                getAccountId() == that.getAccountId()
+                &&
+                Objects.equals(getTitle(), that.getTitle())
+                &&
+                Objects.equals(getDescription(), that.getDescription())
+                &&
+                Objects.equals(getDate(), that.getDate())
+                &&
+                type == that.type;
     }
 
     @Override
@@ -153,7 +169,7 @@ public class Transaction implements Parcelable {
         int result = getId();
         result = 31 * result + Objects.hashCode(getTitle());
         result = 31 * result + Objects.hashCode(getDescription());
-        result = 31 * result + Double.hashCode(getAmount());
+        result = 31 * result + Double.hashCode(getAmount().doubleValue());
         result = 31 * result + getAccountId();
         result = 31 * result + getTransactionType().ordinal();
         result = 31 * result + Objects.hashCode(getDate());

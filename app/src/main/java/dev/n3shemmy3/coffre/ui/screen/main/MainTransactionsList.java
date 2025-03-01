@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import dev.n3shemmy3.coffre.R;
@@ -45,7 +46,7 @@ public class MainTransactionsList extends BaseFragment implements ItemListener<T
             transaction.setId(i);
             transaction.setTitle("Coffee");
             transaction.setDescription("Drinks");
-            transaction.setAmount(5.00);
+            transaction.setAmount(BigDecimal.valueOf(5.00));
             transaction.setTransactionType(Transaction.TransactionType.EXPENSE);
             transactions.add(transaction);
         }
@@ -54,7 +55,7 @@ public class MainTransactionsList extends BaseFragment implements ItemListener<T
         transaction.setId(transactions.size() - 1);
         transaction.setTitle("Salary");
         transaction.setDescription("Income");
-        transaction.setAmount(20.00);
+        transaction.setAmount(BigDecimal.valueOf(20.00));
         transaction.setTransactionType(Transaction.TransactionType.INCOME);
         transactions.add(transaction);
 
@@ -63,7 +64,7 @@ public class MainTransactionsList extends BaseFragment implements ItemListener<T
         transaction.setId(transactions.size() - 1);
         transaction.setTitle("Bank to Cash");
         transaction.setDescription("Transfer");
-        transaction.setAmount(10.00);
+        transaction.setAmount(BigDecimal.valueOf(10.00));
         transaction.setTransactionType(Transaction.TransactionType.TRANSFER);
         transactions.add(transaction);
         adapter.submitList(transactions);
