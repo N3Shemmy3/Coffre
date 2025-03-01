@@ -38,7 +38,7 @@
             android:paddingBottom="84dp">
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/inputTitle"
+                android:id="@+id/textTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/activity_padding_vertical"
@@ -48,7 +48,7 @@
                 app:errorEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/textTitle"
+                    android:id="@+id/inputTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:imeOptions="actionNext"
@@ -59,7 +59,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/inputAmount"
+                android:id="@+id/textAmount"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
@@ -67,7 +67,7 @@
                 app:prefixText="$">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/textAmount"
+                    android:id="@+id/inputAmount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:imeOptions="actionNext"
@@ -81,7 +81,7 @@
                 android:id="@+id/tabLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/activity_padding_horizontal"
+                android:layout_marginBottom="24dp"
                 android:background="@drawable/tablayout_background"
                 app:tabBackground="@android:color/transparent"
                 app:tabGravity="start"
@@ -117,11 +117,12 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/activity_padding_vertical"
                 android:baselineAligned="false"
                 android:orientation="horizontal">
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/inputTime"
+                    android:id="@+id/textTime"
                     style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -131,7 +132,7 @@
                     app:endIconMode="none">
 
                     <AutoCompleteTextView
-                        android:id="@+id/editTime"
+                        android:id="@+id/inputTime"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:drawableEnd="@drawable/outline_schedule_24"
@@ -141,7 +142,7 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/inputDate"
+                    android:id="@+id/textDate"
                     style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -150,7 +151,7 @@
                     app:endIconMode="none">
 
                     <AutoCompleteTextView
-                        android:id="@+id/editDate"
+                        android:id="@+id/inputDate"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:drawableEnd="@drawable/outline_calendar_today_24"
@@ -159,9 +160,24 @@
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
 
-            <View
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textNotes"
                 android:layout_width="match_parent"
-                android:layout_height="1000dp" />
+                android:layout_height="wrap_content"
+                android:hint="Notes"
+                app:counterEnabled="true"
+                app:counterMaxLength="500">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/inputNotes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="start"
+                    android:imeOptions="actionDone"
+                    android:maxLength="500"
+                    android:minHeight="144dp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

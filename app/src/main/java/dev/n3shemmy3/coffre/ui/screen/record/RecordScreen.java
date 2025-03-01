@@ -23,15 +23,17 @@ import dev.n3shemmy3.coffre.R;
 import dev.n3shemmy3.coffre.backend.item.Transaction;
 import dev.n3shemmy3.coffre.ui.base.BaseScreen;
 import dev.n3shemmy3.coffre.ui.utils.DateUtils;
+import dev.n3shemmy3.coffre.ui.utils.InsetsUtils;
 
 public class RecordScreen extends BaseScreen {
 
 
-    private TextInputEditText textTitle;
-    private TextInputEditText textAmount;
+    private TextInputEditText inputTitle;
+    private TextInputEditText inputAmount;
     private TabLayout tabLayout;
-    private AutoCompleteTextView editTime;
-    private AutoCompleteTextView editDate;
+    private AutoCompleteTextView inputTime;
+    private AutoCompleteTextView inputDate;
+    private TextInputEditText inputNotes;
 
     @Override
     protected int getLayoutResId() {
@@ -41,11 +43,14 @@ public class RecordScreen extends BaseScreen {
     @Override
     protected void onScreenCreated(View root, Bundle savedInstanceState) {
         super.onScreenCreated(root, savedInstanceState);
-        textTitle = root.findViewById(R.id.textTitle);
-        textAmount = root.findViewById(R.id.textAmount);
+        inputTitle = root.findViewById(R.id.inputTitle);
+        inputAmount = root.findViewById(R.id.inputAmount);
         tabLayout = root.findViewById(R.id.tabLayout);
-        editTime = root.findViewById(R.id.editTime);
-        editDate = root.findViewById(R.id.editDate);
+        inputTime = root.findViewById(R.id.inputTime);
+        inputDate = root.findViewById(R.id.inputDate);
+        inputNotes = root.findViewById(R.id.inputNotes);
+
+        InsetsUtils.applyImeInsets(requireActivity().getWindow(), root);
 
         setUpDateTimePickers();
 
@@ -73,18 +78,18 @@ public class RecordScreen extends BaseScreen {
         Calendar now = DateUtils.getCurrentTime();
 
         // Set default values using system format
-        editTime.setText(DateUtils.formatTime(now.get(Calendar.HOUR_OF_DAY), now.get(Calendar.MINUTE), is24HourFormat));
-        editDate.setText(DateUtils.formatDate(now.getTimeInMillis(), requireContext()));
+        inputTime.setText(DateUtils.formatTime(now.get(Calendar.HOUR_OF_DAY), now.get(Calendar.MINUTE), is24HourFormat));
+        inputDate.setText(DateUtils.formatDate(now.getTimeInMillis(), requireContext()));
 
         // Fix double-click delay issues
-        editTime.setOnFocusChangeListener((view, isFocused) -> {
+        inputTime.setOnFocusChangeListener((view, isFocused) -> {
             if (view.isInTouchMode() && isFocused) view.performClick();
         });
-        editDate.setOnFocusChangeListener((view, isFocused) -> {
+        inputDate.setOnFocusChangeListener((view, isFocused) -> {
             if (view.isInTouchMode() && isFocused) view.performClick();
         });
 
-        editDate.setOnClickListener(v -> {
+        inputDate.setOnClickListener(v -> {
             CalendarConstraints.Builder constraintsBuilder = new CalendarConstraints.Builder()
                     .setStart(0L) // Start from epoch time (optional, ensures full range)
                     .setEnd(now.getTimeInMillis()); // Restrict future dates
@@ -100,11 +105,11 @@ public class RecordScreen extends BaseScreen {
                     selection = now.getTimeInMillis(); // Prevent setting future date manually
                 }
 
-                editDate.setText(DateUtils.formatDate(selection, requireContext()));
+                inputDate.setText(DateUtils.formatDate(selection, requireContext()));
 
                 // Reset time if today is selected
                 if (DateUtils.isToday(selection)) {
-                    editTime.setText(DateUtils.formatTime(now.get(Calendar.HOUR_OF_DAY), now.get(Calendar.MINUTE), is24HourFormat));
+                    inputTime.setText(DateUtils.formatTime(now.get(Calendar.HOUR_OF_DAY), now.get(Calendar.MINUTE), is24HourFormat));
                 }
             });
 
@@ -112,10 +117,10 @@ public class RecordScreen extends BaseScreen {
         });
 
 
-        editTime.setOnClickListener(v -> {
+        inputTime.setOnClickListener(v -> {
             Calendar selectedDate = Calendar.getInstance();
             try {
-                selectedDate.setTime(Objects.requireNonNull(DateFormat.getDateFormat(requireContext()).parse(editDate.getText().toString())));
+                selectedDate.setTime(Objects.requireNonNull(DateFormat.getDateFormat(requireContext()).parse(inputDate.getText().toString())));
             } catch (ParseException e) {
                 selectedDate.setTimeInMillis(now.getTimeInMillis());
             }
@@ -140,7 +145,7 @@ public class RecordScreen extends BaseScreen {
                     pickedMinute = now.get(Calendar.MINUTE);
                 }
 
-                editTime.setText(DateUtils.formatTime(pickedHour, pickedMinute, is24HourFormat));
+                inputTime.setText(DateUtils.formatTime(pickedHour, pickedMinute, is24HourFormat));
             });
 
             timePicker.show(getParentFragmentManager(), "TIME_PICKER_TAG");
@@ -149,7 +154,7 @@ public class RecordScreen extends BaseScreen {
 
 
     private void getTransaction(Transaction transaction) {
-        textTitle.setText(transaction.getTitle());
-        textAmount.setText(new DecimalFormat("#.00").format(transaction.getAmount()));
+        inputTitle.setText(transaction.getTitle());
+        inputAmount.setText(new DecimalFormat("#.00").format(transaction.getAmount()));
     }
 }
