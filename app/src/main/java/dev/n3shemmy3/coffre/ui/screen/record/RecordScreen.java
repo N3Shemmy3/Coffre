@@ -69,9 +69,7 @@ public class RecordScreen extends BaseScreen {
             public void onTabReselected(@NonNull TabLayout.Tab tab) {
             }
         });
-        if (getArguments() != null) {
-            getTransaction(getArguments().getParcelable("transaction"));
-        }
+        if (getArguments() != null) getTransaction(requireArguments().getParcelable("transaction");
     }
 
     private void setUpDateTimePickers() {
