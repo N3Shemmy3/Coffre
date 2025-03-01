@@ -20,7 +20,7 @@ public class OneLineItem extends RecyclerView.ViewHolder {
     public final TextView itemTitle;
     public final ImageView itemEndIcon;
     public final TextView itemEndText;
-    private final View endCard;
+    public final View endCard;
 
 
     public OneLineItem(@NonNull View itemView) {
