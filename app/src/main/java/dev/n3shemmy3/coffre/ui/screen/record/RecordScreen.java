@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.AutoCompleteTextView;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.datepicker.CalendarConstraints;
 import com.google.android.material.datepicker.MaterialDatePicker;
@@ -21,6 +22,7 @@ import java.util.Objects;
 
 import dev.n3shemmy3.coffre.R;
 import dev.n3shemmy3.coffre.backend.item.Transaction;
+import dev.n3shemmy3.coffre.backend.item.viewmodel.TransactionViewModel;
 import dev.n3shemmy3.coffre.ui.base.BaseScreen;
 import dev.n3shemmy3.coffre.ui.navigator.Navigator;
 import dev.n3shemmy3.coffre.ui.screen.category.CategoryScreen;
@@ -29,6 +31,7 @@ import dev.n3shemmy3.coffre.ui.utils.InsetsUtils;
 
 public class RecordScreen extends BaseScreen {
 
+    private TransactionViewModel viewModel;
 
     private TextInputEditText inputTitle;
     private TextInputEditText inputAmount;
@@ -44,8 +47,8 @@ public class RecordScreen extends BaseScreen {
     }
 
     @Override
-    protected void onScreenCreated(View root, Bundle savedInstanceState) {
-        super.onScreenCreated(root, savedInstanceState);
+    protected void onCreateScreen(View root, Bundle savedInstanceState) {
+        super.onCreateScreen(root, savedInstanceState);
         inputTitle = root.findViewById(R.id.inputTitle);
         inputAmount = root.findViewById(R.id.inputAmount);
         tabLayout = root.findViewById(R.id.tabLayout);
@@ -57,8 +60,19 @@ public class RecordScreen extends BaseScreen {
         setUpTabs();
         setUpDateTimePickers();
         setUpCategory();
-        if (getArguments() != null) getTransaction(requireArguments().getParcelable("transaction"));
         InsetsUtils.applyImeInsets(requireActivity().getWindow(), root);
+    }
+
+    @Override
+    protected void onScreenCreated(View root, Bundle state) {
+        super.onScreenCreated(root, state);
+        viewModel = new ViewModelProvider(requireActivity()).get(TransactionViewModel.class);
+        viewModel.getSelectedItem().observe(this, item -> {
+            // Perform an action with the latest item data.
+            inputTitle.setText(item.getTitle());
+            inputAmount.setText(new DecimalFormat("#.00").format(item.getAmount()));
+
+        });
     }
 
     private void setUpTabs() {
@@ -166,8 +180,5 @@ public class RecordScreen extends BaseScreen {
         inputCategory.setOnClickListener(view -> Navigator.push(getNavigator(), new CategoryScreen()));
     }
 
-    private void getTransaction(Transaction transaction) {
-        inputTitle.setText(transaction.getTitle());
-        inputAmount.setText(new DecimalFormat("#.00").format(transaction.getAmount()));
-    }
+
 }

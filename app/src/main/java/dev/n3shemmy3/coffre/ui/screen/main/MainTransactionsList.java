@@ -5,6 +5,7 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 
 import dev.n3shemmy3.coffre.R;
 import dev.n3shemmy3.coffre.backend.item.Transaction;
+import dev.n3shemmy3.coffre.backend.item.viewmodel.TransactionViewModel;
 import dev.n3shemmy3.coffre.ui.adapters.TransactionsAdapter;
 import dev.n3shemmy3.coffre.ui.base.BaseFragment;
 import dev.n3shemmy3.coffre.ui.interfaces.ItemListener;
@@ -21,6 +23,7 @@ import dev.n3shemmy3.coffre.ui.navigator.Navigator;
 import dev.n3shemmy3.coffre.ui.screen.record.RecordScreen;
 
 public class MainTransactionsList extends BaseFragment implements ItemListener<Transaction> {
+    private TransactionViewModel transactionViewModel;
     private RecyclerView recycler;
     private LinearLayoutManager layoutManager;
     private TransactionsAdapter adapter;
@@ -71,10 +74,16 @@ public class MainTransactionsList extends BaseFragment implements ItemListener<T
     }
 
     @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        transactionViewModel = new ViewModelProvider(requireActivity()).get(TransactionViewModel.class);
+
+    }
+
+    @Override
     public void onItemClicked(@NonNull View itemView, Transaction item, int position) {
-        Bundle bundle = new Bundle();
-        bundle.putParcelable("transaction", item);
-        Navigator.push(getSupportFragmentManager(), new RecordScreen(),bundle);
+        transactionViewModel.selectItem(item);
+        Navigator.push(getSupportFragmentManager(), new RecordScreen());
     }
 
     @Override

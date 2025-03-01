@@ -26,8 +26,12 @@ public abstract class BaseScreen extends BaseFragment {
     public MaterialToolbar topToolBar;
     public View content;
 
-    protected void onScreenCreated(View root, Bundle state) {
+    protected void onCreateScreen(View root, Bundle state) {
         applyInsets(root);
+    }
+
+    protected void onScreenCreated(View root, Bundle state) {
+
     }
 
     @Override
@@ -56,7 +60,7 @@ public abstract class BaseScreen extends BaseFragment {
                 requireActivity().getSupportFragmentManager().popBackStack();
             });
         }
-        onScreenCreated(root, savedInstanceState);
+        onCreateScreen(root, savedInstanceState);
 
         return root;
     }
@@ -67,6 +71,7 @@ public abstract class BaseScreen extends BaseFragment {
         super.onViewCreated(view, savedInstanceState);
         // Prevent previous content flicker when navigating.
         view.setBackgroundColor(MaterialColors.getColor(view, android.R.attr.colorBackground));
+        onScreenCreated(view, savedInstanceState);
     }
 
     public void applyInsets(@NonNull View root) {
@@ -89,7 +94,7 @@ public abstract class BaseScreen extends BaseFragment {
     }
 
     @NonNull
-    public FragmentManager getChildNavigator(){
+    public FragmentManager getChildNavigator() {
         return getChildFragmentManager();
     }
 

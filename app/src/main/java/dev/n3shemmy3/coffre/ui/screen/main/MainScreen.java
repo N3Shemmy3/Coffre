@@ -26,7 +26,7 @@ public class MainScreen extends BaseScreen {
     }
 
     @Override
-    protected void onScreenCreated(View root, Bundle savedInstanceState) {
+    protected void onCreateScreen(View root, Bundle savedInstanceState) {
         fab = root.findViewById(R.id.fab);
         InsetsUtils.applyAppbarInsets(topAppBar, topToolBar, (
                 displayCutOutInsets, systemBarInsets) -> {
