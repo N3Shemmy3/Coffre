@@ -3,14 +3,10 @@ package dev.n3shemmy3.coffre.ui.screen.record;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AutoCompleteTextView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
-import com.google.android.material.color.MaterialColors;
 import com.google.android.material.datepicker.CalendarConstraints;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.tabs.TabLayout;
