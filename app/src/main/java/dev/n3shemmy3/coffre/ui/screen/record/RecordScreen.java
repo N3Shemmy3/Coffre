@@ -22,6 +22,8 @@ import java.util.Objects;
 import dev.n3shemmy3.coffre.R;
 import dev.n3shemmy3.coffre.backend.item.Transaction;
 import dev.n3shemmy3.coffre.ui.base.BaseScreen;
+import dev.n3shemmy3.coffre.ui.navigator.Navigator;
+import dev.n3shemmy3.coffre.ui.screen.category.CategoryScreen;
 import dev.n3shemmy3.coffre.ui.utils.DateUtils;
 import dev.n3shemmy3.coffre.ui.utils.InsetsUtils;
 
@@ -34,6 +36,7 @@ public class RecordScreen extends BaseScreen {
     private AutoCompleteTextView inputTime;
     private AutoCompleteTextView inputDate;
     private TextInputEditText inputNotes;
+    private AutoCompleteTextView inputCategory;
 
     @Override
     protected int getLayoutResId() {
@@ -49,12 +52,16 @@ public class RecordScreen extends BaseScreen {
         inputTime = root.findViewById(R.id.inputTime);
         inputDate = root.findViewById(R.id.inputDate);
         inputNotes = root.findViewById(R.id.inputNotes);
+        inputCategory = root.findViewById(R.id.inputCategory);
 
-        InsetsUtils.applyImeInsets(requireActivity().getWindow(), root);
-
+        setUpTabs();
         setUpDateTimePickers();
+        setUpCategory();
+        if (getArguments() != null) getTransaction(requireArguments().getParcelable("transaction"));
+        InsetsUtils.applyImeInsets(requireActivity().getWindow(), root);
+    }
 
-        // Change color when selected
+    private void setUpTabs() {
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(@NonNull TabLayout.Tab tab) {
@@ -70,7 +77,6 @@ public class RecordScreen extends BaseScreen {
             public void onTabReselected(@NonNull TabLayout.Tab tab) {
             }
         });
-        if (getArguments() != null) getTransaction(requireArguments().getParcelable("transaction"));
     }
 
     private void setUpDateTimePickers() {
@@ -152,6 +158,13 @@ public class RecordScreen extends BaseScreen {
         });
     }
 
+    private void setUpCategory() {
+        // Fix double-click delay issues
+        inputCategory.setOnFocusChangeListener((view, isFocused) -> {
+            if (view.isInTouchMode() && isFocused) view.performClick();
+        });
+        inputCategory.setOnClickListener(view -> Navigator.push(getNavigator(), new CategoryScreen()));
+    }
 
     private void getTransaction(Transaction transaction) {
         inputTitle.setText(transaction.getTitle());
