@@ -71,7 +71,7 @@
             android:layout_marginTop="8dp"
             android:alpha="0.72"
             android:text="@string/income"
-            android:textColor="?colorOnPrimary"
+            android:textColor="@color/colorSuccessContainer"
             android:textFontWeight="600"
             app:layout_constraintStart_toStartOf="@id/account_title"
             app:layout_constraintTop_toBottomOf="@id/round" />
@@ -81,7 +81,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="+ $12839"
-            android:textColor="?colorOnPrimary"
+            android:textColor="@color/colorSuccessContainer"
             android:textFontWeight="700"
             app:layout_constraintBottom_toBottomOf="@id/income_title"
             app:layout_constraintEnd_toEndOf="@id/decimal"
