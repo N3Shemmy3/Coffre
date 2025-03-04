@@ -23,7 +23,6 @@ import dev.n3shemmy3.coffre.ui.navigator.Navigator;
 import dev.n3shemmy3.coffre.ui.screen.record.RecordScreen;
 
 public class MainTransactionsList extends BaseFragment implements ItemListener<Transaction> {
-    private TransactionViewModel transactionViewModel;
     private RecyclerView recycler;
     private LinearLayoutManager layoutManager;
     private TransactionsAdapter adapter;
@@ -73,17 +72,12 @@ public class MainTransactionsList extends BaseFragment implements ItemListener<T
         adapter.submitList(transactions);
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        transactionViewModel = new ViewModelProvider(requireActivity()).get(TransactionViewModel.class);
-
-    }
 
     @Override
     public void onItemClicked(@NonNull View itemView, Transaction item, int position) {
-        transactionViewModel.selectItem(item);
-        Navigator.push(getSupportFragmentManager(), new RecordScreen());
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("item", item);
+        Navigator.push(getSupportFragmentManager(), new RecordScreen(), bundle);
     }
 
     @Override
