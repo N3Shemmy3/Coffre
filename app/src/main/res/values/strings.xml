@@ -8,6 +8,7 @@
     <string name="screen_record">Record</string>
     <string name="screen_about">About</string>
     <string name="screen_category">Category</string>
+    <string name="screen_icon_picker">Icon picker</string>
 
     <!--Settings Screens -->
     <string name="summary_settings">Tweaks and treats</string>
