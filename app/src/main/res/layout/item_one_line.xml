@@ -69,7 +69,7 @@
             android:id="@+id/itemEndText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="- $300"
+            tools:text="- $300"
             android:textAppearance="?textAppearanceBodySmall"
             android:textColor="?colorOnErrorContainer" />
 
