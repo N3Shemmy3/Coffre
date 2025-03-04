@@ -43,7 +43,8 @@ public class IconAdapter extends ListAdapter<Category, OneLineItem> {
         drawable.setSizeYPx(drawableSize);
         drawable.setSizeXPx(drawableSize);
         holder.itemIcon.setImageDrawable(drawable);
-        holder.itemTitle.setText(category.getName());
+        holder.itemTitle.setText(category.getName().substring(4));
+        holder.itemTitle.setMaxLines(2);
         holder.itemTitle.setPadding(holder.itemTitle.getPaddingLeft(), holder.itemTitle.getPaddingTop(), drawableSize / 2, holder.itemTitle.getPaddingBottom());
         holder.endCard.setVisibility(ViewGroup.GONE);
     }
