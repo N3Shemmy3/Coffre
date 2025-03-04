@@ -19,6 +19,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.mikepenz.iconics.typeface.library.googlematerial.OutlinedGoogleMaterial;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import dev.n3shemmy3.coffre.R;
 import dev.n3shemmy3.coffre.backend.item.Category;
@@ -138,12 +140,15 @@ public class IconPickerScreen extends BaseScreen {
 
     private void performSearch(String query) {
         if (query.isEmpty()) {
-            adapter.submitList(new ArrayList<>());
-            adapter.submitList(icons);
+            adapter.submitList(icons, () -> {
+                recycler.scrollToPosition(0);// Show full list when query is empty
+            });
         } else {
-            ArrayList<Category> temp = icons;
-            ;
-            adapter.submitList(temp);
+            List<Category> filteredList = icons.stream()
+                    .filter(category -> category.getName().toLowerCase().contains(query.toLowerCase()))
+                    .collect(Collectors.toList());
+            adapter.submitList(filteredList);
         }
     }
+
 }
