@@ -39,11 +39,12 @@ public class IconAdapter extends ListAdapter<Category, OneLineItem> {
     public void onBindViewHolder(@NonNull OneLineItem holder, int position) {
         Category category = getItem(position);
         IconicsDrawable drawable = new IconicsDrawable(holder.itemView.getContext(), OutlinedGoogleMaterial.INSTANCE.getIcon(category.getName()));
-        drawable.setTint(MaterialColors.getColor(holder.itemView, com.google.android.material.R.attr.colorOnSurface));
-        drawable.setSizeYPx(IconicsUtils.convertDpToPx(holder.itemView.getContext(), 24));
-        drawable.setSizeXPx(IconicsUtils.convertDpToPx(holder.itemView.getContext(), 24));
+        drawable.setTint(MaterialColors.getColor(holder.itemView, com.google.android.material.R.attr.colorOnSurface));int drawableSize = IconicsUtils.convertDpToPx(holder.itemView.getContext(), 24);
+        drawable.setSizeYPx(drawableSize);
+        drawable.setSizeXPx(drawableSize);
         holder.itemIcon.setImageDrawable(drawable);
         holder.itemTitle.setText(category.getName());
+        holder.itemTitle.setPadding(holder.itemTitle.getPaddingLeft(), holder.itemTitle.getPaddingTop(), drawableSize / 2, holder.itemTitle.getPaddingBottom());
         holder.endCard.setVisibility(ViewGroup.GONE);
     }
 }
