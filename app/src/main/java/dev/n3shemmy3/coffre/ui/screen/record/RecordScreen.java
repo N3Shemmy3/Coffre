@@ -31,8 +31,6 @@ import dev.n3shemmy3.coffre.ui.utils.InsetsUtils;
 
 public class RecordScreen extends BaseScreen {
 
-    private TransactionViewModel viewModel;
-
     private TextInputEditText inputTitle;
     private TextInputEditText inputAmount;
     private TabLayout tabLayout;
@@ -66,13 +64,11 @@ public class RecordScreen extends BaseScreen {
     @Override
     protected void onScreenCreated(View root, Bundle state) {
         super.onScreenCreated(root, state);
-        viewModel = new ViewModelProvider(requireActivity()).get(TransactionViewModel.class);
-        viewModel.getSelectedItem().observe(this, item -> {
-            if (item == null) return;
-            inputTitle.setText(item.getTitle());
-            inputAmount.setText(new DecimalFormat("#.00").format(item.getAmount()));
-
-        });
+       if (getArguments() == null) return;
+       Transaction item = getArguments().getParcelable("item");
+        if (item == null) return;
+        inputTitle.setText(item.getTitle());
+        inputAmount.setText(new DecimalFormat("#.00").format(item.getAmount()));
     }
 
     private void setUpTabs() {
@@ -93,12 +89,6 @@ public class RecordScreen extends BaseScreen {
         });
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        //cleanup
-        viewModel.selectItem(null);
-    }
 
     private void setUpDateTimePickers() {
         boolean is24HourFormat = DateFormat.is24HourFormat(requireContext());
