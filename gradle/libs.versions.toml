@@ -1,5 +1,7 @@
 [versions]
 agp = "8.9.0-alpha09"
+googleMaterialTypefaceOutlined = "4.0.0.2-kotlin"
+iconicsCore = "5.4.0"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
@@ -20,6 +22,8 @@ preference = "1.2.1"
 
 
 [libraries]
+google-material-typeface-outlined = { module = "com.mikepenz:google-material-typeface-outlined", version.ref = "googleMaterialTypefaceOutlined" }
+iconics-core = { module = "com.mikepenz:iconics-core", version.ref = "iconicsCore" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }

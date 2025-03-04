@@ -50,6 +50,8 @@ dependencies {
     implementation(libs.recyclerview)
     implementation(libs.recyclerview.selection)
     implementation(libs.preference)
+    implementation (libs.iconics.core)
+    implementation(libs.google.material.typeface.outlined){ artifact { type = "aar" } }
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
