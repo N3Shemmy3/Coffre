@@ -48,12 +48,12 @@ public class OneLineItem extends RecyclerView.ViewHolder {
                 textColor = MaterialColors.getColor(itemView, com.google.android.material.R.attr.colorOnErrorContainer);
                 break;
             case TRANSFER:
-                color = MaterialColors.getColor(itemView, com.google.android.material.R.attr.colorTertiaryContainer);
-                textColor = MaterialColors.getColor(itemView, com.google.android.material.R.attr.colorOnTertiaryContainer);
-                break;
-            default:
                 color = MaterialColors.getColor(itemView, com.google.android.material.R.attr.colorPrimaryContainer);
                 textColor = MaterialColors.getColor(itemView, com.google.android.material.R.attr.colorOnPrimaryContainer);
+                break;
+            default:
+                color = MaterialColors.getColor(itemView, R.attr.colorSuccessContainer);
+                textColor = MaterialColors.getColor(itemView, R.attr.colorOnSuccessContainer);
                 break;
         }
         endCard.setBackgroundTintList(ColorStateList.valueOf(color));
