@@ -6,7 +6,6 @@ import android.os.Parcelable;
 import androidx.annotation.NonNull;
 
 import java.math.BigDecimal;
-import java.util.Date;
 import java.util.Objects;
 
 public class Transaction implements Parcelable {
@@ -23,28 +22,28 @@ public class Transaction implements Parcelable {
     private BigDecimal amount;
     private TransactionType type;
     private int accountId;
-    private Date date;
+    private long time;
 
     public Transaction() {
     }
 
-    public Transaction(int id, String title, String description, BigDecimal amount, int type, int accountId, Date date) {
+    public Transaction(int id, String title, String description, BigDecimal amount, int type, int accountId, long time) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.amount = amount;
         this.type = TransactionType.values()[type];
         this.accountId = accountId;
-        this.date = date;
+        this.time = time;
     }
 
 
-    public Date getDate() {
-        return date;
+    public long getTime() {
+        return time;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setTime(long time) {
+        this.time = time;
     }
 
     public TransactionType getTransactionType() {
@@ -140,7 +139,7 @@ public class Transaction implements Parcelable {
                 ", amount=" + amount +
                 ", type=" + type +
                 ", accountId=" + accountId +
-                ", date=" + date +
+                ", time=" + time +
                 '}';
     }
 
@@ -159,7 +158,7 @@ public class Transaction implements Parcelable {
                 &&
                 Objects.equals(getDescription(), that.getDescription())
                 &&
-                Objects.equals(getDate(), that.getDate())
+                Objects.equals(getTime(), that.getTime())
                 &&
                 type == that.type;
     }
@@ -172,7 +171,7 @@ public class Transaction implements Parcelable {
         result = 31 * result + Double.hashCode(getAmount().doubleValue());
         result = 31 * result + getAccountId();
         result = 31 * result + getTransactionType().ordinal();
-        result = 31 * result + Objects.hashCode(getDate());
+        result = 31 * result + Objects.hashCode(getTime());
         result = 31 * result + Objects.hashCode(getTransactionType());
         return result;
     }

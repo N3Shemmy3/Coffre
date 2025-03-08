@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 import dev.n3shemmy3.coffre.R;
 import dev.n3shemmy3.coffre.backend.item.Transaction;
-import dev.n3shemmy3.coffre.backend.item.viewmodel.TransactionViewModel;
+import dev.n3shemmy3.coffre.backend.viewmodel.MainViewModel;
 import dev.n3shemmy3.coffre.ui.adapters.TransactionsAdapter;
 import dev.n3shemmy3.coffre.ui.base.BaseFragment;
 import dev.n3shemmy3.coffre.ui.interfaces.ItemListener;
@@ -23,6 +23,7 @@ import dev.n3shemmy3.coffre.ui.navigator.Navigator;
 import dev.n3shemmy3.coffre.ui.screen.record.RecordScreen;
 
 public class MainTransactionsList extends BaseFragment implements ItemListener<Transaction> {
+    private MainViewModel viewModel;
     private RecyclerView recycler;
     private LinearLayoutManager layoutManager;
     private TransactionsAdapter adapter;
@@ -33,7 +34,7 @@ public class MainTransactionsList extends BaseFragment implements ItemListener<T
     }
 
     @Override
-    public void onFragmentCreated(@NonNull View root, @Nullable Bundle savedInstanceState) {
+    public void onCreateFragment(@NonNull View root, @Nullable Bundle savedInstanceState) {
         recycler = root.findViewById(R.id.recycler);
         recycler.setItemAnimator(new DefaultItemAnimator());
         layoutManager = new LinearLayoutManager(getContext());
@@ -42,36 +43,14 @@ public class MainTransactionsList extends BaseFragment implements ItemListener<T
         adapter.setItemListener(this);
         recycler.setAdapter(adapter);
 
-        ArrayList<Transaction> transactions = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
-            Transaction transaction = new Transaction();
-            transaction.setId(i);
-            transaction.setTitle("Coffee");
-            transaction.setDescription("Drinks");
-            transaction.setAmount(BigDecimal.valueOf(5.00));
-            transaction.setTransactionType(Transaction.TransactionType.EXPENSE);
-            transactions.add(transaction);
-        }
-
-        Transaction transaction = new Transaction();
-        transaction.setId(transactions.size() - 1);
-        transaction.setTitle("Salary");
-        transaction.setDescription("Income");
-        transaction.setAmount(BigDecimal.valueOf(20.00));
-        transaction.setTransactionType(Transaction.TransactionType.INCOME);
-        transactions.add(transaction);
-
-
-        transaction = new Transaction();
-        transaction.setId(transactions.size() - 1);
-        transaction.setTitle("Bank to Cash");
-        transaction.setDescription("Transfer");
-        transaction.setAmount(BigDecimal.valueOf(10.00));
-        transaction.setTransactionType(Transaction.TransactionType.TRANSFER);
-        transactions.add(transaction);
-        adapter.submitList(transactions);
     }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        viewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
+        viewModel.getTransactions().observe(getViewLifecycleOwner(), items -> adapter.submitList(items));
+    }
 
     @Override
     public void onItemClicked(@NonNull View itemView, Transaction item, int position) {

@@ -1,5 +1,6 @@
 package dev.n3shemmy3.coffre.ui.adapters;
 
+import android.text.format.DateFormat;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -7,11 +8,13 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 
 import java.text.DecimalFormat;
+import java.util.Calendar;
 
 import dev.n3shemmy3.coffre.R;
 import dev.n3shemmy3.coffre.backend.item.Transaction;
 import dev.n3shemmy3.coffre.ui.interfaces.ItemListener;
 import dev.n3shemmy3.coffre.ui.item.TwoLineItem;
+import dev.n3shemmy3.coffre.ui.utils.DateUtils;
 
 public class TransactionsAdapter extends ListAdapter<Transaction, TwoLineItem> {
 
@@ -45,9 +48,11 @@ public class TransactionsAdapter extends ListAdapter<Transaction, TwoLineItem> {
     @Override
     public void onBindViewHolder(@NonNull TwoLineItem holder, int position) {
         Transaction transaction = getItem(position);
+        Calendar calendar = Calendar.getInstance();
+        boolean is24HourFormat = DateFormat.is24HourFormat(holder.itemView.getContext());
         holder.itemIcon.setImageResource(R.drawable.outline_local_cafe_24);
         holder.itemTitle.setText(transaction.getTitle());
-        holder.itemSubTitle.setText(transaction.getDescription());
+        holder.itemSubTitle.setText(DateUtils.formatTime(calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), is24HourFormat));
         holder.itemEndText.setText("$" + new DecimalFormat("#.00").format(transaction.getAmount()) );
         holder.setEndCardColor(transaction.getTransactionType());
 

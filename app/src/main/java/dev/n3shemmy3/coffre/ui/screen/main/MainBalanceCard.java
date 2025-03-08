@@ -16,7 +16,7 @@ public class MainBalanceCard extends BaseFragment {
     }
 
     @Override
-    public void onFragmentCreated(@NonNull View root, @Nullable Bundle savedInstanceState) {
+    public void onCreateFragment(@NonNull View root, @Nullable Bundle savedInstanceState) {
 
     }
 

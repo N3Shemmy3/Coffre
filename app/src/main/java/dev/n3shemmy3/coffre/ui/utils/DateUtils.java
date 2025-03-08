@@ -10,6 +10,10 @@ import java.util.Locale;
 
 public class DateUtils {
 
+    public static boolean is24HourFormat(Context context) {
+        return DateFormat.is24HourFormat(context);
+    }
+
     public static String formatTime(int hour, int minute, boolean is24HourFormat) {
         SimpleDateFormat timeFormatter = new SimpleDateFormat(is24HourFormat ? "HH:mm" : "hh:mm a", Locale.getDefault());
         Calendar cal = Calendar.getInstance();
