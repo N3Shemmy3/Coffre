@@ -5,9 +5,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import dev.n3shemmy3.coffre.R;
@@ -28,17 +25,22 @@ public class MainScreen extends BaseScreen {
     @Override
     protected void onCreateScreen(View root, Bundle savedInstanceState) {
         fab = root.findViewById(R.id.fab);
-        InsetsUtils.applyAppbarInsets(topAppBar, topToolBar, (
-                displayCutOutInsets, systemBarInsets) -> {
+
+        fab.setOnClickListener(view -> Navigator.push(getNavigator(), new RecordScreen()));
+        applyInsets();
+    }
+
+    private void applyInsets() {
+        InsetsUtils.applyAppbarInsets(topAppBar, (displayCutOutInsets, systemBarInsets) -> {
             int hInsets = displayCutOutInsets.left + displayCutOutInsets.right;
 
-            //add insets to avatar (yes i want horizontal symmetry)
+            //Toolbar
+            int dp8 = (int) (Resources.getSystem().getDisplayMetrics().density * 8);
             ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams) topToolBar.getLayoutParams();
-            if (hInsets > 0) {
-                mlp.leftMargin = (int) (Resources.getSystem().getDisplayMetrics().density * 16);
-                mlp.rightMargin = (int) (Resources.getSystem().getDisplayMetrics().density * 16);
-                topToolBar.setLayoutParams(mlp);
-            }
+            topToolBar.setPadding(hInsets + dp8, topToolBar.getPaddingTop(), hInsets + dp8, topToolBar.getPaddingBottom());
+            mlp.topMargin = systemBarInsets.top;
+            topToolBar.setLayoutParams(mlp);
+
             //Fab
             mlp = (ViewGroup.MarginLayoutParams) fab.getLayoutParams();
             mlp.leftMargin = hInsets + mlp.leftMargin;
@@ -46,7 +48,6 @@ public class MainScreen extends BaseScreen {
             mlp.bottomMargin = mlp.bottomMargin + systemBarInsets.bottom;
             fab.setLayoutParams(mlp);
         });
-        fab.setOnClickListener(view -> Navigator.push(getNavigator(), new RecordScreen()));
         InsetsUtils.applyContentInsets(content);
     }
 }

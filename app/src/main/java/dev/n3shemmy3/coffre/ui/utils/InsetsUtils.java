@@ -91,8 +91,14 @@ public class InsetsUtils {
     }
 
 
+    public static void applyAppbarInsets(@NonNull AppBarLayout appbar, @NonNull InsetsListener insetsListener) {
+        ViewCompat.setOnApplyWindowInsetsListener(appbar, (v, windowInsets) -> {
+            insetsListener.onInsetsChanged(windowInsets.getInsets(WindowInsetsCompat.Type.displayCutout()), windowInsets.getInsets(WindowInsetsCompat.Type.systemBars()));
+            return windowInsets;
+        });
+    }
+
     public static void applyAppbarInsets(@NonNull AppBarLayout appbar, @Nullable View toolbar, @Nullable InsetsListener insetsListener) {
-        int initialTitleMargin = (int) (Resources.getSystem().getDisplayMetrics().density * 24);
         ViewCompat.setOnApplyWindowInsetsListener(appbar, (v, windowInsets) -> {
             Insets displayCutOutInsets = windowInsets.getInsets(WindowInsetsCompat.Type.displayCutout());
             Insets systemBarInsets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -100,7 +106,7 @@ public class InsetsUtils {
             int leftDisplayCutoutInsets = displayCutOutInsets.left <= 0 ? hInsets : displayCutOutInsets.left;
             int rightDisplayCutoutInsets = displayCutOutInsets.right <= 0 ? hInsets : displayCutOutInsets.right;
             if (toolbar != null) {
-                toolbar.setPadding(leftDisplayCutoutInsets, toolbar.getPaddingTop(), rightDisplayCutoutInsets + (initialTitleMargin / 4), toolbar.getPaddingBottom());
+                toolbar.setPadding(leftDisplayCutoutInsets, toolbar.getPaddingTop(), rightDisplayCutoutInsets + (int) (Resources.getSystem().getDisplayMetrics().density * 8), toolbar.getPaddingBottom());
                 ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams) toolbar.getLayoutParams();
                 mlp.topMargin = systemBarInsets.top;
                 toolbar.setLayoutParams(mlp);
@@ -111,6 +117,7 @@ public class InsetsUtils {
             return windowInsets;
         });
     }
+
     public static void applyContentInsets(@NonNull View view) {
         ViewCompat.setOnApplyWindowInsetsListener(view, (v, windowInsets) -> {
             Insets displayCutOutInsets = windowInsets.getInsets(WindowInsetsCompat.Type.displayCutout());

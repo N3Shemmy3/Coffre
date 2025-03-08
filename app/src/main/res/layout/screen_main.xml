@@ -14,28 +14,36 @@
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/topToolBar"
-            style="@style/App.MaterialToolbar"
+            android:theme="@style/App.MaterialToolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minHeight="?actionBarSize"
+            app:contentInsetStart="0dp"
             app:menu="@menu/main_top_toolbar">
 
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent">
 
+                <FrameLayout
+                    android:layout_centerVertical="true"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    tools:ignore="UselessParent">
+
+
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/toolBarAvatar"
                     android:layout_width="32dp"
                     android:layout_height="32dp"
-                    android:layout_centerVertical="true"
+                    android:layout_gravity="center"
                     android:adjustViewBounds="true"
                     android:background="@drawable/ic_launcher_background"
                     android:clickable="false"
                     android:contentDescription="@string/profile_avatar"
-                    android:scaleType="centerCrop"
                     app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"
                     app:srcCompat="@drawable/ic_launcher_foreground" />
+                </FrameLayout>
 
             </RelativeLayout>
         </com.google.android.material.appbar.MaterialToolbar>
