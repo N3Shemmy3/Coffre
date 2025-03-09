@@ -19,7 +19,16 @@
             android:layout_height="wrap_content"
             android:minHeight="?actionBarSize"
             app:navigationIcon="@drawable/outline_arrow_back_24"
-            app:title="" />
+            app:title="">
+
+            <Button
+                android:id="@+id/action_save"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginEnd="10dp"
+                android:text="@string/action_save" />
+        </com.google.android.material.appbar.MaterialToolbar>
     </com.google.android.material.appbar.AppBarLayout>
 
 
@@ -43,7 +52,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/activity_padding_vertical"
-                android:hint="Title"
+                android:hint="@string/title"
                 app:counterEnabled="true"
                 app:counterMaxLength="30"
                 app:errorEnabled="true">
@@ -64,7 +73,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:hint="Amount"
+                android:hint="@string/amount"
+                app:errorEnabled="true"
                 app:prefixText="$">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -102,17 +112,17 @@
                 <com.google.android.material.tabs.TabItem
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Income" />
+                    android:text="@string/income" />
 
                 <com.google.android.material.tabs.TabItem
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Expense" />
+                    android:text="@string/expense" />
 
                 <com.google.android.material.tabs.TabItem
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Transfer" />
+                    android:text="@string/transfer" />
             </com.google.android.material.tabs.TabLayout>
 
             <LinearLayout
@@ -128,7 +138,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/activity_padding_vertical"
                     android:layout_weight="1"
-                    android:hint="Time"
+                    android:hint="@string/time"
                     app:endIconMode="none">
 
                     <AutoCompleteTextView
@@ -137,7 +147,8 @@
                         android:layout_height="wrap_content"
                         android:drawableEnd="@drawable/outline_schedule_24"
                         android:inputType="none"
-                        android:lines="1" />
+                        android:lines="1"
+                        tools:ignore="LabelFor" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -147,7 +158,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:hint="Date"
+                    android:hint="@string/date"
                     app:endIconMode="none">
 
                     <AutoCompleteTextView
@@ -156,18 +167,20 @@
                         android:layout_height="wrap_content"
                         android:drawableEnd="@drawable/outline_calendar_today_24"
                         android:inputType="none"
-                        android:lines="1" />
+                        android:lines="1"
+                        tools:ignore="LabelFor" />
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textCaegory"
+                android:id="@+id/textCategory"
                 style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="@dimen/activity_padding_vertical"
-                android:hint="Category"
-                app:endIconMode="none">
+                android:hint="@string/category"
+                app:endIconMode="none"
+                app:errorEnabled="true">
 
                 <AutoCompleteTextView
                     android:id="@+id/inputCategory"
@@ -183,7 +196,7 @@
                 android:id="@+id/textNotes"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Notes"
+                android:hint="@string/notes"
                 app:counterEnabled="true"
                 app:counterMaxLength="500">
 

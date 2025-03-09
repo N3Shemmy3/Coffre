@@ -14,7 +14,6 @@ import androidx.core.view.WindowInsetsCompat;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 
-import dev.n3shemmy3.coffre.R;
 import dev.n3shemmy3.coffre.ui.interfaces.InsetsListener;
 
 public class InsetsUtils {
@@ -74,10 +73,11 @@ public class InsetsUtils {
             int hInsets = displayCutOutInsets.left + displayCutOutInsets.right;
 
             if (toolbar != null) {
+                //Toolbar
+                int dp8 = (int) (Resources.getSystem().getDisplayMetrics().density * 8);
                 ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams) toolbar.getLayoutParams();
+                toolbar.setPadding(hInsets + dp8, toolbar.getPaddingTop(), hInsets + dp8, toolbar.getPaddingBottom());
                 mlp.topMargin = systemBarInsets.top;
-                mlp.leftMargin = hInsets;
-                mlp.rightMargin = hInsets;
                 toolbar.setLayoutParams(mlp);
             }
 

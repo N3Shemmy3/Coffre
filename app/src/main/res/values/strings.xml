@@ -39,6 +39,25 @@
     <string name="action_delete">Delete</string>
     <string name="action_select">Select</string>
 
+
+    <!-- Errors -->
+    <string name="error_required_filed">Required filed</string>
+
+
+    <!-- Strings -->
+    <string name="title">Title</string>
+    <string name="amount">Amount</string>
+    <string name="notes">Notes</string>
+    <string name="time">Time</string>
+    <string name="date">Date</string>
+    <string name="category">Category</string>
+    <string name="see_all">See all</string>
+    <string name="income">Income</string>
+    <string name="transfer">Transfer</string>
+    <string name="expenses">Expenses</string>
+    <string name="expense">Expense</string>
+
+
     <!--Content Descriptions -->
     <!--User Profile-->
     <string name="user_profile_picture">User profile picture</string>
@@ -51,8 +70,5 @@
     <string name="list_item_icon">List item icon</string>
     <string name="list_item_title">List item title</string>
     <string name="list_item_sub_title">List item subtitle</string>
-    <string name="see_all">See all</string>
-    <string name="income">Income</string>
-    <string name="expenses">Expenses</string>
 
 </resources>

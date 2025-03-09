@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:minHeight="?actionBarSize"
             app:contentInsetStart="0dp"
-            app:menu="@menu/main_top_toolbar">
+            app:menu="@menu/main_toolbar">
 
             <RelativeLayout
                 android:layout_width="wrap_content"

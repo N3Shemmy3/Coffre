@@ -7,19 +7,9 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.view.HapticFeedbackConstantsCompat;
 import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-
-import com.google.android.material.appbar.AppBarLayout;
-import com.google.android.material.appbar.CollapsingToolbarLayout;
-import com.google.android.material.appbar.MaterialToolbar;
-import com.google.android.material.color.MaterialColors;
-import com.google.android.material.transition.MaterialSharedAxis;
-
-import dev.n3shemmy3.coffre.R;
-import dev.n3shemmy3.coffre.ui.utils.InsetsUtils;
 
 public abstract class BaseFragment extends Fragment {
     protected BaseFragment() {
@@ -27,7 +17,7 @@ public abstract class BaseFragment extends Fragment {
 
     protected abstract int getLayoutResId();
 
-    public void onFragmentCreated(@NonNull View root, @Nullable Bundle savedInstanceState){}
+    public void onCreateFragment(@NonNull View root, @Nullable Bundle savedInstanceState){}
 
     protected View root;
 
@@ -42,7 +32,7 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         root = inflater.inflate(getLayoutResId(), container, false);
-        onFragmentCreated(root, savedInstanceState);
+        onCreateFragment(root, savedInstanceState);
         return root;
     }
 

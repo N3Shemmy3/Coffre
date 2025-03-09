@@ -117,7 +117,7 @@ public class IconPickerScreen extends BaseScreen {
             AppUtils.showSoftInput(requireActivity(), searchView, true);
             searchView.requestFocus();
         } else {
-            topToolBar.inflateMenu(R.menu.category_top_toolbar);
+            topToolBar.inflateMenu(R.menu.category_toolbar);
             AppUtils.showSoftInput(requireActivity(), searchView, false);
             searchBar.setVisibility(View.GONE);
         }
