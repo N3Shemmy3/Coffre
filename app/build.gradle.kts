@@ -53,6 +53,7 @@ dependencies {
     implementation (libs.iconics.core)
     implementation(libs.google.material.typeface.outlined){ artifact { type = "aar" } }
     implementation(libs.room.runtime)
+    implementation (libs.ticker)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)

@@ -40,29 +40,33 @@
             app:layout_constraintStart_toStartOf="@id/account_title"
             app:layout_constraintTop_toTopOf="@id/decimal" />
 
-        <TextView
+        <com.robinhood.ticker.TickerView
             android:id="@+id/round"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="2dp"
-            android:text="-123."
+            android:gravity="end"
+            android:text="00."
             android:textColor="?colorOnPrimary"
             android:textSize="54sp"
             app:layout_constraintEnd_toStartOf="@id/decimal"
-            app:layout_constraintTop_toTopOf="@id/account_title" />
+            app:layout_constraintTop_toTopOf="@id/account_title"
+            app:ticker_animationDuration="1000" />
 
-        <TextView
+        <com.robinhood.ticker.TickerView
             android:id="@+id/decimal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="4dp"
-            android:text="45"
+            android:gravity="end"
+            android:text="00"
             android:textColor="?colorOnPrimary"
             android:textSize="36sp"
             app:layout_constraintBottom_toBottomOf="@id/round"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:ticker_animationDuration="1000" />
 
         <TextView
             android:id="@+id/income_title"
@@ -76,16 +80,18 @@
             app:layout_constraintStart_toStartOf="@id/account_title"
             app:layout_constraintTop_toBottomOf="@id/round" />
 
-        <TextView
+        <com.robinhood.ticker.TickerView
             android:id="@+id/income"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="+ $12839"
+            android:gravity="end"
+            android:text="$0.00"
             android:textColor="@color/colorSuccessContainer"
             android:textFontWeight="700"
             app:layout_constraintBottom_toBottomOf="@id/income_title"
             app:layout_constraintEnd_toEndOf="@id/decimal"
-            app:layout_constraintTop_toTopOf="@id/income_title" />
+            app:layout_constraintTop_toTopOf="@id/income_title"
+            app:ticker_animationDuration="1000" />
 
         <TextView
             android:id="@+id/expenses_title"
@@ -99,16 +105,18 @@
             app:layout_constraintStart_toStartOf="@id/account_title"
             app:layout_constraintTop_toBottomOf="@id/income_title" />
 
-        <TextView
+        <com.robinhood.ticker.TickerView
             android:id="@+id/expenses"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="- $5678"
+            android:gravity="end"
+            android:text="$0.00"
             android:textColor="?colorErrorContainer"
             android:textFontWeight="700"
             app:layout_constraintBottom_toBottomOf="@id/expenses_title"
             app:layout_constraintEnd_toEndOf="@id/decimal"
-            app:layout_constraintTop_toTopOf="@id/expenses_title" />
+            app:layout_constraintTop_toTopOf="@id/expenses_title"
+            app:ticker_animationDuration="1000" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
