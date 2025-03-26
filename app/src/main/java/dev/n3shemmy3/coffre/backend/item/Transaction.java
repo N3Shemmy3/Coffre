@@ -4,35 +4,39 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
 import java.math.BigDecimal;
 import java.util.Objects;
 
+@Entity(tableName = Transaction.TABLE_NAME)
 public class Transaction implements Parcelable {
 
+    public static final String TABLE_NAME = "transactions_table";
     public enum TransactionType {
         INCOME,
         EXPENSE,
         TRANSFER
     }
 
+    @PrimaryKey(autoGenerate = true)
     private int id;
     private String title;
     private String description;
     private BigDecimal amount;
-    private TransactionType type;
+    private TransactionType transactionType;
     private int accountId;
     private long time;
 
     public Transaction() {
     }
 
-    public Transaction(int id, String title, String description, BigDecimal amount, int type, int accountId, long time) {
-        this.id = id;
+    public Transaction(String title, String description, BigDecimal amount, int transactionType, int accountId, long time) {
         this.title = title;
         this.description = description;
         this.amount = amount;
-        this.type = TransactionType.values()[type];
+        this.transactionType = TransactionType.values()[transactionType];
         this.accountId = accountId;
         this.time = time;
     }
@@ -47,11 +51,11 @@ public class Transaction implements Parcelable {
     }
 
     public TransactionType getTransactionType() {
-        return type;
+        return transactionType;
     }
 
     public void setTransactionType(TransactionType transactionType) {
-        this.type = transactionType;
+        this.transactionType = transactionType;
     }
 
     public int getAccountId() {
@@ -137,7 +141,7 @@ public class Transaction implements Parcelable {
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
                 ", amount=" + amount +
-                ", type=" + type +
+                ", transactionType=" + transactionType +
                 ", accountId=" + accountId +
                 ", time=" + time +
                 '}';
@@ -160,7 +164,7 @@ public class Transaction implements Parcelable {
                 &&
                 Objects.equals(getTime(), that.getTime())
                 &&
-                type == that.type;
+                transactionType == that.transactionType;
     }
 
     @Override

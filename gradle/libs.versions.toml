@@ -19,6 +19,8 @@ recyclerview = "1.4.0"
 recyclerview-selection = "1.1.0"
 splashscreen = "1.0.1"
 preference = "1.2.1"
+roomRuntime = "2.6.1"
+roomCompiler = "2.6.1"
 
 
 [libraries]
@@ -43,6 +45,8 @@ recyclerview = { group = "androidx.recyclerview", name = "recyclerview", version
 splashscreen = { group = "androidx.core", name = "core-splashscreen", version.ref = "splashscreen" }
 recyclerview-selection = { group = "androidx.recyclerview", name = "recyclerview-selection", version.ref = "recyclerview-selection" }
 preference = { group = "androidx.preference", name = "preference", version.ref = "preference" }
+room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "roomRuntime" }
+room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "roomCompiler" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

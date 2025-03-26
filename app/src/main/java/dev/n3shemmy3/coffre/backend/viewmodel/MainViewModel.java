@@ -1,30 +1,42 @@
 package dev.n3shemmy3.coffre.backend.viewmodel;
 
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
+import android.app.Application;
 
-import java.util.ArrayList;
+import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
+
 import java.util.List;
 
 import dev.n3shemmy3.coffre.backend.item.Transaction;
+import dev.n3shemmy3.coffre.backend.reposity.TransactionRepository;
 
-public class MainViewModel extends ViewModel {
-    private final MutableLiveData<List<Transaction>> transactions = new MutableLiveData<>();
+public class MainViewModel extends AndroidViewModel {
 
-    public void addItem(Transaction transaction) {
-        if (transactions.getValue() == null) transactions.setValue(new ArrayList<>());
-        if (transactions.getValue().contains(transaction)) {
-            List<Transaction> temp = transactions.getValue();
-            temp.set(temp.lastIndexOf(transaction), transaction);
-            transactions.setValue(temp);
-        } else {
-            List<Transaction> temp = transactions.getValue();
-            temp.add(transaction);
-            transactions.setValue(temp);
+    private final TransactionRepository repository;
+    private final LiveData<List<Transaction>> transactions;
 
-        }
+    public MainViewModel(@NonNull Application application) {
+        super(application);
 
+        repository = new TransactionRepository(application);
+        transactions = repository.getAllTransactions();
+    }
+
+    public void insert(Transaction item) {
+        repository.insert(item);
+    }
+
+    public void update(Transaction item) {
+        repository.update(item);
+    }
+
+    public void delete(Transaction item) {
+        repository.delete(item);
+    }
+
+    public void deleteAllTransactions() {
+        repository.deleteAllTransactions();
     }
 
     public LiveData<List<Transaction>> getTransactions() {

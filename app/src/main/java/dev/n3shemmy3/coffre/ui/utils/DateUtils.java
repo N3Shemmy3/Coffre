@@ -45,9 +45,6 @@ public class DateUtils {
         calendar.setTimeInMillis(System.currentTimeMillis());
         if (date.getSelection() != null && time.getHour() != 0 && time.getMinute() != 0) {
             calendar.setTimeInMillis(date.getSelection());
-            Log.d("TIME", "getTimeMillis: " + date.getSelection());
-            Log.d("Hour", "getHour: " + time.getHour());
-            Log.d("Minute", "getMinute: " + time.getMinute());
             calendar.set(Calendar.HOUR_OF_DAY, time.getHour());
             calendar.set(Calendar.MINUTE, time.getMinute());
         }

@@ -9,6 +9,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 
 import androidx.activity.OnBackPressedCallback;
+import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.datepicker.CalendarConstraints;
@@ -51,6 +52,7 @@ public class RecordScreen extends BaseScreen {
 
     private MaterialDatePicker<Long> datePicker;
     private MaterialTimePicker timePicker;
+    private Calendar calender;
 
 
     @Override
@@ -81,7 +83,7 @@ public class RecordScreen extends BaseScreen {
         Bundle args = getArguments();
         if (args != null) {
             Transaction receivedItem = args.getParcelable("item");
-            if (receivedItem != null && receivedItem.getId() != 0) {
+            if (receivedItem != null) {
                 item = receivedItem;
                 populateFieldsWithItemData(item);
             }
@@ -106,14 +108,13 @@ public class RecordScreen extends BaseScreen {
         super.onDestroyView();
         if (areInputsEmpty()) return;
         //Create transaction item
-        item.setId(item.getId() == 0 ? (int) System.currentTimeMillis() : item.getId());
         item.setTitle(String.valueOf(inputTitle.getText()).trim());
         item.setDescription(String.valueOf(inputNotes.getText()).trim());
         item.setAmount(new BigDecimal(String.valueOf(inputAmount.getText())));
         item.setAccountId(0);
         item.setTransactionType(Transaction.TransactionType.values()[tabLayout.getSelectedTabPosition()]);
-        item.setTime(DateUtils.getTimeMillis(datePicker, timePicker));
-        viewModel.addItem(item);
+        item.setTime(calender.getTimeInMillis());
+        viewModel.insert(item);
 
         //also save to bundle
         Bundle args = new Bundle();
@@ -123,7 +124,7 @@ public class RecordScreen extends BaseScreen {
 
     private void setUpDateTimePickers() {
         boolean is24HourFormat = DateFormat.is24HourFormat(requireContext());
-        Calendar calender = Calendar.getInstance();
+        calender = Calendar.getInstance();
         calender.setTimeInMillis(item.getTime() == 0 ? System.currentTimeMillis() : item.getTime());
 
         CalendarConstraints.Builder constraintsBuilder = new CalendarConstraints.Builder()
@@ -142,6 +143,7 @@ public class RecordScreen extends BaseScreen {
             }
 
             inputDate.setText(DateUtils.formatDate(selection, requireContext()));
+            calender.setTimeInMillis(selection);
             // Reset time if today is selected
             if (DateUtils.isToday(selection)) {
                 inputTime.setText(DateUtils.formatTime(calender.get(Calendar.HOUR_OF_DAY), calender.get(Calendar.MINUTE), is24HourFormat));
@@ -157,6 +159,8 @@ public class RecordScreen extends BaseScreen {
         timePicker.addOnPositiveButtonClickListener(picker -> {
             int pickedHour = timePicker.getHour();
             int pickedMinute = timePicker.getMinute();
+            calender.set(Calendar.HOUR_OF_DAY, pickedHour);
+            calender.set(Calendar.MINUTE, pickedMinute);
             inputTime.setText(DateUtils.formatTime(pickedHour, pickedMinute, is24HourFormat));
             timePicker.setHour(pickedHour);
             timePicker.setMinute(pickedMinute);
@@ -203,6 +207,5 @@ public class RecordScreen extends BaseScreen {
         else if (type == Transaction.TransactionType.TRANSFER) selection = 2;
         return selection;
     }
-
 
 }
