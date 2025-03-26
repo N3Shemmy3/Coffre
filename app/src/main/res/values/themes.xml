@@ -1,4 +1,5 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
+
     <style name="BaseTheme" parent="Theme.Material3.DynamicColors.DayNight.NoActionBar">
         <item name="colorPrimary">@color/md_theme_primary</item>
         <item name="colorOnPrimary">@color/md_theme_onPrimary</item>
@@ -68,6 +69,8 @@
         <item name="android:listPreferredItemPaddingEnd">@dimen/item_padding_horizontal</item>
         <item name="listPreferredItemPaddingStart">@dimen/item_padding_horizontal</item>
         <item name="listPreferredItemPaddingEnd">@dimen/item_padding_horizontal</item>
+        <item name="dividerColor">@color/color_divider</item>
+
         <!-- fixes some UI issues on MIUI devices -->
         <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
         <!-- true edge-to-edge, no black bars in display notch -->

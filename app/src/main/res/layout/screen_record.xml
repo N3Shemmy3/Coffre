@@ -19,16 +19,7 @@
             android:layout_height="wrap_content"
             android:minHeight="?actionBarSize"
             app:navigationIcon="@drawable/outline_arrow_back_24"
-            app:title="">
-
-            <Button
-                android:id="@+id/action_save"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:layout_marginEnd="10dp"
-                android:text="@string/action_save" />
-        </com.google.android.material.appbar.MaterialToolbar>
+            app:title="" />
     </com.google.android.material.appbar.AppBarLayout>
 
 
@@ -92,7 +83,7 @@
                 android:id="@+id/tabLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp"
+                android:layout_marginBottom="@dimen/activity_padding_vertical"
                 android:background="@drawable/tablayout_background"
                 app:tabBackground="@android:color/transparent"
                 app:tabGravity="start"
@@ -128,6 +119,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/activity_padding_vertical"
                 android:baselineAligned="false"
                 android:orientation="horizontal">
 
@@ -179,6 +171,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="@dimen/activity_padding_vertical"
                 android:hint="@string/category"
+                android:visibility="gone"
                 app:endIconMode="none"
                 app:errorEnabled="true">
 

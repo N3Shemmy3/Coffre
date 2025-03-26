@@ -38,7 +38,9 @@
     <string name="action_future">Future</string>
     <string name="action_delete">Delete</string>
     <string name="action_select">Select</string>
-
+    <string name="action_create_category">Create Category</string>
+    <string name="action_pick_color">Pick color</string>
+    <string name="action_pick_icon">Pick icon</string>
 
     <!-- Errors -->
     <string name="error_required_filed">Required filed</string>
@@ -56,6 +58,7 @@
     <string name="transfer">Transfer</string>
     <string name="expenses">Expenses</string>
     <string name="expense">Expense</string>
+    <string name="name">Name</string>
 
 
     <!--Content Descriptions -->

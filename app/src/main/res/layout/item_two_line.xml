@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:contentDescription="@string/list_item_icon"
             app:tint="@color/list_item_tint"
-            tools:src="@drawable/outline_local_cafe_24" />
+            android:src="@drawable/outline_local_cafe_24" />
     </com.google.android.material.card.MaterialCardView>
 
     <TextView

@@ -39,7 +39,6 @@ public class RecordScreen extends BaseScreen {
 
     private MainViewModel viewModel;
     private Transaction item = new Transaction();
-    private Button action_save;
     private TextInputLayout textTitle;
     private TextInputEditText inputTitle;
     private TextInputLayout textAmount;
@@ -62,7 +61,6 @@ public class RecordScreen extends BaseScreen {
     @Override
     protected void onCreateScreen(View root, Bundle savedInstanceState) {
         super.onCreateScreen(root, savedInstanceState);
-        action_save = root.findViewById(R.id.action_save);
         inputTitle = root.findViewById(R.id.inputTitle);
         inputAmount = root.findViewById(R.id.inputAmount);
         tabLayout = root.findViewById(R.id.tabLayout);
