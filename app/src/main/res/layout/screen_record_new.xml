@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/coordinator"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/topAppBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/topToolBar"
+            style="@style/App.MaterialToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="?actionBarSize"
+            app:menu="@menu/record_toolbar"
+            app:navigationIcon="@drawable/outline_arrow_back_24"
+            app:title="" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:id="@+id/content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingBottom="80dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <EditText
+                    android:id="@id/inputTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/activity_padding_horizontal"
+                    android:layout_marginTop="@dimen/activity_padding_horizontal"
+                    android:autofillHints="name"
+                    android:background="@android:color/transparent"
+                    android:hint="@string/title"
+                    android:imeOptions="actionNext"
+                    android:inputType="textShortMessage"
+                    android:maxLines="1"
+                    android:paddingVertical="8dp"
+                    android:textAppearance="?textAppearanceTitleLarge"
+                    android:textSize="26sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/timeChips"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/activity_padding_vertical"
+                    app:chipIconSize="18dp"
+                    app:layout_constraintEnd_toEndOf="@id/inputTitle"
+                    app:layout_constraintStart_toStartOf="@id/inputTitle"
+                    app:layout_constraintTop_toBottomOf="@id/inputTitle"
+                    app:selectionRequired="false">
+
+                    <com.google.android.material.chip.Chip
+                        style="@style/Widget.MaterialComponents.Chip.Action"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/time"
+                        android:textColor="?colorOnPrimaryContainer"
+                        app:chipBackgroundColor="?colorPrimaryContainer"
+                        app:chipEndPadding="8dp"
+                        app:chipIcon="@drawable/outline_schedule_24"
+                        app:chipIconSize="18dp"
+                        app:chipIconTint="?colorOnPrimaryContainer"
+                        app:iconStartPadding="8dp" />
+
+                    <com.google.android.material.chip.Chip
+                        style="@style/Widget.MaterialComponents.Chip.Action"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/date"
+                        android:textColor="?colorOnPrimaryContainer"
+                        app:chipBackgroundColor="?colorPrimaryContainer"
+                        app:chipEndPadding="8dp"
+                        app:chipIcon="@drawable/outline_calendar_month_24"
+                        app:chipIconSize="18dp"
+                        app:chipIconTint="?colorOnPrimaryContainer"
+                        app:iconStartPadding="8dp" />
+                </com.google.android.material.chip.ChipGroup>
+
+
+                <com.google.android.material.divider.MaterialDivider
+                    android:id="@+id/divider"
+                    style="@style/App.MaterialDivider"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/activity_padding_horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/timeChips" />
+
+
+                <TextView
+                    android:id="@+id/textCurrency"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/activity_padding_horizontal"
+                    android:maxLines="1"
+                    android:text="$"
+                    android:textAppearance="?textAppearanceHeadline3"
+                    app:layout_constraintEnd_toStartOf="@id/inputAmount"
+                    app:layout_constraintStart_toStartOf="@id/timeChips"
+                    app:layout_constraintTop_toBottomOf="@id/divider"
+                    tools:ignore="HardcodedText" />
+
+                <EditText
+                    android:id="@+id/inputAmount"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_weight="1"
+                    android:autoSizeMaxTextSize="52sp"
+                    android:autoSizeStepGranularity="1sp"
+                    android:autoSizeTextType="uniform"
+                    android:autofillHints="@null"
+                    android:background="@android:color/transparent"
+                    android:hint="0.00"
+                    android:imeOptions="actionNext"
+                    android:inputType="numberDecimal"
+                    android:maxLines="1"
+                    android:textAlignment="textEnd"
+                    android:textAppearance="?textAppearanceHeadline3"
+                    app:layout_constraintBottom_toBottomOf="@id/textCurrency"
+                    app:layout_constraintEnd_toEndOf="@id/timeChips"
+                    app:layout_constraintStart_toEndOf="@id/textCurrency"
+                    app:layout_constraintTop_toTopOf="@id/textCurrency"
+                    tools:ignore="HardcodedText" />
+
+
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tabLayout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/activity_padding_horizontal"
+                    android:background="@drawable/tablayout_background"
+                    app:layout_constraintStart_toStartOf="@id/textCurrency"
+                    app:layout_constraintTop_toBottomOf="@id/textCurrency"
+                    app:tabBackground="@android:color/transparent"
+                    app:tabGravity="start"
+                    app:tabIndicator="@drawable/selected_chip_background"
+                    app:tabIndicatorColor="?colorPrimaryContainer"
+                    app:tabIndicatorFullWidth="true"
+                    app:tabIndicatorGravity="stretch"
+                    app:tabMinWidth="0dp"
+                    app:tabMode="scrollable"
+                    app:tabPaddingEnd="12dp"
+                    app:tabPaddingStart="12dp"
+                    app:tabRippleColor="@android:color/transparent"
+                    app:tabSelectedTextColor="?colorOnPrimaryContainer"
+                    app:tabTextAppearance="?textAppearanceBodyMedium"
+                    app:tabTextColor="?attr/colorOnSurface">
+
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/income" />
+
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/expense" />
+
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/transfer" />
+                </com.google.android.material.tabs.TabLayout>
+
+
+                <com.google.android.material.divider.MaterialDivider
+                    android:id="@+id/divider2"
+                    style="@style/App.MaterialDivider"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/activity_padding_horizontal"
+                    android:background="?colorOutline"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tabLayout" />
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/inputNotes"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/activity_padding_horizontal"
+                    android:background="@android:color/transparent"
+                    android:gravity="start"
+                    android:hint="@string/notes"
+                    android:imeOptions="actionDone"
+                    android:inputType="textLongMessage"
+                    android:maxLength="500"
+                    android:minHeight="144dp"
+                    app:layout_constraintEnd_toEndOf="@id/inputAmount"
+                    app:layout_constraintStart_toStartOf="@id/tabLayout"
+                    app:layout_constraintTop_toBottomOf="@id/divider2" />
+
+                <com.google.android.material.divider.MaterialDivider
+                    android:id="@+id/divider3"
+                    style="@style/App.MaterialDivider"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="invisible"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/inputNotes" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <FrameLayout
+        android:id="@+id/bottom_sheet"
+        style="@style/Widget.Material3.BottomSheet"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:backgroundTint="?colorSurfaceContainer"
+        android:elevation="0dp"
+        android:visibility="gone"
+        app:behavior_hideable="true"
+        app:behavior_peekHeight="300dp"
+        app:layout_behavior="@string/bottom_sheet_behavior"
+        app:paddingBottomSystemWindowInsets="false"
+        app:paddingLeftSystemWindowInsets="false"
+        app:paddingRightSystemWindowInsets="false"
+        app:paddingTopSystemWindowInsets="true">
+
+        <com.google.android.material.bottomsheet.BottomSheetDragHandleView
+            android:id="@+id/sheetHandle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <include layout="@layout/screen_calculator" />
+    </FrameLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
