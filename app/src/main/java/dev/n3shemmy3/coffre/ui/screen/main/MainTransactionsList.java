@@ -27,7 +27,7 @@ public class MainTransactionsList extends BaseFragment implements ItemListener<T
 
     @Override
     protected int getLayoutResId() {
-        return R.layout.fragment_main_transactions_list;
+        return R.layout.fragment_transactions_list;
     }
 
     @Override
