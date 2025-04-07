@@ -14,10 +14,10 @@
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/topToolBar"
-            android:theme="@style/App.MaterialToolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minHeight="?actionBarSize"
+            android:theme="@style/App.MaterialToolbar"
             app:contentInsetStart="0dp"
             app:menu="@menu/main_toolbar">
 
@@ -26,23 +26,23 @@
                 android:layout_height="match_parent">
 
                 <FrameLayout
-                    android:layout_centerVertical="true"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
+                    android:layout_centerVertical="true"
                     tools:ignore="UselessParent">
 
 
-                <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/toolBarAvatar"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:layout_gravity="center"
-                    android:adjustViewBounds="true"
-                    android:background="@drawable/ic_launcher_background"
-                    android:clickable="false"
-                    android:contentDescription="@string/profile_avatar"
-                    app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"
-                    app:srcCompat="@drawable/ic_launcher_foreground" />
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/toolBarAvatar"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_gravity="center"
+                        android:adjustViewBounds="true"
+                        android:background="@drawable/ic_launcher_background"
+                        android:clickable="false"
+                        android:contentDescription="@string/profile_avatar"
+                        app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"
+                        app:srcCompat="@drawable/ic_launcher_foreground" />
                 </FrameLayout>
 
             </RelativeLayout>
@@ -67,9 +67,11 @@
             <!-- Current Balance Card-->
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/mainBalanceCard"
+                android:name="dev.n3shemmy3.coffre.ui.screen.main.MainBalanceCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:name="dev.n3shemmy3.coffre.ui.screen.main.MainBalanceCard"/>
+                tools:layout="@layout/fragment_main_balance_card"
+                tools:layout_marginHorizontal="@dimen/activity_padding_horizontal" />
 
             <!-- Transaction List -->
             <com.google.android.material.card.MaterialCardView
@@ -108,18 +110,15 @@
 
                     <androidx.fragment.app.FragmentContainerView
                         android:id="@+id/transactionRecycler"
+                        android:name="dev.n3shemmy3.coffre.ui.screen.main.MainTransactionsList"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:name="dev.n3shemmy3.coffre.ui.screen.main.MainTransactionsList"
                         android:layout_below="@id/transactionHeader"
-                        android:layout_marginVertical="12dp" />
+                        android:layout_marginVertical="12dp"
+                        tools:layout="@layout/fragment_main_transactions_list" />
                 </RelativeLayout>
 
             </com.google.android.material.card.MaterialCardView>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1000dp"/>
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
