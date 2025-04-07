@@ -86,12 +86,12 @@ public abstract class BaseScreen extends BaseFragment {
         Because its cool
      */
     @NonNull
-    public FragmentManager getNavigator() {
+    public FragmentManager getScreenManager() {
         return getSupportFragmentManager();
     }
 
     @NonNull
-    public FragmentManager getChildNavigator() {
+    public FragmentManager getChildScreenManager() {
         return getChildFragmentManager();
     }
 

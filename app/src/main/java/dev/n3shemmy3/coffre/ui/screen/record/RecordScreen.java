@@ -1,15 +1,10 @@
 package dev.n3shemmy3.coffre.ui.screen.record;
 
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
-import android.widget.Button;
 
-import androidx.activity.OnBackPressedCallback;
-import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.datepicker.CalendarConstraints;
@@ -22,15 +17,12 @@ import com.google.android.material.timepicker.TimeFormat;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
-import java.text.ParseException;
 import java.util.Calendar;
-import java.util.Objects;
 
 import dev.n3shemmy3.coffre.R;
 import dev.n3shemmy3.coffre.backend.item.Transaction;
 import dev.n3shemmy3.coffre.backend.viewmodel.MainViewModel;
 import dev.n3shemmy3.coffre.ui.base.BaseScreen;
-import dev.n3shemmy3.coffre.ui.interfaces.TextChangedListener;
 import dev.n3shemmy3.coffre.ui.navigator.Navigator;
 import dev.n3shemmy3.coffre.ui.screen.category.CategoryScreen;
 import dev.n3shemmy3.coffre.ui.utils.DateUtils;
@@ -89,7 +81,7 @@ public class RecordScreen extends BaseScreen {
                 populateFieldsWithItemData(item);
             }
         }
-        topToolBar.setOnClickListener(v-> Navigator.push(getNavigator(), new CategoryScreen()));
+        topToolBar.setOnClickListener(v-> Navigator.push(getScreenManager(), new CategoryScreen()));
         setUpDateTimePickers();
         setUpCategory();
     }
@@ -101,7 +93,7 @@ public class RecordScreen extends BaseScreen {
                 if (menuItem.getItemId() != R.id.action_delete)
                     return false;
                 viewModel.delete(item);
-                getNavigator().popBackStack();
+                getScreenManager().popBackStack();
                 return true;
             });
         }
@@ -205,7 +197,7 @@ public class RecordScreen extends BaseScreen {
         inputCategory.setOnFocusChangeListener((view, isFocused) -> {
             if (view.isInTouchMode() && isFocused) view.performClick();
         });
-        inputCategory.setOnClickListener(view -> Navigator.push(getNavigator(), new CategoryScreen()));
+        inputCategory.setOnClickListener(view -> Navigator.push(getScreenManager(), new CategoryScreen()));
     }
 
     private boolean areInputsEmpty() {

@@ -11,6 +11,7 @@ import dev.n3shemmy3.coffre.R;
 import dev.n3shemmy3.coffre.ui.base.BaseScreen;
 import dev.n3shemmy3.coffre.ui.navigator.Navigator;
 import dev.n3shemmy3.coffre.ui.screen.record.RecordScreen;
+import dev.n3shemmy3.coffre.ui.screen.search.SearchScreen;
 import dev.n3shemmy3.coffre.ui.utils.InsetsUtils;
 
 public class MainScreen extends BaseScreen {
@@ -25,8 +26,14 @@ public class MainScreen extends BaseScreen {
     @Override
     protected void onCreateScreen(View root, Bundle savedInstanceState) {
         fab = root.findViewById(R.id.fab);
-
-        fab.setOnClickListener(view -> Navigator.push(getNavigator(), new RecordScreen()));
+        topToolBar.setOnMenuItemClickListener(menuItem -> {
+            if (menuItem.getItemId() == R.id.action_search) {
+                Navigator.push(getScreenManager(), new SearchScreen());
+                return true;
+            }
+            return true;
+        });
+        fab.setOnClickListener(view -> Navigator.push(getScreenManager(), new RecordScreen()));
         applyInsets();
     }
 

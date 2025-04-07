@@ -41,4 +41,7 @@ public interface TransactionDao {
     @Query("SELECT * FROM " + Transaction.TABLE_NAME)
     LiveData<List<Transaction>> getAllTransactions();
 
+    @Query("SELECT * FROM " + Transaction.TABLE_NAME + " WHERE (title LIKE '%' || :query || '%' OR description LIKE '%' || :query || '%') AND amount >= :query AND amount <= :query")
+    LiveData<List<Transaction>> search(String query);
+
 }

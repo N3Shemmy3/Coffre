@@ -43,6 +43,15 @@ public class TransactionRepository {
         Executors.newSingleThreadExecutor().execute(() -> transactionDao.delete(transaction));
     }
 
+    public MutableLiveData<List<Transaction>> search(String query) {
+        MutableLiveData<List<Transaction>> searchResults = new MutableLiveData<>();
+        Executors.newSingleThreadExecutor().execute(() -> {
+            List<Transaction> results = transactionDao.search(query).getValue();
+            searchResults.postValue(results);
+        });
+        return searchResults;
+    }
+
     public void deleteAllTransactions() {
         Executors.newSingleThreadExecutor().execute(transactionDao::deleteAllTransactions);
     }
