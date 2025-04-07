@@ -85,14 +85,26 @@ public class RecordScreen extends BaseScreen {
             Transaction receivedItem = args.getParcelable("item");
             if (receivedItem != null) {
                 item = receivedItem;
+                getArguments().putParcelable("temp", item);
                 populateFieldsWithItemData(item);
             }
         }
+        topToolBar.setOnClickListener(v-> Navigator.push(getNavigator(), new CategoryScreen()));
         setUpDateTimePickers();
         setUpCategory();
     }
 
     private void populateFieldsWithItemData(Transaction item) {
+        if (!item.toString().isEmpty()) {
+            topToolBar.inflateMenu(R.menu.record_toolbar);
+            topToolBar.setOnMenuItemClickListener(menuItem -> {
+                if (menuItem.getItemId() != R.id.action_delete)
+                    return false;
+                viewModel.delete(item);
+                getNavigator().popBackStack();
+                return true;
+            });
+        }
         inputTitle.setText(item.getTitle().trim());
         inputAmount.setText(new DecimalFormat("#.00").format(item.getAmount()));
         inputNotes.setText(item.getDescription().trim());
@@ -104,8 +116,8 @@ public class RecordScreen extends BaseScreen {
     }
 
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
+    public void onPause() {
+        super.onPause();
         if (areInputsEmpty()) return;
         //Create transaction item
         item.setTitle(String.valueOf(inputTitle.getText()).trim());

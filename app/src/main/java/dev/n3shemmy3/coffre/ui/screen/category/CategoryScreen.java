@@ -20,7 +20,7 @@ public class CategoryScreen extends BaseScreen {
 
     @Override
     protected int getLayoutResId() {
-        return R.layout.screen_category;
+        return R.layout.screen_record_new;
     }
 
     @Override
@@ -32,6 +32,6 @@ public class CategoryScreen extends BaseScreen {
     void createIconPicker() {
         iconSelector = root.findViewById(R.id.iconSelector);
 
-        iconSelector.setOnClickListener(view -> Navigator.push(getNavigator(), new IconPickerScreen()));
+       // iconSelector.setOnClickListener(view -> Navigator.push(getNavigator(), new IconPickerScreen()));
     }
 }

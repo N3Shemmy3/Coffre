@@ -11,4 +11,9 @@
         <item name="titleCollapseMode">fade</item>
         <item name="contentScrim">?attr/colorSurfaceContainer</item>
     </style>
+
+    <style name="App.MaterialDivider" parent="Widget.Material3.MaterialDivider">
+        <item name="dividerColor">@color/color_stroke</item>
+        <item name="android:alpha">.2</item>
+    </style>
 </resources>

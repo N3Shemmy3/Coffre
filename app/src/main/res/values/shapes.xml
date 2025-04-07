@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="ShapeAppearance.Backdrop" parent="@style/ShapeAppearance.Material3.Corner.Large">
+        <item name="shapeCornerFamily">rounded</item>
+        <item name="cornerSize">20dp</item>
+        <item name="cornerSizeTopLeft">0dp</item>
+        <item name="cornerSizeTopRight">0dp</item>
+    </style>
+</resources>

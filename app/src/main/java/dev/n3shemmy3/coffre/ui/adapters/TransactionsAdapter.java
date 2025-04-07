@@ -48,12 +48,13 @@ public class TransactionsAdapter extends ListAdapter<Transaction, TwoLineItem> {
     @Override
     public void onBindViewHolder(@NonNull TwoLineItem holder, int position) {
         Transaction transaction = getItem(position);
-        Calendar calendar = Calendar.getInstance();
         boolean is24HourFormat = DateFormat.is24HourFormat(holder.itemView.getContext());
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(transaction.getTime());
         holder.itemIcon.setImageResource(R.drawable.outline_local_cafe_24);
         holder.itemTitle.setText(transaction.getTitle());
         holder.itemSubTitle.setText(DateUtils.formatTime(calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), is24HourFormat));
-        holder.itemEndText.setText("$" + new DecimalFormat("#.00").format(transaction.getAmount()) );
+        holder.itemEndText.setText("$" + new DecimalFormat("#.00").format(transaction.getAmount()));
         holder.setEndCardColor(transaction.getTransactionType());
 
 

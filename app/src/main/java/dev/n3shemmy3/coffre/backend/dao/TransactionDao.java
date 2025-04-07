@@ -8,6 +8,7 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import dev.n3shemmy3.coffre.backend.database.TransactionDatabase;
@@ -24,6 +25,15 @@ public interface TransactionDao {
 
     @Delete
     void delete(Transaction item);
+
+    @Query("SELECT SUM(CASE WHEN transactionType = 'INCOME' THEN amount ELSE -amount END) FROM " + Transaction.TABLE_NAME)
+    LiveData<BigDecimal> getNetBalance();
+
+    @Query("SELECT SUM(amount) FROM " + Transaction.TABLE_NAME + " WHERE transactionType = 'INCOME'")
+    LiveData<BigDecimal> getTotalIncome();
+
+    @Query("SELECT SUM(amount) FROM " + Transaction.TABLE_NAME + " WHERE transactionType = 'EXPENSE'")
+    LiveData<BigDecimal> getTotalExpenses();
 
     @Query("DELETE FROM " + Transaction.TABLE_NAME)
     void deleteAllTransactions();
