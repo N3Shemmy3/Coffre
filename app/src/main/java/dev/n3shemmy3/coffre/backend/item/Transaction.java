@@ -14,6 +14,7 @@ import java.util.Objects;
 public class Transaction implements Parcelable {
 
     public static final String TABLE_NAME = "transactions_table";
+
     public enum TransactionType {
         INCOME,
         EXPENSE,
@@ -32,11 +33,11 @@ public class Transaction implements Parcelable {
     public Transaction() {
     }
 
-    public Transaction(String title, String description, BigDecimal amount, int transactionType, int accountId, long time) {
+    public Transaction(String title, String description, BigDecimal amount, TransactionType transactionType, int accountId, long time) {
         this.title = title;
         this.description = description;
         this.amount = amount;
-        this.transactionType = TransactionType.values()[transactionType];
+        this.transactionType = transactionType;
         this.accountId = accountId;
         this.time = time;
     }

@@ -3,7 +3,6 @@ package dev.n3shemmy3.coffre.ui.screen.record;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.view.View;
-import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 
 import androidx.lifecycle.ViewModelProvider;
@@ -12,8 +11,6 @@ import com.google.android.material.chip.Chip;
 import com.google.android.material.datepicker.CalendarConstraints;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.tabs.TabLayout;
-import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
 import com.google.android.material.timepicker.MaterialTimePicker;
 import com.google.android.material.timepicker.TimeFormat;
 
@@ -25,8 +22,6 @@ import dev.n3shemmy3.coffre.R;
 import dev.n3shemmy3.coffre.backend.item.Transaction;
 import dev.n3shemmy3.coffre.backend.viewmodel.MainViewModel;
 import dev.n3shemmy3.coffre.ui.base.BaseScreen;
-import dev.n3shemmy3.coffre.ui.navigator.Navigator;
-import dev.n3shemmy3.coffre.ui.screen.category.CategoryScreen;
 import dev.n3shemmy3.coffre.ui.utils.DateUtils;
 import dev.n3shemmy3.coffre.ui.utils.InsetsUtils;
 
@@ -77,7 +72,6 @@ public class RecordScreen extends BaseScreen {
                 populateFieldsWithItemData(item);
             }
         }
-        topToolBar.setOnClickListener(v -> Navigator.push(getScreenManager(), new CategoryScreen()));
         setUpDateTimePickers();
     }
 
@@ -108,14 +102,17 @@ public class RecordScreen extends BaseScreen {
         super.onPause();
         if (areInputsEmpty()) return;
         //Create transaction item
-        item.setTitle(String.valueOf(inputTitle.getText()).trim());
-        item.setDescription(String.valueOf(inputNotes.getText()).trim());
-        item.setAmount(new BigDecimal(String.valueOf(inputAmount.getText())));
-        item.setAccountId(0);
-        item.setTransactionType(Transaction.TransactionType.values()[tabLayout.getSelectedTabPosition()]);
-        item.setTime(calender.getTimeInMillis());
+        Transaction transaction = new Transaction(
+                String.valueOf(inputTitle.getText()).trim(),
+                String.valueOf(inputNotes.getText()).trim(),
+                new BigDecimal(String.valueOf(inputAmount.getText())),
+                Transaction.TransactionType.values()[tabLayout.getSelectedTabPosition()],
+                0,
+                calender.getTimeInMillis()
+        );
+        if (transaction.equals(item)) return;
+        item = transaction;
         viewModel.insert(item);
-
         //also save to bundle
         Bundle args = new Bundle();
         args.putParcelable("item", item);
