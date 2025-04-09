@@ -2,7 +2,6 @@ package dev.n3shemmy3.coffre.ui.screen.main;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,8 +22,7 @@ public class MainBalanceCard extends BaseFragment {
 
     private TickerView round;
     private TickerView decimal;
-    private TickerView income;
-    private TickerView expenses;
+    private TickerView income, expenses;
 
     @Override
     protected int getLayoutResId() {
@@ -42,7 +40,6 @@ public class MainBalanceCard extends BaseFragment {
         income.setCharacterLists(TickerUtils.provideNumberList());
         expenses.setCharacterLists(TickerUtils.provideNumberList());
     }
-
 
 
     @Override

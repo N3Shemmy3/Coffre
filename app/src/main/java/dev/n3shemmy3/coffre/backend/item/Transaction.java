@@ -21,7 +21,7 @@ public class Transaction implements Parcelable {
     }
 
     @PrimaryKey(autoGenerate = true)
-    private int id;
+    private long id;
     private String title;
     private String description;
     private BigDecimal amount;
@@ -90,7 +90,7 @@ public class Transaction implements Parcelable {
         this.title = title;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
@@ -100,7 +100,7 @@ public class Transaction implements Parcelable {
     }
 
     protected Transaction(Parcel in) {
-        id = in.readInt();
+        id = in.readLong();
         title = in.readString();
         description = in.readString();
         amount = BigDecimal.valueOf(in.readDouble());
@@ -126,7 +126,7 @@ public class Transaction implements Parcelable {
 
     @Override
     public void writeToParcel(@NonNull Parcel parcel, int i) {
-        parcel.writeInt(id);
+        parcel.writeLong(id);
         parcel.writeString(title);
         parcel.writeString(description);
         parcel.writeDouble(amount.doubleValue());
@@ -169,7 +169,7 @@ public class Transaction implements Parcelable {
 
     @Override
     public int hashCode() {
-        int result = getId();
+        long result = getId();
         result = 31 * result + Objects.hashCode(getTitle());
         result = 31 * result + Objects.hashCode(getDescription());
         result = 31 * result + Double.hashCode(getAmount().doubleValue());
@@ -177,7 +177,7 @@ public class Transaction implements Parcelable {
         result = 31 * result + getTransactionType().ordinal();
         result = 31 * result + Objects.hashCode(getTime());
         result = 31 * result + Objects.hashCode(getTransactionType());
-        return result;
+        return (int) result;
     }
 
 }

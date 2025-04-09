@@ -1,17 +1,17 @@
 package dev.n3shemmy3.coffre.backend.dao;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
-import androidx.room.OnConflictStrategy;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
 import java.math.BigDecimal;
 import java.util.List;
 
-import dev.n3shemmy3.coffre.backend.database.TransactionDatabase;
 import dev.n3shemmy3.coffre.backend.item.Transaction;
 
 @Dao
@@ -23,8 +23,8 @@ public interface TransactionDao {
     @Update
     void update(Transaction item);
 
-    @Delete
-    void delete(Transaction item);
+    @Query("DELETE FROM " + Transaction.TABLE_NAME + " WHERE id = :id")
+    int delete(long id);
 
     @Query("SELECT SUM(CASE WHEN transactionType = 'INCOME' THEN amount ELSE -amount END) FROM " + Transaction.TABLE_NAME)
     LiveData<BigDecimal> getNetBalance();
@@ -41,7 +41,7 @@ public interface TransactionDao {
     @Query("SELECT * FROM " + Transaction.TABLE_NAME)
     LiveData<List<Transaction>> getAllTransactions();
 
-    @Query("SELECT * FROM " + Transaction.TABLE_NAME + " WHERE (title LIKE '%' || :query || '%' OR description LIKE '%' || :query || '%') AND amount >= :query AND amount <= :query")
+    @Query("SELECT * FROM " + Transaction.TABLE_NAME + " WHERE title LIKE '%' || :query || '%'")
     LiveData<List<Transaction>> search(String query);
 
 }

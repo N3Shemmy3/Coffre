@@ -5,7 +5,6 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -17,7 +16,6 @@ public class MainViewModel extends AndroidViewModel {
 
     private final TransactionRepository repository;
     private final LiveData<List<Transaction>> transactions;
-    private final MutableLiveData<List<Transaction>> filteredList = new MutableLiveData<>();
     private final LiveData<BigDecimal> netBalance;
     private final LiveData<BigDecimal> totalExpenses;
     private final LiveData<BigDecimal> totalIncome;
@@ -39,21 +37,16 @@ public class MainViewModel extends AndroidViewModel {
         repository.update(item);
     }
 
-    public void delete(Transaction item) {
-        repository.delete(item);
+    public int delete(long id) {
+        return repository.delete(id);
     }
 
     public void deleteAllTransactions() {
         repository.deleteAllTransactions();
     }
 
-    public void search(String query) {
-        if (query.isEmpty()) if (filteredList.getValue() != null) filteredList.getValue().clear();
-        else filteredList.setValue(repository.search(query).getValue());
-    }
-
-    public LiveData<List<Transaction>> getFilteredList() {
-        return this.filteredList;
+    public LiveData<List<Transaction>> search(String query) {
+        return repository.search(query);
     }
 
     public LiveData<List<Transaction>> getTransactions() {

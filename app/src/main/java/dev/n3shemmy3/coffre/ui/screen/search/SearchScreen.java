@@ -3,13 +3,13 @@ package dev.n3shemmy3.coffre.ui.screen.search;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
@@ -58,10 +58,6 @@ public class SearchScreen extends BaseScreen implements ItemListener<Transaction
     protected void onScreenCreated(View root, Bundle state) {
         super.onScreenCreated(root, state);
         viewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
-        viewModel.getFilteredList().observe(getViewLifecycleOwner(), items -> {
-            Toast.makeText(getContext(), "results: " + items.size(), Toast.LENGTH_SHORT).show();
-            adapter.submitList(items);
-        });
     }
 
     OnBackPressedCallback callback = new OnBackPressedCallback(false) {
@@ -130,8 +126,10 @@ public class SearchScreen extends BaseScreen implements ItemListener<Transaction
     }
 
     private void performSearch(String query) {
-        Toast.makeText(getContext(), "query: " + query, Toast.LENGTH_SHORT).show();
-        viewModel.search(query.trim());
+        viewModel.search(query.toLowerCase().trim()).observe(getViewLifecycleOwner(), items -> {
+            adapter.submitList(items);
+            Log.wtf("performSearch: ", String.valueOf(items));
+        });
     }
 
     private void setUpRecycler() {

@@ -1,14 +1,15 @@
 package dev.n3shemmy3.coffre.backend.reposity;
 
 import android.app.Application;
+import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executors;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import dev.n3shemmy3.coffre.backend.dao.TransactionDao;
 import dev.n3shemmy3.coffre.backend.database.TransactionDatabase;
@@ -39,17 +40,20 @@ public class TransactionRepository {
         Executors.newSingleThreadExecutor().execute(() -> transactionDao.update(transaction));
     }
 
-    public void delete(Transaction transaction) {
-        Executors.newSingleThreadExecutor().execute(() -> transactionDao.delete(transaction));
+    public int delete(long id) {
+        AtomicInteger rows = new AtomicInteger();
+        Executors.newSingleThreadExecutor().execute(() -> rows.set(transactionDao.delete(id)));
+        return rows.get();
     }
 
-    public MutableLiveData<List<Transaction>> search(String query) {
-        MutableLiveData<List<Transaction>> searchResults = new MutableLiveData<>();
+    public LiveData<List<Transaction>> search(String query) {
+        MutableLiveData<List<Transaction>> filteredList = new MutableLiveData<>();
         Executors.newSingleThreadExecutor().execute(() -> {
-            List<Transaction> results = transactionDao.search(query).getValue();
-            searchResults.postValue(results);
+            Log.e("TransactionRepository", "query: " + query);
+            filteredList.postValue(transactionDao.search(query).getValue());
+
         });
-        return searchResults;
+        return filteredList;
     }
 
     public void deleteAllTransactions() {

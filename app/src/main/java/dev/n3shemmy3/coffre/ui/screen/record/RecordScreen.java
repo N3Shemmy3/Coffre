@@ -4,9 +4,11 @@ import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
+import android.widget.EditText;
 
 import androidx.lifecycle.ViewModelProvider;
 
+import com.google.android.material.chip.Chip;
 import com.google.android.material.datepicker.CalendarConstraints;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.tabs.TabLayout;
@@ -32,15 +34,12 @@ public class RecordScreen extends BaseScreen {
 
     private MainViewModel viewModel;
     private Transaction item = new Transaction();
-    private TextInputLayout textTitle;
-    private TextInputEditText inputTitle;
-    private TextInputLayout textAmount;
-    private TextInputEditText inputAmount;
+    private EditText inputTitle;
+    private EditText inputAmount;
     private TabLayout tabLayout;
-    private AutoCompleteTextView inputTime;
-    private AutoCompleteTextView inputDate;
-    private TextInputEditText inputNotes;
-    private AutoCompleteTextView inputCategory;
+    private Chip chipTime;
+    private Chip chipDate;
+    private EditText inputNotes;
 
     private MaterialDatePicker<Long> datePicker;
     private MaterialTimePicker timePicker;
@@ -58,12 +57,9 @@ public class RecordScreen extends BaseScreen {
         inputTitle = root.findViewById(R.id.inputTitle);
         inputAmount = root.findViewById(R.id.inputAmount);
         tabLayout = root.findViewById(R.id.tabLayout);
-        textTitle = root.findViewById(R.id.textTitle);
-        inputTime = root.findViewById(R.id.inputTime);
-        textAmount = root.findViewById(R.id.textAmount);
-        inputDate = root.findViewById(R.id.inputDate);
+        chipTime = root.findViewById(R.id.chipTime);
+        chipDate = root.findViewById(R.id.chipDate);
         inputNotes = root.findViewById(R.id.inputNotes);
-        inputCategory = root.findViewById(R.id.inputCategory);
 
         InsetsUtils.applyImeInsets(requireActivity().getWindow(), root);
     }
@@ -81,20 +77,20 @@ public class RecordScreen extends BaseScreen {
                 populateFieldsWithItemData(item);
             }
         }
-        topToolBar.setOnClickListener(v-> Navigator.push(getScreenManager(), new CategoryScreen()));
+        topToolBar.setOnClickListener(v -> Navigator.push(getScreenManager(), new CategoryScreen()));
         setUpDateTimePickers();
-        setUpCategory();
     }
 
     private void populateFieldsWithItemData(Transaction item) {
         if (!item.toString().isEmpty()) {
             topToolBar.inflateMenu(R.menu.record_toolbar);
             topToolBar.setOnMenuItemClickListener(menuItem -> {
-                if (menuItem.getItemId() != R.id.action_delete)
-                    return false;
-                viewModel.delete(item);
-                getScreenManager().popBackStack();
-                return true;
+                if (menuItem.getItemId() != R.id.action_delete) {
+                    if (viewModel.delete(item.getId()) > 0) getScreenManager().popBackStack();
+                    return true;
+                }
+
+                return false;
             });
         }
         inputTitle.setText(item.getTitle().trim());
@@ -103,8 +99,8 @@ public class RecordScreen extends BaseScreen {
         tabLayout.selectTab(tabLayout.getTabAt(getSelectedTab(item.getTransactionType())));
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(item.getTime());
-        inputTime.setText(DateUtils.formatTime(calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), DateUtils.is24HourFormat(requireContext())));
-        inputDate.setText(DateUtils.formatDate(calendar.getTimeInMillis(), requireContext()));
+        chipTime.setText(DateUtils.formatTime(calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), DateUtils.is24HourFormat(requireContext())));
+        chipDate.setText(DateUtils.formatDate(calendar.getTimeInMillis(), requireContext()));
     }
 
     @Override
@@ -146,11 +142,11 @@ public class RecordScreen extends BaseScreen {
                 selection = calender.getTimeInMillis(); // Prevent setting future date manually
             }
 
-            inputDate.setText(DateUtils.formatDate(selection, requireContext()));
+            chipDate.setText(DateUtils.formatDate(selection, requireContext()));
             calender.setTimeInMillis(selection);
             // Reset time if today is selected
             if (DateUtils.isToday(selection)) {
-                inputTime.setText(DateUtils.formatTime(calender.get(Calendar.HOUR_OF_DAY), calender.get(Calendar.MINUTE), is24HourFormat));
+                chipTime.setText(DateUtils.formatTime(calender.get(Calendar.HOUR_OF_DAY), calender.get(Calendar.MINUTE), is24HourFormat));
             }
         });
         timePicker = new MaterialTimePicker.Builder()
@@ -165,40 +161,25 @@ public class RecordScreen extends BaseScreen {
             int pickedMinute = timePicker.getMinute();
             calender.set(Calendar.HOUR_OF_DAY, pickedHour);
             calender.set(Calendar.MINUTE, pickedMinute);
-            inputTime.setText(DateUtils.formatTime(pickedHour, pickedMinute, is24HourFormat));
+            chipTime.setText(DateUtils.formatTime(pickedHour, pickedMinute, is24HourFormat));
             timePicker.setHour(pickedHour);
             timePicker.setMinute(pickedMinute);
         });
 
         // Set default values using system format
-        inputTime.setText(DateUtils.formatTime(calender.get(Calendar.HOUR_OF_DAY), calender.get(Calendar.MINUTE), is24HourFormat));
-        inputDate.setText(DateUtils.formatDate(calender.getTimeInMillis(), requireContext()));
+        chipTime.setText(DateUtils.formatTime(calender.get(Calendar.HOUR_OF_DAY), calender.get(Calendar.MINUTE), is24HourFormat));
+        chipDate.setText(DateUtils.formatDate(calender.getTimeInMillis(), requireContext()));
 
-        // Fix double-click delay issues
-        inputTime.setOnFocusChangeListener((view, isFocused) -> {
-            if (view.isInTouchMode() && isFocused) view.performClick();
-        });
-        inputDate.setOnFocusChangeListener((view, isFocused) -> {
-            if (view.isInTouchMode() && isFocused) view.performClick();
-        });
-
-        inputDate.setOnClickListener(v -> {
+        chipDate.setOnClickListener(v -> {
             datePicker.show(getParentFragmentManager(), "DATE_PICKER_TAG");
         });
 
 
-        inputTime.setOnClickListener(v -> {
+        chipTime.setOnClickListener(v -> {
             timePicker.show(getParentFragmentManager(), "TIME_PICKER_TAG");
         });
     }
 
-    private void setUpCategory() {
-        // Fix double-click delay issues
-        inputCategory.setOnFocusChangeListener((view, isFocused) -> {
-            if (view.isInTouchMode() && isFocused) view.performClick();
-        });
-        inputCategory.setOnClickListener(view -> Navigator.push(getScreenManager(), new CategoryScreen()));
-    }
 
     private boolean areInputsEmpty() {
         String texts = inputTitle.getText().toString() + inputAmount.getText().toString();

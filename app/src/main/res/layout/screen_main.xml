@@ -114,8 +114,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/transactionHeader"
-                        android:layout_marginVertical="12dp"
-                        tools:layout="@layout/fragment_main_transactions_list" />
+                        android:layout_marginVertical="12dp"/>
                 </RelativeLayout>
 
             </com.google.android.material.card.MaterialCardView>

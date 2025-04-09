@@ -31,7 +31,7 @@ public class MainScreen extends BaseScreen {
                 Navigator.push(getScreenManager(), new SearchScreen());
                 return true;
             }
-            return true;
+            return false;
         });
         fab.setOnClickListener(view -> Navigator.push(getScreenManager(), new RecordScreen()));
         applyInsets();
