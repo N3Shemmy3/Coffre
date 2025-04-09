@@ -108,7 +108,7 @@ public class Transaction implements Parcelable {
         accountId = in.readInt();
     }
 
-    public static final Creator<Transaction> CREATOR = new Creator<Transaction>() {
+    public static final Creator<Transaction> CREATOR = new Creator<>() {
         @Override
         public Transaction createFromParcel(Parcel in) {
             return new Transaction(in);

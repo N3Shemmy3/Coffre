@@ -15,6 +15,7 @@
         tools:targetApi="33">
         <activity
             android:name=".ui.MainActivity"
+            android:configChanges="screenSize|orientation"
             android:exported="true"
             android:theme="@style/LaunchTheme"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize">

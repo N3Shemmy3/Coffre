@@ -101,19 +101,14 @@ public class RecordScreen extends BaseScreen {
     public void onPause() {
         super.onPause();
         if (areInputsEmpty()) return;
-        //Create transaction item
-        Transaction transaction = new Transaction(
-                String.valueOf(inputTitle.getText()).trim(),
-                String.valueOf(inputNotes.getText()).trim(),
-                new BigDecimal(String.valueOf(inputAmount.getText())),
-                Transaction.TransactionType.values()[tabLayout.getSelectedTabPosition()],
-                0,
-                calender.getTimeInMillis()
-        );
-        if (transaction.equals(item)) return;
-        item = transaction;
+        item.setTitle(String.valueOf(inputTitle.getText()).trim());
+        item.setDescription(String.valueOf(inputNotes.getText()).trim());
+        item.setAmount(new BigDecimal(String.valueOf(inputAmount.getText())));
+        item.setTransactionType(Transaction.TransactionType.values()[tabLayout.getSelectedTabPosition()]);
+        item.setAccountId(0);
+        item.setTime(calender.getTimeInMillis());
+
         viewModel.insert(item);
-        //also save to bundle
         Bundle args = new Bundle();
         args.putParcelable("item", item);
         setArguments(args);
@@ -124,14 +119,10 @@ public class RecordScreen extends BaseScreen {
         calender = Calendar.getInstance();
         calender.setTimeInMillis(item.getTime() == 0 ? System.currentTimeMillis() : item.getTime());
 
-        CalendarConstraints.Builder constraintsBuilder = new CalendarConstraints.Builder()
-                .setStart(0L) // Start from epoch time (optional, ensures full range)
+        CalendarConstraints.Builder constraintsBuilder = new CalendarConstraints.Builder().setStart(0L) // Start from epoch time (optional, ensures full range)
                 .setEnd(calender.getTimeInMillis()); // Restrict future dates
 
-        datePicker = MaterialDatePicker.Builder.datePicker()
-                .setTitleText("Select date")
-                .setSelection(calender.getTimeInMillis())
-                .setCalendarConstraints(constraintsBuilder.build()) // Apply constraints
+        datePicker = MaterialDatePicker.Builder.datePicker().setTitleText("Select date").setSelection(calender.getTimeInMillis()).setCalendarConstraints(constraintsBuilder.build()) // Apply constraints
                 .build();
 
         datePicker.addOnPositiveButtonClickListener(selection -> {
@@ -146,12 +137,7 @@ public class RecordScreen extends BaseScreen {
                 chipTime.setText(DateUtils.formatTime(calender.get(Calendar.HOUR_OF_DAY), calender.get(Calendar.MINUTE), is24HourFormat));
             }
         });
-        timePicker = new MaterialTimePicker.Builder()
-                .setTitleText("Select time")
-                .setTimeFormat(is24HourFormat ? TimeFormat.CLOCK_24H : TimeFormat.CLOCK_12H)
-                .setHour(calender.get(Calendar.HOUR_OF_DAY))
-                .setMinute(calender.get(Calendar.MINUTE))
-                .build();
+        timePicker = new MaterialTimePicker.Builder().setTitleText("Select time").setTimeFormat(is24HourFormat ? TimeFormat.CLOCK_24H : TimeFormat.CLOCK_12H).setHour(calender.get(Calendar.HOUR_OF_DAY)).setMinute(calender.get(Calendar.MINUTE)).build();
 
         timePicker.addOnPositiveButtonClickListener(picker -> {
             int pickedHour = timePicker.getHour();

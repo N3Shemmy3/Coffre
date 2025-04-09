@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:alpha="0.72"
-            android:text="My Balance"
+            android:text="@string/my_balance"
             android:textColor="?colorOnPrimaryContainer"
             android:textFontWeight="600"
             app:layout_constraintStart_toStartOf="parent"

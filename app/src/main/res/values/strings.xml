@@ -75,5 +75,6 @@
     <string name="list_item_title">List item title</string>
     <string name="list_item_sub_title">List item subtitle</string>
     <string name="action_filter">Filter</string>
+    <string name="my_balance">My Balance</string>
 
 </resources>
