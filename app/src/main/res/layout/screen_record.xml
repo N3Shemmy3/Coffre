@@ -42,12 +42,12 @@
                 android:orientation="vertical">
 
                 <EditText
-                    android:id="@id/inputTitle"
+                    android:id="@+id/inputTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/activity_padding_horizontal"
                     android:layout_marginTop="@dimen/activity_padding_horizontal"
-                    android:autofillHints="name"
+                    android:autofillHints="@null"
                     android:background="@android:color/transparent"
                     android:hint="@string/title"
                     android:imeOptions="actionNext"
@@ -106,6 +106,7 @@
                     style="@style/App.MaterialDivider"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/activity_padding_horizontal"
                     android:layout_marginTop="@dimen/activity_padding_horizontal"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -194,21 +195,22 @@
                     style="@style/App.MaterialDivider"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/activity_padding_horizontal"
                     android:layout_marginTop="@dimen/activity_padding_horizontal"
                     android:background="?colorOutline"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tabLayout" />
 
-                <com.google.android.material.textfield.TextInputEditText
+                <EditText
                     android:id="@+id/inputNotes"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/activity_padding_horizontal"
+                    android:autofillHints="@null"
                     android:background="@android:color/transparent"
                     android:gravity="start"
                     android:hint="@string/notes"
-                    android:imeOptions="actionDone"
                     android:inputType="textLongMessage"
                     android:maxLength="500"
                     android:minHeight="144dp"

@@ -31,6 +31,8 @@
     <string name="action_close">Close</string>
     <string name="action_start">Start</string>
     <string name="action_stop">Stop</string>
+    <string name="action_next">Next</string>
+    <string name="action_skip">Skip</string>
     <string name="action_save">Save</string>
     <string name="action_search">Search</string>
     <string name="action_clear">Clear</string>
@@ -76,5 +78,6 @@
     <string name="list_item_sub_title">List item subtitle</string>
     <string name="action_filter">Filter</string>
     <string name="my_balance">My Balance</string>
+    <string name="set_currency">Set currency</string>
 
 </resources>

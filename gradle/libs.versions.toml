@@ -1,6 +1,7 @@
 [versions]
 agp = "8.9.0-alpha09"
 googleMaterialTypefaceOutlined = "4.0.0.2-kotlin"
+gradle = "8.0.2"
 iconicsCore = "5.4.0"
 junit = "4.13.2"
 junitVersion = "1.2.1"
@@ -20,12 +21,12 @@ recyclerview = "1.4.0"
 recyclerview-selection = "1.1.0"
 splashscreen = "1.0.1"
 preference = "1.2.1"
-roomRuntime = "2.6.1"
-roomCompiler = "2.6.1"
+roomDatabase = "2.6.1"
 
 
 [libraries]
 google-material-typeface-outlined = { module = "com.mikepenz:google-material-typeface-outlined", version.ref = "googleMaterialTypefaceOutlined" }
+gradle = { module = "com.android.tools.build:gradle", version.ref = "gradle" }
 iconics-core = { module = "com.mikepenz:iconics-core", version.ref = "iconicsCore" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
@@ -47,8 +48,9 @@ recyclerview = { group = "androidx.recyclerview", name = "recyclerview", version
 splashscreen = { group = "androidx.core", name = "core-splashscreen", version.ref = "splashscreen" }
 recyclerview-selection = { group = "androidx.recyclerview", name = "recyclerview-selection", version.ref = "recyclerview-selection" }
 preference = { group = "androidx.preference", name = "preference", version.ref = "preference" }
-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "roomRuntime" }
-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "roomCompiler" }
+room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "roomDatabase" }
+room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "roomDatabase" }
+room-paging = { group = "androidx.room", name = "room-paging", version.ref = "roomDatabase" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

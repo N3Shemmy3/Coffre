@@ -15,7 +15,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginEnd="16dp"
         app:cardBackgroundColor="?colorSurfaceContainer"
         app:contentPadding="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -24,12 +23,25 @@
         app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full">
 
         <ImageView
-            android:id="@+id/itemIcon"
+            android:id="@+id/itemStartIcon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:contentDescription="@string/list_item_icon"
             app:tint="@color/list_item_tint"
             tools:src="@drawable/outline_local_cafe_24" />
+
+        <TextView
+            android:id="@+id/itemStartText"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:autoSizeMaxTextSize="18sp"
+            android:autoSizeTextType="uniform"
+            android:maxLines="1"
+            android:gravity="center"
+            android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+            android:textColor="@color/list_item_tint"
+            android:visibility="gone" />
+
     </com.google.android.material.card.MaterialCardView>
 
     <TextView

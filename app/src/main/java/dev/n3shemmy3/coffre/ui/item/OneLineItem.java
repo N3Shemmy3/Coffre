@@ -16,7 +16,8 @@ import dev.n3shemmy3.coffre.R;
 import dev.n3shemmy3.coffre.backend.item.Transaction;
 
 public class OneLineItem extends RecyclerView.ViewHolder {
-    public final ImageView itemIcon;
+    public final ImageView itemStartIcon;
+    public final TextView itemStartText;
     public final TextView itemTitle;
     public final ImageView itemEndIcon;
     public final TextView itemEndText;
@@ -25,7 +26,8 @@ public class OneLineItem extends RecyclerView.ViewHolder {
 
     public OneLineItem(@NonNull View itemView) {
         super(itemView);
-        this.itemIcon = itemView.findViewById(R.id.itemIcon);
+        this.itemStartIcon = itemView.findViewById(R.id.itemStartIcon);
+        this.itemStartText = itemView.findViewById(R.id.itemStartText);
         this.itemTitle = itemView.findViewById(R.id.itemTitle);
         this.endCard = itemView.findViewById(R.id.itemEndCard);
         this.itemEndIcon = itemView.findViewById(R.id.itemEndIcon);
@@ -48,12 +50,12 @@ public class OneLineItem extends RecyclerView.ViewHolder {
                 textColor = MaterialColors.getColor(itemView, com.google.android.material.R.attr.colorOnErrorContainer);
                 break;
             case TRANSFER:
-                color = MaterialColors.getColor(itemView, com.google.android.material.R.attr.colorPrimaryContainer);
-                textColor = MaterialColors.getColor(itemView, com.google.android.material.R.attr.colorOnPrimaryContainer);
+                color = MaterialColors.getColor(itemView, com.google.android.material.R.attr.colorTertiaryContainer);
+                textColor = MaterialColors.getColor(itemView, com.google.android.material.R.attr.colorOnTertiaryContainer);
                 break;
             default:
-                color = MaterialColors.getColor(itemView, com.google.android.material.R.attr.colorPrimary);
-                textColor = MaterialColors.getColor(itemView, com.google.android.material.R.attr.colorOnPrimary);
+                color = MaterialColors.getColor(itemView, com.google.android.material.R.attr.colorPrimaryContainer);
+                textColor = MaterialColors.getColor(itemView, com.google.android.material.R.attr.colorOnPrimaryContainer);
                 break;
         }
         endCard.setBackgroundTintList(ColorStateList.valueOf(color));

@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.splashscreen.SplashScreen;
 
 import dev.n3shemmy3.coffre.R;
-import dev.n3shemmy3.coffre.ui.screen.main.MainScreen;
+import dev.n3shemmy3.coffre.ui.screen.setup.StartScreen;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
         if (savedInstanceState == null) {
             getSupportFragmentManager()
                     .beginTransaction()
-                    .add(R.id.fragmentContainer, new MainScreen())
+                    .add(R.id.fragmentContainer, new StartScreen())
                     .commit();
         }
     }

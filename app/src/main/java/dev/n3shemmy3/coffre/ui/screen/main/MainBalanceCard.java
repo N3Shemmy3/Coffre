@@ -50,7 +50,7 @@ public class MainBalanceCard extends BaseFragment {
             BigDecimal formattedBalance = formatAmount(netBalance);
             BigDecimal intPart = new BigDecimal(formattedBalance.toBigInteger());
             round.setText(String.valueOf(intPart.intValue()));
-            decimal.setText(String.valueOf(getAbsDecimalPart(formattedBalance)).replaceFirst("^0", ""));
+            decimal.setText(String.valueOf(getAbsDecimalPart(formattedBalance)).replaceFirst("^0.", ""));
         });
         viewModel.getTotalIncome().observe(getViewLifecycleOwner(), incomeBalance -> income.setText("$" + formatAmount(incomeBalance)));
         viewModel.getTotalExpenses().observe(getViewLifecycleOwner(), expenseBalance -> expenses.setText("$" + formatAmount(expenseBalance)));

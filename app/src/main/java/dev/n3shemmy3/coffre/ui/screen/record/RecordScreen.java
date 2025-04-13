@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.lifecycle.ViewModelProvider;
 
@@ -68,7 +69,7 @@ public class RecordScreen extends BaseScreen {
             Transaction receivedItem = args.getParcelable("item");
             if (receivedItem != null) {
                 item = receivedItem;
-                getArguments().putParcelable("temp", item);
+                Toast.makeText(requireContext(), "id: " +item.getId(), Toast.LENGTH_SHORT).show();
                 populateFieldsWithItemData(item);
             }
         }
@@ -79,8 +80,9 @@ public class RecordScreen extends BaseScreen {
         if (!item.toString().isEmpty()) {
             topToolBar.inflateMenu(R.menu.record_toolbar);
             topToolBar.setOnMenuItemClickListener(menuItem -> {
-                if (menuItem.getItemId() != R.id.action_delete) {
-                    if (viewModel.delete(item.getId()) > 0) getScreenManager().popBackStack();
+                if (menuItem.getItemId() == R.id.action_delete) {
+                    viewModel.delete(item.getId());
+                    getScreenManager().popBackStack();
                     return true;
                 }
 

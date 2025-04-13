@@ -1,48 +1,36 @@
-package dev.n3shemmy3.coffre.ui.screen.main;
+package dev.n3shemmy3.coffre.ui.screen.setup;
 
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.imageview.ShapeableImageView;
+import com.google.android.material.appbar.CollapsingToolbarLayout;
 
 import dev.n3shemmy3.coffre.R;
 import dev.n3shemmy3.coffre.ui.base.BaseScreen;
 import dev.n3shemmy3.coffre.ui.navigator.Navigator;
 import dev.n3shemmy3.coffre.ui.screen.currency.CurrencyScreen;
-import dev.n3shemmy3.coffre.ui.screen.record.RecordScreen;
-import dev.n3shemmy3.coffre.ui.screen.search.SearchScreen;
-import dev.n3shemmy3.coffre.ui.screen.settings.SettingsScreen;
 import dev.n3shemmy3.coffre.ui.utils.InsetsUtils;
 
-public class MainScreen extends BaseScreen {
+public class SetupScreen extends BaseScreen {
 
-    private FloatingActionButton fab;
-    private ShapeableImageView toolBarAvatar;
+    private CollapsingToolbarLayout toolbarLayout;
+    private Button actionStart;
 
     @Override
     protected int getLayoutResId() {
-        return R.layout.screen_main;
+        return R.layout.screen_setup;
     }
 
+
     @Override
-    protected void onCreateScreen(View root, Bundle savedInstanceState) {
-        fab = root.findViewById(R.id.fab);
-        toolBarAvatar = root.findViewById(R.id.toolBarAvatar);
-        toolBarAvatar.setOnClickListener(view -> Navigator.push(getScreenManager(), new SettingsScreen()));
-        topToolBar.setOnMenuItemClickListener(menuItem -> {
-            if (menuItem.getItemId() == R.id.action_search) {
-                Navigator.push(getScreenManager(), new SearchScreen());
-                Navigator.push(getScreenManager(), new CurrencyScreen());
+    protected void onCreateScreen(View root, Bundle state) {
+        actionStart = root.findViewById(R.id.actionStart);
+        toolbarLayout = root.findViewById(R.id.toolbarLayout);
 
-                return true;
-            }
-
-            return true;
-        });
-        fab.setOnClickListener(view -> Navigator.push(getScreenManager(), new RecordScreen()));
+        actionStart.setOnClickListener(v -> Navigator.push(getScreenManager(), new CurrencyScreen()));
         applyInsets();
     }
 
@@ -54,16 +42,17 @@ public class MainScreen extends BaseScreen {
             int dp8 = (int) (Resources.getSystem().getDisplayMetrics().density * 8);
             ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams) topToolBar.getLayoutParams();
             topToolBar.setPadding(hInsets + dp8, topToolBar.getPaddingTop(), hInsets + dp8, topToolBar.getPaddingBottom());
+            toolbarLayout.setPadding(hInsets + dp8, toolbarLayout.getPaddingTop(), hInsets + dp8, toolbarLayout.getPaddingBottom());
             mlp.topMargin = systemBarInsets.top;
             topToolBar.setLayoutParams(mlp);
 
             //Fab
-            mlp = (ViewGroup.MarginLayoutParams) fab.getLayoutParams();
+            mlp = (ViewGroup.MarginLayoutParams) actionStart.getLayoutParams();
             int dp16 = dp8 * 2;
             mlp.leftMargin = hInsets + dp16;
             mlp.rightMargin = hInsets + dp16;
             mlp.bottomMargin = dp16 + systemBarInsets.bottom;
-            fab.setLayoutParams(mlp);
+            actionStart.setLayoutParams(mlp);
         });
         InsetsUtils.applyContentInsets(content);
     }

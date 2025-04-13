@@ -42,7 +42,7 @@ public class IconAdapter extends ListAdapter<Category, OneLineItem> {
         drawable.setTint(MaterialColors.getColor(holder.itemView, com.google.android.material.R.attr.colorOnSurface));int drawableSize = IconicsUtils.convertDpToPx(holder.itemView.getContext(), 24);
         drawable.setSizeYPx(drawableSize);
         drawable.setSizeXPx(drawableSize);
-        holder.itemIcon.setImageDrawable(drawable);
+        holder.itemStartIcon.setImageDrawable(drawable);
         holder.itemTitle.setText(category.getName().substring(4));
         holder.itemTitle.setMaxLines(2);
         holder.itemTitle.setPadding(holder.itemTitle.getPaddingLeft(), holder.itemTitle.getPaddingTop(), drawableSize / 2, holder.itemTitle.getPaddingBottom());

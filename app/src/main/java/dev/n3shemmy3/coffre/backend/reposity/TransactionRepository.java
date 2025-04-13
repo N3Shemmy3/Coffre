@@ -9,7 +9,6 @@ import androidx.lifecycle.MutableLiveData;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.concurrent.Executors;
-import java.util.concurrent.atomic.AtomicInteger;
 
 import dev.n3shemmy3.coffre.backend.dao.TransactionDao;
 import dev.n3shemmy3.coffre.backend.database.TransactionDatabase;
@@ -40,10 +39,11 @@ public class TransactionRepository {
         Executors.newSingleThreadExecutor().execute(() -> transactionDao.update(transaction));
     }
 
-    public int delete(long id) {
-        AtomicInteger rows = new AtomicInteger();
-        Executors.newSingleThreadExecutor().execute(() -> rows.set(transactionDao.delete(id)));
-        return rows.get();
+    public void delete(long id) {
+        Executors.newSingleThreadExecutor().execute(() -> {
+            transactionDao.delete(id);
+        });
+
     }
 
     public LiveData<List<Transaction>> search(String query) {

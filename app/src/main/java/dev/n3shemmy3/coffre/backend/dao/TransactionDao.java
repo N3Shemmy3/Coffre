@@ -2,6 +2,7 @@ package dev.n3shemmy3.coffre.backend.dao;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
@@ -21,8 +22,8 @@ public interface TransactionDao {
     @Update
     void update(Transaction item);
 
-    @Query("DELETE FROM " + Transaction.TABLE_NAME + " WHERE id = :id")
-    int delete(long id);
+    @Query("DELETE FROM transactions_table WHERE id = :id")
+    void delete(long id);
 
     @Query("SELECT SUM(CASE WHEN transactionType = 'INCOME' THEN amount ELSE -amount END) FROM " + Transaction.TABLE_NAME)
     LiveData<BigDecimal> getNetBalance();
