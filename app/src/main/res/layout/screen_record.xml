@@ -212,7 +212,7 @@
                     android:gravity="start"
                     android:hint="@string/notes"
                     android:imeOptions="actionDone"
-                    android:inputType="textLongMessage"
+                    android:inputType="textMultiLine"
                     android:maxLength="500"
                     android:minHeight="144dp"
                     app:layout_constraintEnd_toEndOf="@id/inputAmount"

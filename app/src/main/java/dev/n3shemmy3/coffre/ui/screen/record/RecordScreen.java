@@ -40,6 +40,7 @@ public class RecordScreen extends BaseScreen {
     private MaterialDatePicker<Long> datePicker;
     private MaterialTimePicker timePicker;
     private Calendar calender;
+    private boolean isDeletion = false;
 
 
     @Override
@@ -82,6 +83,7 @@ public class RecordScreen extends BaseScreen {
             topToolBar.setOnMenuItemClickListener(menuItem -> {
                 if (menuItem.getItemId() == R.id.action_delete) {
                     viewModel.delete(item);
+                    isDeletion = true;
                     getScreenManager().popBackStack();
                     return true;
                 }
@@ -110,7 +112,7 @@ public class RecordScreen extends BaseScreen {
         item.setAccountId(0);
         item.setTime(calender.getTimeInMillis());
 
-        viewModel.insert(item);
+        if (!isDeletion) viewModel.insert(item);
     }
 
     private void setUpDateTimePickers() {
