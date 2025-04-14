@@ -1,4 +1,7 @@
 # Coffre - Personal finance made simple
+![GitHub](https://img.shields.io/github/license/N3Shemmy3/Coffre?style=flat-square&logoColor=white&labelColor=black&color=white)
+![GitHub tag (with filter)](https://img.shields.io/github/v/tag/N3Shemmy3/Coffre?style=flat-square&logoColor=white&labelColor=black&color=white)
+[![Static Badge](https://img.shields.io/badge/Telegram-Content?style=flat-square&logo=telegram&logoColor=black&color=white)](https://t.me/N3Shmmy3)
 
 Coffre is a simple and intuitive Android application designed to help you manage your personal finances effectively.  Track your income, expenses, and transfers with ease, gain insights into your spending habits, and achieve your financial goals.
 
@@ -86,10 +89,25 @@ Contributions are welcome!  Please follow these steps:
 
 ## License
 
-[LICENSE INFORMATION HERE - e.g., MIT License, Apache 2.0, etc.]
+This project is licensed under the GNU General Public License v3.0.
 
-## Contact
+A copy of the license can be found in the `LICENSE` file within this project or at:
 
-Shemmy
-Telegram:[https://t.me/N3Shemmy3]
-[https://github.com/N3Shemmy3]
+https://www.gnu.org/licenses/gpl-3.0.en.html
+
+**Summary of GPL-3.0:**
+
+This license grants you the following freedoms:
+
+*   **Freedom to run the program:**  You may use the software for any purpose.
+*   **Freedom to study and change the program:** You have access to the source code and can modify it.
+*   **Freedom to redistribute copies:** You can share the software with others.
+*   **Freedom to distribute modified versions:**  You can distribute your changes or improvements, but under the same GPL-3.0 license.
+
+**Important Considerations:**
+
+*   **Copyleft:** Any derivative works (modifications or additions) of this software must also be licensed under GPL-3.0.  This ensures that the freedoms granted by the original license are preserved in all subsequent versions.
+*   **Source Code Availability:**  If you distribute copies of the software, you must make the source code available to recipients.
+*   **No Warranty:** The software is provided "as is" without any warranty.
+
+By using, modifying, or distributing this software, you agree to the terms and conditions of the GNU General Public License v3.0.
