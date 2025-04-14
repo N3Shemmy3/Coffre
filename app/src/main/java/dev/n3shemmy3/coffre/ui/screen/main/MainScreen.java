@@ -35,7 +35,6 @@ public class MainScreen extends BaseScreen {
         topToolBar.setOnMenuItemClickListener(menuItem -> {
             if (menuItem.getItemId() == R.id.action_search) {
                 Navigator.push(getScreenManager(), new SearchScreen());
-                Navigator.push(getScreenManager(), new CurrencyScreen());
 
                 return true;
             }

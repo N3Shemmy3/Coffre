@@ -58,6 +58,6 @@ public class MainTransactionsList extends BaseFragment implements ItemListener<T
 
     @Override
     public void onItemLongClicked(@NonNull View itemView, Transaction item, int position) {
-
+        viewModel.delete(item);
     }
 }

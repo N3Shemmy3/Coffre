@@ -41,7 +41,7 @@ public class OneLineItem extends RecyclerView.ViewHolder {
                 LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.item_one_line, parent, false));
     }
-    public void setEndCardColor(Transaction.TransactionType type) {
+    public void setEndCardColor(Transaction.Type type) {
         int color;
         int textColor;
         switch (type) {

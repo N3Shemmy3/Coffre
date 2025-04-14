@@ -3,7 +3,7 @@ plugins {
     alias(libs.plugins.android.application) apply false
 }
 buildscript {
-    val objectboxVersion by extra("4.2.0") // For KTS build scripts
+     val objectboxVersion by extra("4.2.0") // For KTS build scripts
 
     repositories {
         mavenCentral()

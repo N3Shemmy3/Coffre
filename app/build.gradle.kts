@@ -1,6 +1,6 @@
 plugins {
     alias(libs.plugins.android.application)
-    id("io.objectbox")
+    alias(libs.plugins.objectbox)
 }
 
 android {
@@ -51,13 +51,12 @@ dependencies {
     implementation(libs.recyclerview)
     implementation(libs.recyclerview.selection)
     implementation(libs.preference)
+    implementation(libs.paging)
     implementation (libs.iconics.core)
     implementation(libs.google.material.typeface.outlined){ artifact { type = "aar" } }
-    implementation(libs.room.runtime)
     implementation (libs.ticker)
-
+    implementation (libs.objectbox.android)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
-    annotationProcessor(libs.room.compiler)
 }

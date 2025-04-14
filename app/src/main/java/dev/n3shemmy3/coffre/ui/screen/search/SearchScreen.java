@@ -3,7 +3,6 @@ package dev.n3shemmy3.coffre.ui.screen.search;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -126,10 +125,7 @@ public class SearchScreen extends BaseScreen implements ItemListener<Transaction
     }
 
     private void performSearch(String query) {
-        viewModel.search(query.toLowerCase().trim()).observe(getViewLifecycleOwner(), items -> {
-            adapter.submitList(items);
-            Log.wtf("performSearch: ", String.valueOf(items));
-        });
+        viewModel.searchTransactions(query).observe(getViewLifecycleOwner(), items -> adapter.submitList(items));
     }
 
     private void setUpRecycler() {

@@ -67,4 +67,6 @@ public class MainBalanceCard extends BaseFragment {
     private BigDecimal formatAmount(BigDecimal balance) {
         return String.valueOf(balance).equals("null") ? BigDecimal.valueOf(0.00) : balance.setScale(2, RoundingMode.DOWN);
     }
+
+
 }

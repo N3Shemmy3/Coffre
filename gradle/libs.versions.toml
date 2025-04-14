@@ -17,12 +17,12 @@ eventbus = "3.3.1"
 ticker = "2.0.4"
 viewpager2 = "1.1.0"
 lifecycle = "2.8.7"
+paging = "3.3.6"
 recyclerview = "1.4.0"
 recyclerview-selection = "1.1.0"
 splashscreen = "1.0.1"
 preference = "1.2.1"
-roomDatabase = "2.6.1"
-
+objectbox = "4.2.0"
 
 [libraries]
 google-material-typeface-outlined = { module = "com.mikepenz:google-material-typeface-outlined", version.ref = "googleMaterialTypefaceOutlined" }
@@ -44,14 +44,14 @@ viewpager2 = { group = "androidx.viewpager2", name = "viewpager2", version.ref =
 viewmodel = { group = "androidx.lifecycle", name = "lifecycle-viewmodel", version.ref = "lifecycle" }
 viewmodel-savedstate = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-savedstate", version.ref = "lifecycle" }
 livedata = { group = "androidx.lifecycle", name = "lifecycle-livedata", version.ref = "lifecycle" }
+paging = { group = "androidx.paging", name = "paging-runtime", version.ref = "paging" }
 recyclerview = { group = "androidx.recyclerview", name = "recyclerview", version.ref = "recyclerview" }
 splashscreen = { group = "androidx.core", name = "core-splashscreen", version.ref = "splashscreen" }
 recyclerview-selection = { group = "androidx.recyclerview", name = "recyclerview-selection", version.ref = "recyclerview-selection" }
 preference = { group = "androidx.preference", name = "preference", version.ref = "preference" }
-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "roomDatabase" }
-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "roomDatabase" }
-room-paging = { group = "androidx.room", name = "room-paging", version.ref = "roomDatabase" }
+objectbox-android = { module = "io.objectbox:objectbox-android", version.ref = "objectbox" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 android-library = { id = "com.android.library", version.ref = "agp" }
+objectbox = { id = "io.objectbox"}

@@ -5,52 +5,63 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import androidx.paging.PagedList;
 
 import java.math.BigDecimal;
-import java.util.List;
 
+import dev.n3shemmy3.coffre.backend.TransactionsRepository;
 import dev.n3shemmy3.coffre.backend.item.Transaction;
-import dev.n3shemmy3.coffre.backend.reposity.TransactionRepository;
+import android.app.Application;
+
+import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
+import androidx.paging.PagedList;
+
+import java.math.BigDecimal;
+
+import dev.n3shemmy3.coffre.backend.TransactionsRepository;
+import dev.n3shemmy3.coffre.backend.item.Transaction;
 
 public class MainViewModel extends AndroidViewModel {
 
-    private final TransactionRepository repository;
-    private final LiveData<List<Transaction>> transactions;
+    private final TransactionsRepository repository;
+    private final LiveData<PagedList<Transaction>> transactions;
     private final LiveData<BigDecimal> netBalance;
-    private final LiveData<BigDecimal> totalExpenses;
-    private final LiveData<BigDecimal> totalIncome;
 
     public MainViewModel(@NonNull Application application) {
         super(application);
-        repository = new TransactionRepository(application);
-        transactions = repository.getAllTransactions();
+        repository = new TransactionsRepository(application);
+        transactions = repository.getTransactions();
         netBalance = repository.getNetBalance();
-        totalIncome = repository.getTotalIncome();
-        totalExpenses = repository.getTotalExpenses();
     }
 
-    public void insert(Transaction item) {
-        repository.insert(item);
+    // Consider using a more descriptive name like addTransaction for clarity.
+    public void insert(Transaction transaction) {
+        repository.insert(transaction);
     }
 
-    public void update(Transaction item) {
-        repository.update(item);
-    }
-
-    public int delete(long id) {
-        return repository.delete(id);
+    //  It's generally not recommended for ViewModels to return booleans indicating success or failure of database operations,
+    // as this tightly couples the ViewModel to the data layer's implementation details.
+    // Instead, consider exposing events or states (e.g., using LiveData or StateFlow) to represent outcomes like "TransactionDeleted" or "DeleteTransactionFailed".
+    // This allows the UI to react accoreturn false;rdingly without the ViewModel needing to know precisely how the deletion happened.
+    // Moreover, if you use a flow to signal deletion, the database success/failure can be handled within the repository implementation.
+    public void delete(Transaction transaction) {
+        repository.delete(transaction);
     }
 
     public void deleteAllTransactions() {
         repository.deleteAllTransactions();
     }
 
-    public LiveData<List<Transaction>> search(String query) {
-        return repository.search(query);
+    // The ViewModel should ideally expose immutable LiveData to the UI to prevent accidental modifications from the UI layer.
+    // The backing field can remain mutable within the ViewModel.
+    public LiveData<PagedList<Transaction>> getTransactions() {
+        return transactions;
     }
 
-    public LiveData<List<Transaction>> getTransactions() {
-        return this.transactions;
+    public LiveData<PagedList<Transaction>> searchTransactions(String query) {
+        return repository.search(query);
     }
 
     public LiveData<BigDecimal> getNetBalance() {
@@ -58,10 +69,10 @@ public class MainViewModel extends AndroidViewModel {
     }
 
     public LiveData<BigDecimal> getTotalExpenses() {
-        return totalExpenses;
+        return repository.getTotalExpenses();
     }
 
     public LiveData<BigDecimal> getTotalIncome() {
-        return totalIncome;
+        return repository.getTotalIncome();
     }
 }

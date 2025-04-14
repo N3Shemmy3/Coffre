@@ -4,40 +4,51 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
-import androidx.room.Entity;
-import androidx.room.PrimaryKey;
 
 import java.math.BigDecimal;
 import java.util.Objects;
 
-@Entity(tableName = Transaction.TABLE_NAME)
+import io.objectbox.annotation.Convert;
+import io.objectbox.annotation.Entity;
+import io.objectbox.annotation.Id;
+import io.objectbox.converter.PropertyConverter;
+
+@Entity
 public class Transaction implements Parcelable {
 
     public static final String TABLE_NAME = "transactions_table";
 
-    public enum TransactionType {
-        INCOME,
-        EXPENSE,
-        TRANSFER
+    public static enum Type {
+        INCOME(0),
+        EXPENSE(1),
+        TRANSFER(2);
+        final int id;
+
+        Type(int id) {
+            this.id = id;
+        }
     }
 
-    @PrimaryKey(autoGenerate = true)
+    @Id
     private long id;
     private String title;
     private String description;
+
+    @Convert(dbType = String.class, converter = BigDecimalConverter.class)
     private BigDecimal amount;
-    private TransactionType transactionType;
+    @Convert(dbType = Integer.class, converter = TypeConverter.class)
+    private Type type;
     private int accountId;
     private long time;
 
     public Transaction() {
     }
 
-    public Transaction(String title, String description, BigDecimal amount, TransactionType transactionType, int accountId, long time) {
+    public Transaction(String title, String description, BigDecimal amount, Type type, int accountId, long time) {
         this.title = title;
         this.description = description;
         this.amount = amount;
-        this.transactionType = transactionType;
+        this.type = type;
         this.accountId = accountId;
         this.time = time;
     }
@@ -51,12 +62,12 @@ public class Transaction implements Parcelable {
         this.time = time;
     }
 
-    public TransactionType getTransactionType() {
-        return transactionType;
+    public Type getType() {
+        return type;
     }
 
-    public void setTransactionType(TransactionType transactionType) {
-        this.transactionType = transactionType;
+    public void setType(Type type) {
+        this.type = type;
     }
 
     public int getAccountId() {
@@ -96,7 +107,7 @@ public class Transaction implements Parcelable {
     }
 
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -142,7 +153,7 @@ public class Transaction implements Parcelable {
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
                 ", amount=" + amount +
-                ", transactionType=" + transactionType +
+                ", transactionType=" + type +
                 ", accountId=" + accountId +
                 ", time=" + time +
                 '}';
@@ -165,7 +176,7 @@ public class Transaction implements Parcelable {
                 &&
                 Objects.equals(getTime(), that.getTime())
                 &&
-                transactionType == that.transactionType;
+                type == that.type;
     }
 
     @Override
@@ -175,10 +186,42 @@ public class Transaction implements Parcelable {
         result = 31 * result + Objects.hashCode(getDescription());
         result = 31 * result + Double.hashCode(getAmount().doubleValue());
         result = 31 * result + getAccountId();
-        result = 31 * result + getTransactionType().ordinal();
+        result = 31 * result + getType().ordinal();
         result = 31 * result + Objects.hashCode(getTime());
-        result = 31 * result + Objects.hashCode(getTransactionType());
+        result = 31 * result + Objects.hashCode(getType());
         return (int) result;
     }
 
+    public static class BigDecimalConverter implements PropertyConverter<BigDecimal, String> {
+
+        @Override
+        public BigDecimal convertToEntityProperty(String databaseValue) {
+            return new BigDecimal(databaseValue);
+        }
+
+        @Override
+        public String convertToDatabaseValue(BigDecimal entityProperty) {
+            return entityProperty.toString();
+        }
+    }
+
+    public static class TypeConverter implements PropertyConverter<Type, Integer> {
+        @Override
+        public Type convertToEntityProperty(Integer databaseValue) {
+            if (databaseValue == null) {
+                return null;
+            }
+            for (Type role : Type.values()) {
+                if (role.id == databaseValue) {
+                    return role;
+                }
+            }
+            return Type.INCOME;
+        }
+
+        @Override
+        public Integer convertToDatabaseValue(Type entityProperty) {
+            return entityProperty == null ? null : entityProperty.id;
+        }
+    }
 }

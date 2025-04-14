@@ -3,7 +3,6 @@ package dev.n3shemmy3.coffre.ui.screen.record;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.lifecycle.ViewModelProvider;
@@ -12,6 +11,7 @@ import com.google.android.material.chip.Chip;
 import com.google.android.material.datepicker.CalendarConstraints;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.timepicker.MaterialTimePicker;
 import com.google.android.material.timepicker.TimeFormat;
 
@@ -30,12 +30,12 @@ public class RecordScreen extends BaseScreen {
 
     private MainViewModel viewModel;
     private Transaction item = new Transaction();
-    private EditText inputTitle;
-    private EditText inputAmount;
+    private TextInputEditText inputTitle;
+    private TextInputEditText inputAmount;
     private TabLayout tabLayout;
     private Chip chipTime;
     private Chip chipDate;
-    private EditText inputNotes;
+    private TextInputEditText inputNotes;
 
     private MaterialDatePicker<Long> datePicker;
     private MaterialTimePicker timePicker;
@@ -69,7 +69,7 @@ public class RecordScreen extends BaseScreen {
             Transaction receivedItem = args.getParcelable("item");
             if (receivedItem != null) {
                 item = receivedItem;
-                Toast.makeText(requireContext(), "id: " +item.getId(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(requireContext(), "id: " + item.getId(), Toast.LENGTH_SHORT).show();
                 populateFieldsWithItemData(item);
             }
         }
@@ -81,7 +81,7 @@ public class RecordScreen extends BaseScreen {
             topToolBar.inflateMenu(R.menu.record_toolbar);
             topToolBar.setOnMenuItemClickListener(menuItem -> {
                 if (menuItem.getItemId() == R.id.action_delete) {
-                    viewModel.delete(item.getId());
+                    viewModel.delete(item);
                     getScreenManager().popBackStack();
                     return true;
                 }
@@ -92,7 +92,7 @@ public class RecordScreen extends BaseScreen {
         inputTitle.setText(item.getTitle().trim());
         inputAmount.setText(new DecimalFormat("#.00").format(item.getAmount()));
         inputNotes.setText(item.getDescription().trim());
-        tabLayout.selectTab(tabLayout.getTabAt(getSelectedTab(item.getTransactionType())));
+        tabLayout.selectTab(tabLayout.getTabAt(getSelectedTab(item.getType())));
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(item.getTime());
         chipTime.setText(DateUtils.formatTime(calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), DateUtils.is24HourFormat(requireContext())));
@@ -106,14 +106,11 @@ public class RecordScreen extends BaseScreen {
         item.setTitle(String.valueOf(inputTitle.getText()).trim());
         item.setDescription(String.valueOf(inputNotes.getText()).trim());
         item.setAmount(new BigDecimal(String.valueOf(inputAmount.getText())));
-        item.setTransactionType(Transaction.TransactionType.values()[tabLayout.getSelectedTabPosition()]);
+        item.setType(Transaction.Type.values()[tabLayout.getSelectedTabPosition()]);
         item.setAccountId(0);
         item.setTime(calender.getTimeInMillis());
 
         viewModel.insert(item);
-        Bundle args = new Bundle();
-        args.putParcelable("item", item);
-        setArguments(args);
     }
 
     private void setUpDateTimePickers() {
@@ -171,10 +168,10 @@ public class RecordScreen extends BaseScreen {
         return texts.isEmpty();
     }
 
-    private int getSelectedTab(Transaction.TransactionType type) {
+    private int getSelectedTab(Transaction.Type type) {
         int selection = 0;
-        if (type == Transaction.TransactionType.EXPENSE) selection = 1;
-        else if (type == Transaction.TransactionType.TRANSFER) selection = 2;
+        if (type == Transaction.Type.EXPENSE) selection = 1;
+        else if (type == Transaction.Type.TRANSFER) selection = 2;
         return selection;
     }
 

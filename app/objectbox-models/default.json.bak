@@ -1,0 +1,86 @@
+{
+  "_note1": "KEEP THIS FILE! Check it into a version control system (VCS) like git.",
+  "_note2": "ObjectBox manages crucial IDs for your object model. See docs for details.",
+  "_note3": "If you have VCS merge conflicts, you must resolve them according to ObjectBox docs.",
+  "entities": [
+    {
+      "id": "1:6844885332841891738",
+      "lastPropertyId": "7:7687928191562995902",
+      "name": "Transaction",
+      "properties": [
+        {
+          "id": "1:7498907617603512501",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:2802847138348029804",
+          "name": "title",
+          "type": 9
+        },
+        {
+          "id": "3:1467150809303838178",
+          "name": "description",
+          "type": 9
+        },
+        {
+          "id": "4:1891456080531493600",
+          "name": "amount",
+          "type": 9
+        },
+        {
+          "id": "5:8434784397074932060",
+          "name": "type",
+          "type": 5
+        },
+        {
+          "id": "6:8147514464100896603",
+          "name": "accountId",
+          "type": 5
+        },
+        {
+          "id": "7:7687928191562995902",
+          "name": "time",
+          "type": 6
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "2:8036714108365309931",
+      "lastPropertyId": "3:1472674273964692544",
+      "name": "Amount",
+      "properties": [
+        {
+          "id": "1:7565799035862232095",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:7577991967896096192",
+          "name": "transactionId",
+          "type": 6
+        },
+        {
+          "id": "3:1472674273964692544",
+          "name": "amount",
+          "type": 9
+        }
+      ],
+      "relations": []
+    }
+  ],
+  "lastEntityId": "2:8036714108365309931",
+  "lastIndexId": "0:0",
+  "lastRelationId": "0:0",
+  "lastSequenceId": "0:0",
+  "modelVersion": 5,
+  "modelVersionParserMinimum": 5,
+  "retiredEntityUids": [],
+  "retiredIndexUids": [],
+  "retiredPropertyUids": [],
+  "retiredRelationUids": [],
+  "version": 1
+}
