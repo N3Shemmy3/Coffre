@@ -1,4 +1,4 @@
-# Coffre - Your Personal Finance Tracker
+# Coffre - Personal finance made simple
 
 Coffre is a simple and intuitive Android application designed to help you manage your personal finances effectively.  Track your income, expenses, and transfers with ease, gain insights into your spending habits, and achieve your financial goals.
 
