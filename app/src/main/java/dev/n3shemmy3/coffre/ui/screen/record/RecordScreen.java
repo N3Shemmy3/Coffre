@@ -19,7 +19,6 @@ import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.lifecycle.ViewModelProvider;
 
@@ -39,13 +38,11 @@ import java.util.Calendar;
 import dev.n3shemmy3.coffre.R;
 import dev.n3shemmy3.coffre.backend.item.Currency;
 import dev.n3shemmy3.coffre.backend.item.Transaction;
-import dev.n3shemmy3.coffre.backend.objectbox.ObjectBox;
 import dev.n3shemmy3.coffre.backend.viewmodel.MainViewModel;
 import dev.n3shemmy3.coffre.ui.base.BaseScreen;
 import dev.n3shemmy3.coffre.ui.utils.DateUtils;
 import dev.n3shemmy3.coffre.ui.utils.InsetsUtils;
 import dev.n3shemmy3.coffre.ui.utils.PrefUtil;
-import io.objectbox.Box;
 
 public class RecordScreen extends BaseScreen {
 
@@ -190,8 +187,7 @@ public class RecordScreen extends BaseScreen {
 
 
     private boolean areInputsEmpty() {
-        String texts = inputTitle.getText().toString() + inputAmount.getText().toString();
-        return texts.isEmpty();
+        return inputTitle.getText().toString().isEmpty() || inputAmount.getText().toString().isEmpty();
     }
 
     private int getSelectedTab(Transaction.Type type) {

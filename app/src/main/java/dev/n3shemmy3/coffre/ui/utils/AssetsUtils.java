@@ -41,7 +41,7 @@ public class AssetsUtils {
             ex.printStackTrace();
             return null;
         }
-        Log.e("data", json);
+      //  Log.e("data", json);
         return json;
     }
 }

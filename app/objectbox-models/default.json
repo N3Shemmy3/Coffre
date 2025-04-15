@@ -75,9 +75,58 @@
         }
       ],
       "relations": []
+    },
+    {
+      "id": "3:8665163783311490958",
+      "lastPropertyId": "8:5656564444026301451",
+      "name": "Currency",
+      "properties": [
+        {
+          "id": "1:6788570841402684365",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:1707710968640382271",
+          "name": "name",
+          "type": 9
+        },
+        {
+          "id": "3:8133429723975847296",
+          "name": "name_plural",
+          "type": 9
+        },
+        {
+          "id": "4:4431779207530194828",
+          "name": "code",
+          "type": 9
+        },
+        {
+          "id": "5:6607835482259356791",
+          "name": "decimal_digits",
+          "type": 9
+        },
+        {
+          "id": "6:832180796293439808",
+          "name": "symbol",
+          "type": 9
+        },
+        {
+          "id": "7:7769893285740913025",
+          "name": "symbol_native",
+          "type": 9
+        },
+        {
+          "id": "8:5656564444026301451",
+          "name": "rounding",
+          "type": 8
+        }
+      ],
+      "relations": []
     }
   ],
-  "lastEntityId": "2:8036714108365309931",
+  "lastEntityId": "3:8665163783311490958",
   "lastIndexId": "0:0",
   "lastRelationId": "0:0",
   "lastSequenceId": "0:0",
