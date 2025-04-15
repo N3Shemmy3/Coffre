@@ -14,8 +14,12 @@ package dev.n3shemmy3.coffre.ui.screen.setup;
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+
 import android.os.Bundle;
 import android.view.View;
+
+import androidx.core.view.HapticFeedbackConstantsCompat;
+import androidx.core.view.ViewCompat;
 
 import dev.n3shemmy3.coffre.R;
 import dev.n3shemmy3.coffre.ui.base.BaseScreen;
@@ -32,6 +36,9 @@ public class StartScreen extends BaseScreen {
     @Override
     protected void onCreateScreen(View root, Bundle state) {
         super.onCreateScreen(root, state);
-        root.findViewById(R.id.actionStart).setOnClickListener(v-> Navigator.push(getScreenManager(), new SetupScreen()));
+        root.findViewById(R.id.actionStart).setOnClickListener(v -> {
+            ViewCompat.performHapticFeedback(v, HapticFeedbackConstantsCompat.CONTEXT_CLICK);
+            Navigator.push(getScreenManager(), new SetupScreen());
+        });
     }
 }

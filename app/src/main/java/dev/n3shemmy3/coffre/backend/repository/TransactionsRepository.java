@@ -1,36 +1,37 @@
-package dev.n3shemmy3.coffre.repository;
 /*
- * Copyright (C) 2025 Shemmy
  *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, version 3 of the License.
+ *  * Copyright (C) 2025 Shemmy
+ *  *
+ *  * This program is free software: you can redistribute it and/or modify
+ *  * it under the terms of the GNU General Public License as published by
+ *  * the Free Software Foundation, version 3 of the License.
+ *  *
+ *  * This program is distributed in the hope that it will be useful,
+ *  * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  * GNU General Public License for more details.
+ *  *
+ *  * You should have received a copy of the GNU General Public License
+ *  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import android.app.Application;
+package dev.n3shemmy3.coffre.backend.repository;
 
-import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
-import androidx.paging.LivePagedListBuilder;
-import androidx.paging.PagedList;
+import androidx.lifecycle.MutableLiveData;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import dev.n3shemmy3.coffre.backend.item.Amount;
 import dev.n3shemmy3.coffre.backend.item.Transaction;
 import dev.n3shemmy3.coffre.backend.item.Transaction_;
 import dev.n3shemmy3.coffre.backend.objectbox.ObjectBox;
+import dev.n3shemmy3.coffre.ui.utils.DateUtils;
 import io.objectbox.Box;
-import io.objectbox.android.ObjectBoxDataSource;
+import io.objectbox.android.ObjectBoxLiveData;
 import io.objectbox.query.Query;
 import io.objectbox.query.QueryBuilder;
 
@@ -41,30 +42,22 @@ public class TransactionsRepository {
     private final Box<Transaction> transactionBox;
     private final Box<Amount> amountBox;
 
-    private LiveData<PagedList<Transaction>> pagedTransactions;
+    private volatile LiveData<List<Transaction>> pagedTransactions;
     private final MediatorLiveData<BigDecimal> netBalance = new MediatorLiveData<>();
     private final MediatorLiveData<BigDecimal> totalIncome = new MediatorLiveData<>();
     private final MediatorLiveData<BigDecimal> totalExpenses = new MediatorLiveData<>(); // Renamed
 
-    public TransactionsRepository(@NonNull Application application) {
-        ObjectBox.init(application);
+    public TransactionsRepository() {
         transactionBox = ObjectBox.get().boxFor(Transaction.class);
         amountBox = ObjectBox.get().boxFor(Amount.class);
         initializeLiveData();
     }
 
     private void initializeLiveData() {
-        // 1. Replace observeForever with observe
-        // Use the LifecycleOwner (e.g., a Fragment or Activity) to manage the observer's lifecycle.
-        // This prevents memory leaks and ensures updates only when the UI is active.
-        // Example (assuming this repository is used within a ViewModel):
-        //    transactionsRepository.getTransactions().observe(lifecycleOwner, transactions -> { ... });
-        // Remove the observeForever call below as it's no longer needed.
-        // getTransactions().observeForever(new Observer<PagedList<Transaction>>() { ... });
-
-        // 2. Simplify Amount Calculation with Stream API
+        pagedTransactions = getTransactions();
+        // Amount Calculation with Stream API
         // Instead of iterating and manually summing, use Java's Stream API for a more concise and readable approach.
-        netBalance.addSource(getTransactions(), transactions -> {
+        netBalance.addSource(new ObjectBoxLiveData<>(transactionBox.query().build()), transactions -> {
             if (transactions != null) {
                 BigDecimal income = transactions.stream()
                         .filter(transaction -> transaction.getAmount() != null && transaction.getType() == Transaction.Type.INCOME)
@@ -87,29 +80,21 @@ public class TransactionsRepository {
         });
     }
 
-    // 3. Remove Unused Method
-    // The onAmountsChanged method is no longer used with the Stream API approach.  Remove it.
-    // private void onAmountsChanged(List<Amount> amounts) { ... }
-
-    public LiveData<PagedList<Transaction>> getTransactions() {
+    public LiveData<List<Transaction>> getTransactions() {
         if (pagedTransactions == null) {
-            Query<Transaction> query = transactionBox.query().order(Transaction_.time).build();
-            pagedTransactions = new LivePagedListBuilder<>(new ObjectBoxDataSource.Factory<>(query), PAGE_SIZE).build();
+            Query<Transaction> query = transactionBox.query().filter((transaction) -> DateUtils.isToday(transaction.getTime())).order(Transaction_.time).build();
+            pagedTransactions = new ObjectBoxLiveData<>(query);
         }
         return pagedTransactions;
     }
 
-    // 4. Implement Search Functionality
-    // The current search method doesn't actually filter transactions.  You need to modify the query
-    // to include a where clause that filters based on the query string.  For example, if you want
-    // to search by description, you could do something like:
-    public LiveData<PagedList<Transaction>> search(String query) {
+    public LiveData<List<Transaction>> search(String query) {
         Query<Transaction> searchQuery = transactionBox.query()
                 .contains(Transaction_.title, query, QueryBuilder.StringOrder.CASE_INSENSITIVE) // Case-insensitive title search
                 .or().contains(Transaction_.description, query, QueryBuilder.StringOrder.CASE_INSENSITIVE) // Case-insensitive description search
                 .order(Transaction_.time)
                 .build();
-        return new LivePagedListBuilder<>(new ObjectBoxDataSource.Factory<>(searchQuery), PAGE_SIZE).build();
+        return new MutableLiveData<>(searchQuery.find(0, PAGE_SIZE));
     }
 
     public void insert(Transaction transaction) {
@@ -117,22 +102,10 @@ public class TransactionsRepository {
         // The LiveData source will automatically update, no need for manual updates here.
     }
 
-    // 5. Remove updateTotals Method
-    // This method is no longer used with the Stream API calculation.
-    // private void updateTotals(Amount amount, BigDecimal income, BigDecimal expense) { ... }
-
-    // 6. Remove fetchAndUpdateAmounts Method
-    // This method is also redundant now.
-    // private void fetchAndUpdateAmounts() { ... }
-
     public void delete(Transaction transaction) {
         transactionBox.remove(transaction);
         // LiveData source handles updates.
     }
-
-    // 7. Remove calculateNetBalance Method
-    // The net balance is calculated directly within the LiveData source.
-    // private void calculateNetBalance() { ... }
 
     public void deleteAllTransactions() {
         transactionBox.removeAll();

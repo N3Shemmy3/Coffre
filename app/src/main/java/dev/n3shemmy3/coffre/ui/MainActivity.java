@@ -14,16 +14,27 @@ package dev.n3shemmy3.coffre.ui;
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.splashscreen.SplashScreen;
+import androidx.fragment.app.Fragment;
+
+import com.google.gson.Gson;
 
 import dev.n3shemmy3.coffre.R;
+import dev.n3shemmy3.coffre.backend.item.Currency;
+import dev.n3shemmy3.coffre.backend.item.Profile;
+import dev.n3shemmy3.coffre.ui.screen.currency.CurrencyScreen;
+import dev.n3shemmy3.coffre.ui.screen.main.MainScreen;
 import dev.n3shemmy3.coffre.ui.screen.setup.StartScreen;
+import dev.n3shemmy3.coffre.ui.utils.PrefUtil;
 
 public class MainActivity extends AppCompatActivity {
+
+    private Fragment fragment = new MainScreen();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,9 +43,13 @@ public class MainActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
         if (savedInstanceState == null) {
+            Profile profile = new Gson().fromJson(PrefUtil.getString(Profile.key), Profile.class);
+            Currency currency = new Gson().fromJson(PrefUtil.getString(Currency.key), Currency.class);
+            if (profile == null || currency == null) fragment = new StartScreen();
+
             getSupportFragmentManager()
                     .beginTransaction()
-                    .add(R.id.fragmentContainer, new StartScreen())
+                    .add(R.id.fragmentContainer, fragment)
                     .commit();
         }
     }

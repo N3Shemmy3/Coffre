@@ -24,6 +24,7 @@ import androidx.annotation.Nullable;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
@@ -132,6 +133,28 @@ public class InsetsUtils {
         });
     }
 
+    public static void applyRecyclerInsets(@NonNull RecyclerView view) {
+        ViewCompat.setOnApplyWindowInsetsListener(view, (v, windowInsets) -> {
+            Insets displayCutOutInsets = windowInsets.getInsets(WindowInsetsCompat.Type.displayCutout());
+            Insets systemBarInsets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+            int hInsets = displayCutOutInsets.left + displayCutOutInsets.right;
+            int leftDisplayCutoutInsets = displayCutOutInsets.left <= 0 ? hInsets : displayCutOutInsets.left;
+            int rightDisplayCutoutInsets = displayCutOutInsets.right <= 0 ? hInsets : displayCutOutInsets.right;
+            int margin = (int) (Resources.getSystem().getDisplayMetrics().density * 20);
+            ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams) v.getLayoutParams();
+            mlp.leftMargin = leftDisplayCutoutInsets + margin;
+            mlp.rightMargin = rightDisplayCutoutInsets+ margin;
+            v.setPadding(
+                    v.getPaddingLeft(),
+                    v.getPaddingTop(),
+                    v.getPaddingRight(),
+                    systemBarInsets.bottom
+            );
+            // mlp.bottomMargin = systemBarInsets.bottom;
+            v.setLayoutParams(mlp);
+            return windowInsets;
+        });
+    }
     public static void applyContentInsets(@NonNull View view) {
         ViewCompat.setOnApplyWindowInsetsListener(view, (v, windowInsets) -> {
             Insets displayCutOutInsets = windowInsets.getInsets(WindowInsetsCompat.Type.displayCutout());

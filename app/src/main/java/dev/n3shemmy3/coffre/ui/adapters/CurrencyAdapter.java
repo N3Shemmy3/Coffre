@@ -23,6 +23,7 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 
 import dev.n3shemmy3.coffre.backend.item.Currency;
+import dev.n3shemmy3.coffre.backend.item.Transaction;
 import dev.n3shemmy3.coffre.ui.interfaces.ItemListener;
 import dev.n3shemmy3.coffre.ui.item.TwoLineItem;
 
@@ -30,20 +31,16 @@ public class CurrencyAdapter extends ListAdapter<Currency, TwoLineItem> {
 
 
     private ItemListener<Currency> itemListener;
+    private boolean useCardStyle;
 
     public CurrencyAdapter() {
-        super(new DiffUtil.ItemCallback<>() {
+        super(new CurrencyDiffCallback());
+        useCardStyle = false;
+    }
 
-            @Override
-            public boolean areItemsTheSame(@NonNull Currency oldItem, @NonNull Currency newItem) {
-                return oldItem.getName().equals(newItem.getName());
-            }
-
-            @Override
-            public boolean areContentsTheSame(@NonNull Currency oldItem, @NonNull Currency newItem) {
-                return oldItem.equals(newItem);
-            }
-        });
+    public CurrencyAdapter(boolean useCardStyle) {
+        super(new CurrencyDiffCallback());
+        this.useCardStyle = useCardStyle;
     }
 
     public void setItemListener(ItemListener<Currency> itemListener) {
@@ -74,6 +71,20 @@ public class CurrencyAdapter extends ListAdapter<Currency, TwoLineItem> {
                 return true;
             });
         }
+        if (useCardStyle) holder.setCardStyle();
+    }
+
+    static class CurrencyDiffCallback extends DiffUtil.ItemCallback<Currency> {
+
+        @Override
+        public boolean areItemsTheSame(@NonNull Currency oldItem, @NonNull Currency newItem) {
+            return oldItem.getName().equals(newItem.getName());
+        }
+
+        @Override
+        public boolean areContentsTheSame(@NonNull Currency oldItem, @NonNull Currency newItem) {
+            return oldItem.equals(newItem);
+        }
+
     }
 }
-

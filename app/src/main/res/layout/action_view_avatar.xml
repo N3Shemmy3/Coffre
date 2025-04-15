@@ -35,6 +35,6 @@
         app:strokeColor="?colorOutline"
         app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Full"
         app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"
-        app:srcCompat="@drawable/avatar" />
+        app:srcCompat="@drawable/outline_person_24" />
 
 </FrameLayout>

@@ -19,35 +19,37 @@ import android.text.format.DateFormat;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.paging.PagedListAdapter;
 import androidx.recyclerview.widget.DiffUtil;
+import androidx.recyclerview.widget.ListAdapter;
 
-import java.text.DecimalFormat;
+import com.google.gson.Gson;
+
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Calendar;
 
 import dev.n3shemmy3.coffre.R;
+import dev.n3shemmy3.coffre.backend.item.Currency;
 import dev.n3shemmy3.coffre.backend.item.Transaction;
 import dev.n3shemmy3.coffre.ui.interfaces.ItemListener;
 import dev.n3shemmy3.coffre.ui.item.TwoLineItem;
 import dev.n3shemmy3.coffre.ui.utils.DateUtils;
+import dev.n3shemmy3.coffre.ui.utils.PrefUtil;
 
-public class TransactionsAdapter extends PagedListAdapter<Transaction, TwoLineItem> {
+public class TransactionsAdapter extends ListAdapter<Transaction, TwoLineItem> {
 
 
     private ItemListener<Transaction> itemListener;
+    private boolean useCardStyle;
 
     public TransactionsAdapter() {
-        super(new DiffUtil.ItemCallback<>() {
-            @Override
-            public boolean areItemsTheSame(@NonNull Transaction oldTransaction, @NonNull Transaction newTransaction) {
-                return oldTransaction.getId() == newTransaction.getId();
-            }
+        super(new TransactionsDiffCallback());
+        useCardStyle = false;
+    }
 
-            @Override
-            public boolean areContentsTheSame(@NonNull Transaction oldTransaction, @NonNull Transaction newTransaction) {
-                return oldTransaction.equals(newTransaction);
-            }
-        });
+    public TransactionsAdapter(boolean useCardStyle) {
+        super(new TransactionsDiffCallback());
+        this.useCardStyle = useCardStyle;
     }
 
     public void setItemListener(ItemListener<Transaction> itemListener) {
@@ -69,7 +71,10 @@ public class TransactionsAdapter extends PagedListAdapter<Transaction, TwoLineIt
         holder.itemStartIcon.setImageResource(R.drawable.outline_local_cafe_24);
         holder.itemTitle.setText(transaction.getTitle());
         holder.itemSubTitle.setText(DateUtils.formatTime(calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), is24HourFormat));
-        holder.itemEndText.setText("$" + new DecimalFormat("#.00").format(transaction.getAmount()));
+
+        Currency currency = new Gson().fromJson(PrefUtil.getString("currency"), Currency.class);
+        String currencySymbol = currency.getSymbol().isEmpty() ? currency.getCode() : currency.getSymbol();
+        holder.itemEndText.setText(String.format("%s %s", currencySymbol, formatAmount(transaction.getAmount())));
         holder.setEndCardColor(transaction.getType());
 
 
@@ -79,6 +84,23 @@ public class TransactionsAdapter extends PagedListAdapter<Transaction, TwoLineIt
                 itemListener.onItemLongClicked(holder.itemView, transaction, position);
                 return true;
             });
+        }
+        if (useCardStyle) holder.setCardStyle();
+    }
+
+    private BigDecimal formatAmount(BigDecimal balance) {
+        return String.valueOf(balance).equals("null") ? BigDecimal.valueOf(0.00) : balance.setScale(2, RoundingMode.DOWN);
+    }
+
+    public static class TransactionsDiffCallback extends DiffUtil.ItemCallback<Transaction> {
+        @Override
+        public boolean areItemsTheSame(@NonNull Transaction oldTransaction, @NonNull Transaction newTransaction) {
+            return oldTransaction.getId() == newTransaction.getId();
+        }
+
+        @Override
+        public boolean areContentsTheSame(@NonNull Transaction oldTransaction, @NonNull Transaction newTransaction) {
+            return oldTransaction.equals(newTransaction);
         }
     }
 }
