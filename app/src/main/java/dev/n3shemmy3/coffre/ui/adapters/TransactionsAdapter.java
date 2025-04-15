@@ -26,7 +26,9 @@ import com.google.gson.Gson;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.text.NumberFormat;
 import java.util.Calendar;
+import java.util.Locale;
 
 import dev.n3shemmy3.coffre.R;
 import dev.n3shemmy3.coffre.backend.item.Currency;
@@ -74,7 +76,12 @@ public class TransactionsAdapter extends ListAdapter<Transaction, TwoLineItem> {
 
         Currency currency = new Gson().fromJson(PrefUtil.getString("currency"), Currency.class);
         String currencySymbol = currency.getSymbol().isEmpty() ? currency.getCode() : currency.getSymbol();
-        holder.itemEndText.setText(String.format("%s %s", currencySymbol, formatAmount(transaction.getAmount())));
+        NumberFormat format = NumberFormat.getNumberInstance(Locale.getDefault());
+        format.setMinimumFractionDigits(Integer.parseInt(currency.getDecimal_digits()));
+        format.setRoundingMode(RoundingMode.DOWN);
+        BigDecimal amount = transaction.getAmount() == null ? BigDecimal.ZERO : transaction.getAmount();
+
+        holder.itemEndText.setText(String.format("%s %s", currencySymbol, formatAmount(amount)));
         holder.setEndCardColor(transaction.getType());
 
 

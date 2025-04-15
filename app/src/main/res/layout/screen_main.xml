@@ -89,52 +89,44 @@
                 tools:layout_marginHorizontal="@dimen/activity_padding_horizontal" />
 
             <!-- Transaction List -->
-            <com.google.android.material.card.MaterialCardView
-                style="?materialCardViewElevatedStyle"
+            <RelativeLayout
+                android:id="@+id/transactionsCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/activity_padding_vertical"
-                app:cardBackgroundColor="@macro/m3_comp_filled_card_container_color"
-                app:cardCornerRadius="22dp"
-                app:cardElevation="0dp"
-                app:contentPaddingTop="8dp">
+                android:orientation="vertical"
+                android:background="@drawable/item_background_single"
+                android:paddingTop="8dp">
 
+                <TextView
+                    android:id="@+id/transactionHeader"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@id/transactionAllButton"
+                    android:layout_marginHorizontal="16dp"
+                    android:text="@string/screen_transactions"
+                    android:textAppearance="?attr/textAppearanceSubtitle1"
+                    android:textStyle="bold" />
 
-                <RelativeLayout
+                <Button
+                    android:id="@+id/transactionAllButton"
+                    style="@style/Widget.Material3.Button.TextButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignEnd="@id/transactionHeader"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginHorizontal="12dp"
+                    android:text="@string/see_all" />
+
+                <androidx.fragment.app.FragmentContainerView
+                    android:id="@+id/transactionsRecycler"
+                    android:name="dev.n3shemmy3.coffre.ui.screen.main.MainTransactionsList"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:layout_below="@id/transactionHeader"
+                    android:layout_marginVertical="12dp" />
+            </RelativeLayout>
 
-                    <TextView
-                        android:id="@+id/transactionHeader"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignBaseline="@id/transactionAllButton"
-                        android:layout_marginHorizontal="16dp"
-                        android:text="@string/screen_transactions"
-                        android:textAppearance="?attr/textAppearanceSubtitle1"
-                        android:textStyle="bold" />
-
-                    <Button
-                        android:id="@+id/transactionAllButton"
-                        style="@style/Widget.Material3.Button.TextButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignEnd="@id/transactionHeader"
-                        android:layout_alignParentEnd="true"
-                        android:layout_marginHorizontal="12dp"
-                        android:text="@string/see_all" />
-
-                    <androidx.fragment.app.FragmentContainerView
-                        android:id="@+id/transactionsRecycler"
-                        android:name="dev.n3shemmy3.coffre.ui.screen.main.MainTransactionsList"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/transactionHeader"
-                        android:layout_marginVertical="12dp" />
-                </RelativeLayout>
-
-            </com.google.android.material.card.MaterialCardView>
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

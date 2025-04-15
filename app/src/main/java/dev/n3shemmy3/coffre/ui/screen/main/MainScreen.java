@@ -14,10 +14,12 @@ package dev.n3shemmy3.coffre.ui.screen.main;
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 
 import androidx.core.graphics.Insets;
 import androidx.core.view.WindowInsetsCompat;
@@ -30,10 +32,8 @@ import dev.n3shemmy3.coffre.R;
 import dev.n3shemmy3.coffre.backend.item.Profile;
 import dev.n3shemmy3.coffre.ui.base.BaseScreen;
 import dev.n3shemmy3.coffre.ui.navigator.Navigator;
-import dev.n3shemmy3.coffre.ui.screen.currency.CurrencyScreen;
 import dev.n3shemmy3.coffre.ui.screen.record.RecordScreen;
 import dev.n3shemmy3.coffre.ui.screen.search.SearchScreen;
-import dev.n3shemmy3.coffre.ui.screen.settings.SettingsScreen;
 import dev.n3shemmy3.coffre.ui.utils.FileUtils;
 import dev.n3shemmy3.coffre.ui.utils.InsetsUtils;
 import dev.n3shemmy3.coffre.ui.utils.PrefUtil;
@@ -42,6 +42,7 @@ public class MainScreen extends BaseScreen {
 
     private FloatingActionButton fab;
     private ShapeableImageView toolBarAvatar;
+    private RelativeLayout transactionsCard;
 
     @Override
     protected int getLayoutResId() {
@@ -50,8 +51,9 @@ public class MainScreen extends BaseScreen {
 
     @Override
     protected void onCreateScreen(View root, Bundle savedInstanceState) {
-        fab = root.findViewById(R.id.fab);
         toolBarAvatar = root.findViewById(R.id.toolBarAvatar);
+        fab = root.findViewById(R.id.fab);
+        transactionsCard = root.findViewById(R.id.transactionsCard);
         //toolBarAvatar.setOnClickListener(view -> Navigator.push(getScreenManager(), new SettingsScreen()));
         topToolBar.setOnMenuItemClickListener(menuItem -> {
             if (menuItem.getItemId() == R.id.action_search) {
@@ -62,6 +64,7 @@ public class MainScreen extends BaseScreen {
 
             return true;
         });
+        transactionsCard.setClipToOutline(true);
         fab.setOnClickListener(view -> Navigator.push(getScreenManager(), new RecordScreen()));
         applyInsets();
         setProfile();

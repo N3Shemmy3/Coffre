@@ -15,9 +15,17 @@ package dev.n3shemmy3.coffre.ui.screen.record;
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+import static android.text.InputType.TYPE_CLASS_NUMBER;
+import static android.text.InputType.TYPE_NUMBER_FLAG_DECIMAL;
+import static android.text.InputType.TYPE_NUMBER_FLAG_SIGNED;
+
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.InputFilter;
 import android.text.format.DateFormat;
+import android.text.method.DigitsKeyListener;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.lifecycle.ViewModelProvider;
@@ -32,16 +40,24 @@ import com.google.android.material.timepicker.TimeFormat;
 import com.google.gson.Gson;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.text.NumberFormat;
+import java.text.ParseException;
 import java.util.Calendar;
+import java.util.Locale;
 
 import dev.n3shemmy3.coffre.R;
 import dev.n3shemmy3.coffre.backend.item.Currency;
 import dev.n3shemmy3.coffre.backend.item.Transaction;
 import dev.n3shemmy3.coffre.backend.viewmodel.MainViewModel;
 import dev.n3shemmy3.coffre.ui.base.BaseScreen;
+import dev.n3shemmy3.coffre.ui.interfaces.TextChangedListener;
 import dev.n3shemmy3.coffre.ui.utils.DateUtils;
+import dev.n3shemmy3.coffre.ui.utils.DecimalDigitsInputFilter;
 import dev.n3shemmy3.coffre.ui.utils.InsetsUtils;
+import dev.n3shemmy3.coffre.ui.utils.NumberUtils;
 import dev.n3shemmy3.coffre.ui.utils.PrefUtil;
 
 public class RecordScreen extends BaseScreen {
@@ -60,7 +76,7 @@ public class RecordScreen extends BaseScreen {
     private MaterialTimePicker timePicker;
     private Calendar calender;
     private boolean isDeletion = false;
-
+    private Currency currency;
 
     @Override
     protected int getLayoutResId() {
@@ -78,8 +94,11 @@ public class RecordScreen extends BaseScreen {
         chipDate = root.findViewById(R.id.chipDate);
         inputNotes = root.findViewById(R.id.inputNotes);
 
-        Currency currency = new Gson().fromJson(PrefUtil.getString("currency"), Currency.class);
+        currency = new Gson().fromJson(PrefUtil.getString("currency"), Currency.class);
         textCurrency.setText(currency.getSymbol().isEmpty() ? currency.getCode() : currency.getSymbol());
+        inputAmount.setInputType(TYPE_NUMBER_FLAG_DECIMAL | TYPE_NUMBER_FLAG_SIGNED | TYPE_CLASS_NUMBER);
+        inputAmount.setKeyListener(DigitsKeyListener.getInstance("0123456789,.-"));
+        inputAmount.setFilters(new InputFilter[] {new DecimalDigitsInputFilter(9999999,2)});
         InsetsUtils.applyImeInsets(requireActivity().getWindow(), root);
     }
 
@@ -113,7 +132,13 @@ public class RecordScreen extends BaseScreen {
             });
         }
         inputTitle.setText(item.getTitle().trim());
-        inputAmount.setText(new DecimalFormat("#.00").format(item.getAmount()));
+
+        NumberFormat format = NumberFormat.getNumberInstance(Locale.getDefault());
+        format.setMinimumFractionDigits(Integer.parseInt(currency.getDecimal_digits()));
+        format.setRoundingMode(RoundingMode.DOWN);
+        BigDecimal amount = item.getAmount() == null ? BigDecimal.ZERO : item.getAmount();
+        inputAmount.setText(format.format(amount));
+
         inputNotes.setText(item.getDescription().trim());
         tabLayout.selectTab(tabLayout.getTabAt(getSelectedTab(item.getType())));
         Calendar calendar = Calendar.getInstance();
@@ -128,7 +153,16 @@ public class RecordScreen extends BaseScreen {
         if (areInputsEmpty()) return;
         item.setTitle(String.valueOf(inputTitle.getText()).trim());
         item.setDescription(String.valueOf(inputNotes.getText()).trim());
-        item.setAmount(new BigDecimal(String.valueOf(inputAmount.getText())));
+        DecimalFormat decimalFormat = new DecimalFormat("0.00", new DecimalFormatSymbols(Locale.getDefault()));
+        decimalFormat.setParseBigDecimal(true);
+
+        String amount = inputAmount.getText() == null ? String.valueOf(BigDecimal.ZERO) : String.valueOf(inputAmount.getText());
+
+        try {
+            item.setAmount((BigDecimal) decimalFormat.parse(amount));
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
         item.setType(Transaction.Type.values()[tabLayout.getSelectedTabPosition()]);
         item.setAccountId(0);
         item.setTime(calender.getTimeInMillis());
