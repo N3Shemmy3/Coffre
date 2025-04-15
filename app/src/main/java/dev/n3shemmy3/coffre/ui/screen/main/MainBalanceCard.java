@@ -14,13 +14,16 @@ package dev.n3shemmy3.coffre.ui.screen.main;
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.google.gson.Gson;
 import com.robinhood.ticker.TickerUtils;
 import com.robinhood.ticker.TickerView;
 
@@ -28,15 +31,19 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 import dev.n3shemmy3.coffre.R;
+import dev.n3shemmy3.coffre.backend.item.Currency;
 import dev.n3shemmy3.coffre.backend.viewmodel.MainViewModel;
 import dev.n3shemmy3.coffre.ui.base.BaseFragment;
+import dev.n3shemmy3.coffre.ui.utils.PrefUtil;
 
 public class MainBalanceCard extends BaseFragment {
     private MainViewModel viewModel;
 
     private TickerView round;
     private TickerView decimal;
+    private TextView textCurrency;
     private TickerView income, expenses;
+    private Currency currency;
 
     @Override
     protected int getLayoutResId() {
@@ -49,10 +56,13 @@ public class MainBalanceCard extends BaseFragment {
         decimal = root.findViewById(R.id.decimal);
         income = root.findViewById(R.id.income);
         expenses = root.findViewById(R.id.expenses);
+        textCurrency = root.findViewById(R.id.currency);
         round.setCharacterLists(TickerUtils.provideNumberList());
         decimal.setCharacterLists(TickerUtils.provideNumberList());
         income.setCharacterLists(TickerUtils.provideNumberList());
         expenses.setCharacterLists(TickerUtils.provideNumberList());
+        currency = new Gson().fromJson(PrefUtil.getString("currency"), Currency.class);
+        textCurrency.setText(currency.getSymbol().isEmpty() ? currency.getCode() : currency.getSymbol());
     }
 
 
@@ -66,8 +76,14 @@ public class MainBalanceCard extends BaseFragment {
             round.setText(String.valueOf(intPart.intValue()));
             decimal.setText(String.valueOf(getAbsDecimalPart(formattedBalance)).replaceFirst("^0.", ""));
         });
-        viewModel.getTotalIncome().observe(getViewLifecycleOwner(), incomeBalance -> income.setText("$" + formatAmount(incomeBalance)));
-        viewModel.getTotalExpenses().observe(getViewLifecycleOwner(), expenseBalance -> expenses.setText("$" + formatAmount(expenseBalance)));
+
+        String currencySymbol = currency.getSymbol().isEmpty() ? currency.getCode() : currency.getSymbol();
+        viewModel.getTotalIncome().observe(getViewLifecycleOwner(), incomeBalance ->
+                income.setText(String.format("%s %s", currencySymbol, formatAmount(incomeBalance)))
+        );
+        viewModel.getTotalExpenses().observe(getViewLifecycleOwner(), expenseBalance ->
+                expenses.setText(String.format("%s %s", currencySymbol, formatAmount(expenseBalance)))
+        );
 
     }
 

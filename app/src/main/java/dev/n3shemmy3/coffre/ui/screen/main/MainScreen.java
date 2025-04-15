@@ -21,15 +21,19 @@ import android.view.ViewGroup;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.imageview.ShapeableImageView;
+import com.google.gson.Gson;
 
 import dev.n3shemmy3.coffre.R;
+import dev.n3shemmy3.coffre.backend.item.Profile;
 import dev.n3shemmy3.coffre.ui.base.BaseScreen;
 import dev.n3shemmy3.coffre.ui.navigator.Navigator;
 import dev.n3shemmy3.coffre.ui.screen.currency.CurrencyScreen;
 import dev.n3shemmy3.coffre.ui.screen.record.RecordScreen;
 import dev.n3shemmy3.coffre.ui.screen.search.SearchScreen;
 import dev.n3shemmy3.coffre.ui.screen.settings.SettingsScreen;
+import dev.n3shemmy3.coffre.ui.utils.FileUtils;
 import dev.n3shemmy3.coffre.ui.utils.InsetsUtils;
+import dev.n3shemmy3.coffre.ui.utils.PrefUtil;
 
 public class MainScreen extends BaseScreen {
 
@@ -45,7 +49,7 @@ public class MainScreen extends BaseScreen {
     protected void onCreateScreen(View root, Bundle savedInstanceState) {
         fab = root.findViewById(R.id.fab);
         toolBarAvatar = root.findViewById(R.id.toolBarAvatar);
-        toolBarAvatar.setOnClickListener(view -> Navigator.push(getScreenManager(), new SettingsScreen()));
+        //toolBarAvatar.setOnClickListener(view -> Navigator.push(getScreenManager(), new SettingsScreen()));
         topToolBar.setOnMenuItemClickListener(menuItem -> {
             if (menuItem.getItemId() == R.id.action_search) {
                 Navigator.push(getScreenManager(), new SearchScreen());
@@ -57,6 +61,13 @@ public class MainScreen extends BaseScreen {
         });
         fab.setOnClickListener(view -> Navigator.push(getScreenManager(), new RecordScreen()));
         applyInsets();
+        setProfile();
+    }
+
+    private void setProfile() {
+        Profile profile = new Gson().fromJson(PrefUtil.getString(Profile.key), Profile.class);
+        if (profile == null) return;
+        toolBarAvatar.setImageBitmap(FileUtils.retrieveImageFromPrivateStorage(requireContext(), profile.getAvatar()));
     }
 
     private void applyInsets() {

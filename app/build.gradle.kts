@@ -12,14 +12,14 @@ android {
         minSdk = 27
         targetSdk = 35
         versionCode = 1
-        versionName = "1.0"
+        versionName = "1.0 Amanatsu-Demo"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -42,6 +42,7 @@ dependencies {
     implementation(libs.coordinatorlayout)
     implementation(libs.fragment)
     implementation(libs.glide)
+    implementation (libs.gson)
     implementation(libs.eventbus)
     implementation(libs.viewpager2)
     implementation(libs.viewmodel)

@@ -16,4 +16,10 @@
         <item name="dividerColor">@color/color_stroke</item>
         <item name="android:alpha">.2</item>
     </style>
+
+    <style name="App.MaterialCardView" parent="Widget.Material3.CardView.Filled">
+        <item name="cardBackgroundColor">@android:color/transparent</item>
+        <item name="cardElevation">0dp</item>
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearance.Material3.Corner.None</item>
+    </style>
 </resources>

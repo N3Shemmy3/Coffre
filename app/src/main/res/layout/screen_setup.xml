@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
     * Copyright (C) 2025 Shemmy
     *
     * This program is free software: you can redistribute it and/or modify
@@ -34,13 +33,15 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/collapsingToolbarLayoutLargeSize"
             app:collapsedTitleTextAppearance="?textAppearanceHeadlineSmall"
-            app:expandedTitleMarginStart="20dp">
+            app:expandedTitleMarginStart="20dp"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
 
             <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/topToolBar"
                 style="@style/App.MaterialToolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?actionBarSize"
+                app:layout_collapseMode="pin"
                 app:navigationIcon="@drawable/outline_arrow_back_24"
                 app:title="Setup your profile" />
         </com.google.android.material.appbar.CollapsingToolbarLayout>
@@ -60,16 +61,34 @@
             android:orientation="vertical"
             android:padding="@dimen/activity_padding_horizontal">
 
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/avatar"
-                android:layout_width="144dp"
-                android:layout_height="144dp"
-                android:adjustViewBounds="true"
-                android:scaleType="centerCrop"
-                app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"
-                app:srcCompat="@drawable/avatar"
-                app:strokeColor="@color/color_stroke"
-                app:strokeWidth="1dp" />
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/avatar"
+                    android:layout_width="144dp"
+                    android:layout_height="144dp"
+                    android:layout_centerInParent="true"
+                    android:adjustViewBounds="true"
+                    android:background="?colorSurfaceContainer"
+                    android:scaleType="centerCrop"
+                    app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"
+                    app:srcCompat="@drawable/outline_person_24"
+                    app:strokeColor="@color/color_stroke"
+                    app:strokeWidth="1dp" />
+
+                <Button
+                    android:id="@+id/actionPick"
+                    style="?materialIconButtonFilledTonalStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/avatar"
+                    android:contentDescription="@string/action_pick_icon"
+                    android:padding="12dp"
+                    app:icon="@drawable/outline_add_a_photo_24" />
+            </RelativeLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
@@ -82,22 +101,30 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:autofillHints="name"
-                    android:imeOptions="actionNext"
+                    android:imeOptions="actionDone"
                     android:inputType="textPersonName"
                     android:maxLines="1" />
             </com.google.android.material.textfield.TextInputLayout>
 
-
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_padding_horizontal"
+                android:drawablePadding="@dimen/activity_padding_horizontal"
+                android:text="Infomation submitted here will be used to personalize the app"
+                android:textAppearance="?textAppearanceLabelLarge"
+                app:drawableStartCompat="@drawable/outline_info_24" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
     <Button
-        android:id="@+id/actionStart"
+        android:id="@+id/actionNext"
         style="?materialIconButtonFilledStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end|bottom"
         android:layout_margin="@dimen/activity_padding_horizontal"
+        android:contentDescription="@string/action_next"
         android:padding="24dp"
         app:icon="@drawable/outline_arrow_forward_24" />
 

@@ -22,6 +22,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.view.HapticFeedbackConstantsCompat;
+import androidx.core.view.ViewCompat;
 import androidx.fragment.app.FragmentManager;
 
 import com.google.android.material.appbar.AppBarLayout;
@@ -69,7 +70,11 @@ public abstract class BaseScreen extends BaseFragment {
         content = root.findViewById(R.id.content);
         //Toolbar
         if (topToolBar != null) {
-            topToolBar.setNavigationOnClickListener(v -> navigateUp());
+            topToolBar.setNavigationOnClickListener(v -> {
+                ViewCompat.performHapticFeedback(v, HapticFeedbackConstantsCompat.CONTEXT_CLICK);
+                navigateUp();
+
+            });
         }
         onCreateScreen(root, savedInstanceState);
 

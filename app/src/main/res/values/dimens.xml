@@ -4,6 +4,7 @@
     <dimen name="activity_padding_vertical">16dp</dimen>
     <dimen name="appbar_collapsing_height">196dp</dimen>
     <dimen name="material_card_corner_radius">22dp</dimen>
+    <dimen name="material_card_corner_small_radius">8dp</dimen>
     <dimen name="item_padding_horizontal">16dp</dimen>
     <dimen name="item_height_large">94dp</dimen>
 </resources>

@@ -14,6 +14,7 @@ package dev.n3shemmy3.coffre.ui.screen.search;
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -38,9 +39,11 @@ import dev.n3shemmy3.coffre.ui.adapters.TransactionsAdapter;
 import dev.n3shemmy3.coffre.ui.base.BaseScreen;
 import dev.n3shemmy3.coffre.ui.interfaces.ItemListener;
 import dev.n3shemmy3.coffre.ui.interfaces.TextChangedListener;
+import dev.n3shemmy3.coffre.ui.item.decorator.VerticalSpaceItemDecoration;
 import dev.n3shemmy3.coffre.ui.navigator.Navigator;
 import dev.n3shemmy3.coffre.ui.screen.record.RecordScreen;
 import dev.n3shemmy3.coffre.ui.utils.AppUtils;
+import dev.n3shemmy3.coffre.ui.utils.InsetsUtils;
 
 public class SearchScreen extends BaseScreen implements ItemListener<Transaction> {
     private MenuItem searchItem;
@@ -65,12 +68,13 @@ public class SearchScreen extends BaseScreen implements ItemListener<Transaction
         setUpSearchBar();
         setUpRecycler();
         requireActivity().getOnBackPressedDispatcher().addCallback(this, callback);
+        InsetsUtils.applyRecyclerInsets(recycler);
     }
 
     @Override
     protected void onScreenCreated(View root, Bundle state) {
         super.onScreenCreated(root, state);
-        viewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
+        viewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);performSearch("");
     }
 
     OnBackPressedCallback callback = new OnBackPressedCallback(false) {
@@ -105,9 +109,8 @@ public class SearchScreen extends BaseScreen implements ItemListener<Transaction
             @Override
             public void onTextChanged(EditText target, Editable s) {
                 String query = target.getText().toString().trim();
-                boolean startSearch = query.length() > 2;
-                clearButton.setVisibility(startSearch ? View.VISIBLE : View.INVISIBLE);
-                //performSearch(query);
+                clearButton.setVisibility(!query.isEmpty() ? View.VISIBLE : View.INVISIBLE);
+                performSearch(query);
             }
         });
         searchView.setOnEditorActionListener((v, actionId, event) -> {
@@ -146,8 +149,9 @@ public class SearchScreen extends BaseScreen implements ItemListener<Transaction
         recycler.setItemAnimator(new DefaultItemAnimator());
         layoutManager = new LinearLayoutManager(getContext());
         recycler.setLayoutManager(layoutManager);
-        adapter = new TransactionsAdapter();
+        adapter = new TransactionsAdapter(true);
         adapter.setItemListener(this);
+        recycler.addItemDecoration(new VerticalSpaceItemDecoration(4));
         recycler.setAdapter(adapter);
     }
 

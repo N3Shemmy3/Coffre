@@ -14,9 +14,11 @@ package dev.n3shemmy3.coffre.ui.screen.record;
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.lifecycle.ViewModelProvider;
@@ -28,23 +30,29 @@ import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.timepicker.MaterialTimePicker;
 import com.google.android.material.timepicker.TimeFormat;
+import com.google.gson.Gson;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.Calendar;
 
 import dev.n3shemmy3.coffre.R;
+import dev.n3shemmy3.coffre.backend.item.Currency;
 import dev.n3shemmy3.coffre.backend.item.Transaction;
+import dev.n3shemmy3.coffre.backend.objectbox.ObjectBox;
 import dev.n3shemmy3.coffre.backend.viewmodel.MainViewModel;
 import dev.n3shemmy3.coffre.ui.base.BaseScreen;
 import dev.n3shemmy3.coffre.ui.utils.DateUtils;
 import dev.n3shemmy3.coffre.ui.utils.InsetsUtils;
+import dev.n3shemmy3.coffre.ui.utils.PrefUtil;
+import io.objectbox.Box;
 
 public class RecordScreen extends BaseScreen {
 
     private MainViewModel viewModel;
     private Transaction item = new Transaction();
     private TextInputEditText inputTitle;
+    private TextView textCurrency;
     private TextInputEditText inputAmount;
     private TabLayout tabLayout;
     private Chip chipTime;
@@ -66,12 +74,15 @@ public class RecordScreen extends BaseScreen {
     protected void onCreateScreen(View root, Bundle savedInstanceState) {
         super.onCreateScreen(root, savedInstanceState);
         inputTitle = root.findViewById(R.id.inputTitle);
+        textCurrency = root.findViewById(R.id.textCurrency);
         inputAmount = root.findViewById(R.id.inputAmount);
         tabLayout = root.findViewById(R.id.tabLayout);
         chipTime = root.findViewById(R.id.chipTime);
         chipDate = root.findViewById(R.id.chipDate);
         inputNotes = root.findViewById(R.id.inputNotes);
 
+        Currency currency = new Gson().fromJson(PrefUtil.getString("currency"), Currency.class);
+        textCurrency.setText(currency.getSymbol().isEmpty() ? currency.getCode() : currency.getSymbol());
         InsetsUtils.applyImeInsets(requireActivity().getWindow(), root);
     }
 
@@ -84,7 +95,6 @@ public class RecordScreen extends BaseScreen {
             Transaction receivedItem = args.getParcelable("item");
             if (receivedItem != null) {
                 item = receivedItem;
-                Toast.makeText(requireContext(), "id: " + item.getId(), Toast.LENGTH_SHORT).show();
                 populateFieldsWithItemData(item);
             }
         }

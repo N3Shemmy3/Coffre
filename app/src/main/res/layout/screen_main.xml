@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
     * Copyright (C) 2025 Shemmy
     *
     * This program is free software: you can redistribute it and/or modify
@@ -91,11 +90,13 @@
 
             <!-- Transaction List -->
             <com.google.android.material.card.MaterialCardView
-                style="?materialCardViewFilledStyle"
+                style="?materialCardViewElevatedStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/activity_padding_vertical"
+                app:cardBackgroundColor="@macro/m3_comp_filled_card_container_color"
                 app:cardCornerRadius="22dp"
+                app:cardElevation="0dp"
                 app:contentPaddingTop="8dp">
 
 
@@ -125,12 +126,12 @@
                         android:text="@string/see_all" />
 
                     <androidx.fragment.app.FragmentContainerView
-                        android:id="@+id/transactionRecycler"
+                        android:id="@+id/transactionsRecycler"
                         android:name="dev.n3shemmy3.coffre.ui.screen.main.MainTransactionsList"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/transactionHeader"
-                        android:layout_marginVertical="12dp"/>
+                        android:layout_marginVertical="12dp" />
                 </RelativeLayout>
 
             </com.google.android.material.card.MaterialCardView>

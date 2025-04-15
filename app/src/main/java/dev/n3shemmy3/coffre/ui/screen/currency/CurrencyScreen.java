@@ -27,25 +27,34 @@ import android.widget.LinearLayout;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView.ItemDecoration;
 
 import com.google.android.material.chip.ChipGroup;
+import com.google.android.material.divider.MaterialDividerItemDecoration;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
-import java.util.ArrayList;
+import java.lang.reflect.Type;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import dev.n3shemmy3.coffre.R;
 import dev.n3shemmy3.coffre.backend.item.Currency;
-import dev.n3shemmy3.coffre.backend.viewmodel.MainViewModel;
 import dev.n3shemmy3.coffre.ui.adapters.CurrencyAdapter;
 import dev.n3shemmy3.coffre.ui.base.BaseScreen;
 import dev.n3shemmy3.coffre.ui.interfaces.ItemListener;
 import dev.n3shemmy3.coffre.ui.interfaces.TextChangedListener;
-import dev.n3shemmy3.coffre.ui.navigator.Navigator;
+import dev.n3shemmy3.coffre.ui.item.decorator.VerticalSpaceItemDecoration;
 import dev.n3shemmy3.coffre.ui.screen.main.MainScreen;
 import dev.n3shemmy3.coffre.ui.utils.AppUtils;
+import dev.n3shemmy3.coffre.ui.utils.AssetsUtils;
 import dev.n3shemmy3.coffre.ui.utils.InsetsUtils;
+import dev.n3shemmy3.coffre.ui.utils.PrefUtil;
 
 public class CurrencyScreen extends BaseScreen implements ItemListener<Currency> {
     private MenuItem searchItem;
@@ -53,8 +62,8 @@ public class CurrencyScreen extends BaseScreen implements ItemListener<Currency>
     private EditText searchView;
     private RecyclerView recycler;
     private LinearLayoutManager layoutManager;
-    private MainViewModel viewModel;
     private CurrencyAdapter adapter;
+    private List<Currency> currencies;
 
     @Override
     protected int getLayoutResId() {
@@ -72,14 +81,21 @@ public class CurrencyScreen extends BaseScreen implements ItemListener<Currency>
         ChipGroup chipGroup = root.findViewById(R.id.filters);
         chipGroup.setVisibility(View.GONE);
         setUpSearchBar();
-        setUpRecycler();
         requireActivity().getOnBackPressedDispatcher().addCallback(this, callback);
     }
 
     @Override
     protected void onScreenCreated(View root, Bundle state) {
         super.onScreenCreated(root, state);
-
+        recycler.setItemAnimator(new DefaultItemAnimator());
+        layoutManager = new LinearLayoutManager(getContext());
+        recycler.setLayoutManager(layoutManager);
+        recycler.addItemDecoration(new VerticalSpaceItemDecoration(4));
+        adapter = new CurrencyAdapter(true);
+        adapter.setItemListener(this);
+        recycler.setAdapter(adapter);
+        InsetsUtils.applyRecyclerInsets(recycler);
+        setUpRecycler();
     }
 
     OnBackPressedCallback callback = new OnBackPressedCallback(false) {
@@ -114,9 +130,9 @@ public class CurrencyScreen extends BaseScreen implements ItemListener<Currency>
             @Override
             public void onTextChanged(EditText target, Editable s) {
                 String query = target.getText().toString().trim();
-                boolean startSearch = query.length() > 2;
+                boolean startSearch = query.length() > 1;
                 clearButton.setVisibility(startSearch ? View.VISIBLE : View.INVISIBLE);
-                //performSearch(query);
+                performSearch(query);
             }
         });
         searchView.setOnEditorActionListener((v, actionId, event) -> {
@@ -148,27 +164,35 @@ public class CurrencyScreen extends BaseScreen implements ItemListener<Currency>
     }
 
     private void performSearch(String query) {
-
+        List<Currency> filteredCurrencies = currencies.stream()
+                .filter(currency -> currency.toString().toLowerCase().contains(query.toLowerCase()))
+                .collect(Collectors.toList());
+        adapter.submitList(filteredCurrencies);
     }
 
+
     private void setUpRecycler() {
-        recycler.setItemAnimator(new DefaultItemAnimator());
-        layoutManager = new LinearLayoutManager(getContext());
-        recycler.setLayoutManager(layoutManager);
-        adapter = new CurrencyAdapter();
-        adapter.setItemListener(this);
-        recycler.setAdapter(adapter);
-        InsetsUtils.applyContentInsets(recycler);
-        ArrayList<Currency> currencies = new ArrayList<>();
-        for (int i = 0; i < 100; i++) {
-            currencies.add(new Currency("Name", "CDE", "#"));
-        }
+        String data = AssetsUtils.getAssetJsonData(requireContext(), "currencies.json");
+        Type type = new TypeToken<List<Currency>>() {
+        }.getType();
+        currencies = new Gson().fromJson(data, type);
+        if (currencies == null) return;
+        currencies.sort(Comparator.comparing(Currency::getName));
         adapter.submitList(currencies);
     }
 
     @Override
     public void onItemClicked(@NonNull View itemView, Currency item, int position) {
-        Navigator.push(getScreenManager(), new MainScreen());
+        PrefUtil.save("currency", new Gson().toJson(item));
+        FragmentManager fragmentManager = getScreenManager();
+        for (int i = 0; i < fragmentManager.getBackStackEntryCount(); i++) {
+            fragmentManager.popBackStack();
+        }
+        fragmentManager.executePendingTransactions(); // Force the back stack to be cleared immediately.
+
+        fragmentManager.beginTransaction()
+                .replace(R.id.fragmentContainer, new MainScreen())
+                .commit();
     }
 
     @Override

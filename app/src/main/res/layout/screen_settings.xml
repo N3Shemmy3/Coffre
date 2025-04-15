@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
     * Copyright (C) 2025 Shemmy
     *
     * This program is free software: you can redistribute it and/or modify
@@ -55,36 +54,36 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/activity_padding_vertical"
-                app:cardCornerRadius="22dp">
+                app:cardCornerRadius="@dimen/material_card_corner_radius"
+                app:contentPadding="8dp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <com.google.android.material.imageview.ShapeableImageView
-                        android:id="@+id/cover"
-                        android:layout_width="match_parent"
-                        android:layout_height="150dp"
-                        android:foreground="?android:colorBackground"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/avatar"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:shapeAppearanceOverlay="@style/ShapeAppearance.Backdrop" />
 
                     <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/itemIcon"
                         android:layout_width="64dp"
                         android:layout_height="64dp"
                         android:layout_marginStart="20dp"
-                        android:layout_marginTop="-32dp"
                         android:scaleType="centerCrop"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/cover"
+                        app:layout_constraintTop_toTopOf="parent"
                         app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"
                         app:srcCompat="@drawable/avatar"
                         app:strokeColor="@color/color_stroke"
                         app:strokeWidth="1dp" />
+
+                    <TextView
+                        android:id="@+id/itemTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:text="Shemmy88 Nyirenda"
+                        android:textAppearance="?textAppearanceHeadlineSmall"
+                        app:layout_constraintStart_toEndOf="@id/itemIcon"
+                        app:layout_constraintTop_toTopOf="@id/itemIcon" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </com.google.android.material.card.MaterialCardView>

@@ -15,27 +15,24 @@ package dev.n3shemmy3.coffre.backend.viewmodel;
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import android.app.Application;
-
-import androidx.annotation.NonNull;
-import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import androidx.paging.PagedList;
+import androidx.lifecycle.ViewModel;
+import androidx.paging.PagingData;
 
 import java.math.BigDecimal;
+import java.util.List;
 
-import dev.n3shemmy3.coffre.repository.TransactionsRepository;
 import dev.n3shemmy3.coffre.backend.item.Transaction;
+import dev.n3shemmy3.coffre.backend.repository.TransactionsRepository;
 
-public class MainViewModel extends AndroidViewModel {
+public class MainViewModel extends ViewModel {
 
     private final TransactionsRepository repository;
-    private final LiveData<PagedList<Transaction>> transactions;
+    private final LiveData<List<Transaction>> transactions;
     private final LiveData<BigDecimal> netBalance;
 
-    public MainViewModel(@NonNull Application application) {
-        super(application);
-        repository = new TransactionsRepository(application);
+    public MainViewModel() {
+        repository = new TransactionsRepository();
         transactions = repository.getTransactions();
         netBalance = repository.getNetBalance();
     }
@@ -60,11 +57,11 @@ public class MainViewModel extends AndroidViewModel {
 
     // The ViewModel should ideally expose immutable LiveData to the UI to prevent accidental modifications from the UI layer.
     // The backing field can remain mutable within the ViewModel.
-    public LiveData<PagedList<Transaction>> getTransactions() {
+    public LiveData<List<Transaction>> getTransactions() {
         return transactions;
     }
 
-    public LiveData<PagedList<Transaction>> searchTransactions(String query) {
+    public LiveData<List<Transaction>> searchTransactions(String query) {
         return repository.search(query);
     }
 

@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
     * Copyright (C) 2025 Shemmy
     *
     * This program is free software: you can redistribute it and/or modify
@@ -18,20 +17,21 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/linearLayout"
+    android:id="@+id/item"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:clickable="true"
+    android:clipChildren="true"
     android:foreground="?attr/selectableItemBackground"
     android:gravity="center_vertical"
-    android:minHeight="?attr/minTouchTargetSize">
+    android:minHeight="56dp">
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/itemStartCard"
         style="@style/Widget.Material3.CardView.Filled"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="16dp"
         app:cardBackgroundColor="?colorSurfaceContainer"
         app:contentPadding="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -56,9 +56,9 @@
             android:autoSizeTextType="uniform"
             android:maxLines="1"
             android:paddingVertical="4dp"
-            android:textColor="@color/list_item_tint"
             android:text="ZMK"
             android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+            android:textColor="@color/list_item_tint"
             android:visibility="gone" />
     </com.google.android.material.card.MaterialCardView>
 
@@ -83,7 +83,7 @@
         style="@style/Widget.Material3.CardView.Filled"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="4dp"
         android:layout_marginEnd="16dp"
         app:cardBackgroundColor="?colorErrorContainer"
@@ -91,6 +91,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/itemTitle"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full">
 
         <ImageView

@@ -14,8 +14,10 @@ package dev.n3shemmy3.coffre.ui.screen.main;
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -72,6 +74,6 @@ public class MainTransactionsList extends BaseFragment implements ItemListener<T
 
     @Override
     public void onItemLongClicked(@NonNull View itemView, Transaction item, int position) {
-        viewModel.delete(item);
+     //   viewModel.delete(item);
     }
 }
