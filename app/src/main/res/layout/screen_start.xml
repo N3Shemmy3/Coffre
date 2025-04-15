@@ -53,7 +53,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/activity_padding_horizontal"
         android:paddingBottom="34dp"
-        android:text="Personal finance made simple"
+        android:text="@string/app_tagline"
         android:textAppearance="?textAppearanceHeadline4"
         app:layout_constraintBottom_toBottomOf="@id/actionStart"
         app:layout_constraintEnd_toEndOf="@id/actionStart"

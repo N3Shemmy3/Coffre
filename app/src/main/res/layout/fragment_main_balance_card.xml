@@ -42,14 +42,15 @@
             android:textColor="?colorOnPrimaryContainer"
             android:textFontWeight="600"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:targetApi="28" />
 
         <TextView
             android:id="@+id/currency"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:alpha="0.72"
-            android:text="$"
+            tools:text="$"
             android:textColor="?colorOnPrimaryContainer"
             android:textSize="32sp"
             app:layout_constraintBottom_toBottomOf="@id/decimal"

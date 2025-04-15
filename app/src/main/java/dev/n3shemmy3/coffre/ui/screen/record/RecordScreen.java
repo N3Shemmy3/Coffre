@@ -178,7 +178,7 @@ public class RecordScreen extends BaseScreen {
         CalendarConstraints.Builder constraintsBuilder = new CalendarConstraints.Builder().setStart(0L) // Start from epoch time (optional, ensures full range)
                 .setEnd(calender.getTimeInMillis()); // Restrict future dates
 
-        datePicker = MaterialDatePicker.Builder.datePicker().setTitleText("Select date").setSelection(calender.getTimeInMillis()).setCalendarConstraints(constraintsBuilder.build()) // Apply constraints
+        datePicker = MaterialDatePicker.Builder.datePicker().setTitleText(R.string.set_date).setSelection(calender.getTimeInMillis()).setCalendarConstraints(constraintsBuilder.build()) // Apply constraints
                 .build();
 
         datePicker.addOnPositiveButtonClickListener(selection -> {
@@ -193,7 +193,7 @@ public class RecordScreen extends BaseScreen {
                 chipTime.setText(DateUtils.formatTime(calender.get(Calendar.HOUR_OF_DAY), calender.get(Calendar.MINUTE), is24HourFormat));
             }
         });
-        timePicker = new MaterialTimePicker.Builder().setTitleText("Select time").setTimeFormat(is24HourFormat ? TimeFormat.CLOCK_24H : TimeFormat.CLOCK_12H).setHour(calender.get(Calendar.HOUR_OF_DAY)).setMinute(calender.get(Calendar.MINUTE)).build();
+        timePicker = new MaterialTimePicker.Builder().setTitleText(R.string.set_time).setTimeFormat(is24HourFormat ? TimeFormat.CLOCK_24H : TimeFormat.CLOCK_12H).setHour(calender.get(Calendar.HOUR_OF_DAY)).setMinute(calender.get(Calendar.MINUTE)).build();
 
         timePicker.addOnPositiveButtonClickListener(picker -> {
             int pickedHour = timePicker.getHour();

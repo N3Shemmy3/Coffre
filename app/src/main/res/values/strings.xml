@@ -79,5 +79,9 @@
     <string name="action_filter">Filter</string>
     <string name="my_balance">My Balance</string>
     <string name="set_currency">Set currency</string>
+    <string name="app_tagline">Personal finance made simple</string>
+    <string name="profile_setup_desclamer">Infomation submitted here will be used to personalize the app but none of it is uploaded.</string>
+    <string name="set_time">Set time</string>
+    <string name="set_date">Set date</string>
 
 </resources>

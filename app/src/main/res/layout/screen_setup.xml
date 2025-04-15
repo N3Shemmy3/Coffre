@@ -114,7 +114,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/activity_padding_horizontal"
                 android:drawablePadding="@dimen/activity_padding_horizontal"
-                android:text="Infomation submitted here will be used to personalize the app but none of it is uploaded."
+                android:text="@string/profile_setup_desclamer"
                 android:textAppearance="?textAppearanceLabelLarge"
                 app:drawableStartCompat="@drawable/outline_info_24" />
         </LinearLayout>
