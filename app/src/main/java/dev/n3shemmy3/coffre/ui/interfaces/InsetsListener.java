@@ -14,8 +14,8 @@ package dev.n3shemmy3.coffre.ui.interfaces;
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-import androidx.core.graphics.Insets;
+import androidx.core.view.WindowInsetsCompat;
 
 public interface InsetsListener {
-    void onInsetsChanged(Insets displayCutOutInsets, Insets systemBarInsets);
+    void onInsetsChanged(WindowInsetsCompat windowInsets);
 }

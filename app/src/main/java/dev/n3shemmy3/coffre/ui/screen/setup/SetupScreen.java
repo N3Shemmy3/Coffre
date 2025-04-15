@@ -31,13 +31,20 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.core.graphics.Insets;
 import androidx.core.view.HapticFeedbackConstantsCompat;
 import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
+import com.google.android.material.color.MaterialColors;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
 
 import java.io.IOException;
@@ -47,6 +54,7 @@ import dev.n3shemmy3.coffre.backend.item.Profile;
 import dev.n3shemmy3.coffre.ui.base.BaseScreen;
 import dev.n3shemmy3.coffre.ui.navigator.Navigator;
 import dev.n3shemmy3.coffre.ui.screen.currency.CurrencyScreen;
+import dev.n3shemmy3.coffre.ui.utils.AppUtils;
 import dev.n3shemmy3.coffre.ui.utils.FileUtils;
 import dev.n3shemmy3.coffre.ui.utils.InsetsUtils;
 import dev.n3shemmy3.coffre.ui.utils.PrefUtil;
@@ -56,10 +64,11 @@ public class SetupScreen extends BaseScreen {
     private CoordinatorLayout coordinator;
     private CollapsingToolbarLayout toolbarLayout;
     private ShapeableImageView avatar;
+    private TextInputLayout textName;
     private TextInputEditText inputName;
     private Button actionPick;
-    private Button actionNext;
-    private Profile profile = new Profile();
+    private FloatingActionButton actionNext;
+    private Profile profile;
 
 
     @Override
@@ -74,6 +83,7 @@ public class SetupScreen extends BaseScreen {
         actionNext = root.findViewById(R.id.actionNext);
         toolbarLayout = root.findViewById(R.id.toolbarLayout);
         avatar = root.findViewById(R.id.avatar);
+        textName = root.findViewById(R.id.textName);
         inputName = root.findViewById(R.id.inputName);
         actionPick = root.findViewById(R.id.actionPick);
         actionPick.setOnClickListener(v -> {
@@ -84,9 +94,10 @@ public class SetupScreen extends BaseScreen {
             activityResultLauncher.launch(intent);
         });
         actionNext.setOnClickListener(v -> {
+            AppUtils.showSoftInput(requireActivity(), inputName, false);
             if (inputName.getText() == null || inputName.getText().toString().isEmpty()) {
-                Snackbar.make(coordinator, "Please set a name", Snackbar.LENGTH_SHORT).show();
-            } else if (profile.getAvatar() == null || profile.getAvatar().isEmpty()) {
+                textName.setError("Please set a name");
+            } else if (profile == null) {
                 Snackbar.make(coordinator, "Please pick an image", Snackbar.LENGTH_SHORT).show();
             } else {
                 PrefUtil.save(Profile.key, new Gson().toJson(profile));
@@ -95,11 +106,15 @@ public class SetupScreen extends BaseScreen {
 
             }
         });
+        //inputName.setOnFocusChangeListener((v, hasFocus) -> textName.setError(null));
+        inputName.setOnClickListener(v -> textName.setError(null));
         applyInsets();
         profile = new Gson().fromJson(PrefUtil.getString(Profile.key), Profile.class);
         if (profile == null) return;
         Bitmap retrievedBitmap = FileUtils.retrieveImageFromPrivateStorage(requireContext(), profile.getAvatar());
-        if (retrievedBitmap != null) avatar.setImageBitmap(retrievedBitmap);
+        if (retrievedBitmap != null) {
+            setAvatar(retrievedBitmap);
+        }
         inputName.setText(profile.getName());
     }
 
@@ -114,7 +129,7 @@ public class SetupScreen extends BaseScreen {
                     Uri savedImageUri = FileUtils.saveImageToPrivateStorage(requireActivity(), uri, filename);
                     if (savedImageUri == null) return;
                     Bitmap bitmap = MediaStore.Images.Media.getBitmap(requireActivity().getContentResolver(), savedImageUri);
-                    avatar.setImageBitmap(bitmap);
+                    setAvatar(bitmap);
                     if (profile == null) profile = new Profile();
                     profile.setAvatar(filename);
                 } catch (IOException e) {
@@ -125,7 +140,10 @@ public class SetupScreen extends BaseScreen {
     });
 
     private void applyInsets() {
-        InsetsUtils.applyAppbarInsets(topAppBar, (displayCutOutInsets, systemBarInsets) -> {
+        InsetsUtils.applyAppbarInsets(topAppBar, (windowInsets) -> {
+            Insets displayCutOutInsets = windowInsets.getInsets(WindowInsetsCompat.Type.displayCutout());
+            Insets systemBarInsets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+            Insets imeInsets = windowInsets.getInsets(WindowInsetsCompat.Type.ime());
             int hInsets = displayCutOutInsets.left + displayCutOutInsets.right;
 
             //Toolbar
@@ -142,9 +160,18 @@ public class SetupScreen extends BaseScreen {
             int dp16 = dp8 * 2;
             mlp.leftMargin = hInsets + dp16;
             mlp.rightMargin = hInsets + dp16;
-            mlp.bottomMargin = dp16 + systemBarInsets.bottom;
+            mlp.bottomMargin = dp16 + systemBarInsets.bottom + imeInsets.bottom;
             actionNext.setLayoutParams(mlp);
         });
         InsetsUtils.applyContentInsets(content);
+    }
+
+    private void setAvatar(Bitmap bitmap) {
+        CircularProgressDrawable circularProgressDrawable = new CircularProgressDrawable(requireActivity());
+        circularProgressDrawable.setColorSchemeColors(MaterialColors.getColor(requireView(),com.google.android.material.R.attr.colorPrimary));
+        circularProgressDrawable.setStrokeWidth(5f);
+        circularProgressDrawable.setCenterRadius(30f);
+        circularProgressDrawable.start();
+        Glide.with(requireContext()).load(bitmap).placeholder(circularProgressDrawable).into(avatar);
     }
 }

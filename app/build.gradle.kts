@@ -54,6 +54,7 @@ dependencies {
     implementation(libs.preference)
     implementation(libs.paging)
     implementation (libs.iconics.core)
+    implementation (libs.swiperefreshlayout)
     implementation(libs.google.material.typeface.outlined){ artifact { type = "aar" } }
     implementation (libs.ticker)
     implementation (libs.objectbox.android)
