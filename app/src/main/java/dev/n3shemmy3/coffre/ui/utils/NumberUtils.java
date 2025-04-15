@@ -21,6 +21,7 @@ package dev.n3shemmy3.coffre.ui.utils;
 import androidx.annotation.NonNull;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.NumberFormat;
 import java.util.Locale;
 
@@ -33,4 +34,17 @@ public class NumberUtils {
             return BigDecimal.ZERO;
         }
     }
+    public static BigDecimal getAbsDecimalPart(BigDecimal bigDecimal) {
+        BigDecimal absoluteBigDecimal = bigDecimal.abs();
+        BigDecimal intPart = new BigDecimal(absoluteBigDecimal.toBigInteger());
+        BigDecimal decimalPart = absoluteBigDecimal.subtract(intPart);
+        return decimalPart.setScale(decimalPart.scale(), RoundingMode.DOWN);
+    }
+    public static BigDecimal formatAmount(BigDecimal balance) {
+        return String.valueOf(balance).equals("null") ? BigDecimal.valueOf(0.00) : balance.setScale(2, RoundingMode.DOWN);
+    }
+    public static String formatCurrency(String currencySymbol, BigDecimal amount) {
+        return String.format("%s %s", currencySymbol, formatAmount(amount));
+    }
+
 }

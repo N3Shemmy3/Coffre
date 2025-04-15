@@ -17,7 +17,6 @@ package dev.n3shemmy3.coffre.ui.screen.main;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;

@@ -28,12 +28,12 @@ import com.robinhood.ticker.TickerUtils;
 import com.robinhood.ticker.TickerView;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 
 import dev.n3shemmy3.coffre.R;
 import dev.n3shemmy3.coffre.backend.item.Currency;
 import dev.n3shemmy3.coffre.backend.viewmodel.MainViewModel;
 import dev.n3shemmy3.coffre.ui.base.BaseFragment;
+import dev.n3shemmy3.coffre.ui.utils.NumberUtils;
 import dev.n3shemmy3.coffre.ui.utils.PrefUtil;
 
 public class MainBalanceCard extends BaseFragment {
@@ -71,32 +71,19 @@ public class MainBalanceCard extends BaseFragment {
         super.onViewCreated(view, savedInstanceState);
         viewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
         viewModel.getNetBalance().observe(getViewLifecycleOwner(), netBalance -> {
-            BigDecimal formattedBalance = formatAmount(netBalance);
+            BigDecimal formattedBalance = NumberUtils.formatAmount(netBalance);
             BigDecimal intPart = new BigDecimal(formattedBalance.toBigInteger());
             round.setText(String.valueOf(intPart.intValue()));
-            decimal.setText(String.valueOf(getAbsDecimalPart(formattedBalance)).replaceFirst("^0.", ""));
+            decimal.setText(String.valueOf(NumberUtils.getAbsDecimalPart(formattedBalance)).replaceFirst("^0.", ""));
         });
 
         String currencySymbol = currency.getSymbol().isEmpty() ? currency.getCode() : currency.getSymbol();
         viewModel.getTotalIncome().observe(getViewLifecycleOwner(), incomeBalance ->
-                income.setText(String.format("%s %s", currencySymbol, formatAmount(incomeBalance)))
+                income.setText(NumberUtils.formatCurrency(currencySymbol, incomeBalance))
         );
         viewModel.getTotalExpenses().observe(getViewLifecycleOwner(), expenseBalance ->
-                expenses.setText(String.format("%s %s", currencySymbol, formatAmount(expenseBalance)))
+                expenses.setText(NumberUtils.formatCurrency(currencySymbol, expenseBalance))
         );
 
     }
-
-    public BigDecimal getAbsDecimalPart(BigDecimal bigDecimal) {
-        BigDecimal absoluteBigDecimal = bigDecimal.abs();
-        BigDecimal intPart = new BigDecimal(absoluteBigDecimal.toBigInteger());
-        BigDecimal decimalPart = absoluteBigDecimal.subtract(intPart);
-        return decimalPart.setScale(decimalPart.scale(), RoundingMode.DOWN);
-    }
-
-    private BigDecimal formatAmount(BigDecimal balance) {
-        return String.valueOf(balance).equals("null") ? BigDecimal.valueOf(0.00) : balance.setScale(2, RoundingMode.DOWN);
-    }
-
-
 }
