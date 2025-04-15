@@ -19,6 +19,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.core.graphics.Insets;
+import androidx.core.view.WindowInsetsCompat;
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.gson.Gson;
@@ -71,7 +74,11 @@ public class MainScreen extends BaseScreen {
     }
 
     private void applyInsets() {
-        InsetsUtils.applyAppbarInsets(topAppBar, (displayCutOutInsets, systemBarInsets) -> {
+        InsetsUtils.applyAppbarInsets(topAppBar, (windowInsets) -> {
+            Insets displayCutOutInsets = windowInsets.getInsets(WindowInsetsCompat.Type.displayCutout());
+            Insets systemBarInsets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+            Insets imeInsets = windowInsets.getInsets(WindowInsetsCompat.Type.ime());
+
             int hInsets = displayCutOutInsets.left + displayCutOutInsets.right;
 
             //Toolbar
@@ -86,7 +93,7 @@ public class MainScreen extends BaseScreen {
             int dp16 = dp8 * 2;
             mlp.leftMargin = hInsets + dp16;
             mlp.rightMargin = hInsets + dp16;
-            mlp.bottomMargin = dp16 + systemBarInsets.bottom;
+            mlp.bottomMargin = dp16 + systemBarInsets.bottom + imeInsets.bottom;
             fab.setLayoutParams(mlp);
         });
         InsetsUtils.applyContentInsets(content);

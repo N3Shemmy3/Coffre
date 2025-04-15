@@ -15,6 +15,7 @@ fragment = "1.8.6"
 glide = "4.16.0"
 gson = "2.13.0"
 eventbus = "3.3.1"
+swiperefreshlayout = "1.1.0"
 ticker = "2.0.4"
 viewpager2 = "1.1.0"
 lifecycle = "2.8.7"
@@ -41,6 +42,7 @@ fragment = { group = "androidx.fragment", name = "fragment", version.ref = "frag
 glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glide" }
 eventbus = { group = "org.greenrobot", name = "eventbus-java", version.ref = "eventbus" }
 coordinatorlayout = { group = "androidx.coordinatorlayout", name = "coordinatorlayout", version.ref = "coordinatorlayout" }
+swiperefreshlayout = { module = "androidx.swiperefreshlayout:swiperefreshlayout", version.ref = "swiperefreshlayout" }
 ticker = { module = "com.robinhood.ticker:ticker", version.ref = "ticker" }
 viewpager2 = { group = "androidx.viewpager2", name = "viewpager2", version.ref = "viewpager2" }
 viewmodel = { group = "androidx.lifecycle", name = "lifecycle-viewmodel", version.ref = "lifecycle" }

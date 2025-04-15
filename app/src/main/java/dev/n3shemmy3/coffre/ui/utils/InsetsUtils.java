@@ -108,7 +108,7 @@ public class InsetsUtils {
 
     public static void applyAppbarInsets(@NonNull AppBarLayout appbar, @NonNull InsetsListener insetsListener) {
         ViewCompat.setOnApplyWindowInsetsListener(appbar, (v, windowInsets) -> {
-            insetsListener.onInsetsChanged(windowInsets.getInsets(WindowInsetsCompat.Type.displayCutout()), windowInsets.getInsets(WindowInsetsCompat.Type.systemBars()));
+            insetsListener.onInsetsChanged(windowInsets);
             return windowInsets;
         });
     }
@@ -127,7 +127,7 @@ public class InsetsUtils {
                 toolbar.setLayoutParams(mlp);
             }
             if (insetsListener != null) {
-                insetsListener.onInsetsChanged(displayCutOutInsets, systemBarInsets);
+                insetsListener.onInsetsChanged(windowInsets);
             }
             return windowInsets;
         });

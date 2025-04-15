@@ -64,7 +64,8 @@
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal">
+                android:layout_gravity="center_horizontal"
+                android:animateLayoutChanges="true">
 
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/avatar"
@@ -75,7 +76,6 @@
                     android:background="?colorSurfaceContainer"
                     android:scaleType="centerCrop"
                     app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"
-                    app:srcCompat="@drawable/outline_person_24"
                     app:strokeColor="@color/color_stroke"
                     app:strokeWidth="1dp" />
 
@@ -91,10 +91,12 @@
             </RelativeLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/activity_padding_horizontal"
-                android:hint="@string/name">
+                android:hint="@string/name"
+                app:errorEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/inputName"
@@ -107,17 +109,18 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
+                android:id="@+id/textInfo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/activity_padding_horizontal"
                 android:drawablePadding="@dimen/activity_padding_horizontal"
-                android:text="Infomation submitted here will be used to personalize the app"
+                android:text="Infomation submitted here will be used to personalize the app but none of it is uploaded."
                 android:textAppearance="?textAppearanceLabelLarge"
                 app:drawableStartCompat="@drawable/outline_info_24" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
-    <Button
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/actionNext"
         style="?materialIconButtonFilledStyle"
         android:layout_width="wrap_content"
@@ -125,7 +128,7 @@
         android:layout_gravity="end|bottom"
         android:layout_margin="@dimen/activity_padding_horizontal"
         android:contentDescription="@string/action_next"
-        android:padding="24dp"
-        app:icon="@drawable/outline_arrow_forward_24" />
+        app:layout_behavior="com.google.android.material.floatingactionbutton.FloatingActionButton$Behavior"
+        app:srcCompat="@drawable/outline_arrow_forward_24" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
