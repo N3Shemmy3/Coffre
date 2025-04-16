@@ -34,6 +34,7 @@ import dev.n3shemmy3.coffre.ui.base.BaseScreen;
 import dev.n3shemmy3.coffre.ui.navigator.Navigator;
 import dev.n3shemmy3.coffre.ui.screen.record.RecordScreen;
 import dev.n3shemmy3.coffre.ui.screen.search.SearchScreen;
+import dev.n3shemmy3.coffre.ui.screen.settings.SettingsScreen;
 import dev.n3shemmy3.coffre.ui.utils.FileUtils;
 import dev.n3shemmy3.coffre.ui.utils.InsetsUtils;
 import dev.n3shemmy3.coffre.ui.utils.PrefUtil;
@@ -54,7 +55,7 @@ public class MainScreen extends BaseScreen {
         toolBarAvatar = root.findViewById(R.id.toolBarAvatar);
         fab = root.findViewById(R.id.fab);
         transactionsCard = root.findViewById(R.id.transactionsCard);
-        //toolBarAvatar.setOnClickListener(view -> Navigator.push(getScreenManager(), new SettingsScreen()));
+        toolBarAvatar.setOnClickListener(view -> Navigator.push(getScreenManager(), new SettingsScreen()));
         topToolBar.setOnMenuItemClickListener(menuItem -> {
             if (menuItem.getItemId() == R.id.action_search) {
                 Navigator.push(getScreenManager(), new SearchScreen());

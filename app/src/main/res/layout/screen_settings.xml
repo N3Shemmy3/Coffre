@@ -46,21 +46,45 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
+            android:paddingHorizontal="@dimen/activity_padding_horizontal"
             android:paddingTop="@dimen/activity_padding_vertical"
             android:paddingBottom="84dp">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="12dp"
+                android:layout_marginBottom="4dp"
+                android:text="@string/profile"
+                android:textAppearance="?textAppearanceLabelLarge"
+                android:textColor="@color/list_item_subtitle_tint"
+                android:textStyle="bold" />
 
             <com.google.android.material.card.MaterialCardView
                 style="?materialCardViewFilledStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/activity_padding_vertical"
-                app:cardCornerRadius="@dimen/material_card_corner_radius"
-                app:contentPadding="8dp">
+                app:cardCornerRadius="@dimen/material_card_corner_radius">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="?colorSecondaryContainer"
+                    android:minHeight="200dp">
 
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/itemCover"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:foreground="@drawable/backdrop_gradient"
+                        android:foregroundTint="?colorSecondaryContainer"
+                        android:scaleType="centerCrop"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/avatar" />
 
                     <com.google.android.material.imageview.ShapeableImageView
                         android:id="@+id/itemIcon"
@@ -68,8 +92,8 @@
                         android:layout_height="64dp"
                         android:layout_marginStart="20dp"
                         android:scaleType="centerCrop"
+                        app:layout_constraintBottom_toTopOf="@id/itemTitle"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
                         app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"
                         app:srcCompat="@drawable/avatar"
                         app:strokeColor="@color/color_stroke"
@@ -77,16 +101,49 @@
 
                     <TextView
                         android:id="@+id/itemTitle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="20dp"
+                        android:autoSizeTextType="uniform"
+                        android:text="Shemmy Nyirenda"
+                        android:textAppearance="?textAppearanceTitleLarge"
+                        android:textColor="?colorOnSecondaryContainer"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@id/actionEdit"
+                        app:layout_constraintStart_toStartOf="@id/itemIcon" />
+
+                    <Button
+                        android:id="@+id/actionEdit"
+                        style="@style/Widget.Material3.Button.IconButton.Filled"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:text="Shemmy88 Nyirenda"
-                        android:textAppearance="?textAppearanceHeadlineSmall"
-                        app:layout_constraintStart_toEndOf="@id/itemIcon"
-                        app:layout_constraintTop_toTopOf="@id/itemIcon" />
+                        android:layout_margin="20dp"
+                        app:icon="@drawable/outline_edit_24"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </com.google.android.material.card.MaterialCardView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="12dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="4dp"
+                android:text="@string/screen_settings"
+                android:textAppearance="?textAppearanceLabelLarge"
+                android:textColor="@color/list_item_subtitle_tint"
+                android:textStyle="bold" />
+
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/settingsContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/item_background_single"
+                android:minHeight="400dp" />
+
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

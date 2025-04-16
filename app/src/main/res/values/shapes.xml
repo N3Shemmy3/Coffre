@@ -3,16 +3,16 @@
 
     <style name="ShapeAppearance.Backdrop" parent="@style/ShapeAppearance.Material3.Corner.Large">
         <item name="shapeCornerFamily">rounded</item>
-        <item name="cornerSize">20dp</item>
+        <item name="cornerSize">@dimen/material_card_corner_radius</item>
         <item name="cornerSizeTopLeft">0dp</item>
         <item name="cornerSizeTopRight">0dp</item>
 
     </style>
 
-    <style name="ShapeAppearance.PreferenceCard" parent="@style/ShapeAppearance.Material3.Corner.Large">
+    <style name="ShapeAppearance.TopCard" parent="@style/ShapeAppearance.Material3.Corner.Large">
         <item name="shapeCornerFamily">rounded</item>
-        <item name="cornerSize">20dp</item>
-        <item name="cornerSizeBottomLeft">8dp</item>
-        <item name="cornerSizeBottomRight">8dp</item>
+        <item name="cornerSize">@dimen/material_card_corner_radius</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
+        <item name="cornerSizeBottomRight">0dp</item>
     </style>
 </resources>
