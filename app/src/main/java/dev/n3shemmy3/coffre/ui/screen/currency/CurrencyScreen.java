@@ -77,7 +77,7 @@ public class CurrencyScreen extends BaseScreen implements ItemListener<Currency>
         searchView = root.findViewById(R.id.searchView);
         recycler = root.findViewById(R.id.recycler);
 
-        topToolBar.setTitle(R.string.set_currency);
+        topToolBar.setTitle(R.string.action_set_currency);
         ChipGroup chipGroup = root.findViewById(R.id.filters);
         chipGroup.setVisibility(View.GONE);
         setUpSearchBar();

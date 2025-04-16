@@ -36,6 +36,7 @@
     <string name="action_save">Save</string>
     <string name="action_search">Search</string>
     <string name="action_clear">Clear</string>
+    <string name="action_discard">Discard</string>
     <string name="action_history">History</string>
     <string name="action_present">Present</string>
     <string name="action_future">Future</string>
@@ -44,7 +45,9 @@
     <string name="action_create_category">Create Category</string>
     <string name="action_pick_color">Pick color</string>
     <string name="action_pick_icon">Pick icon</string>
-
+    <string name="action_filter">Filter</string>
+    <string name="action_set_currency">Set currency</string>
+    <string name="action_set_time">Set time</string>
     <!-- Errors -->
     <string name="error_required_filed">Required filed</string>
 
@@ -68,6 +71,7 @@
     <!--User Profile-->
     <string name="user_profile_picture">User profile picture</string>
     <string name="profile_avatar">Avatar</string>
+    <string name="profile_setup_declaimer">Information submitted here will be used to personalize the app but none of it is uploaded.</string>
 
 
     <!--Views-->
@@ -76,12 +80,8 @@
     <string name="list_item_icon">List item icon</string>
     <string name="list_item_title">List item title</string>
     <string name="list_item_sub_title">List item subtitle</string>
-    <string name="action_filter">Filter</string>
     <string name="my_balance">My Balance</string>
-    <string name="set_currency">Set currency</string>
     <string name="app_tagline">Personal finance made simple</string>
-    <string name="profile_setup_desclamer">Infomation submitted here will be used to personalize the app but none of it is uploaded.</string>
-    <string name="set_time">Set time</string>
-    <string name="set_date">Set date</string>
+    <string name="action_set_date">Set date</string>
 
 </resources>

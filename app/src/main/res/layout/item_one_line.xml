@@ -46,7 +46,7 @@
             android:layout_height="wrap_content"
             android:contentDescription="@string/list_item_icon"
             app:tint="@color/list_item_tint"
-            tools:src="@drawable/outline_local_cafe_24" />
+            tools:src="@drawable/outline_credit_card_24" />
 
         <TextView
             android:id="@+id/itemStartText"

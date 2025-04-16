@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
     * Copyright (C) 2025 Shemmy
     *
     * This program is free software: you can redistribute it and/or modify
@@ -145,18 +144,16 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/inputAmount"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="0dp"
                     android:layout_marginStart="8dp"
-                    android:layout_weight="1"
                     android:autoSizeMaxTextSize="52sp"
-                    android:autoSizeStepGranularity="1sp"
                     android:autoSizeTextType="uniform"
                     android:autofillHints="@null"
                     android:background="@android:color/transparent"
                     android:hint="0.00"
                     android:imeOptions="actionNext"
-                    android:maxLines="1"
                     android:inputType="numberDecimal"
+                    android:maxLines="1"
                     android:textAlignment="textEnd"
                     android:textAppearance="?textAppearanceHeadline3"
                     app:layout_constraintBottom_toBottomOf="@id/textCurrency"
