@@ -97,7 +97,7 @@ public class RecordScreen extends BaseScreen {
         currency = new Gson().fromJson(PrefUtil.getString("currency"), Currency.class);
         textCurrency.setText(currency.getSymbol().isEmpty() ? currency.getCode() : currency.getSymbol());
         inputAmount.setInputType(TYPE_NUMBER_FLAG_DECIMAL | TYPE_NUMBER_FLAG_SIGNED | TYPE_CLASS_NUMBER);
-        inputAmount.setKeyListener(DigitsKeyListener.getInstance("0123456789,.-"));
+        inputAmount.setKeyListener(DigitsKeyListener.getInstance("0123456789,."));
         inputAmount.setFilters(new InputFilter[] {new DecimalDigitsInputFilter(9999999,2)});
         InsetsUtils.applyImeInsets(requireActivity().getWindow(), root);
     }
@@ -137,7 +137,8 @@ public class RecordScreen extends BaseScreen {
         format.setMinimumFractionDigits(Integer.parseInt(currency.getDecimal_digits()));
         format.setRoundingMode(RoundingMode.DOWN);
         BigDecimal amount = item.getAmount() == null ? BigDecimal.ZERO : item.getAmount();
-        inputAmount.setText(format.format(amount));
+
+        inputAmount.setText(String.valueOf(NumberUtils.formatAmount(amount));
 
         inputNotes.setText(item.getDescription().trim());
         tabLayout.selectTab(tabLayout.getTabAt(getSelectedTab(item.getType())));

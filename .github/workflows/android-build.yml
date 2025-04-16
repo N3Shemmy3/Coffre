@@ -25,8 +25,10 @@ jobs:
   build:
     name: Build App
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
           submodules: recursive
@@ -39,7 +41,7 @@ jobs:
           cache: gradle
 
       - name: Set release type
-        run: echo "releaseType=CI" > package.properties # Use quotes for string values
+        run: echo "releaseType=CI" > package.properties
 
       - name: Create signing files
         if: github.event_name != 'pull_request'
@@ -63,15 +65,21 @@ jobs:
         id: find_apk
         run: |
           if [[ "${{ github.event_name }}" == "pull_request" ]]; then
-            APK_PATH=$(find app/build/outputs/apk/debug -name '*.apk')
+            APK_PATH=$(find app/build/outputs/apk/debug -name '*.apk' | head -n 1)
           else
-            APK_PATH=$(find app/build/outputs/apk/release -name '*.apk')
+            APK_PATH=$(find app/build/outputs/apk/release -name '*.apk' | head -n 1)
           fi
-          echo "apk_path=$APK_PATH" >> $GITHUB_OUTPUT # Set output variable
+
+          echo "Found APK at: $APK_PATH"
+          echo "apk_path=$APK_PATH" >> "$GITHUB_OUTPUT"
+
+      - name: Debug APK path
+        run: echo "Artifact path is ${{ steps.find_apk.outputs.apk_path }}"
 
       - name: Upload APK
+        if: steps.find_apk.outputs.apk_path != ''
         uses: actions/upload-artifact@v4
         with:
-          name: app-${{ github.event_name == 'pull_request' && 'debug' || 'release' }} # Clearer artifact name
+          name: app-${{ github.event_name == 'pull_request' && 'debug' || 'release' }}
           path: ${{ steps.find_apk.outputs.apk_path }}
           compression-level: 9
