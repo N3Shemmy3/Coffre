@@ -40,7 +40,7 @@ import dev.n3shemmy3.coffre.ui.utils.PrefUtil;
 
 public class TransactionsAdapter extends ListAdapter<Transaction, TwoLineItem> {
 
-
+    private Currency currency;
     private ItemListener<Transaction> itemListener;
     private boolean useCardStyle;
 
@@ -61,6 +61,7 @@ public class TransactionsAdapter extends ListAdapter<Transaction, TwoLineItem> {
     @NonNull
     @Override
     public TwoLineItem onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        currency = new Gson().fromJson(PrefUtil.getString("currency"), Currency.class);
         return TwoLineItem.create(parent);
     }
 
@@ -70,11 +71,10 @@ public class TransactionsAdapter extends ListAdapter<Transaction, TwoLineItem> {
         boolean is24HourFormat = DateFormat.is24HourFormat(holder.itemView.getContext());
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(transaction.getTime());
-        holder.itemStartIcon.setImageResource(R.drawable.outline_local_cafe_24);
+        holder.itemStartIcon.setImageResource(R.drawable.outline_credit_card_24);
         holder.itemTitle.setText(transaction.getTitle());
         holder.itemSubTitle.setText(DateUtils.formatTime(calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), is24HourFormat));
 
-        Currency currency = new Gson().fromJson(PrefUtil.getString("currency"), Currency.class);
         String currencySymbol = currency.getSymbol().isEmpty() ? currency.getCode() : currency.getSymbol();
         NumberFormat format = NumberFormat.getNumberInstance(Locale.getDefault());
         format.setMinimumFractionDigits(Integer.parseInt(currency.getDecimal_digits()));
