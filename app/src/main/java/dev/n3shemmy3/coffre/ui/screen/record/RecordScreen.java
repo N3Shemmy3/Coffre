@@ -20,17 +20,20 @@ import static android.text.InputType.TYPE_NUMBER_FLAG_DECIMAL;
 import static android.text.InputType.TYPE_NUMBER_FLAG_SIGNED;
 
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.InputFilter;
 import android.text.format.DateFormat;
 import android.text.method.DigitsKeyListener;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.chip.Chip;
 import com.google.android.material.datepicker.CalendarConstraints;
 import com.google.android.material.datepicker.MaterialDatePicker;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.timepicker.MaterialTimePicker;
@@ -51,6 +54,7 @@ import dev.n3shemmy3.coffre.backend.item.Currency;
 import dev.n3shemmy3.coffre.backend.item.Transaction;
 import dev.n3shemmy3.coffre.backend.viewmodel.MainViewModel;
 import dev.n3shemmy3.coffre.ui.base.BaseScreen;
+import dev.n3shemmy3.coffre.ui.interfaces.TextChangedListener;
 import dev.n3shemmy3.coffre.ui.utils.DateUtils;
 import dev.n3shemmy3.coffre.ui.utils.DecimalDigitsInputFilter;
 import dev.n3shemmy3.coffre.ui.utils.InsetsUtils;
@@ -95,9 +99,32 @@ public class RecordScreen extends BaseScreen {
         textCurrency.setText(currency.getSymbol().isEmpty() ? currency.getCode() : currency.getSymbol());
         inputAmount.setInputType(TYPE_NUMBER_FLAG_DECIMAL | TYPE_NUMBER_FLAG_SIGNED | TYPE_CLASS_NUMBER);
         inputAmount.setKeyListener(DigitsKeyListener.getInstance("0123456789,."));
-        inputAmount.setFilters(new InputFilter[] {new DecimalDigitsInputFilter(9999999,2)});
+        inputAmount.setFilters(new InputFilter[]{new DecimalDigitsInputFilter(9999999, 2)});
+        inputAmount.addTextChangedListener(new TextChangedListener<>(inputAmount) {
+            @Override
+            public void onTextChanged(TextInputEditText target, Editable s) {
+                callback.setEnabled(!target.getText().toString().isEmpty());
+            }
+        });
+        requireActivity().getOnBackPressedDispatcher().addCallback(this, callback);
         InsetsUtils.applyImeInsets(requireActivity().getWindow(), root);
     }
+
+    OnBackPressedCallback callback = new OnBackPressedCallback(false) {
+        @Override
+        public void handleOnBackPressed() {
+            if (inputAmount.getText().toString().isEmpty()) {
+                navigateUp();
+            } else {
+                new MaterialAlertDialogBuilder(requireContext())
+                        .setTitle("Discard Transaction?")
+                        .setMessage("Quitting now will discard the unsaved transaction update.")
+                        .setPositiveButton(R.string.action_discard, (dialogInterface, i) -> navigateUp())
+                        .setNegativeButton(android.R.string.cancel, null)
+                        .show();
+            }
+        }
+    };
 
     @Override
     protected void onScreenCreated(View root, Bundle state) {
@@ -176,7 +203,7 @@ public class RecordScreen extends BaseScreen {
         CalendarConstraints.Builder constraintsBuilder = new CalendarConstraints.Builder().setStart(0L) // Start from epoch time (optional, ensures full range)
                 .setEnd(calender.getTimeInMillis()); // Restrict future dates
 
-        datePicker = MaterialDatePicker.Builder.datePicker().setTitleText(R.string.set_date).setSelection(calender.getTimeInMillis()).setCalendarConstraints(constraintsBuilder.build()) // Apply constraints
+        datePicker = MaterialDatePicker.Builder.datePicker().setTitleText(R.string.action_set_date).setSelection(calender.getTimeInMillis()).setCalendarConstraints(constraintsBuilder.build()) // Apply constraints
                 .build();
 
         datePicker.addOnPositiveButtonClickListener(selection -> {
@@ -191,7 +218,7 @@ public class RecordScreen extends BaseScreen {
                 chipTime.setText(DateUtils.formatTime(calender.get(Calendar.HOUR_OF_DAY), calender.get(Calendar.MINUTE), is24HourFormat));
             }
         });
-        timePicker = new MaterialTimePicker.Builder().setTitleText(R.string.set_time).setTimeFormat(is24HourFormat ? TimeFormat.CLOCK_24H : TimeFormat.CLOCK_12H).setHour(calender.get(Calendar.HOUR_OF_DAY)).setMinute(calender.get(Calendar.MINUTE)).build();
+        timePicker = new MaterialTimePicker.Builder().setTitleText(R.string.action_set_time).setTimeFormat(is24HourFormat ? TimeFormat.CLOCK_24H : TimeFormat.CLOCK_12H).setHour(calender.get(Calendar.HOUR_OF_DAY)).setMinute(calender.get(Calendar.MINUTE)).build();
 
         timePicker.addOnPositiveButtonClickListener(picker -> {
             int pickedHour = timePicker.getHour();
