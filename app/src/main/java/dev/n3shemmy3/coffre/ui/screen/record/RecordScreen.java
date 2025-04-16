@@ -20,12 +20,10 @@ import static android.text.InputType.TYPE_NUMBER_FLAG_DECIMAL;
 import static android.text.InputType.TYPE_NUMBER_FLAG_SIGNED;
 
 import android.os.Bundle;
-import android.text.Editable;
 import android.text.InputFilter;
 import android.text.format.DateFormat;
 import android.text.method.DigitsKeyListener;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.lifecycle.ViewModelProvider;
@@ -53,7 +51,6 @@ import dev.n3shemmy3.coffre.backend.item.Currency;
 import dev.n3shemmy3.coffre.backend.item.Transaction;
 import dev.n3shemmy3.coffre.backend.viewmodel.MainViewModel;
 import dev.n3shemmy3.coffre.ui.base.BaseScreen;
-import dev.n3shemmy3.coffre.ui.interfaces.TextChangedListener;
 import dev.n3shemmy3.coffre.ui.utils.DateUtils;
 import dev.n3shemmy3.coffre.ui.utils.DecimalDigitsInputFilter;
 import dev.n3shemmy3.coffre.ui.utils.InsetsUtils;
@@ -138,7 +135,7 @@ public class RecordScreen extends BaseScreen {
         format.setRoundingMode(RoundingMode.DOWN);
         BigDecimal amount = item.getAmount() == null ? BigDecimal.ZERO : item.getAmount();
 
-        inputAmount.setText(String.valueOf(NumberUtils.formatAmount(amount));
+        inputAmount.setText(String.valueOf(NumberUtils.formatAmount(amount)));
 
         inputNotes.setText(item.getDescription().trim());
         tabLayout.selectTab(tabLayout.getTabAt(getSelectedTab(item.getType())));
@@ -210,14 +207,10 @@ public class RecordScreen extends BaseScreen {
         chipTime.setText(DateUtils.formatTime(calender.get(Calendar.HOUR_OF_DAY), calender.get(Calendar.MINUTE), is24HourFormat));
         chipDate.setText(DateUtils.formatDate(calender.getTimeInMillis(), requireContext()));
 
-        chipDate.setOnClickListener(v -> {
-            datePicker.show(getParentFragmentManager(), "DATE_PICKER_TAG");
-        });
+        chipDate.setOnClickListener(v -> datePicker.show(getParentFragmentManager(), "DATE_PICKER_TAG"));
 
 
-        chipTime.setOnClickListener(v -> {
-            timePicker.show(getParentFragmentManager(), "TIME_PICKER_TAG");
-        });
+        chipTime.setOnClickListener(v -> timePicker.show(getParentFragmentManager(), "TIME_PICKER_TAG"));
     }
 
 
