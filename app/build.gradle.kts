@@ -16,6 +16,19 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
+    signingConfigs {
+        create("release") {
+            val storePath = project.findProperty("SHEMMY_RELEASE_STORE_FILE")?.toString()
+            if (storePath == null) {
+                println("Warning: SHEMMY_RELEASE_STORE_FILE is not defined.")
+            }
+
+            storeFile = storePath?.let { file(it) }
+            storePassword = project.findProperty("SHEMMY_RELEASE_STORE_PASSWORD") as String?
+            keyAlias = project.findProperty("SHEMMY_RELEASE_KEY_ALIAS") as String?
+            keyPassword = project.findProperty("SHEMMY_RELEASE_KEY_PASSWORD") as String?
+        }
+    }
 
     buildTypes {
         release {
@@ -24,7 +37,7 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-            signingConfig = signingConfigs.getByName("debug")
+            signingConfig = signingConfigs.getByName("release")
         }
     }
     compileOptions {
