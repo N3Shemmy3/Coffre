@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ /*
   ~  * Copyright (C) 2025 Shemmy
   ~  *
@@ -23,9 +22,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:baselineAligned="false"
+    android:minHeight="74dp"
     android:orientation="horizontal"
-    android:paddingHorizontal="24dp"
-    android:paddingVertical="20dp">
+    android:paddingHorizontal="16dp">
 
     <include layout="@layout/item_preference_icon" />
 
@@ -40,8 +39,8 @@
             android:id="@android:id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="?attr/colorOnSurface"
-            android:textSize="19sp"
+            android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+            android:textColor="@color/list_item_tint"
             tools:text="Title" />
 
         <TextView
@@ -49,8 +48,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="1dp"
-            android:textColor="?attr/colorOnSurfaceVariant"
-            android:textSize="15sp"
+            android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+            android:textColor="@color/list_item_subtitle_tint"
             tools:text="Summary" />
 
     </LinearLayout>

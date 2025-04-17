@@ -24,7 +24,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="start|center_vertical"
-    android:layout_marginEnd="24dp">
+    android:layout_marginEnd="16dp">
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/itemStartCard"
@@ -40,7 +40,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:importantForAccessibility="no"
-            app:tint="?attr/colorOnSurface"
+            app:tint="@color/list_item_tint"
             tools:src="@drawable/outline_info_24" />
     </com.google.android.material.card.MaterialCardView>
 </LinearLayout>

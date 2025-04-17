@@ -61,70 +61,77 @@
                 android:textColor="@color/list_item_subtitle_tint"
                 android:textStyle="bold" />
 
-            <com.google.android.material.card.MaterialCardView
-                style="?materialCardViewFilledStyle"
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/item"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardCornerRadius="@dimen/material_card_corner_radius">
+                android:background="@drawable/item_background_single"
+                android:clickable="true"
+                android:clipChildren="true"
+                android:foreground="?attr/selectableItemBackground"
+                android:minHeight="74dp">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/itemStartCard"
+                    style="@style/Widget.Material3.CardView.Filled"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="?colorSecondaryContainer"
-                    android:minHeight="200dp">
+                    android:layout_marginStart="16dp"
+                    app:cardBackgroundColor="?colorSurfaceContainerHigh"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full">
 
-                    <com.google.android.material.imageview.ShapeableImageView
-                        android:id="@+id/itemCover"
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:foreground="@drawable/backdrop_gradient"
-                        android:foregroundTint="?colorSecondaryContainer"
-                        android:scaleType="centerCrop"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/avatar" />
-
-                    <com.google.android.material.imageview.ShapeableImageView
-                        android:id="@+id/itemIcon"
-                        android:layout_width="64dp"
-                        android:layout_height="64dp"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginBottom="@dimen/activity_padding_vertical"
-                        android:scaleType="centerCrop"
-                        app:layout_constraintBottom_toTopOf="@id/itemTitle"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"
-                        app:srcCompat="@drawable/avatar"
-                        app:strokeColor="@color/color_stroke"
-                        app:strokeWidth="1dp" />
-
-                    <TextView
-                        android:id="@+id/itemTitle"
-                        android:layout_width="0dp"
+                    <ImageView
+                        android:id="@+id/itemStartIcon"
+                        android:layout_width="48dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="20dp"
-                        android:autoSizeTextType="uniform"
-                        android:text="Shemmy Nyirenda"
-                        android:textAppearance="?textAppearanceTitleLarge"
-                        android:textColor="?colorOnSecondaryContainer"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="@id/actionEdit"
-                        app:layout_constraintStart_toStartOf="@id/itemIcon" />
+                        android:adjustViewBounds="true"
+                        android:contentDescription="@string/list_item_icon"
+                        android:src="@drawable/avatar" />
 
-                    <Button
-                        android:id="@+id/actionEdit"
-                        style="@style/Widget.Material3.Button.IconButton.Filled"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="20dp"
-                        app:icon="@drawable/outline_edit_24"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                </com.google.android.material.card.MaterialCardView>
 
-            </com.google.android.material.card.MaterialCardView>
+                <TextView
+                    android:id="@+id/itemTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="-2dp"
+                    android:maxLines="1"
+                    android:text="Shemmy Nyirenda"
+                    android:textAppearance="?attr/textAppearanceBodyLarge"
+                    android:textColor="@color/list_item_tint"
+                    app:layout_constraintEnd_toStartOf="@id/endAction"
+                    app:layout_constraintStart_toEndOf="@id/itemStartCard"
+                    app:layout_constraintTop_toTopOf="@id/itemStartCard" />
+
+                <TextView
+                    android:id="@+id/itemSubTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/list_item_sub_title"
+                    android:maxLines="2"
+                    android:textAppearance="?attr/textAppearanceBody2"
+                    android:textColor="@color/list_item_subtitle_tint"
+                    app:layout_constraintEnd_toEndOf="@id/itemTitle"
+                    app:layout_constraintStart_toStartOf="@id/itemTitle"
+                    app:layout_constraintTop_toBottomOf="@id/itemTitle" />
+
+                <Button
+                    android:id="@+id/endAction"
+                    style="@style/Widget.Material3.Button.IconButton.Filled.Tonal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    app:icon="@drawable/outline_edit_24"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
 
             <TextView
                 android:layout_width="wrap_content"

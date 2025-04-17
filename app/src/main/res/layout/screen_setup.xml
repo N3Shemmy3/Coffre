@@ -74,6 +74,7 @@
                     android:layout_centerInParent="true"
                     android:adjustViewBounds="true"
                     android:background="?colorSurfaceContainer"
+                    android:padding="1.5dp"
                     android:scaleType="centerCrop"
                     app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"
                     app:strokeColor="@color/color_stroke"

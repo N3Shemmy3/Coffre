@@ -55,7 +55,7 @@ public class MainScreen extends BaseScreen {
         toolBarAvatar = root.findViewById(R.id.toolBarAvatar);
         fab = root.findViewById(R.id.fab);
         transactionsCard = root.findViewById(R.id.transactionsCard);
-        //toolBarAvatar.setOnClickListener(view -> Navigator.push(getScreenManager(), new SettingsScreen()));
+        toolBarAvatar.setOnClickListener(view -> Navigator.push(getScreenManager(), new SettingsScreen()));
         topToolBar.setOnMenuItemClickListener(menuItem -> {
             if (menuItem.getItemId() == R.id.action_search) {
                 Navigator.push(getScreenManager(), new SearchScreen());

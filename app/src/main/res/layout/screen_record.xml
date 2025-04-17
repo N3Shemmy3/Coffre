@@ -73,8 +73,9 @@
                     android:textSize="26sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" >
-                    <requestFocus/>
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <requestFocus />
                 </com.google.android.material.textfield.TextInputEditText>
 
                 <com.google.android.material.chip.ChipGroup
@@ -148,15 +149,16 @@
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:layout_marginStart="8dp"
-                    android:autoSizeMaxTextSize="52sp"
+                    android:autoSizeMaxTextSize="52dp"
+                    android:autoSizeMinTextSize="16dp"
                     android:autoSizeTextType="uniform"
                     android:autofillHints="@null"
                     android:background="@android:color/transparent"
+                    android:gravity="end"
                     android:hint="0.00"
                     android:imeOptions="actionNext"
                     android:inputType="numberDecimal"
                     android:maxLines="1"
-                    android:textAlignment="textEnd"
                     android:textAppearance="?textAppearanceHeadline3"
                     app:layout_constraintBottom_toBottomOf="@id/textCurrency"
                     app:layout_constraintEnd_toEndOf="@id/timeChips"

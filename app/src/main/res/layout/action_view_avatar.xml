@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
     * Copyright (C) 2025 Shemmy
     *
     * This program is free software: you can redistribute it and/or modify
@@ -18,11 +17,11 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="48dp"
     android:layout_height="48dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:clickable="true"
-    android:foreground="?actionBarItemBackground"
-    android:tooltipText="@string/profile_avatar"
     android:contentDescription="@string/profile_avatar"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:foreground="?actionBarItemBackground"
+    android:tooltipText="@string/profile_avatar">
 
 
     <com.google.android.material.imageview.ShapeableImageView
@@ -30,11 +29,11 @@
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:layout_gravity="center"
+        android:padding="1dp"
         android:scaleType="centerCrop"
-        app:strokeWidth="1dp"
-        app:strokeColor="?colorOutline"
-        app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Full"
         app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"
-        app:srcCompat="@drawable/outline_person_24" />
+        app:srcCompat="@drawable/outline_person_24"
+        app:strokeColor="?colorOutline"
+        app:strokeWidth=".5dp" />
 
 </FrameLayout>
