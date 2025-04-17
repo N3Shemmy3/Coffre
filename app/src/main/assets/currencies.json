@@ -432,7 +432,7 @@
     "name_plural": "Israeli new sheqels"
   },
   {
-    "symbol": "Rs",
+    "symbol": "₹",
     "name": "Indian Rupee",
     "symbol_native": "\u099f\u0995\u09be",
     "decimal_digits": 2,
@@ -828,7 +828,7 @@
     "name_plural": "Serbian dinars"
   },
   {
-    "symbol": "RUB",
+    "symbol": "₽",
     "name": "Russian Ruble",
     "symbol_native": "\u20bd.",
     "decimal_digits": 2,
