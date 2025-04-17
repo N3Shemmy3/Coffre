@@ -115,8 +115,10 @@
                     android:layout_height="wrap_content"
                     android:layout_alignEnd="@id/transactionHeader"
                     android:layout_alignParentEnd="true"
-                    android:layout_marginHorizontal="12dp"
-                    android:text="@string/see_all" />
+                    android:layout_marginHorizontal="16dp"
+                    android:minWidth="Odp"
+                    android:text="@string/see_all"
+                    app:rippleColor="@android:color/transparent"/>
 
                 <androidx.fragment.app.FragmentContainerView
                     android:id="@+id/transactionsRecycler"
