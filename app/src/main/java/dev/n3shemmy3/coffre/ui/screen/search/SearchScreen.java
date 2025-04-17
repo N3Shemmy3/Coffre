@@ -25,7 +25,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
-import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -67,43 +66,35 @@ public class SearchScreen extends BaseScreen implements ItemListener<Transaction
         recycler = root.findViewById(R.id.recycler);
         setUpSearchBar();
         setUpRecycler();
-        requireActivity().getOnBackPressedDispatcher().addCallback(this, callback);
+        //requireActivity().getOnBackPressedDispatcher().addCallback(this, callback);
         InsetsUtils.applyRecyclerInsets(recycler);
     }
 
     @Override
     protected void onScreenCreated(View root, Bundle state) {
         super.onScreenCreated(root, state);
-        viewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);performSearch("");
+        viewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
+        performSearch("");
     }
 
-    OnBackPressedCallback callback = new OnBackPressedCallback(false) {
-        @Override
-        public void handleOnBackPressed() {
-            if (searchBar.getVisibility() == View.VISIBLE) {
-                showSearchBar(false);
-            } else {
-                navigateUp();
-            }
-        }
-    };
+    @Override
+    public void onPause() {
+        super.onPause();
+        AppUtils.showSoftInput(requireActivity(), searchView, false);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        AppUtils.showSoftInput(requireActivity(), searchView, true);
+    }
 
     private void setUpSearchBar() {
-        searchItem = topToolBar.getMenu().findItem(R.id.action_search);
         Button clearButton = root.findViewById(R.id.clearButton);
 
-        topToolBar.setNavigationOnClickListener(view -> {
-            if (searchBar.getVisibility() == View.VISIBLE) showSearchBar(false);
-            else navigateUp();
-
-        });
-        topToolBar.setOnMenuItemClickListener(item -> {
-            if (item.getItemId() == R.id.action_search) showSearchBar(true);
-            return true;
-        });
         clearButton.setOnClickListener(view -> {
             searchView.setText("");
-            //AppUtils.showSoftInput(requireActivity(), searchView, true);
+            AppUtils.showSoftInput(requireActivity(), searchView, true);
         });
         searchView.addTextChangedListener(new TextChangedListener<>(searchView) {
             @Override
@@ -118,27 +109,10 @@ public class SearchScreen extends BaseScreen implements ItemListener<Transaction
                 AppUtils.showSoftInput(requireActivity(), searchView, false);
                 if (!TextUtils.isEmpty(v.getText().toString())) {
                     performSearch(String.valueOf(searchView.getText()));
-                } else {
-                    showSearchBar(false);
                 }
             }
             return true;
         });
-    }
-
-    private void showSearchBar(boolean visible) {
-        if (searchItem == null) return;
-        callback.setEnabled(visible);
-        if (visible) {
-            searchBar.setVisibility(View.VISIBLE);
-            topToolBar.getMenu().clear();
-            AppUtils.showSoftInput(requireActivity(), searchView, true);
-            searchView.requestFocus();
-        } else {
-            topToolBar.inflateMenu(R.menu.category_toolbar);
-            AppUtils.showSoftInput(requireActivity(), searchView, false);
-            searchBar.setVisibility(View.GONE);
-        }
     }
 
     private void performSearch(String query) {

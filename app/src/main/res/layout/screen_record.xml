@@ -73,7 +73,9 @@
                     android:textSize="26sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent" >
+                    <requestFocus/>
+                </com.google.android.material.textfield.TextInputEditText>
 
                 <com.google.android.material.chip.ChipGroup
                     android:id="@+id/timeChips"
