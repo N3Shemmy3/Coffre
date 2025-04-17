@@ -64,7 +64,7 @@ import dev.n3shemmy3.coffre.ui.utils.PrefUtil;
 public class RecordScreen extends BaseScreen {
 
     private MainViewModel viewModel;
-    private Transaction item = new Transaction();
+    private Transaction item;
     private TextInputEditText inputTitle;
     private TextView textCurrency;
     private TextInputEditText inputAmount;
@@ -95,6 +95,10 @@ public class RecordScreen extends BaseScreen {
         chipDate = root.findViewById(R.id.chipDate);
         inputNotes = root.findViewById(R.id.inputNotes);
 
+        topToolBar.setNavigationOnClickListener(v -> {
+            if (item == null) callback.handleOnBackPressed();
+            else navigateUp();
+        });
         currency = new Gson().fromJson(PrefUtil.getString("currency"), Currency.class);
         textCurrency.setText(currency.getSymbol().isEmpty() ? currency.getCode() : currency.getSymbol());
         inputAmount.setInputType(TYPE_NUMBER_FLAG_DECIMAL | TYPE_NUMBER_FLAG_SIGNED | TYPE_CLASS_NUMBER);
@@ -103,9 +107,10 @@ public class RecordScreen extends BaseScreen {
         inputAmount.addTextChangedListener(new TextChangedListener<>(inputAmount) {
             @Override
             public void onTextChanged(TextInputEditText target, Editable s) {
-                callback.setEnabled(!target.getText().toString().isEmpty());
+                callback.setEnabled(item == null && !target.getText().toString().isEmpty());
             }
         });
+
         requireActivity().getOnBackPressedDispatcher().addCallback(this, callback);
         InsetsUtils.applyImeInsets(requireActivity().getWindow(), root);
     }
@@ -113,15 +118,18 @@ public class RecordScreen extends BaseScreen {
     OnBackPressedCallback callback = new OnBackPressedCallback(false) {
         @Override
         public void handleOnBackPressed() {
-            if (inputAmount.getText().toString().isEmpty()) {
-                navigateUp();
-            } else {
+            String amount = inputAmount.getText().toString();
+            String title = inputTitle.getText().toString();
+
+            if (title.isEmpty() && !amount.isEmpty()) {
                 new MaterialAlertDialogBuilder(requireContext())
-                        .setTitle("Discard Transaction?")
-                        .setMessage("Quitting now will discard the unsaved transaction update.")
+                        .setTitle(R.string.discard_transaction)
+                        .setMessage(R.string.discard_transaction_summary)
                         .setPositiveButton(R.string.action_discard, (dialogInterface, i) -> navigateUp())
                         .setNegativeButton(android.R.string.cancel, null)
                         .show();
+            } else {
+                navigateUp();
             }
         }
     };
@@ -176,13 +184,13 @@ public class RecordScreen extends BaseScreen {
     public void onPause() {
         super.onPause();
         if (areInputsEmpty()) return;
+        if (item == null) item = new Transaction();
         item.setTitle(String.valueOf(inputTitle.getText()).trim());
         item.setDescription(String.valueOf(inputNotes.getText()).trim());
         DecimalFormat decimalFormat = new DecimalFormat("0.00", new DecimalFormatSymbols(Locale.getDefault()));
         decimalFormat.setParseBigDecimal(true);
 
         String amount = inputAmount.getText() == null ? String.valueOf(BigDecimal.ZERO) : String.valueOf(inputAmount.getText());
-
         try {
             item.setAmount((BigDecimal) decimalFormat.parse(amount));
         } catch (ParseException e) {
@@ -198,7 +206,7 @@ public class RecordScreen extends BaseScreen {
     private void setUpDateTimePickers() {
         boolean is24HourFormat = DateFormat.is24HourFormat(requireContext());
         calender = Calendar.getInstance();
-        calender.setTimeInMillis(item.getTime() == 0 ? System.currentTimeMillis() : item.getTime());
+        calender.setTimeInMillis(item == null ? System.currentTimeMillis() : item.getTime());
 
         CalendarConstraints.Builder constraintsBuilder = new CalendarConstraints.Builder().setStart(0L) // Start from epoch time (optional, ensures full range)
                 .setEnd(calender.getTimeInMillis()); // Restrict future dates

@@ -61,6 +61,7 @@
         <item name="toolbarStyle">@style/App.MaterialToolbar</item>
         <item name="collapsingToolbarLayoutStyle">@style/App.CollapsingToolbar.Large</item>
         <item name="textInputStyle">?textInputOutlinedStyle</item>
+        <item name="materialAlertDialogTheme">@style/App.MaterialDialog</item>
 
         <!-- custom height to fixed insets shrinking height-->
         <item name="collapsingToolbarLayoutLargeSize">@dimen/appbar_collapsing_height</item>

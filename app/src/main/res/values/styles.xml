@@ -22,4 +22,13 @@
         <item name="cardElevation">0dp</item>
         <item name="shapeAppearanceOverlay">@style/ShapeAppearance.Material3.Corner.None</item>
     </style>
+
+    <style name="App.MaterialDialog" parent="ThemeOverlay.Material3.MaterialAlertDialog">
+        <item name="buttonBarPositiveButtonStyle">@style/Widget.Material3.Button</item>
+        <item name="buttonBarNegativeButtonStyle">@style/App.MaterialDialog.NegativeButton</item>
+    </style>
+
+    <style name="App.MaterialDialog.NegativeButton" parent="Widget.Material3.Button.TonalButton">
+        <item name="android:layout_marginHorizontal">12dp</item>
+    </style>
 </resources>
