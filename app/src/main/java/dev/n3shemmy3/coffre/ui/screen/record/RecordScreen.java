@@ -125,7 +125,7 @@ public class RecordScreen extends BaseScreen {
                 new MaterialAlertDialogBuilder(requireContext())
                         .setTitle(R.string.discard_transaction)
                         .setMessage(R.string.discard_transaction_summary)
-                        .setPositiveButton(R.string.action_discard, (dialogInterface, i) -> navigateUp())
+                        .setPositiveButton(R.string.action_discard, (dialogInterface, i) -> getScreenManager().popBackStack())
                         .setNegativeButton(android.R.string.cancel, null)
                         .show();
             } else {
