@@ -12,7 +12,7 @@ android {
         minSdk = 27
         targetSdk = 35
         versionCode = 1
-        versionName = "1.0 Amanatsu-Demo"
+        versionName = "1.0.1 Amanatsu-Beta"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
