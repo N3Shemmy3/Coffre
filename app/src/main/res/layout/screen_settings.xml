@@ -91,6 +91,7 @@
                         android:layout_width="64dp"
                         android:layout_height="64dp"
                         android:layout_marginStart="20dp"
+                        android:layout_marginBottom="@dimen/activity_padding_vertical"
                         android:scaleType="centerCrop"
                         app:layout_constraintBottom_toTopOf="@id/itemTitle"
                         app:layout_constraintStart_toStartOf="parent"
@@ -103,7 +104,6 @@
                         android:id="@+id/itemTitle"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
                         android:layout_marginBottom="20dp"
                         android:autoSizeTextType="uniform"
                         android:text="Shemmy Nyirenda"
@@ -139,10 +139,10 @@
 
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/settingsContainer"
+                android:name="dev.n3shemmy3.coffre.ui.screen.settings.PreferencesFragment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/item_background_single"
-                android:minHeight="400dp" />
+                android:background="@drawable/item_background_single" />
 
 
         </LinearLayout>

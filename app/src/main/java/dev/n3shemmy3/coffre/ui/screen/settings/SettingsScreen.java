@@ -14,6 +14,9 @@ package dev.n3shemmy3.coffre.ui.screen.settings;
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+import android.os.Bundle;
+import android.view.View;
+
 import dev.n3shemmy3.coffre.R;
 import dev.n3shemmy3.coffre.ui.base.BaseScreen;
 
@@ -21,5 +24,11 @@ public class SettingsScreen extends BaseScreen {
     @Override
     protected int getLayoutResId() {
         return R.layout.screen_settings;
+    }
+
+    @Override
+    protected void onCreateScreen(View root, Bundle state) {
+        super.onCreateScreen(root, state);
+        root.findViewById(R.id.settingsContainer).setClipToOutline(true);
     }
 }
