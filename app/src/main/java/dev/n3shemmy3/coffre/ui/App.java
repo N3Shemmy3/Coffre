@@ -50,7 +50,7 @@ public class App extends Application {
         if (currencies == null) return;
         Currency currency = new Gson().fromJson(PrefUtil.getString("currency"), Currency.class);
         List<Currency> filteredCurrencies = currencies.stream()
-                .filter(item -> item.getName().toLowerCase().equals(currency.getName().toLowerCase()))
+                .filter(item -> item.getName().equalsIgnoreCase(currency.getName()))
                 .collect(Collectors.toList());
         PrefUtil.save("currency", new Gson().toJson(filteredCurrencies.get(0)));
 
