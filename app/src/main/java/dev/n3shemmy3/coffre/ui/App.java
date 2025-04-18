@@ -18,9 +18,17 @@ package dev.n3shemmy3.coffre.ui;
 import android.app.Application;
 
 import com.google.android.material.color.DynamicColors;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.mikepenz.iconics.Iconics;
 
+import java.lang.reflect.Type;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import dev.n3shemmy3.coffre.backend.item.Currency;
 import dev.n3shemmy3.coffre.backend.objectbox.ObjectBox;
+import dev.n3shemmy3.coffre.ui.utils.AssetsUtils;
 import dev.n3shemmy3.coffre.ui.utils.PrefUtil;
 
 public class App extends Application {
@@ -31,5 +39,20 @@ public class App extends Application {
         Iconics.init(this);
         ObjectBox.init(this);
         PrefUtil.Init(this);
+        updateCurrency();
+    }
+
+    public void updateCurrency() {
+        String data = AssetsUtils.getAssetJsonData(this, "currencies.json");
+        Type type = new TypeToken<List<Currency>>() {
+        }.getType();
+        List<Currency> currencies = new Gson().fromJson(data, type);
+        if (currencies == null) return;
+        Currency currency = new Gson().fromJson(PrefUtil.getString("currency"), Currency.class);
+        List<Currency> filteredCurrencies = currencies.stream()
+                .filter(item -> item.getName().toLowerCase().equals(currency.getName()))
+                .collect(Collectors.toList());
+        PrefUtil.save("currency", new Gson().toJson(filteredCurrencies.get(0)));
+
     }
 }
