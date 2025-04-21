@@ -140,7 +140,7 @@ public class SetupScreen extends BaseScreen {
     });
 
     private void applyInsets() {
-        InsetsUtils.applyAppbarInsets(topAppBar, (windowInsets) -> {
+        InsetsUtils.onInsetsListener(topAppBar, (windowInsets) -> {
             Insets displayCutOutInsets = windowInsets.getInsets(WindowInsetsCompat.Type.displayCutout());
             Insets systemBarInsets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
             Insets imeInsets = windowInsets.getInsets(WindowInsetsCompat.Type.ime());

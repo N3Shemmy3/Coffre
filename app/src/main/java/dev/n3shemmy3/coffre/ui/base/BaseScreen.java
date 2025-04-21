@@ -93,7 +93,7 @@ public abstract class BaseScreen extends BaseFragment {
     public void applyInsets(@NonNull View root) {
         //Appbar
         if (topAppBar != null)
-            InsetsUtils.applyAppbarInsets(topAppBar, topToolBar, collToolBar);
+            InsetsUtils.onInsetsListener(topAppBar, topToolBar, collToolBar);
         //content below Appbar
         if (content != null) {
             InsetsUtils.applyContentInsets(root.findViewById(R.id.content));

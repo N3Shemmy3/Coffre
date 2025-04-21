@@ -20,6 +20,13 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <Preference
+        android:icon="@drawable/outline_currency_yen_24"
+        android:key="currency"
+        android:layout="@layout/item_preference_basic"
+        android:summary="Yen"
+        android:title="Currency" />
+
+    <Preference
         android:icon="@drawable/outline_settings_backup_restore_24"
         android:key="appearance"
         android:layout="@layout/item_preference_basic"

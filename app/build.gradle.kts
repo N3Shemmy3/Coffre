@@ -7,6 +7,9 @@ android {
     namespace = "dev.n3shemmy3.coffre"
     compileSdk = 35
 
+    buildFeatures {
+        buildConfig = true
+    }
     defaultConfig {
         applicationId = "dev.n3shemmy3.coffre"
         minSdk = 27

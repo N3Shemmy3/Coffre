@@ -14,11 +14,18 @@ package dev.n3shemmy3.coffre.ui.screen.settings;
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+import android.Manifest;
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 
+import androidx.annotation.RequiresApi;
+import androidx.core.app.ActivityCompat;
+
 import dev.n3shemmy3.coffre.R;
 import dev.n3shemmy3.coffre.ui.base.BaseScreen;
+import dev.n3shemmy3.coffre.ui.service.BackupService;
 
 public class SettingsScreen extends BaseScreen {
     @Override
@@ -26,9 +33,21 @@ public class SettingsScreen extends BaseScreen {
         return R.layout.screen_settings;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
     @Override
     protected void onCreateScreen(View root, Bundle state) {
         super.onCreateScreen(root, state);
         root.findViewById(R.id.settingsContainer).setClipToOutline(true);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
+    @Override
+    public void onResume() {
+        super.onResume();
+        ActivityCompat.requestPermissions(requireActivity(), new String[]{android.Manifest.permission.POST_NOTIFICATIONS, android.Manifest.permission.FOREGROUND_SERVICE, android.Manifest.permission.FOREGROUND_SERVICE_DATA_SYNC}, 1);
+
+        Intent intent = new Intent(requireContext(), BackupService.class);
+        intent.setAction(BackupService.BACKUP);
+        //requireActivity().startService(intent);
     }
 }
