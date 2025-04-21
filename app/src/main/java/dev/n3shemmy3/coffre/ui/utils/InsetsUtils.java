@@ -81,7 +81,7 @@ public class InsetsUtils {
         });
     }
 
-    public static void applyAppbarInsets(@NonNull AppBarLayout appbar, @Nullable View toolbar, @Nullable CollapsingToolbarLayout collToolbar) {
+    public static void onInsetsListener(@NonNull AppBarLayout appbar, @Nullable View toolbar, @Nullable CollapsingToolbarLayout collToolbar) {
         ViewCompat.setOnApplyWindowInsetsListener(appbar, (v, windowInsets) -> {
             Insets displayCutOutInsets = windowInsets.getInsets(WindowInsetsCompat.Type.displayCutout());
             Insets systemBarInsets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -106,14 +106,14 @@ public class InsetsUtils {
     }
 
 
-    public static void applyAppbarInsets(@NonNull AppBarLayout appbar, @NonNull InsetsListener insetsListener) {
+    public static void onInsetsListener(@NonNull AppBarLayout appbar, @NonNull InsetsListener insetsListener) {
         ViewCompat.setOnApplyWindowInsetsListener(appbar, (v, windowInsets) -> {
             insetsListener.onInsetsChanged(windowInsets);
             return windowInsets;
         });
     }
 
-    public static void applyAppbarInsets(@NonNull AppBarLayout appbar, @Nullable View toolbar, @Nullable InsetsListener insetsListener) {
+    public static void onInsetsListener(@NonNull AppBarLayout appbar, @Nullable View toolbar, @Nullable InsetsListener insetsListener) {
         ViewCompat.setOnApplyWindowInsetsListener(appbar, (v, windowInsets) -> {
             Insets displayCutOutInsets = windowInsets.getInsets(WindowInsetsCompat.Type.displayCutout());
             Insets systemBarInsets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());

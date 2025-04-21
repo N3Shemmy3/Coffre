@@ -1,4 +1,4 @@
-package dev.n3shemmy3.coffre.ui.adapters;
+package dev.n3shemmy3.coffre.ui.adapter;
 /*
  * Copyright (C) 2025 Shemmy
  *
@@ -23,7 +23,6 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 
 import dev.n3shemmy3.coffre.backend.item.Currency;
-import dev.n3shemmy3.coffre.backend.item.Transaction;
 import dev.n3shemmy3.coffre.ui.interfaces.ItemListener;
 import dev.n3shemmy3.coffre.ui.item.TwoLineItem;
 

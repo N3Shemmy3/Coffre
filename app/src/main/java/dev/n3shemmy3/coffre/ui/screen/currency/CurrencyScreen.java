@@ -31,10 +31,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.RecyclerView.ItemDecoration;
 
 import com.google.android.material.chip.ChipGroup;
-import com.google.android.material.divider.MaterialDividerItemDecoration;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -45,7 +43,7 @@ import java.util.stream.Collectors;
 
 import dev.n3shemmy3.coffre.R;
 import dev.n3shemmy3.coffre.backend.item.Currency;
-import dev.n3shemmy3.coffre.ui.adapters.CurrencyAdapter;
+import dev.n3shemmy3.coffre.ui.adapter.CurrencyAdapter;
 import dev.n3shemmy3.coffre.ui.base.BaseScreen;
 import dev.n3shemmy3.coffre.ui.interfaces.ItemListener;
 import dev.n3shemmy3.coffre.ui.interfaces.TextChangedListener;

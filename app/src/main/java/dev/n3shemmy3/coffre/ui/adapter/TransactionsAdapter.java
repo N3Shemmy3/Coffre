@@ -1,4 +1,4 @@
-package dev.n3shemmy3.coffre.ui.adapters;
+package dev.n3shemmy3.coffre.ui.adapter;
 /*
  * Copyright (C) 2025 Shemmy
  *
@@ -24,11 +24,7 @@ import androidx.recyclerview.widget.ListAdapter;
 
 import com.google.gson.Gson;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.text.NumberFormat;
 import java.util.Calendar;
-import java.util.Locale;
 
 import dev.n3shemmy3.coffre.R;
 import dev.n3shemmy3.coffre.backend.item.Currency;
@@ -36,6 +32,7 @@ import dev.n3shemmy3.coffre.backend.item.Transaction;
 import dev.n3shemmy3.coffre.ui.interfaces.ItemListener;
 import dev.n3shemmy3.coffre.ui.item.TwoLineItem;
 import dev.n3shemmy3.coffre.ui.utils.DateUtils;
+import dev.n3shemmy3.coffre.ui.utils.NumberUtils;
 import dev.n3shemmy3.coffre.ui.utils.PrefUtil;
 
 public class TransactionsAdapter extends ListAdapter<Transaction, TwoLineItem> {
@@ -76,12 +73,7 @@ public class TransactionsAdapter extends ListAdapter<Transaction, TwoLineItem> {
         holder.itemSubTitle.setText(DateUtils.formatTime(calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), is24HourFormat));
 
         String currencySymbol = currency.getSymbol().isEmpty() ? currency.getCode() : currency.getSymbol();
-        NumberFormat format = NumberFormat.getNumberInstance(Locale.getDefault());
-        format.setMinimumFractionDigits(Integer.parseInt(currency.getDecimal_digits()));
-        format.setRoundingMode(RoundingMode.DOWN);
-        BigDecimal amount = transaction.getAmount() == null ? BigDecimal.ZERO : transaction.getAmount();
-
-        holder.itemEndText.setText(String.format("%s %s", currencySymbol, formatAmount(amount)));
+        holder.itemEndText.setText(NumberUtils.formatCurrency(currencySymbol, transaction.getAmount()));
         holder.setEndCardColor(transaction.getType());
 
 
@@ -93,10 +85,6 @@ public class TransactionsAdapter extends ListAdapter<Transaction, TwoLineItem> {
             });
         }
         if (useCardStyle) holder.setCardStyle();
-    }
-
-    private BigDecimal formatAmount(BigDecimal balance) {
-        return String.valueOf(balance).equals("null") ? BigDecimal.valueOf(0.00) : balance.setScale(2, RoundingMode.DOWN);
     }
 
     public static class TransactionsDiffCallback extends DiffUtil.ItemCallback<Transaction> {
