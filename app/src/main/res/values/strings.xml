@@ -86,5 +86,7 @@
     <string name="profile">Profile</string>
     <string name="discard_transaction">Discard Transaction?</string>
     <string name="discard_transaction_summary">Quitting now will discard the unsaved transaction.</string>
+    <string name="screen_debug">Debug</string>
+    <string name="action_share">Share</string>
 
 </resources>
