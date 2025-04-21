@@ -28,7 +28,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import dev.n3shemmy3.coffre.R;
 import dev.n3shemmy3.coffre.backend.item.Transaction;
 import dev.n3shemmy3.coffre.backend.viewmodel.MainViewModel;
-import dev.n3shemmy3.coffre.ui.adapters.TransactionsAdapter;
+import dev.n3shemmy3.coffre.ui.adapter.TransactionsAdapter;
 import dev.n3shemmy3.coffre.ui.base.BaseFragment;
 import dev.n3shemmy3.coffre.ui.interfaces.ItemListener;
 import dev.n3shemmy3.coffre.ui.navigator.Navigator;

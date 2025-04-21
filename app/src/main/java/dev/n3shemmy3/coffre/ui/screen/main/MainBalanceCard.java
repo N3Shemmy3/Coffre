@@ -29,6 +29,7 @@ import com.robinhood.ticker.TickerView;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.text.DecimalFormat;
 
 import dev.n3shemmy3.coffre.R;
 import dev.n3shemmy3.coffre.backend.item.Currency;
@@ -74,7 +75,8 @@ public class MainBalanceCard extends BaseFragment {
         viewModel.getNetBalance().observe(getViewLifecycleOwner(), netBalance -> {
             BigDecimal formattedBalance = NumberUtils.formatAmount(netBalance);
             BigDecimal intPart = formattedBalance.setScale(0, RoundingMode.DOWN);
-            round.setText(String.valueOf(intPart));
+            DecimalFormat formatter = new DecimalFormat("#,###");
+            round.setText(String.valueOf(formatter.format(intPart)));
             decimal.setText(String.valueOf(NumberUtils.getAbsDecimalPart(formattedBalance)).replaceFirst("^0.", ""));
         });
 
