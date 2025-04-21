@@ -22,7 +22,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 
-import dev.n3shemmy3.coffre.backend.item.Currency;
+import dev.n3shemmy3.coffre.backend.entity.Currency;
 import dev.n3shemmy3.coffre.ui.interfaces.ItemListener;
 import dev.n3shemmy3.coffre.ui.item.TwoLineItem;
 

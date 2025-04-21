@@ -1,3 +1,4 @@
+package dev.n3shemmy3.coffre.backend.entity;
 /*
  *
  *  * Copyright (C) 2025 Shemmy
@@ -16,18 +17,34 @@
  *
  */
 
-package dev.n3shemmy3.coffre.ui.screen.settings;
 
-import android.os.Bundle;
+public class Profile {
 
-import androidx.annotation.Nullable;
-import androidx.preference.PreferenceFragmentCompat;
+    public static final String key ="profile";
+    private String name;
+    private String avatar;
 
-import dev.n3shemmy3.coffre.R;
+    public Profile() {
+    }
 
-public class PreferencesFragment extends PreferenceFragmentCompat {
-    @Override
-    public void onCreatePreferences(@Nullable Bundle savedInstanceState, @Nullable String rootKey) {
-        setPreferencesFromResource(R.xml.screen_settings, rootKey);
+    public Profile(String name, String avatar) {
+        this.name = name;
+        this.avatar = avatar;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 }

@@ -42,7 +42,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import dev.n3shemmy3.coffre.R;
-import dev.n3shemmy3.coffre.backend.item.Currency;
+import dev.n3shemmy3.coffre.backend.entity.Currency;
 import dev.n3shemmy3.coffre.ui.adapter.CurrencyAdapter;
 import dev.n3shemmy3.coffre.ui.base.BaseScreen;
 import dev.n3shemmy3.coffre.ui.interfaces.ItemListener;

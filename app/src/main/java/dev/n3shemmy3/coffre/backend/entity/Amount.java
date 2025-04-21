@@ -1,4 +1,4 @@
-package dev.n3shemmy3.coffre.backend.item;
+package dev.n3shemmy3.coffre.backend.entity;
 /*
  * Copyright (C) 2025 Shemmy
  *
@@ -17,7 +17,7 @@ package dev.n3shemmy3.coffre.backend.item;
 
 import java.math.BigDecimal;
 
-import dev.n3shemmy3.coffre.backend.item.Transaction.Type;
+import dev.n3shemmy3.coffre.backend.entity.Transaction.Type;
 import io.objectbox.annotation.Convert;
 import io.objectbox.annotation.Entity;
 import io.objectbox.annotation.Id;

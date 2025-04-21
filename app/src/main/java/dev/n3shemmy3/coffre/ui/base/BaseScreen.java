@@ -14,6 +14,7 @@ package dev.n3shemmy3.coffre.ui.base;
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,6 +30,7 @@ import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.color.MaterialColors;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.transition.MaterialSharedAxis;
 
 import dev.n3shemmy3.coffre.R;
@@ -37,9 +39,10 @@ import dev.n3shemmy3.coffre.ui.utils.InsetsUtils;
 public abstract class BaseScreen extends BaseFragment {
 
     public AppBarLayout topAppBar;
-    public CollapsingToolbarLayout collToolBar;
+    public CollapsingToolbarLayout topToolBarLayout;
     public MaterialToolbar topToolBar;
     public View content;
+    public FloatingActionButton fab;
 
     protected void onCreateScreen(View root, Bundle state) {
         applyInsets(root);
@@ -65,8 +68,8 @@ public abstract class BaseScreen extends BaseFragment {
         root = inflater.inflate(getLayoutResId(), container, false);
         topAppBar = root.findViewById(R.id.topAppBar);
         topToolBar = root.findViewById(R.id.topToolBar);
-
-        // collToolBar = root.findViewById(R.id.collToolBar);
+        topToolBarLayout = root.findViewById(R.id.topToolBarLayout);
+        fab = root.findViewById(R.id.fab);
         content = root.findViewById(R.id.content);
         //Toolbar
         if (topToolBar != null) {
@@ -91,13 +94,8 @@ public abstract class BaseScreen extends BaseFragment {
     }
 
     public void applyInsets(@NonNull View root) {
-        //Appbar
-        if (topAppBar != null)
-            InsetsUtils.onInsetsListener(topAppBar, topToolBar, collToolBar);
-        //content below Appbar
-        if (content != null) {
-            InsetsUtils.applyContentInsets(root.findViewById(R.id.content));
-        }
+        if (topAppBar == null) return;
+        InsetsUtils.applyInsets(topAppBar, topToolBar, topToolBarLayout, fab, content);
     }
 
     /*

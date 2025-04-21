@@ -25,14 +25,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/topToolBar"
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/topToolBarLayout"
+            style="?attr/collapsingToolbarLayoutLargeStyle"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:minHeight="?actionBarSize"
-            app:navigationIcon="@drawable/outline_arrow_back_24"
-            app:title="@string/screen_settings" />
+            android:layout_height="?attr/collapsingToolbarLayoutLargeSize"
+            app:collapsedTitleTextAppearance="?textAppearanceHeadlineMedium"
+            app:expandedTitleMarginStart="20dp"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/topToolBar"
+                android:layout_width="match_parent"
+                android:layout_height="?actionBarSize"
+                app:layout_collapseMode="pin"
+                style="@style/App.MaterialToolbar"
+                app:navigationIcon="@drawable/outline_arrow_back_24"
+                app:title="@string/screen_settings" />
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView
@@ -69,6 +79,7 @@
                 android:background="@drawable/item_background_single"
                 android:clickable="true"
                 android:clipChildren="true"
+                android:clipToOutline="true"
                 android:foreground="?attr/selectableItemBackground"
                 android:minHeight="74dp">
 
@@ -86,7 +97,7 @@
 
                     <ImageView
                         android:id="@+id/itemStartIcon"
-                        android:layout_width="48dp"
+                        android:layout_width="44dp"
                         android:layout_height="wrap_content"
                         android:adjustViewBounds="true"
                         android:contentDescription="@string/list_item_icon"
@@ -112,8 +123,8 @@
                     android:id="@+id/itemSubTitle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:contentDescription="@string/list_item_sub_title"
                     android:maxLines="2"
+                    android:text="@string/profile"
                     android:textAppearance="?attr/textAppearanceBody2"
                     android:textColor="@color/list_item_subtitle_tint"
                     app:layout_constraintEnd_toEndOf="@id/itemTitle"
@@ -127,6 +138,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="16dp"
                     app:icon="@drawable/outline_edit_24"
+                    android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -146,10 +158,9 @@
 
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/settingsContainer"
-                android:name="dev.n3shemmy3.coffre.ui.screen.settings.PreferencesFragment"
+                android:name="dev.n3shemmy3.coffre.ui.screen.settings.PreferencesScreen"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/item_background_single" />
+                android:layout_height="wrap_content" />
 
 
         </LinearLayout>

@@ -1,9 +1,6 @@
 [versions]
 agp = "8.9.0-alpha09"
-currencyedittext = "1.0.0"
-googleMaterialTypefaceOutlined = "4.0.0.2-kotlin"
 gradle = "8.0.2"
-iconicsCore = "5.4.0"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
@@ -15,7 +12,6 @@ coordinatorlayout = "1.3.0"
 fragment = "1.8.6"
 glide = "4.16.0"
 gson = "2.13.0"
-eventbus = "3.3.1"
 swiperefreshlayout = "1.1.0"
 ticker = "2.0.4"
 viewpager2 = "1.1.0"
@@ -28,10 +24,8 @@ preference = "1.2.1"
 objectbox = "4.2.0"
 
 [libraries]
-google-material-typeface-outlined = { module = "com.mikepenz:google-material-typeface-outlined", version.ref = "googleMaterialTypefaceOutlined" }
 gradle = { module = "com.android.tools.build:gradle", version.ref = "gradle" }
 gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
-iconics-core = { module = "com.mikepenz:iconics-core", version.ref = "iconicsCore" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
@@ -41,7 +35,6 @@ activity = { group = "androidx.activity", name = "activity", version.ref = "acti
 constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 fragment = { group = "androidx.fragment", name = "fragment", version.ref = "fragment" }
 glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glide" }
-eventbus = { group = "org.greenrobot", name = "eventbus-java", version.ref = "eventbus" }
 coordinatorlayout = { group = "androidx.coordinatorlayout", name = "coordinatorlayout", version.ref = "coordinatorlayout" }
 swiperefreshlayout = { module = "androidx.swiperefreshlayout:swiperefreshlayout", version.ref = "swiperefreshlayout" }
 ticker = { module = "com.robinhood.ticker:ticker", version.ref = "ticker" }
@@ -55,6 +48,8 @@ splashscreen = { group = "androidx.core", name = "core-splashscreen", version.re
 recyclerview-selection = { group = "androidx.recyclerview", name = "recyclerview-selection", version.ref = "recyclerview-selection" }
 preference = { group = "androidx.preference", name = "preference", version.ref = "preference" }
 objectbox-android = { module = "io.objectbox:objectbox-android", version.ref = "objectbox" }
+
+
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

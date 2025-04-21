@@ -25,9 +25,9 @@ import androidx.lifecycle.MutableLiveData;
 import java.math.BigDecimal;
 import java.util.List;
 
-import dev.n3shemmy3.coffre.backend.item.Amount;
-import dev.n3shemmy3.coffre.backend.item.Transaction;
-import dev.n3shemmy3.coffre.backend.item.Transaction_;
+import dev.n3shemmy3.coffre.backend.entity.Amount;
+import dev.n3shemmy3.coffre.backend.entity.Transaction;
+import dev.n3shemmy3.coffre.backend.entity.Transaction_;
 import dev.n3shemmy3.coffre.backend.objectbox.ObjectBox;
 import dev.n3shemmy3.coffre.ui.utils.DateUtils;
 import io.objectbox.Box;

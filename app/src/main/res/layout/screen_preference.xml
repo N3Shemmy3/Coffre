@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ /*
+  ~  * Copyright (C) 2025 Shemmy
+  ~  *
+  ~  * This program is free software: you can redistribute it and/or modify
+  ~  * it under the terms of the GNU General Public License as published by
+  ~  * the Free Software Foundation, version 3 of the License.
+  ~  *
+  ~  * This program is distributed in the hope that it will be useful,
+  ~  * but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~  * GNU General Public License for more details.
+  ~  *
+  ~  * You should have received a copy of the GNU General Public License
+  ~  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+  ~  */
+  -->
+
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/coordinator"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/topAppBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/topToolBarLayout"
+            style="?attr/collapsingToolbarLayoutLargeStyle"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/collapsingToolbarLayoutLargeSize"
+            app:collapsedTitleTextAppearance="?textAppearanceHeadlineMedium"
+            app:expandedTitleMarginStart="20dp"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/topToolBar"
+                style="@style/App.MaterialToolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?actionBarSize"
+                app:layout_collapseMode="pin"
+                app:navigationIcon="@drawable/outline_arrow_back_24"
+                tools:title="@string/screen_settings" />
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:id="@+id/content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingHorizontal="@dimen/activity_padding_horizontal"
+            android:paddingTop="@dimen/activity_padding_vertical"
+            android:paddingBottom="84dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/item_background_single"
+                android:clickable="true"
+                android:clipChildren="true"
+                android:foreground="?attr/selectableItemBackground"
+                android:minHeight="74dp">
+
+                <ImageView
+                    android:id="@+id/headerCover"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:adjustViewBounds="true"
+                    android:contentDescription="@string/app_name"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <ImageView
+                    android:id="@+id/headerIcon"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:adjustViewBounds="true"
+                    android:contentDescription="@string/app_name"
+                    android:src="@drawable/ic_launcher_foreground"
+                    app:backgroundTint="?attr/colorPrimaryContainer"
+                    app:cardBackgroundColor="@android:color/transparent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tint="?colorOnSecondaryContainer"
+                    tools:background="@drawable/filled_flower_94" />
+
+
+                <TextView
+
+                    android:id="@+id/headerTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="16dp"
+                    android:maxLines="1"
+                    tools:text="@string/app_name"
+                    android:textAppearance="?attr/textAppearanceHeadlineLarge"
+                    android:textColor="@color/list_item_tint"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/headerIcon"
+                    app:layout_constraintTop_toTopOf="@id/headerIcon" />
+
+                <TextView
+                    android:id="@+id/headerSubtitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:maxLines="2"
+                    tools:text="@string/app_tagline"
+                    android:textAppearance="?attr/textAppearanceSubtitle1"
+                    android:textColor="@color/list_item_subtitle_tint"
+                    app:layout_constraintEnd_toEndOf="@id/headerTitle"
+                    app:layout_constraintStart_toStartOf="@id/headerTitle"
+                    app:layout_constraintTop_toBottomOf="@id/headerTitle" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/settingsContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/activity_padding_vertical" />
+
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -26,7 +26,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import dev.n3shemmy3.coffre.R;
-import dev.n3shemmy3.coffre.backend.item.Transaction;
+import dev.n3shemmy3.coffre.backend.entity.Transaction;
 import dev.n3shemmy3.coffre.backend.viewmodel.MainViewModel;
 import dev.n3shemmy3.coffre.ui.adapter.TransactionsAdapter;
 import dev.n3shemmy3.coffre.ui.base.BaseFragment;
@@ -42,7 +42,7 @@ public class MainTransactionsList extends BaseFragment implements ItemListener<T
 
     @Override
     protected int getLayoutResId() {
-        return R.layout.fragment_transactions_list;
+        return R.layout.fragment_recycler;
     }
 
     @Override

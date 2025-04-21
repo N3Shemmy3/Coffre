@@ -17,7 +17,7 @@ package dev.n3shemmy3.coffre.backend.objectbox;
 
 import android.content.Context;
 
-import dev.n3shemmy3.coffre.backend.item.MyObjectBox;
+import dev.n3shemmy3.coffre.backend.entity.MyObjectBox;
 import io.objectbox.BoxStore;
 
 public class ObjectBox {

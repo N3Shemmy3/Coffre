@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ /*
   ~  * Copyright (C) 2025 Shemmy
   ~  *
@@ -17,35 +16,41 @@
   ~  */
   -->
 
-
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <Preference
+        android:icon="@drawable/outline_code_24"
+        android:key="github"
+        android:layout="@layout/item_preference_basic"
+        android:summary="View the sources on Github"
+        android:title="Source code" />
 
     <Preference
-        android:icon="@drawable/outline_palette_24"
-        android:key="currency"
+        android:icon="@drawable/outline_new_releases_24"
+        android:key="latest"
         android:layout="@layout/item_preference_basic"
-        android:summary="@string/summary_look_and_feel"
-        android:title="@string/screen_look_and_feel" />
+        android:summary="Find the changelogs &amp; new versions"
+        android:title="Latest release" />
 
     <Preference
-        android:icon="@drawable/outline_tag_24"
-        android:key="format"
+        android:icon="@drawable/outline_telegram_24"
+        android:key="telegram"
         android:layout="@layout/item_preference_basic"
-        android:summary="@string/summary_format"
-        android:title="@string/screen_format" />
+        android:summary="Latest development news"
+        android:title="Telegram channel" />
 
     <Preference
-        android:icon="@drawable/outline_settings_backup_restore_24"
-        android:key="appearance"
+        android:icon="@drawable/outline_copyright_24"
+        android:key="licenses"
         android:layout="@layout/item_preference_basic"
-        android:summary="Auto periodic"
-        android:title="Backup &amp; Restore" />
+        android:summary="Credits and licenses"
+        android:title="Licenses" />
+
 
     <Preference
         android:icon="@drawable/outline_info_24"
-        android:key="about"
+        android:key="version"
         android:layout="@layout/item_preference_basic"
-        android:summary="@string/summary_about"
-        android:title="@string/screen_about" />
+        android:summary="1.0.1 Amanatsu-Beta"
+        android:title="Version" />
 
 </PreferenceScreen>

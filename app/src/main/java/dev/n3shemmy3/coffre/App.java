@@ -29,16 +29,14 @@ import androidx.annotation.NonNull;
 import com.google.android.material.color.DynamicColors;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.mikepenz.iconics.Iconics;
 
 import java.lang.reflect.Type;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import dev.n3shemmy3.coffre.backend.item.Currency;
+import dev.n3shemmy3.coffre.backend.entity.Currency;
 import dev.n3shemmy3.coffre.backend.objectbox.ObjectBox;
 import dev.n3shemmy3.coffre.ui.activity.DebugActivity;
-import dev.n3shemmy3.coffre.ui.service.BackupService;
 import dev.n3shemmy3.coffre.ui.utils.AssetsUtils;
 import dev.n3shemmy3.coffre.ui.utils.PrefUtil;
 
@@ -46,9 +44,8 @@ public class App extends Application implements Thread.UncaughtExceptionHandler 
     @Override
     public void onCreate() {
         super.onCreate();
-        Thread.setDefaultUncaughtExceptionHandler(this);
+        //Thread.setDefaultUncaughtExceptionHandler(this);
         DynamicColors.applyToActivitiesIfAvailable(this);
-        Iconics.init(this);
         ObjectBox.init(this);
         PrefUtil.Init(this);
         updateCurrency();

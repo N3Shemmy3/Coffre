@@ -17,13 +17,11 @@ package dev.n3shemmy3.coffre.ui.screen.setup;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 
 import androidx.activity.result.ActivityResult;
@@ -31,10 +29,8 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
-import androidx.core.graphics.Insets;
 import androidx.core.view.HapticFeedbackConstantsCompat;
 import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable;
 
 import com.bumptech.glide.Glide;
@@ -50,7 +46,7 @@ import com.google.gson.Gson;
 import java.io.IOException;
 
 import dev.n3shemmy3.coffre.R;
-import dev.n3shemmy3.coffre.backend.item.Profile;
+import dev.n3shemmy3.coffre.backend.entity.Profile;
 import dev.n3shemmy3.coffre.ui.base.BaseScreen;
 import dev.n3shemmy3.coffre.ui.navigator.Navigator;
 import dev.n3shemmy3.coffre.ui.screen.currency.CurrencyScreen;
@@ -79,9 +75,9 @@ public class SetupScreen extends BaseScreen {
 
     @Override
     protected void onCreateScreen(View root, Bundle state) {
+        super.onCreateScreen(root, state);
         coordinator = root.findViewById(R.id.coordinator);
         actionNext = root.findViewById(R.id.actionNext);
-        toolbarLayout = root.findViewById(R.id.toolbarLayout);
         avatar = root.findViewById(R.id.avatar);
         textName = root.findViewById(R.id.textName);
         inputName = root.findViewById(R.id.inputName);
@@ -98,7 +94,7 @@ public class SetupScreen extends BaseScreen {
             if (inputName.getText() == null || inputName.getText().toString().isEmpty()) {
                 textName.setError("Please set a name");
             } else if (profile == null) {
-                Snackbar.make(coordinator, "Please pick an image", Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(coordinator, "Please pick an image", Snackbar.LENGTH_SHORT).setAnchorView(actionNext).show();
             } else {
                 PrefUtil.save(Profile.key, new Gson().toJson(profile));
                 ViewCompat.performHapticFeedback(v, HapticFeedbackConstantsCompat.CONTEXT_CLICK);
@@ -108,7 +104,7 @@ public class SetupScreen extends BaseScreen {
         });
         //inputName.setOnFocusChangeListener((v, hasFocus) -> textName.setError(null));
         inputName.setOnClickListener(v -> textName.setError(null));
-        applyInsets();
+        InsetsUtils.applyInsets(topAppBar, topToolBar, toolbarLayout, actionNext, content);
         profile = new Gson().fromJson(PrefUtil.getString(Profile.key), Profile.class);
         if (profile == null) return;
         Bitmap retrievedBitmap = FileUtils.retrieveImageFromPrivateStorage(requireContext(), profile.getAvatar());
@@ -139,36 +135,9 @@ public class SetupScreen extends BaseScreen {
         }
     });
 
-    private void applyInsets() {
-        InsetsUtils.onInsetsListener(topAppBar, (windowInsets) -> {
-            Insets displayCutOutInsets = windowInsets.getInsets(WindowInsetsCompat.Type.displayCutout());
-            Insets systemBarInsets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
-            Insets imeInsets = windowInsets.getInsets(WindowInsetsCompat.Type.ime());
-            int hInsets = displayCutOutInsets.left + displayCutOutInsets.right;
-
-            //Toolbar
-            int dp8 = (int) (Resources.getSystem().getDisplayMetrics().density * 8);
-            ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams) topToolBar.getLayoutParams();
-            topToolBar.setPadding(hInsets + dp8, topToolBar.getPaddingTop(), hInsets + dp8, topToolBar.getPaddingBottom());
-            toolbarLayout.setExpandedTitleMarginStart(hInsets + (dp8 * 3));
-            toolbarLayout.setExpandedTitleMarginEnd(hInsets + (dp8 * 3));
-            mlp.topMargin = systemBarInsets.top;
-            topToolBar.setLayoutParams(mlp);
-
-            //Fab
-            mlp = (ViewGroup.MarginLayoutParams) actionNext.getLayoutParams();
-            int dp16 = dp8 * 2;
-            mlp.leftMargin = hInsets + dp16;
-            mlp.rightMargin = hInsets + dp16;
-            mlp.bottomMargin = dp16 + systemBarInsets.bottom + imeInsets.bottom;
-            actionNext.setLayoutParams(mlp);
-        });
-        InsetsUtils.applyContentInsets(content);
-    }
-
     private void setAvatar(Bitmap bitmap) {
         CircularProgressDrawable circularProgressDrawable = new CircularProgressDrawable(requireActivity());
-        circularProgressDrawable.setColorSchemeColors(MaterialColors.getColor(requireView(),com.google.android.material.R.attr.colorPrimary));
+        circularProgressDrawable.setColorSchemeColors(MaterialColors.getColor(requireView(), com.google.android.material.R.attr.colorPrimary));
         circularProgressDrawable.setStrokeWidth(5f);
         circularProgressDrawable.setCenterRadius(30f);
         circularProgressDrawable.start();

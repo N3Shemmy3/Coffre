@@ -12,10 +12,12 @@
     <string name="screen_icon_picker">Icon picker</string>
 
     <!--Settings Screens -->
-    <string name="summary_settings">Tweaks and treats</string>
     <string name="screen_look_and_feel">Look &amp; feel</string>
-    <string name="summary_look_and_feel">Dark theme, languages</string>
-    <string name="summary_about">App version, feedback</string>
+    <string name="summary_look_and_feel">Theme, colors &amp; languages</string>
+    <string name="screen_format">Format</string>
+    <string name="summary_format">Decimal, thousands &amp; currency</string>
+    <string name="summary_settings">Tweaks and treats</string>
+    <string name="summary_about">Version, licenses &amp; source</string>
 
     <!--Preferences -->
     <!--Look & feel -->

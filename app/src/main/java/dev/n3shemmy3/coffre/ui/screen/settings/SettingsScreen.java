@@ -44,7 +44,7 @@ public class SettingsScreen extends BaseScreen {
     @Override
     public void onResume() {
         super.onResume();
-        ActivityCompat.requestPermissions(requireActivity(), new String[]{android.Manifest.permission.POST_NOTIFICATIONS, android.Manifest.permission.FOREGROUND_SERVICE, android.Manifest.permission.FOREGROUND_SERVICE_DATA_SYNC}, 1);
+       // ActivityCompat.requestPermissions(requireActivity(), new String[]{android.Manifest.permission.POST_NOTIFICATIONS, android.Manifest.permission.FOREGROUND_SERVICE, android.Manifest.permission.FOREGROUND_SERVICE_DATA_SYNC}, 1);
 
         Intent intent = new Intent(requireContext(), BackupService.class);
         intent.setAction(BackupService.BACKUP);

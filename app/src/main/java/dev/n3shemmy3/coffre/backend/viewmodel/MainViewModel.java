@@ -17,12 +17,11 @@ package dev.n3shemmy3.coffre.backend.viewmodel;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
-import androidx.paging.PagingData;
 
 import java.math.BigDecimal;
 import java.util.List;
 
-import dev.n3shemmy3.coffre.backend.item.Transaction;
+import dev.n3shemmy3.coffre.backend.entity.Transaction;
 import dev.n3shemmy3.coffre.backend.repository.TransactionsRepository;
 
 public class MainViewModel extends ViewModel {

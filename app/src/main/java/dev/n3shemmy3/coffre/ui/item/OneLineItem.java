@@ -29,7 +29,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.color.MaterialColors;
 
 import dev.n3shemmy3.coffre.R;
-import dev.n3shemmy3.coffre.backend.item.Transaction;
+import dev.n3shemmy3.coffre.backend.entity.Transaction;
 
 public class OneLineItem extends RecyclerView.ViewHolder {
 
@@ -89,8 +89,8 @@ public class OneLineItem extends RecyclerView.ViewHolder {
                 textColor = MaterialColors.getColor(itemView, com.google.android.material.R.attr.colorOnTertiaryContainer);
                 break;
             default:
-                color = MaterialColors.getColor(itemView, com.google.android.material.R.attr.colorPrimaryContainer);
-                textColor = MaterialColors.getColor(itemView, com.google.android.material.R.attr.colorOnPrimaryContainer);
+                color = MaterialColors.getColor(itemView, com.google.android.material.R.attr.colorSecondaryContainer);
+                textColor = MaterialColors.getColor(itemView, com.google.android.material.R.attr.colorOnSecondaryContainer);
                 break;
         }
         endCard.setBackgroundTintList(ColorStateList.valueOf(color));

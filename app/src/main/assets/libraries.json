@@ -1,0 +1,232 @@
+[
+  {
+    "author": "Google / Gradle Inc.",
+    "authorWebsite": "https://gradle.org/",
+    "name": "Gradle",
+    "packageName": "com.android.tools.build:gradle",
+    "description": "The official build system plugin for Android applications.",
+    "version": "8.0.2",
+    "website": "https://android.googlesource.com/platform/tools/base/",
+    "license": "Apache License, Version 2.0"
+  },
+  {
+    "author": "Google",
+    "authorWebsite": "https://github.com/google/",
+    "name": "Gson",
+    "packageName": "com.google.code.gson:gson",
+    "description": "A Java serialization/deserialization library to convert Java Objects into JSON and back.",
+    "version": "2.13.0",
+    "website": "https://github.com/google/gson",
+    "license": "Apache License, Version 2.0"
+  },
+  {
+    "author": "JUnit Team",
+    "authorWebsite": "https://junit.org/junit4/",
+    "name": "Junit",
+    "packageName": "junit:junit",
+    "description": "A popular Java testing framework.",
+    "version": "4.13.2",
+    "website": "https://github.com/junit-team/junit4",
+    "license": "Eclipse Public License 1.0"
+  },
+  {
+    "author": "Android Open Source Project",
+    "authorWebsite": "https://developer.android.com/jetpack/androidx",
+    "name": "Junit",
+    "packageName": "androidx.test.ext:junit",
+    "description": "AndroidX Test Extensions for JUnit.",
+    "version": "1.2.1",
+    "website": "https://github.com/androidx/androidx/tree/androidx-main/test",
+    "license": "Apache License, Version 2.0"
+  },
+  {
+    "author": "Android Open Source Project",
+    "authorWebsite": "https://developer.android.com/jetpack/androidx",
+    "name": "Espresso-Core",
+    "packageName": "androidx.test.espresso:espresso-core",
+    "description": "AndroidX Espresso core library for UI testing.",
+    "version": "3.6.1",
+    "website": "https://github.com/androidx/androidx/tree/androidx-main/test",
+    "license": "Apache License, Version 2.0"
+  },
+  {
+    "author": "Android Open Source Project",
+    "authorWebsite": "https://developer.android.com/jetpack/androidx",
+    "name": "Appcompat",
+    "packageName": "androidx.appcompat:appcompat",
+    "description": "AppCompat library, providing backward-compatible Material Design and other features.",
+    "version": "1.7.0",
+    "website": "https://github.com/androidx/androidx/tree/androidx-main/appcompat",
+    "license": "Apache License, Version 2.0"
+  },
+  {
+    "author": "Google",
+    "authorWebsite": "https://material.io/develop/android",
+    "name": "Material Components",
+    "packageName": "com.google.android.material:material",
+    "description": "Material Components for Android.",
+    "version": "1.12.0",
+    "website": "https://github.com/material-components/material-components-android",
+    "license": "Apache License, Version 2.0"
+  },
+  {
+    "author": "Android Open Source Project",
+    "authorWebsite": "https://developer.android.com/jetpack/androidx",
+    "name": "Activity",
+    "packageName": "androidx.activity:activity",
+    "description": "AndroidX Activity library, providing Activity-related APIs and hooks.",
+    "version": "1.10.1",
+    "website": "https://github.com/androidx/androidx/tree/androidx-main/activity",
+    "license": "Apache License, Version 2.0"
+  },
+  {
+    "author": "Android Open Source Project",
+    "authorWebsite": "https://developer.android.com/jetpack/androidx",
+    "name": "Constraintlayout",
+    "packageName": "androidx.constraintlayout:constraintlayout",
+    "description": "AndroidX ConstraintLayout library.",
+    "version": "2.2.1",
+    "website": "https://github.com/androidx/androidx/tree/androidx-main/constraintlayout",
+    "license": "Apache License, Version 2.0"
+  },
+  {
+    "author": "Android Open Source Project",
+    "authorWebsite": "https://developer.android.com/jetpack/androidx",
+    "name": "Fragment",
+    "packageName": "androidx.fragment:fragment",
+    "description": "AndroidX Fragment library.",
+    "version": "1.8.6",
+    "website": "https://github.com/androidx/androidx/tree/androidx-main/fragment",
+    "license": "Apache License, Version 2.0"
+  },
+  {
+    "author": "Bump Technologies, LLC",
+    "authorWebsite": "https://github.com/bumptech",
+    "name": "Glide",
+    "packageName": "com.github.bumptech.glide:glide",
+    "description": "An image loading and caching library for Android focused on smooth scrolling.",
+    "version": "4.16.0",
+    "website": "https://github.com/bumptech/glide",
+    "license": "BSD, partly MIT and Apache 2.0"
+  },
+  {
+    "author": "Android Open Source Project",
+    "authorWebsite": "https://developer.android.com/jetpack/androidx",
+    "name": "Coordinator layout",
+    "packageName": "androidx.coordinatorlayout:coordinatorlayout",
+    "description": "AndroidX CoordinatorLayout library, a super-powered FrameLayout.",
+    "version": "1.3.0",
+    "website": "https://github.com/androidx/androidx/tree/androidx-main/coordinatorlayout",
+    "license": "Apache License, Version 2.0"
+  },
+  {
+    "author": "Android Open Source Project",
+    "authorWebsite": "https://developer.android.com/jetpack/androidx",
+    "name": "Swipe refresh layout",
+    "packageName": "androidx.swiperefreshlayout:swiperefreshlayout",
+    "description": "AndroidX SwipeRefreshLayout library.",
+    "version": "1.1.0",
+    "website": "https://github.com/androidx/androidx/tree/androidx-main/swiperefreshlayout",
+    "license": "Apache License, Version 2.0"
+  },
+  {
+    "author": "Robin hood",
+    "authorWebsite": "https://robinhood.engineering/blog/2015/introducing-ticker/",
+    "name": "Ticker",
+    "packageName": "com.robinhood.ticker:ticker",
+    "description": "A ticking counter that helps visualize number changes.",
+    "version": "2.0.4",
+    "website": "https://github.com/robinhood/ticker",
+    "license": "Apache License, Version 2.0"
+  },
+  {
+    "author": "Android Open Source Project",
+    "authorWebsite": "https://developer.android.com/jetpack/androidx",
+    "name": "Viewpager2",
+    "packageName": "androidx.viewpager2:viewpager2",
+    "description": "AndroidX ViewPager2 library, an improved version of ViewPager.",
+    "version": "1.1.0",
+    "website": "https://github.com/androidx/androidx/tree/androidx-main/viewpager2",
+    "license": "Apache License, Version 2.0"
+  },
+  {
+    "author": "Android Open Source Project",
+    "authorWebsite": "https://developer.android.com/jetpack/androidx",
+    "name": "Lifecycle-Viewmodel",
+    "packageName": "androidx.lifecycle:lifecycle-viewmodel",
+    "description": "AndroidX ViewModel library, part of Android Architecture Components.",
+    "version": "2.8.7",
+    "website": "https://github.com/androidx/androidx/tree/androidx-main/lifecycle",
+    "license": "Apache License, Version 2.0"
+  },
+  {
+    "author": "Android Open Source Project",
+    "authorWebsite": "https://developer.android.com/jetpack/androidx",
+    "name": "Lifecycle-Viewmodel-Savedstate",
+    "packageName": "androidx.lifecycle:lifecycle-viewmodel-savedstate",
+    "description": "AndroidX ViewModel Saved State module.",
+    "version": "2.8.7",
+    "website": "https://github.com/androidx/androidx/tree/androidx-main/lifecycle",
+    "license": "Apache License, Version 2.0"
+  },
+  {
+    "author": "Android Open Source Project",
+    "authorWebsite": "https://developer.android.com/jetpack/androidx",
+    "name": "Lifecycle-Livedata",
+    "packageName": "androidx.lifecycle:lifecycle-livedata",
+    "description": "AndroidX LiveData library, part of Android Architecture Components.",
+    "version": "2.8.7",
+    "website": "https://github.com/androidx/androidx/tree/androidx-main/lifecycle",
+    "license": "Apache License, Version 2.0"
+  },
+  {
+    "author": "Android Open Source Project",
+    "authorWebsite": "https://developer.android.com/jetpack/androidx",
+    "name": "Recyclerview",
+    "packageName": "androidx.recyclerview:recyclerview",
+    "description": "AndroidX RecyclerView library for displaying lists and grids.",
+    "version": "1.4.0",
+    "website": "https://github.com/androidx/androidx/tree/androidx-main/recyclerview",
+    "license": "Apache License, Version 2.0"
+  },
+  {
+    "author": "Android Open Source Project",
+    "authorWebsite": "https://developer.android.com/jetpack/androidx",
+    "name": "Core-Splashscreen",
+    "packageName": "androidx.core:core-splashscreen",
+    "description": "AndroidX Core Splashscreen compatibility library.",
+    "version": "1.0.1",
+    "website": "https://github.com/androidx/androidx/tree/androidx-main/core",
+    "license": "Apache License, Version 2.0"
+  },
+  {
+    "author": "Android Open Source Project",
+    "authorWebsite": "https://developer.android.com/jetpack/androidx",
+    "name": "Recyclerview-Selection",
+    "packageName": "androidx.recyclerview:recyclerview-selection",
+    "description": "AndroidX RecyclerView Selection library addon.",
+    "version": "1.1.0",
+    "website": "https://github.com/androidx/androidx/tree/androidx-main/recyclerview",
+    "license": "Apache License, Version 2.0"
+  },
+  {
+    "author": "Android Open Source Project",
+    "authorWebsite": "https://developer.android.com/jetpack/androidx",
+    "name": "Preference",
+    "packageName": "androidx.preference:preference",
+    "description": "AndroidX Preference library for building settings screens.",
+    "version": "1.2.1",
+    "website": "https://github.com/androidx/androidx/tree/androidx-main/preference",
+    "license": "Apache License, Version 2.0"
+  },
+  {
+    "author": "ObjectBox Ltd.",
+    "authorWebsite": "https://objectbox.io/",
+    "name": "Objectbox-Android",
+    "packageName": "io.objectbox:objectbox-android",
+    "description": "ObjectBox is a super-fast object database for mobile and IoT.",
+    "version": "4.2.0",
+    "website": "https://github.com/objectbox/objectbox-java",
+    "license": "Apache License, Version 2.0 or Commercial"
+  }
+]

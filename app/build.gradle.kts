@@ -59,7 +59,6 @@ dependencies {
     implementation(libs.fragment)
     implementation(libs.glide)
     implementation (libs.gson)
-    implementation(libs.eventbus)
     implementation(libs.viewpager2)
     implementation(libs.viewmodel)
     implementation(libs.viewmodel.savedstate)
@@ -69,9 +68,7 @@ dependencies {
     implementation(libs.recyclerview.selection)
     implementation(libs.preference)
     implementation(libs.paging)
-    implementation (libs.iconics.core)
     implementation (libs.swiperefreshlayout)
-  //  implementation(libs.google.material.typeface.outlined){ artifact { type = "aar" } }
     implementation (libs.ticker)
     implementation (libs.objectbox.android)
     testImplementation(libs.junit)

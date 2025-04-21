@@ -28,8 +28,8 @@ import androidx.fragment.app.Fragment;
 import com.google.gson.Gson;
 
 import dev.n3shemmy3.coffre.R;
-import dev.n3shemmy3.coffre.backend.item.Currency;
-import dev.n3shemmy3.coffre.backend.item.Profile;
+import dev.n3shemmy3.coffre.backend.entity.Currency;
+import dev.n3shemmy3.coffre.backend.entity.Profile;
 import dev.n3shemmy3.coffre.ui.screen.main.MainScreen;
 import dev.n3shemmy3.coffre.ui.screen.setup.StartScreen;
 import dev.n3shemmy3.coffre.ui.utils.PrefUtil;

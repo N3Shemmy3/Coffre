@@ -18,22 +18,19 @@
 
 package dev.n3shemmy3.coffre.ui.activity;
 
-import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
 import androidx.core.view.HapticFeedbackConstantsCompat;
 import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 
@@ -54,6 +51,7 @@ public class DebugActivity extends AppCompatActivity {
 
         AppBarLayout topAppBar = findViewById(R.id.topAppBar);
         MaterialToolbar topToolBar = findViewById(R.id.topToolBar);
+        CollapsingToolbarLayout topToolBarLayout = findViewById(R.id.topToolBarLayout);
         topToolBar.setNavigationOnClickListener(v -> {
             ViewCompat.performHapticFeedback(v, HapticFeedbackConstantsCompat.CONTEXT_CLICK);
             getOnBackPressedDispatcher().onBackPressed();
@@ -113,29 +111,7 @@ public class DebugActivity extends AppCompatActivity {
 
         textLogs.setTypeface(Typeface.MONOSPACE);
         textLogs.setText(builder);
-        InsetsUtils.onInsetsListener(topAppBar, (windowInsets) -> {
-            Insets displayCutOutInsets = windowInsets.getInsets(WindowInsetsCompat.Type.displayCutout());
-            Insets systemBarInsets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
-            Insets imeInsets = windowInsets.getInsets(WindowInsetsCompat.Type.ime());
-
-            int hInsets = displayCutOutInsets.left + displayCutOutInsets.right;
-
-            //Toolbar
-            int dp8 = (int) (Resources.getSystem().getDisplayMetrics().density * 8);
-            ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams) topToolBar.getLayoutParams();
-            topToolBar.setPadding(hInsets + dp8, topToolBar.getPaddingTop(), hInsets + dp8, topToolBar.getPaddingBottom());
-            mlp.topMargin = systemBarInsets.top;
-            topToolBar.setLayoutParams(mlp);
-
-            //Fab
-            mlp = (ViewGroup.MarginLayoutParams) actionShare.getLayoutParams();
-            int dp16 = dp8 * 2;
-            mlp.leftMargin = hInsets + dp16;
-            mlp.rightMargin = hInsets + dp16;
-            mlp.bottomMargin = dp16 + systemBarInsets.bottom + imeInsets.bottom;
-            actionShare.setLayoutParams(mlp);
-        });
-        InsetsUtils.applyContentInsets(textLogs);
+        InsetsUtils.applyInsets(topAppBar, topToolBar, topToolBarLayout, actionShare, textLogs);
 
     }
 }

@@ -27,8 +27,8 @@ import com.google.gson.Gson;
 import java.util.Calendar;
 
 import dev.n3shemmy3.coffre.R;
-import dev.n3shemmy3.coffre.backend.item.Currency;
-import dev.n3shemmy3.coffre.backend.item.Transaction;
+import dev.n3shemmy3.coffre.backend.entity.Currency;
+import dev.n3shemmy3.coffre.backend.entity.Transaction;
 import dev.n3shemmy3.coffre.ui.interfaces.ItemListener;
 import dev.n3shemmy3.coffre.ui.item.TwoLineItem;
 import dev.n3shemmy3.coffre.ui.utils.DateUtils;

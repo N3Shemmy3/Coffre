@@ -1,4 +1,4 @@
-package dev.n3shemmy3.coffre.backend.item;
+package dev.n3shemmy3.coffre.backend.entity;
 /*
  * Copyright (C) 2025 Shemmy
  *

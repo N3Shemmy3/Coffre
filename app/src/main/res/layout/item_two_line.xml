@@ -23,7 +23,8 @@
     android:clickable="true"
     android:clipChildren="true"
     android:foreground="?attr/selectableItemBackground"
-    android:minHeight="74dp">
+    android:minHeight="74dp"
+    android:paddingVertical="4dp">
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/itemStartCard"
