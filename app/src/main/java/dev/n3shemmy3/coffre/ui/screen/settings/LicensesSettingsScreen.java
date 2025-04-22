@@ -43,12 +43,12 @@ import dev.n3shemmy3.coffre.ui.base.BaseSettingsScreen;
 import dev.n3shemmy3.coffre.ui.item.decorator.VerticalSpaceItemDecoration;
 import dev.n3shemmy3.coffre.ui.utils.AssetsUtils;
 
-public class LibrarySettingsScreen extends BaseSettingsScreen {
+public class LicensesSettingsScreen extends BaseSettingsScreen {
 
     @Override
     protected void onCreateScreen(View root, Bundle state) {
         super.onCreateScreen(root, state);
-        topToolBar.setTitle("Libraries");
+        topToolBar.setTitle(R.string.preference_licenses);
         setPreferenceFragment(new LibraryPreferencesScreen());
     }
 

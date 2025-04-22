@@ -94,8 +94,9 @@
                     android:layout_marginTop="16dp"
                     android:layout_marginBottom="16dp"
                     android:adjustViewBounds="true"
+                    android:scaleType="fitCenter"
                     android:contentDescription="@string/app_name"
-                    android:src="@drawable/ic_launcher_foreground"
+                    tools:src="@drawable/ic_launcher_foreground"
                     app:backgroundTint="?attr/colorPrimaryContainer"
                     app:cardBackgroundColor="@android:color/transparent"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -106,7 +107,6 @@
 
 
                 <TextView
-
                     android:id="@+id/headerTitle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"

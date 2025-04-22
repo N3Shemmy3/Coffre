@@ -56,7 +56,6 @@ public class BaseSettingsScreen extends BaseScreen {
         headerSubtitle = root.findViewById(R.id.headerSubtitle);
         header.setClipToOutline(true);
         header.setClipChildren(true);
-        headerIcon.setBackgroundResource(R.drawable.filled_flower_94);
     }
 
     @Override

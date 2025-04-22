@@ -18,9 +18,7 @@
 
 package dev.n3shemmy3.coffre.ui.adapter;
 
-import android.content.Intent;
 import android.graphics.Typeface;
-import android.net.Uri;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -34,6 +32,7 @@ import dev.n3shemmy3.coffre.R;
 import dev.n3shemmy3.coffre.backend.entity.Library;
 import dev.n3shemmy3.coffre.backend.entity.Transaction;
 import dev.n3shemmy3.coffre.ui.item.TwoLineItem;
+import dev.n3shemmy3.coffre.ui.utils.AppUtils;
 
 public class LibrariesAdapter extends ListAdapter<Library, TwoLineItem> {
     public LibrariesAdapter() {
@@ -50,11 +49,6 @@ public class LibrariesAdapter extends ListAdapter<Library, TwoLineItem> {
     public void onBindViewHolder(@NonNull TwoLineItem holder, int position) {
         Library library = getItem(position);
         holder.itemStartIcon.setImageResource(R.drawable.outline_auto_awesome_24);
-//        holder.itemStartText.setVisibility(View.VISIBLE);
-//        StringBuilder initials = new StringBuilder();
-//        for (String word : library.getLicense().split("\\s+"))
-//            initials.append(word.charAt(0));
-//        holder.itemStartText.setText(initials.toString().toUpperCase());
         holder.itemStartText.setTypeface(Typeface.DEFAULT_BOLD);
         holder.itemTitle.setText(library.getName());
         holder.itemSubTitle.setText(library.getDescription());
@@ -62,10 +56,7 @@ public class LibrariesAdapter extends ListAdapter<Library, TwoLineItem> {
         holder.itemEndText.setText(library.getVersion());
         holder.setCardStyle();
         holder.setEndCardColor(Transaction.Type.INCOME);
-        holder.item.setOnClickListener(v -> {
-            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(library.getWebsite()));
-            holder.item.getContext().startActivity(browserIntent);
-        });
+        holder.item.setOnClickListener(v -> AppUtils.openLink(v.getContext(), library.getWebsite()));
     }
 
     public static class LibrariesDiffCallback extends DiffUtil.ItemCallback<Library> {

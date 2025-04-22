@@ -7,26 +7,35 @@
     <string name="screen_save">Save</string>
     <string name="screen_record">Record</string>
     <string name="screen_search">Search</string>
-    <string name="screen_about">About</string>
     <string name="screen_category">Category</string>
     <string name="screen_icon_picker">Icon picker</string>
+    <string name="screen_debug">Debug</string>
+
 
     <!--Settings Screens -->
-    <string name="screen_look_and_feel">Look &amp; feel</string>
+    <!--Main Preference -->
+    <string name="preference_look_and_feel">Look &amp; feel</string>
     <string name="summary_look_and_feel">Theme, colors &amp; languages</string>
-    <string name="screen_format">Format</string>
+    <string name="preference_format">Format</string>
     <string name="summary_format">Decimal, thousands &amp; currency</string>
-    <string name="summary_settings">Tweaks and treats</string>
+    <string name="preference_back_restore"><![CDATA[Backup &amp; Restore]]></string>
+    <string name="summary_back_restore">Manual, backup folder</string>
+    <string name="preference_about">About</string>
     <string name="summary_about">Version, licenses &amp; source</string>
 
-    <!--Preferences -->
-    <!--Look & feel -->
-    <string name="pref_dynamic_color">Dynamic color</string>
-    <string name="pref_summary_dynamic_color">Use colors from wallpaper for app theme</string>
-    <string name="pref_dark_theme">Dark Theme</string>
-    <string name="theme_system">System</string>
-    <string name="theme_light">Off</string>
-    <string name="theme_dark">On</string>
+    <!--About Preference -->
+    <string name="preference_source_code">Source code</string>
+    <string name="summary_source_code">View the sources on Github</string>
+    <string name="preference_latest_release">Latest release</string>
+    <string name="summary_latest_release"><![CDATA[Find the changelogs &amp; new versions]]></string>
+    <string name="preference_telegram_channel">Telegram channel</string>
+    <string name="summary_telegram_channel">Latest development news</string>
+    <string name="summary_settings">Tweaks and treats</string>
+    <string name="preference_licenses">Licenses</string>
+    <string name="summary_licenses">Credits and licenses</string>
+    <string name="preference_libraries">Libraries</string>
+    <string name="preference_version">Version</string>
+
 
     <!--Actions -->
     <string name="action_open">Open</string>
@@ -36,8 +45,10 @@
     <string name="action_next">Next</string>
     <string name="action_skip">Skip</string>
     <string name="action_save">Save</string>
+    <string name="action_share">Share</string>
     <string name="action_search">Search</string>
     <string name="action_clear">Clear</string>
+    <string name="action_copied">Copied</string>
     <string name="action_discard">Discard</string>
     <string name="action_history">History</string>
     <string name="action_present">Present</string>
@@ -88,7 +99,7 @@
     <string name="profile">Profile</string>
     <string name="discard_transaction">Discard Transaction?</string>
     <string name="discard_transaction_summary">Quitting now will discard the unsaved transaction.</string>
-    <string name="screen_debug">Debug</string>
-    <string name="action_share">Share</string>
+
+
 
 </resources>

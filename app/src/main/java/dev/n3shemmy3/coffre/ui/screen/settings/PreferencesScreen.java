@@ -71,6 +71,7 @@ public class PreferencesScreen extends PreferenceFragmentCompat {
             case "about": {
                 Navigator.push(requireActivity().getSupportFragmentManager(), new AboutSettingsScreen());
             }
+            break;
         }
         return super.onPreferenceTreeClick(preference);
     }
