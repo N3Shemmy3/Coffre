@@ -39,7 +39,7 @@ public class TransactionsAdapter extends ListAdapter<Transaction, TwoLineItem> {
 
     private Currency currency;
     private ItemListener<Transaction> itemListener;
-    private boolean useCardStyle;
+    private final boolean useCardStyle;
 
     public TransactionsAdapter() {
         super(new TransactionsDiffCallback());
@@ -72,7 +72,6 @@ public class TransactionsAdapter extends ListAdapter<Transaction, TwoLineItem> {
         holder.itemTitle.setText(transaction.getTitle());
         holder.itemSubTitle.setText(DateUtils.formatTime(calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), is24HourFormat));
 
-        String currencySymbol = currency.getSymbol().isEmpty() ? currency.getCode() : currency.getSymbol();
         holder.itemEndText.setText(NumberUtils.formatCurrency(currency, transaction.getAmount()));
         holder.setEndCardColor(transaction.getType());
 

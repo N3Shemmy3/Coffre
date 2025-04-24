@@ -20,6 +20,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:foregroundTint="?android:colorBackground"
+        android:foregroundTintMode="screen"
+        android:scaleType="centerCrop"
+        android:alpha=".35"
+        android:src="@drawable/blob_shapes"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/headerIcon"
         android:layout_width="56dp"
@@ -27,14 +40,14 @@
         android:layout_marginBottom="@dimen/activity_padding_horizontal"
         android:adjustViewBounds="true"
         android:background="?colorSurfaceContainer"
+        android:padding=".15dp"
+        android:elevation=".1dp"
         app:layout_constraintBottom_toTopOf="@id/tagline"
         app:layout_constraintStart_toStartOf="@id/tagline"
         app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"
         app:srcCompat="@mipmap/ic_launcher"
-        app:strokeWidth=".1dp"
-        android:padding=".15dp"
-        app:strokeColor="@color/color_stroke" />
-
+        app:strokeColor="@null"
+        app:strokeWidth=".1dp" />
 
 
     <TextView

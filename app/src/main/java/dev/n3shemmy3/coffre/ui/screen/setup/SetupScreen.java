@@ -82,6 +82,11 @@ public class SetupScreen extends BaseScreen {
         textName = root.findViewById(R.id.textName);
         inputName = root.findViewById(R.id.inputName);
         actionPick = root.findViewById(R.id.actionPick);
+    }
+
+    @Override
+    protected void onScreenCreated(View root, Bundle state) {
+        super.onScreenCreated(root, state);
         actionPick.setOnClickListener(v -> {
             ViewCompat.performHapticFeedback(v, HapticFeedbackConstantsCompat.CONTEXT_CLICK);
             Intent intent = new Intent();
