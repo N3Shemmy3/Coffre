@@ -21,27 +21,29 @@ package dev.n3shemmy3.coffre.ui.utils;
 import android.text.InputFilter;
 import android.text.Spanned;
 
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class DecimalDigitsInputFilter implements InputFilter {
     private static String separators = "[\\.\\,]";
 
     private final Pattern mPattern;
+    private int digitsAfterSeparator;
 
     public DecimalDigitsInputFilter(int digitsBeforeSeparator, int digitsAfterSeparator) {
-        String b = "(-?\\d{1," + digitsBeforeSeparator + "})";
-        String a = "(\\d{1," + digitsAfterSeparator + "})";
-        String s = separators;
-
+        this.digitsAfterSeparator = digitsAfterSeparator;
         String numberRegex = new StringBuilder()
-                .append("(-)")
-                .append("|")
-                .append("(" + b + s + a + ")")
-                .append("|")
-                .append("(" + b + s +")")
-                .append("|")
-                .append("(" + b + ")")
+                .append("^") // Match the beginning of the string
+                .append("(-)?") // Optional negative sign
+                .append("(\\d{1,")
+                .append(digitsBeforeSeparator)
+                .append("})") // Digits before the separator
+                .append("(") // Start of optional decimal part
+                .append(separators) // Separator
+                .append("(\\d{0,")
+                .append(digitsAfterSeparator)
+                .append("})") // Digits after the separator
+                .append(")?") // End of optional decimal part
+                .append("$") // Match the end of the string
                 .toString();
 
         mPattern = Pattern.compile(numberRegex);
@@ -52,12 +54,15 @@ public class DecimalDigitsInputFilter implements InputFilter {
         String input = dest.toString().substring(0, dstart) + source.
                 subSequence(start, end) + dest.toString().substring(dend);
 
-        Matcher matcher = mPattern.matcher(input);
-
-        if (!matcher.matches()) {
+        if (!input.matches(mPattern.pattern())) {
             return "";
         }
-
+        if (digitsAfterSeparator == 0 && input.matches(".*[.,].*")) {
+            return "";
+        }
+        if (input.startsWith("-") && input.length() == 1) {
+            return "";
+        }
         return null;
     }
 }
