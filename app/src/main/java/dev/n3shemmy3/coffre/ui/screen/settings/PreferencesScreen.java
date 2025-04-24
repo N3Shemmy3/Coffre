@@ -39,7 +39,7 @@ import dev.n3shemmy3.coffre.ui.navigator.Navigator;
 public class PreferencesScreen extends PreferenceFragmentCompat {
     @Override
     public void onCreatePreferences(@Nullable Bundle savedInstanceState, @Nullable String rootKey) {
-        setPreferencesFromResource(R.xml.screen_settings, rootKey);
+        setPreferencesFromResource(R.xml.settings, rootKey);
 
     }
 
@@ -68,6 +68,10 @@ public class PreferencesScreen extends PreferenceFragmentCompat {
     @Override
     public boolean onPreferenceTreeClick(@NonNull Preference preference) {
         switch (preference.getKey()) {
+            case "formats": {
+                Navigator.push(requireActivity().getSupportFragmentManager(), new FormatSettingsScreen());
+            }
+            break;
             case "about": {
                 Navigator.push(requireActivity().getSupportFragmentManager(), new AboutSettingsScreen());
             }

@@ -25,59 +25,50 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.preference.Preference;
 
-import dev.n3shemmy3.coffre.BuildConfig;
+import com.google.gson.Gson;
+
 import dev.n3shemmy3.coffre.R;
+import dev.n3shemmy3.coffre.backend.entity.Currency;
 import dev.n3shemmy3.coffre.ui.base.BasePreferenceFragment;
 import dev.n3shemmy3.coffre.ui.base.BaseSettingsScreen;
 import dev.n3shemmy3.coffre.ui.navigator.Navigator;
-import dev.n3shemmy3.coffre.ui.utils.AppUtils;
+import dev.n3shemmy3.coffre.ui.screen.currency.CurrencyScreen;
+import dev.n3shemmy3.coffre.ui.utils.PrefUtil;
 
-public class AboutSettingsScreen extends BaseSettingsScreen {
+public class FormatSettingsScreen extends BaseSettingsScreen {
 
     @Override
     protected void onCreateScreen(View root, Bundle state) {
         super.onCreateScreen(root, state);
-        topToolBar.setTitle(R.string.preference_about);
-        headerIcon.setImageResource(R.drawable.ic_launcher_foreground);
-        headerTitle.setText(R.string.app_name);
-        headerSubtitle.setText(R.string.app_tagline);
+        topToolBar.setTitle(R.string.preference_format);
+        headerIcon.setImageResource(R.drawable.outline_percent_24);
+        headerTitle.setVisibility(View.GONE);
+        headerSubtitle.setText(R.string.summary_format);
         headerIcon.setBackgroundResource(R.drawable.filled_flower_94);
-        setPreferenceFragment(new AboutPreferenceScreen());
+        setPreferenceFragment(new FormatPreferenceScreen());
     }
 
-    public static class AboutPreferenceScreen extends BasePreferenceFragment {
+    public static class FormatPreferenceScreen extends BasePreferenceFragment {
+
         @Override
         public void onCreatePreferences(@Nullable Bundle savedInstanceState, @Nullable String rootKey) {
-            setPreferencesFromResource(R.xml.settings_about, rootKey);
-            Preference version = findPreference("version");
-            version.setSummary(BuildConfig.VERSION_NAME);
+            setPreferencesFromResource(R.xml.settings_format, rootKey);
+            Currency currency = new Gson().fromJson(PrefUtil.getString("currency"), Currency.class);
+
+            Preference currencyPreference = findPreference("currency");
+            currencyPreference.setSummary(currency.getName());
         }
 
         @Override
         public boolean onPreferenceTreeClick(@NonNull Preference preference) {
             switch (preference.getKey()) {
-                case "github": {
-                    AppUtils.openLink(requireContext(), "https://github.com/N3Shemmy3/Coffre");
-                }
-                break;
-                case "latest": {
-                    AppUtils.openLink(requireContext(), "https://github.com/N3Shemmy3/Coffre/releases");
-                }
-                break;
-                case "telegram": {
-                    AppUtils.openLink(requireContext(), "https://t.me/N3Shemmy3meta");
-                }
-                break;
-                case "licenses": {
-                    Navigator.push(requireActivity().getSupportFragmentManager(), new LicensesSettingsScreen());
-                }
-                break;
-                case "version": {
-                    AppUtils.copyText(requireContext(), getString(R.string.preference_version), getString(R.string.preference_version) + ": " + BuildConfig.VERSION_NAME);
+                case "currency": {
+                    Navigator.push(requireActivity().getSupportFragmentManager(), new CurrencyScreen());
                 }
                 break;
             }
             return super.onPreferenceTreeClick(preference);
+
         }
     }
 }

@@ -181,16 +181,21 @@ public class CurrencyScreen extends BaseScreen implements ItemListener<Currency>
 
     @Override
     public void onItemClicked(@NonNull View itemView, Currency item, int position) {
+        Currency currency = new Gson().fromJson(PrefUtil.getString("currency"), Currency.class);
         PrefUtil.save("currency", new Gson().toJson(item));
-        FragmentManager fragmentManager = getScreenManager();
-        for (int i = 0; i < fragmentManager.getBackStackEntryCount(); i++) {
-            fragmentManager.popBackStack();
-        }
-        fragmentManager.executePendingTransactions(); // Force the back stack to be cleared immediately.
+        if (currency == null) {
+            FragmentManager fragmentManager = getScreenManager();
+            for (int i = 0; i < fragmentManager.getBackStackEntryCount(); i++) {
+                fragmentManager.popBackStack();
+            }
+            fragmentManager.executePendingTransactions(); // Force the back stack to be cleared immediately.
 
-        fragmentManager.beginTransaction()
-                .replace(R.id.fragmentContainer, new MainScreen())
-                .commit();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.fragmentContainer, new MainScreen())
+                    .commit();
+        } else {
+            getScreenManager().popBackStack();
+        }
     }
 
     @Override

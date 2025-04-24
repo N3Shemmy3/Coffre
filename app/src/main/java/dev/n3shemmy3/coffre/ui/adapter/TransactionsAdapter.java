@@ -73,7 +73,7 @@ public class TransactionsAdapter extends ListAdapter<Transaction, TwoLineItem> {
         holder.itemSubTitle.setText(DateUtils.formatTime(calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), is24HourFormat));
 
         String currencySymbol = currency.getSymbol().isEmpty() ? currency.getCode() : currency.getSymbol();
-        holder.itemEndText.setText(NumberUtils.formatCurrency(currencySymbol, transaction.getAmount()));
+        holder.itemEndText.setText(NumberUtils.formatCurrency(currency, transaction.getAmount()));
         holder.setEndCardColor(transaction.getType());
 
 

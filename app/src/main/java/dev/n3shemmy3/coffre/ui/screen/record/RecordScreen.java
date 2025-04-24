@@ -103,11 +103,11 @@ public class RecordScreen extends BaseScreen {
         textCurrency.setText(currency.getSymbol().isEmpty() ? currency.getCode() : currency.getSymbol());
         inputAmount.setInputType(TYPE_NUMBER_FLAG_DECIMAL | TYPE_NUMBER_FLAG_SIGNED | TYPE_CLASS_NUMBER);
         inputAmount.setKeyListener(DigitsKeyListener.getInstance("0123456789,."));
-        inputAmount.setFilters(new InputFilter[]{new DecimalDigitsInputFilter(9999999, 2)});
+        inputAmount.setFilters(new InputFilter[]{new DecimalDigitsInputFilter(9999999, Integer.parseInt(currency.getDecimal_digits()))});
         inputAmount.addTextChangedListener(new TextChangedListener<>(inputAmount) {
             @Override
             public void onTextChanged(TextInputEditText target, Editable s) {
-                callback.setEnabled(item == null && !target.getText().toString().isEmpty());
+                callback.setEnabled(item == null && !String.valueOf(target.getText()).isEmpty());
             }
         });
 
@@ -118,8 +118,8 @@ public class RecordScreen extends BaseScreen {
     OnBackPressedCallback callback = new OnBackPressedCallback(false) {
         @Override
         public void handleOnBackPressed() {
-            String amount = inputAmount.getText().toString();
-            String title = inputTitle.getText().toString();
+            String amount = String.valueOf(inputAmount.getText());
+            String title = String.valueOf(inputTitle.getText());
 
             if (title.isEmpty() && !amount.isEmpty()) {
                 new MaterialAlertDialogBuilder(requireContext())
@@ -250,7 +250,7 @@ public class RecordScreen extends BaseScreen {
 
 
     private boolean areInputsEmpty() {
-        return inputTitle.getText().toString().isEmpty() || inputAmount.getText().toString().isEmpty();
+        return String.valueOf(inputTitle.getText()).isEmpty() || String.valueOf(inputAmount.getText()).isEmpty();
     }
 
     private int getSelectedTab(Transaction.Type type) {

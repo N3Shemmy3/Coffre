@@ -27,6 +27,8 @@ import java.text.NumberFormat;
 import java.util.Locale;
 import java.util.Objects;
 
+import dev.n3shemmy3.coffre.backend.entity.Currency;
+
 public class NumberUtils {
     public static BigDecimal parseNumberLocale(@NonNull String text) {
         try {
@@ -45,11 +47,20 @@ public class NumberUtils {
     }
 
     public static BigDecimal formatAmount(BigDecimal balance) {
-        return String.valueOf(balance).equals("null") ? BigDecimal.valueOf(0.00) : balance.setScale(2, RoundingMode.DOWN);
+        return String.valueOf(balance).equals("null") ? BigDecimal.valueOf(0) : balance.setScale(2, RoundingMode.DOWN);
     }
 
-    public static String formatCurrency(String currencySymbol, BigDecimal amount) {
-        DecimalFormat formatter = new DecimalFormat("#,###.00");
+    public static String formatCurrency(Currency currency, BigDecimal amount) {
+        StringBuilder pattern = new StringBuilder("#,##0");
+        int fractionDigits = Integer.parseInt(currency.getDecimal_digits());
+        String currencySymbol = currency.getSymbol().isEmpty() ? currency.getCode() : currency.getSymbol();
+        if (fractionDigits > 0) {
+            pattern.append(".");
+            for (int i = 0; i < fractionDigits; i++) {
+                pattern.append("0");
+            }
+        }
+        DecimalFormat formatter = new DecimalFormat(pattern.toString());
         return String.format("%s %s", currencySymbol, Objects.equals(amount, BigDecimal.ZERO) ? formatAmount(BigDecimal.ZERO) :
                 formatter.format(amount));
     }

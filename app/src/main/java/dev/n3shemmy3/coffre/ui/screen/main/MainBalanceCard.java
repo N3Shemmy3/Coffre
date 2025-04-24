@@ -80,12 +80,11 @@ public class MainBalanceCard extends BaseFragment {
             decimal.setText(String.valueOf(NumberUtils.getAbsDecimalPart(formattedBalance)).replaceFirst("^0.", ""));
         });
 
-        String currencySymbol = currency.getSymbol().isEmpty() ? currency.getCode() : currency.getSymbol();
         viewModel.getTotalIncome().observe(getViewLifecycleOwner(), incomeBalance ->
-                income.setText(NumberUtils.formatCurrency(currencySymbol, incomeBalance))
+                income.setText(NumberUtils.formatCurrency(currency, incomeBalance))
         );
         viewModel.getTotalExpenses().observe(getViewLifecycleOwner(), expenseBalance ->
-                expenses.setText(NumberUtils.formatCurrency(currencySymbol, expenseBalance))
+                expenses.setText(NumberUtils.formatCurrency(currency, expenseBalance))
         );
 
     }

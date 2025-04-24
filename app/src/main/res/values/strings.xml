@@ -12,22 +12,27 @@
     <string name="screen_debug">Debug</string>
 
 
-    <!--Settings Screens -->
-    <!--Main Preference -->
+    <!--Settings Screen -->
     <string name="preference_look_and_feel">Look &amp; feel</string>
     <string name="summary_look_and_feel">Theme, colors &amp; languages</string>
+    <string name="preference_back_restore">Backup &amp; Restore</string>
+    <string name="summary_back_restore">Manual, backup folder</string>
+
+    <!--Format Preference -->
     <string name="preference_format">Format</string>
     <string name="summary_format">Decimal, thousands &amp; currency</string>
-    <string name="preference_back_restore"><![CDATA[Backup &amp; Restore]]></string>
-    <string name="summary_back_restore">Manual, backup folder</string>
-    <string name="preference_about">About</string>
-    <string name="summary_about">Version, licenses &amp; source</string>
+    <string name="preference_format_header_summary">Style the numbers and symbols</string>
+    <string name="preference_currency">Currency</string>
+    <string name="preference_decimal_points">Decimal points</string>
+    <string name="summary_decimal_points">0.00</string>
 
     <!--About Preference -->
+    <string name="preference_about">About</string>
+    <string name="summary_about">Version, licenses &amp; source</string>
     <string name="preference_source_code">Source code</string>
     <string name="summary_source_code">View the sources on Github</string>
     <string name="preference_latest_release">Latest release</string>
-    <string name="summary_latest_release"><![CDATA[Find the changelogs &amp; new versions]]></string>
+    <string name="summary_latest_release">Find the changelogs &amp; new versions</string>
     <string name="preference_telegram_channel">Telegram channel</string>
     <string name="summary_telegram_channel">Latest development news</string>
     <string name="summary_settings">Tweaks and treats</string>
@@ -99,7 +104,6 @@
     <string name="profile">Profile</string>
     <string name="discard_transaction">Discard Transaction?</string>
     <string name="discard_transaction_summary">Quitting now will discard the unsaved transaction.</string>
-
 
 
 </resources>
