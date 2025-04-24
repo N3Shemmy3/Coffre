@@ -23,6 +23,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.preference.Preference;
+import androidx.preference.PreferenceCategory;
 import androidx.preference.PreferenceGroup;
 import androidx.preference.PreferenceGroupAdapter;
 import androidx.preference.PreferenceViewHolder;
@@ -59,6 +60,7 @@ public class PreferencesAdapter extends PreferenceGroupAdapter {
     @Override
     public void onBindViewHolder(@NonNull PreferenceViewHolder holder, int position) {
         super.onBindViewHolder(holder, position);
+        if (getItem(position) instanceof PreferenceCategory) return;
         if (position == 0 && getItemCount() == 1) {
             holder.itemView.setBackgroundResource(R.drawable.item_background_single);
         } else if (position == 0) {
