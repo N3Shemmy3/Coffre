@@ -61,7 +61,7 @@ public class NumberUtils {
             }
         }
         DecimalFormat formatter = new DecimalFormat(pattern.toString());
-        return String.format("%s %s", currencySymbol, Objects.equals(amount, BigDecimal.ZERO) ? formatAmount(BigDecimal.ZERO) :
+        return String.format("%s %s", currencySymbol, Objects.equals(amount, BigDecimal.ZERO) ? formatter.format(BigDecimal.ZERO) :
                 formatter.format(amount));
     }
 

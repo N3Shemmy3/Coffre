@@ -25,6 +25,8 @@ import androidx.core.app.ActivityCompat;
 
 import dev.n3shemmy3.coffre.R;
 import dev.n3shemmy3.coffre.ui.base.BaseScreen;
+import dev.n3shemmy3.coffre.ui.navigator.Navigator;
+import dev.n3shemmy3.coffre.ui.screen.setup.SetupScreen;
 import dev.n3shemmy3.coffre.ui.service.BackupService;
 
 public class SettingsScreen extends BaseScreen {
@@ -38,6 +40,7 @@ public class SettingsScreen extends BaseScreen {
     protected void onCreateScreen(View root, Bundle state) {
         super.onCreateScreen(root, state);
         root.findViewById(R.id.settingsContainer).setClipToOutline(true);
+        root.findViewById(R.id.item).setOnClickListener(view -> Navigator.push(getScreenManager(), new SetupScreen()));
     }
 
     @RequiresApi(api = Build.VERSION_CODES.UPSIDE_DOWN_CAKE)

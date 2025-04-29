@@ -181,8 +181,8 @@ public class CurrencyScreen extends BaseScreen implements ItemListener<Currency>
 
     @Override
     public void onItemClicked(@NonNull View itemView, Currency item, int position) {
-        Currency currency = new Gson().fromJson(PrefUtil.getString("currency"), Currency.class);
-        PrefUtil.save("currency", new Gson().toJson(item));
+        Currency currency = new Gson().fromJson(PrefUtil.getString(Currency.key), Currency.class);
+        PrefUtil.save(Currency.key, new Gson().toJson(item));
         if (currency == null) {
             FragmentManager fragmentManager = getScreenManager();
             for (int i = 0; i < fragmentManager.getBackStackEntryCount(); i++) {

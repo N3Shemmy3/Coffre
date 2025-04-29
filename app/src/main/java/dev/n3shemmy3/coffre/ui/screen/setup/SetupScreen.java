@@ -46,6 +46,7 @@ import com.google.gson.Gson;
 import java.io.IOException;
 
 import dev.n3shemmy3.coffre.R;
+import dev.n3shemmy3.coffre.backend.entity.Currency;
 import dev.n3shemmy3.coffre.backend.entity.Profile;
 import dev.n3shemmy3.coffre.ui.base.BaseScreen;
 import dev.n3shemmy3.coffre.ui.navigator.Navigator;
@@ -101,9 +102,12 @@ public class SetupScreen extends BaseScreen {
             } else if (profile == null) {
                 Snackbar.make(coordinator, "Please pick an image", Snackbar.LENGTH_SHORT).setAnchorView(actionNext).show();
             } else {
+                profile.setName(String.valueOf(inputName.getText()));
                 PrefUtil.save(Profile.key, new Gson().toJson(profile));
                 ViewCompat.performHapticFeedback(v, HapticFeedbackConstantsCompat.CONTEXT_CLICK);
-                Navigator.push(getScreenManager(), new CurrencyScreen());
+                Currency currency = new Gson().fromJson(PrefUtil.getString("currency"), Currency.class);
+                if (currency == null) Navigator.push(getScreenManager(), new CurrencyScreen());
+                else getScreenManager().popBackStack();
 
             }
         });
@@ -117,6 +121,7 @@ public class SetupScreen extends BaseScreen {
             setAvatar(retrievedBitmap);
         }
         inputName.setText(profile.getName());
+        inputName.setSelection(String.valueOf(inputName.getText()).length() - 1);
     }
 
     ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<>() {
