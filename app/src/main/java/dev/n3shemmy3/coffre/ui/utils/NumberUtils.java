@@ -47,15 +47,18 @@ public class NumberUtils {
     }
 
     public static BigDecimal formatAmount(Currency currency, BigDecimal balance) {
+        boolean usesDecimals = Integer.parseInt(currency.getDecimal_digits()) > 0;
+        balance = usesDecimals ? balance.setScale(2, RoundingMode.DOWN) : balance.setScale(0, RoundingMode.HALF_UP);
         return String.valueOf(balance).equals("null") ? BigDecimal.valueOf(0) : balance.setScale(0, Integer.parseInt(currency.getDecimal_digits()) > 0 ? RoundingMode.DOWN : RoundingMode.HALF_UP);
     }
 
     public static BigDecimal formatAmount(BigDecimal balance) {
-        return String.valueOf(balance).equals("null") ? BigDecimal.valueOf(0) : balance.setScale(0, RoundingMode.DOWN);
+        return String.valueOf(balance).equals("null") ? BigDecimal.valueOf(0) : balance.setScale(2, RoundingMode.DOWN);
     }
 
     public static String formatCurrency(Currency currency, BigDecimal amount) {
         StringBuilder pattern = new StringBuilder("#,##0");
+        boolean usesDecimals = Integer.parseInt(currency.getDecimal_digits()) > 0;
         int fractionDigits = Integer.parseInt(currency.getDecimal_digits());
         String currencySymbol = currency.getSymbol().isEmpty() ? currency.getCode() : currency.getSymbol();
         if (fractionDigits > 0) {
@@ -65,8 +68,9 @@ public class NumberUtils {
             }
         }
         DecimalFormat formatter = new DecimalFormat(pattern.toString());
+        amount = usesDecimals ? amount.setScale(2, RoundingMode.DOWN) : amount.setScale(0, RoundingMode.HALF_UP);
         return String.format("%s %s", currencySymbol, Objects.equals(amount, BigDecimal.ZERO) ? formatter.format(BigDecimal.ZERO) :
-                formatter.format(amount.setScale(0, Integer.parseInt(currency.getDecimal_digits()) > 0 ? RoundingMode.DOWN : RoundingMode.HALF_UP)));
+                formatter.format(amount));
     }
 
 }
