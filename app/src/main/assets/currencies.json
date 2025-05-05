@@ -1056,7 +1056,7 @@
     "symbol": "ZK",
     "name": "Zambian Kwacha",
     "symbol_native": "ZK",
-    "decimal_digits": 0,
+    "decimal_digits": 2,
     "rounding": 0,
     "code": "ZMK",
     "name_plural": "Zambian kwachas"
