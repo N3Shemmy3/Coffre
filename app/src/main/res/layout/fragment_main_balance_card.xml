@@ -116,7 +116,8 @@
             android:textColor="?colorOnSecondaryContainer"
             android:textFontWeight="600"
             app:layout_constraintStart_toStartOf="@id/account_title"
-            app:layout_constraintTop_toBottomOf="@id/round" />
+            app:layout_constraintTop_toBottomOf="@id/round"
+            tools:ignore="UnusedAttribute" />
 
         <com.robinhood.ticker.TickerView
             android:id="@+id/income"
@@ -130,7 +131,8 @@
             app:layout_constraintStart_toEndOf="@id/incomeTitle"
             app:layout_constraintTop_toTopOf="@id/incomeTitle"
             app:ticker_animationDuration="1000"
-            tools:text="$0.00" />
+            tools:text="$0.00"
+            tools:ignore="UnusedAttribute" />
 
         <TextView
             android:id="@+id/expensesTitle"
@@ -142,7 +144,8 @@
             android:textColor="?colorOnErrorContainer"
             android:textFontWeight="600"
             app:layout_constraintStart_toStartOf="@id/account_title"
-            app:layout_constraintTop_toBottomOf="@id/incomeTitle" />
+            app:layout_constraintTop_toBottomOf="@id/incomeTitle"
+            tools:ignore="UnusedAttribute" />
 
         <com.robinhood.ticker.TickerView
             android:id="@+id/expenses"
@@ -156,7 +159,8 @@
             app:layout_constraintStart_toEndOf="@id/expensesTitle"
             app:layout_constraintTop_toTopOf="@id/expensesTitle"
             app:ticker_animationDuration="1000"
-            tools:text="$0.00" />
+            tools:text="$0.00"
+            tools:ignore="UnusedAttribute" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
