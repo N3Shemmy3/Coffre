@@ -83,6 +83,8 @@
     <string name="expenses">Expenses</string>
     <string name="expense">Expense</string>
     <string name="name">Name</string>
+    <string name="spent">Spent</string>
+    <string name="available">Available</string>
 
 
     <!--Content Descriptions -->
