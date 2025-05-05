@@ -77,8 +77,8 @@ public class MainBalanceCard extends BaseFragment {
         viewModel.getNetBalance().observe(getViewLifecycleOwner(), netBalance -> {
             BigDecimal formattedBalance, intPart;
             boolean usesDecimals = Integer.parseInt(currency.getDecimal_digits()) > 0;
-            formattedBalance = NumberUtils.formatAmount(netBalance);
-            intPart = formattedBalance.setScale(0, usesDecimals ? RoundingMode.HALF_UP : RoundingMode.DOWN);
+            formattedBalance = NumberUtils.formatAmount(currency, netBalance);
+            intPart = formattedBalance.setScale(0, usesDecimals ? RoundingMode.DOWN : RoundingMode.HALF_UP);
             DecimalFormat formatter = new DecimalFormat("#,###");
             round.setText(String.valueOf(formatter.format(intPart)));
             decimal.setText(String.valueOf(NumberUtils.getAbsDecimalPart(formattedBalance)).replaceFirst("^0.", ""));

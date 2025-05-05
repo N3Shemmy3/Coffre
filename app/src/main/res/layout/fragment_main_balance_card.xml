@@ -48,9 +48,8 @@
             android:alpha="0.72"
             android:textColor="?colorOnSecondaryContainer"
             android:textSize="32sp"
-            app:layout_constraintBottom_toBottomOf="@id/decimal"
+            app:layout_constraintBottom_toBottomOf="@id/round"
             app:layout_constraintStart_toStartOf="@id/account_title"
-            app:layout_constraintTop_toTopOf="@id/decimal"
             tools:text="$" />
 
         <com.robinhood.ticker.TickerView

@@ -46,8 +46,12 @@ public class NumberUtils {
         return decimalPart.setScale(decimalPart.scale(), RoundingMode.DOWN);
     }
 
+    public static BigDecimal formatAmount(Currency currency, BigDecimal balance) {
+        return String.valueOf(balance).equals("null") ? BigDecimal.valueOf(0) : balance.setScale(0, Integer.parseInt(currency.getDecimal_digits()) > 0 ? RoundingMode.DOWN : RoundingMode.HALF_UP);
+    }
+
     public static BigDecimal formatAmount(BigDecimal balance) {
-        return String.valueOf(balance).equals("null") ? BigDecimal.valueOf(0) : balance.setScale(2, RoundingMode.DOWN);
+        return String.valueOf(balance).equals("null") ? BigDecimal.valueOf(0) : balance.setScale(0, RoundingMode.DOWN);
     }
 
     public static String formatCurrency(Currency currency, BigDecimal amount) {
@@ -62,7 +66,7 @@ public class NumberUtils {
         }
         DecimalFormat formatter = new DecimalFormat(pattern.toString());
         return String.format("%s %s", currencySymbol, Objects.equals(amount, BigDecimal.ZERO) ? formatter.format(BigDecimal.ZERO) :
-                formatter.format(amount));
+                formatter.format(amount.setScale(0, Integer.parseInt(currency.getDecimal_digits()) > 0 ? RoundingMode.DOWN : RoundingMode.HALF_UP)));
     }
 
 }

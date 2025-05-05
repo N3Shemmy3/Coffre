@@ -40,7 +40,7 @@ public class InsetsUtils {
             int hInsets = displayCutOutInsets.left + displayCutOutInsets.right;
 
             if (toolbar != null) {
-                int horizontalPadding = (int) (Resources.getSystem().getDisplayMetrics().density * 8);
+                int horizontalPadding = (int) (Resources.getSystem().getDisplayMetrics().density * 16);
                 //Toolbar
                 toolbar.setPadding(hInsets + horizontalPadding, toolbar.getPaddingTop(), hInsets + horizontalPadding, toolbar.getPaddingBottom());
                 appbar.setPadding(appbar.getPaddingLeft(), systemBarInsets.top | displayCutOutInsets.top, appbar.getPaddingRight(), appbar.getPaddingBottom());
