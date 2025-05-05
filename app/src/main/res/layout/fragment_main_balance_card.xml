@@ -27,13 +27,12 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingVertical="20dp">
+        android:padding="20dp">
 
         <TextView
             android:id="@+id/account_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
             android:alpha="0.72"
             android:text="@string/my_balance"
             android:textColor="?colorOnSecondaryContainer"
@@ -66,14 +65,14 @@
             android:gravity="end"
             android:textColor="?colorOnSecondaryContainer"
             android:textSize="54sp"
-            app:layout_constraintEnd_toStartOf="@id/dot"
+            app:layout_constraintEnd_toStartOf="@id/separator"
             app:layout_constraintStart_toEndOf="@id/currency"
             app:layout_constraintTop_toTopOf="@id/account_title"
             app:ticker_animationDuration="1000"
             tools:text="00" />
 
         <TextView
-            android:id="@+id/dot"
+            android:id="@+id/separator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:autoSizeMaxTextSize="36sp"
@@ -92,7 +91,6 @@
             android:id="@+id/decimal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
             android:layout_marginBottom="4dp"
             android:autoSizeMaxTextSize="36sp"
             android:autoSizeMinTextSize="14sp"
@@ -100,9 +98,9 @@
             android:gravity="end"
             android:textColor="?colorOnSecondaryContainer"
             android:textSize="36sp"
-            app:layout_constraintBottom_toBottomOf="@id/dot"
+            app:layout_constraintBottom_toBottomOf="@id/separator"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/dot"
+            app:layout_constraintStart_toEndOf="@id/separator"
             app:ticker_animationDuration="1000"
             tools:text="00" />
 

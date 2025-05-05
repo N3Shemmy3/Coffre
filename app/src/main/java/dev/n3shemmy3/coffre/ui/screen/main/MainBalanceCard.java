@@ -42,6 +42,7 @@ public class MainBalanceCard extends BaseFragment {
     private MainViewModel viewModel;
 
     private TickerView round;
+    private TextView separator;
     private TickerView decimal;
     private TextView textCurrency;
     private TickerView income, expenses;
@@ -55,6 +56,7 @@ public class MainBalanceCard extends BaseFragment {
     @Override
     public void onCreateFragment(@NonNull View root, @Nullable Bundle savedInstanceState) {
         round = root.findViewById(R.id.round);
+        separator = root.findViewById(R.id.separator);
         decimal = root.findViewById(R.id.decimal);
         income = root.findViewById(R.id.income);
         expenses = root.findViewById(R.id.expenses);
@@ -73,11 +75,17 @@ public class MainBalanceCard extends BaseFragment {
         super.onViewCreated(view, savedInstanceState);
         viewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
         viewModel.getNetBalance().observe(getViewLifecycleOwner(), netBalance -> {
-            BigDecimal formattedBalance = NumberUtils.formatAmount(netBalance);
-            BigDecimal intPart = formattedBalance.setScale(0, RoundingMode.DOWN);
+            BigDecimal formattedBalance, intPart;
+            boolean usesDecimals = Integer.parseInt(currency.getDecimal_digits()) > 0;
+            formattedBalance = NumberUtils.formatAmount(netBalance);
+            intPart = formattedBalance.setScale(0, usesDecimals ? RoundingMode.HALF_UP : RoundingMode.DOWN);
             DecimalFormat formatter = new DecimalFormat("#,###");
             round.setText(String.valueOf(formatter.format(intPart)));
             decimal.setText(String.valueOf(NumberUtils.getAbsDecimalPart(formattedBalance)).replaceFirst("^0.", ""));
+            if (!usesDecimals) {
+                decimal.setVisibility(View.GONE);
+                separator.setVisibility(View.GONE);
+            }
         });
 
         viewModel.getTotalIncome().observe(getViewLifecycleOwner(), incomeBalance ->
