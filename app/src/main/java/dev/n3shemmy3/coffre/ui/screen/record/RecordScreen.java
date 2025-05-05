@@ -103,7 +103,7 @@ public class RecordScreen extends BaseScreen {
         textCurrency.setText(currency.getSymbol().isEmpty() ? currency.getCode() : currency.getSymbol());
         inputAmount.setInputType(TYPE_NUMBER_FLAG_DECIMAL | TYPE_NUMBER_FLAG_SIGNED | TYPE_CLASS_NUMBER);
         inputAmount.setKeyListener(DigitsKeyListener.getInstance("0123456789,."));
-        inputAmount.setFilters(new InputFilter[]{new DecimalDigitsInputFilter(9999999, Integer.parseInt(currency.getDecimal_digits()))});
+        inputAmount.setFilters(new InputFilter[]{new DecimalDigitsInputFilter(9999999, 2)});
         inputAmount.addTextChangedListener(new TextChangedListener<>(inputAmount) {
             @Override
             public void onTextChanged(TextInputEditText target, Editable s) {
