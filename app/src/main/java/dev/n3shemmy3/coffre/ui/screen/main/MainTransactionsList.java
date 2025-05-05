@@ -25,6 +25,8 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.Comparator;
+
 import dev.n3shemmy3.coffre.R;
 import dev.n3shemmy3.coffre.backend.entity.Transaction;
 import dev.n3shemmy3.coffre.backend.viewmodel.MainViewModel;
@@ -61,7 +63,10 @@ public class MainTransactionsList extends BaseFragment implements ItemListener<T
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         viewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
-        viewModel.getTransactions().observe(getViewLifecycleOwner(), items -> adapter.submitList(items));
+        viewModel.getTransactions().observe(getViewLifecycleOwner(), items -> {
+            items.sort(Comparator.comparing(Transaction::getTime).reversed());
+            adapter.submitList(items);
+        });
     }
 
     @Override
@@ -73,6 +78,6 @@ public class MainTransactionsList extends BaseFragment implements ItemListener<T
 
     @Override
     public void onItemLongClicked(@NonNull View itemView, Transaction item, int position) {
-     //   viewModel.delete(item);
+        //   viewModel.delete(item);
     }
 }
