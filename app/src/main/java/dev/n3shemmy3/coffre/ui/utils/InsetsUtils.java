@@ -29,10 +29,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
+import com.google.android.material.appbar.MaterialToolbar;
 
 public class InsetsUtils {
 
-    public static void applyInsets(@NonNull AppBarLayout appbar, @Nullable View toolbar, @Nullable CollapsingToolbarLayout topToolBarLayout, @Nullable View fab, @Nullable View content) {
+    public static void applyInsets(@NonNull AppBarLayout appbar, @Nullable MaterialToolbar toolbar, @Nullable CollapsingToolbarLayout topToolBarLayout, @Nullable View fab, @Nullable View content) {
         ViewCompat.setOnApplyWindowInsetsListener(appbar, (v, windowInsets) -> {
             Insets displayCutOutInsets = windowInsets.getInsets(WindowInsetsCompat.Type.displayCutout());
             Insets systemBarInsets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -40,7 +41,7 @@ public class InsetsUtils {
             int hInsets = displayCutOutInsets.left + displayCutOutInsets.right;
 
             if (toolbar != null) {
-                int horizontalPadding = (int) (Resources.getSystem().getDisplayMetrics().density * 16);
+                int horizontalPadding = (int) (Resources.getSystem().getDisplayMetrics().density * (toolbar.getNavigationIcon() == null ? 16 : 8));
                 //Toolbar
                 toolbar.setPadding(hInsets + horizontalPadding, toolbar.getPaddingTop(), hInsets + horizontalPadding, toolbar.getPaddingBottom());
                 appbar.setPadding(appbar.getPaddingLeft(), systemBarInsets.top | displayCutOutInsets.top, appbar.getPaddingRight(), appbar.getPaddingBottom());
