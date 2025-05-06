@@ -1,8 +1,8 @@
-name: Android CI
+name: Dev branch CI
 
 on:
   push:
-    branches: ["main"]
+    branches: ["dev"]
     paths-ignore:
       - ".github/"
       - ".idea/"
@@ -11,7 +11,7 @@ on:
       - "*.md"
       - "LICENSE"
   pull_request:
-    branches: ["main"]
+    branches: ["dev"]
     paths-ignore:
       - ".github/"
       - ".idea/"
