@@ -45,7 +45,7 @@ public class CurrencyUtils {
         BigDecimal absoluteBigDecimal = bigDecimal.abs();
         BigDecimal intPart = new BigDecimal(absoluteBigDecimal.toBigInteger());
         BigDecimal decimalPart = absoluteBigDecimal.subtract(intPart);
-        return decimalPart.setScale(decimalPart.scale(), RoundingMode.DOWN);
+        return decimalPart.setScale(2, RoundingMode.DOWN);
     }
 
     public static BigDecimal formatAmount(Currency currency, BigDecimal balance) {
