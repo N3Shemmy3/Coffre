@@ -106,6 +106,8 @@
     <string name="profile">Profile</string>
     <string name="discard_transaction">Discard Transaction?</string>
     <string name="discard_transaction_summary">Quitting now will discard the unsaved transaction.</string>
+    <string name="warning_set_name">Please set a name</string>
+    <string name="warning_set_picture">Please pick an image</string>
 
 
 </resources>

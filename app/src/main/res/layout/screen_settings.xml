@@ -30,16 +30,16 @@
             style="?attr/collapsingToolbarLayoutLargeStyle"
             android:layout_width="match_parent"
             android:layout_height="?attr/collapsingToolbarLayoutLargeSize"
-            app:expandedTitleTextAppearance="?textAppearanceHeadlineMedium"
             app:expandedTitleMarginStart="20dp"
+            app:expandedTitleTextAppearance="?textAppearanceHeadlineMedium"
             app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
 
             <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/topToolBar"
+                style="@style/App.MaterialToolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?actionBarSize"
                 app:layout_collapseMode="pin"
-                style="@style/App.MaterialToolbar"
                 app:navigationIcon="@drawable/outline_arrow_back_24"
                 app:title="@string/screen_settings" />
         </com.google.android.material.appbar.CollapsingToolbarLayout>
@@ -100,8 +100,8 @@
                         android:layout_width="44dp"
                         android:layout_height="wrap_content"
                         android:adjustViewBounds="true"
-                        android:contentDescription="@string/list_item_icon"
-                        android:src="@drawable/avatar" />
+                        android:contentDescription="@string/profile_avatar"
+                        android:src="@drawable/outline_person_24" />
 
                 </com.google.android.material.card.MaterialCardView>
 
@@ -137,8 +137,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="16dp"
-                    app:icon="@drawable/outline_edit_24"
                     android:visibility="gone"
+                    app:icon="@drawable/outline_edit_24"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
