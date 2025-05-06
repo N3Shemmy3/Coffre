@@ -16,7 +16,7 @@
  *
  */
 
-package dev.n3shemmy3.coffre.ui.service;
+package dev.n3shemmy3.coffre.data.service.service;
 
 import android.app.Service;
 import android.content.Intent;

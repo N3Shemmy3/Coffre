@@ -23,7 +23,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.google.gson.Gson;
 import com.robinhood.ticker.TickerUtils;
 import com.robinhood.ticker.TickerView;
 
@@ -36,7 +35,6 @@ import dev.n3shemmy3.coffre.backend.entity.Currency;
 import dev.n3shemmy3.coffre.backend.viewmodel.MainViewModel;
 import dev.n3shemmy3.coffre.ui.base.BaseFragment;
 import dev.n3shemmy3.coffre.ui.utils.CurrencyUtils;
-import dev.n3shemmy3.coffre.ui.utils.PrefUtil;
 
 public class MainBalanceCard extends BaseFragment {
     private MainViewModel viewModel;
@@ -81,7 +79,7 @@ public class MainBalanceCard extends BaseFragment {
             intPart = usesDecimals ? formattedBalance.setScale(2, RoundingMode.DOWN) : formattedBalance.setScale(0, RoundingMode.HALF_UP);
             DecimalFormat formatter = new DecimalFormat("#,###");
             round.setText(String.valueOf(formatter.format(intPart)));
-            decimal.setText(String.valueOf(CurrencyUtils.getAbsDecimalPart(formattedBalance)));
+            decimal.setText(String.valueOf(CurrencyUtils.getAbsDecimalPart(netBalance)).replaceFirst("^0.", ""));
             if (!usesDecimals) {
                 decimal.setVisibility(View.GONE);
                 separator.setVisibility(View.GONE);

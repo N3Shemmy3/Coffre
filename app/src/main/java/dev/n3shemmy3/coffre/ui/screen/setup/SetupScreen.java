@@ -34,7 +34,6 @@ import androidx.core.view.ViewCompat;
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable;
 
 import com.bumptech.glide.Glide;
-import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.color.MaterialColors;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.imageview.ShapeableImageView;
@@ -54,13 +53,11 @@ import dev.n3shemmy3.coffre.ui.screen.currency.CurrencyScreen;
 import dev.n3shemmy3.coffre.ui.utils.AppUtils;
 import dev.n3shemmy3.coffre.ui.utils.CurrencyUtils;
 import dev.n3shemmy3.coffre.ui.utils.FileUtils;
-import dev.n3shemmy3.coffre.ui.utils.InsetsUtils;
 import dev.n3shemmy3.coffre.ui.utils.PrefUtil;
 
 public class SetupScreen extends BaseScreen {
 
     private CoordinatorLayout coordinator;
-    private CollapsingToolbarLayout toolbarLayout;
     private ShapeableImageView avatar;
     private TextInputLayout textName;
     private TextInputEditText inputName;
@@ -114,7 +111,6 @@ public class SetupScreen extends BaseScreen {
         });
         //inputName.setOnFocusChangeListener((v, hasFocus) -> textName.setError(null));
         inputName.setOnClickListener(v -> textName.setError(null));
-        InsetsUtils.applyInsets(topAppBar, topToolBar, toolbarLayout, actionNext, content);
         profile = new Gson().fromJson(PrefUtil.getString(Profile.key), Profile.class);
         if (profile == null) return;
         Bitmap retrievedBitmap = FileUtils.retrieveImageFromPrivateStorage(requireContext(), profile.getAvatar());

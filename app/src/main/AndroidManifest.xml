@@ -38,7 +38,7 @@
             android:exported="false" />
 
         <service
-            android:name=".ui.service.BackupService"
+            android:name=".data.service.service.BackupService"
             android:exported="false"
             android:foregroundServiceType="dataSync" />
     </application>

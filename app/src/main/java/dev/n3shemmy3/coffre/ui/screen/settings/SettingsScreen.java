@@ -19,11 +19,11 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.RequiresApi;
 
-import com.google.android.material.imageview.ShapeableImageView;
 import com.google.gson.Gson;
 
 import dev.n3shemmy3.coffre.R;
@@ -31,7 +31,7 @@ import dev.n3shemmy3.coffre.backend.entity.Profile;
 import dev.n3shemmy3.coffre.ui.base.BaseScreen;
 import dev.n3shemmy3.coffre.ui.navigator.Navigator;
 import dev.n3shemmy3.coffre.ui.screen.setup.SetupScreen;
-import dev.n3shemmy3.coffre.ui.service.BackupService;
+import dev.n3shemmy3.coffre.data.service.service.BackupService;
 import dev.n3shemmy3.coffre.ui.utils.FileUtils;
 import dev.n3shemmy3.coffre.ui.utils.PrefUtil;
 
@@ -47,11 +47,11 @@ public class SettingsScreen extends BaseScreen {
         super.onCreateScreen(root, state);
         root.findViewById(R.id.settingsContainer).setClipToOutline(true);
         root.findViewById(R.id.item).setOnClickListener(view -> Navigator.push(getScreenManager(), new SetupScreen()));
-        ShapeableImageView itemStartIcon = root.findViewById(R.id.itemStartIcon);
+        ImageView itemStartIcon = root.findViewById(R.id.itemStartIcon);
         TextView itemTitle = root.findViewById(R.id.itemTitle);
         Profile profile = new Gson().fromJson(PrefUtil.getString(Profile.key), Profile.class);
         if (profile != null) {
-            itemStartIcon.setImageBitmap(FileUtils.retrieveImageFromPrivateStorage(requireContext(), profile.getAvatar()));
+            itemStartIcon.setImageBitmap(FileUtils.retrieveImageFromPrivateStorage(requireActivity(), profile.getAvatar()));
             itemTitle.setText(profile.getName());
         }
 

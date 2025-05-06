@@ -32,18 +32,18 @@
             style="?attr/collapsingToolbarLayoutLargeStyle"
             android:layout_width="match_parent"
             android:layout_height="?attr/collapsingToolbarLayoutLargeSize"
-            app:collapsedTitleTextAppearance="?textAppearanceHeadlineSmall"
+            app:expandedTitleTextAppearance="?textAppearanceHeadlineMedium"
             app:expandedTitleMarginStart="20dp"
             app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
 
-            <com.google.android.material.appbar.MaterialToolbar
+        <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/topToolBar"
                 style="@style/App.MaterialToolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?actionBarSize"
                 app:layout_collapseMode="pin"
                 app:navigationIcon="@drawable/outline_arrow_back_24"
-                app:title="Setup your profile" />
+                app:title="@string/action_setup_profile" />
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 

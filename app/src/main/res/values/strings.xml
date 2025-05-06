@@ -66,6 +66,7 @@
     <string name="action_filter">Filter</string>
     <string name="action_set_currency">Set currency</string>
     <string name="action_set_time">Set time</string>
+    <string name="action_setup_profile">Setup your profile\n</string>
     <!-- Errors -->
     <string name="error_required_filed">Required filed</string>
 
@@ -108,6 +109,7 @@
     <string name="discard_transaction_summary">Quitting now will discard the unsaved transaction.</string>
     <string name="warning_set_name">Please set a name</string>
     <string name="warning_set_picture">Please pick an image</string>
+
 
 
 </resources>
