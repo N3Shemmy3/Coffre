@@ -53,6 +53,7 @@ import dev.n3shemmy3.coffre.ui.screen.currency.CurrencyScreen;
 import dev.n3shemmy3.coffre.ui.utils.AppUtils;
 import dev.n3shemmy3.coffre.ui.utils.CurrencyUtils;
 import dev.n3shemmy3.coffre.ui.utils.FileUtils;
+import dev.n3shemmy3.coffre.ui.utils.InsetsUtils;
 import dev.n3shemmy3.coffre.ui.utils.PrefUtil;
 
 public class SetupScreen extends BaseScreen {
@@ -119,6 +120,7 @@ public class SetupScreen extends BaseScreen {
         }
         inputName.setText(profile.getName());
         inputName.setSelection(String.valueOf(inputName.getText()).length() - 1);
+        InsetsUtils.applyImeInsets(requireActivity().getWindow(), coordinator);
     }
 
     ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<>() {

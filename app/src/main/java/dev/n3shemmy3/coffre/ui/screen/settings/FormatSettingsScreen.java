@@ -41,10 +41,7 @@ public class FormatSettingsScreen extends BaseSettingsScreen {
     protected void onCreateScreen(View root, Bundle state) {
         super.onCreateScreen(root, state);
         topToolBar.setTitle(R.string.preference_format);
-        headerIcon.setImageResource(R.drawable.outline_percent_24);
-        headerTitle.setVisibility(View.GONE);
-        headerSubtitle.setText(R.string.summary_format);
-        headerIcon.setBackgroundResource(R.drawable.filled_flower_94);
+        headerCover.setImageResource(R.drawable.undraw_setup);
         setPreferenceFragment(new FormatPreferenceScreen());
     }
 
