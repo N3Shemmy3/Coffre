@@ -82,7 +82,7 @@ public class SetupScreen extends BaseScreen {
         textName = root.findViewById(R.id.textName);
         inputName = root.findViewById(R.id.inputName);
         actionPick = root.findViewById(R.id.actionPick);
-        InsetsUtils.applyImeInsets(requireActivity().getWindow(), coordinator);
+        InsetsUtils.applyImeInsets(requireActivity().getWindow(), root);
     }
 
     @Override
