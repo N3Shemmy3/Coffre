@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ /*
   ~  * Copyright (C) 2025 Shemmy
   ~  *
@@ -18,14 +17,16 @@
   -->
 
 
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <Preference
         android:icon="@drawable/outline_palette_24"
         android:key="looks"
         android:layout="@layout/item_preference_basic"
         android:summary="@string/summary_look_and_feel"
-        android:title="@string/preference_look_and_feel" />
+        android:title="@string/preference_look_and_feel"
+        app:isPreferenceVisible="false" />
 
     <Preference
         android:icon="@drawable/outline_tag_24"
@@ -39,7 +40,8 @@
         android:key="backups"
         android:layout="@layout/item_preference_basic"
         android:summary="@string/summary_back_restore"
-        android:title="@string/preference_back_restore" />
+        android:title="@string/preference_back_restore"
+        app:isPreferenceVisible="false" />
 
     <Preference
         android:icon="@drawable/outline_info_24"
