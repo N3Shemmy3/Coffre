@@ -41,6 +41,14 @@ public class SettingsScreen extends BaseScreen {
         super.onCreateScreen(root, state);
         root.findViewById(R.id.settingsContainer).setClipToOutline(true);
         root.findViewById(R.id.item).setOnClickListener(view -> Navigator.push(getScreenManager(), new SetupScreen()));
+        ShapeableImageView itemStartIcon = root.findViewById(R.id.itemStartIcon);
+        TextView itemTitle = root.findViewById(R.id.itemTitle);
+        Profile profile = new Gson().fromJson(PrefUtil.getString(Profile.key), Profile.class);
+        if (profile != null) {
+            itemStartIcon.setImageBitmap(FileUtils.retrieveImageFromPrivateStorage(requireContext(), profile.getAvatar()));
+            itemTitle.setText(profile.getName());
+        }
+
     }
 
     @RequiresApi(api = Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
