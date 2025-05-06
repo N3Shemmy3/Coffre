@@ -30,6 +30,7 @@
         android:layout_height="32dp"
         android:layout_gravity="center"
         android:padding="1dp"
+        android:adjustViewBounds="true"
         android:scaleType="centerCrop"
         app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"
         app:srcCompat="@drawable/outline_person_24"
