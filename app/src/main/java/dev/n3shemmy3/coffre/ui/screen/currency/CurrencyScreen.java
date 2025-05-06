@@ -51,8 +51,8 @@ import dev.n3shemmy3.coffre.ui.item.decorator.VerticalSpaceItemDecoration;
 import dev.n3shemmy3.coffre.ui.screen.main.MainScreen;
 import dev.n3shemmy3.coffre.ui.utils.AppUtils;
 import dev.n3shemmy3.coffre.ui.utils.AssetsUtils;
+import dev.n3shemmy3.coffre.ui.utils.CurrencyUtils;
 import dev.n3shemmy3.coffre.ui.utils.InsetsUtils;
-import dev.n3shemmy3.coffre.ui.utils.PrefUtil;
 
 public class CurrencyScreen extends BaseScreen implements ItemListener<Currency> {
     private MenuItem searchItem;
@@ -181,8 +181,8 @@ public class CurrencyScreen extends BaseScreen implements ItemListener<Currency>
 
     @Override
     public void onItemClicked(@NonNull View itemView, Currency item, int position) {
-        Currency currency = new Gson().fromJson(PrefUtil.getString(Currency.key), Currency.class);
-        PrefUtil.save(Currency.key, new Gson().toJson(item));
+        Currency currency = CurrencyUtils.getCurrency();
+        CurrencyUtils.setCurrency(item);
         if (currency == null) {
             FragmentManager fragmentManager = getScreenManager();
             for (int i = 0; i < fragmentManager.getBackStackEntryCount(); i++) {

@@ -32,7 +32,7 @@ import dev.n3shemmy3.coffre.backend.entity.Transaction;
 import dev.n3shemmy3.coffre.ui.interfaces.ItemListener;
 import dev.n3shemmy3.coffre.ui.item.TwoLineItem;
 import dev.n3shemmy3.coffre.ui.utils.DateUtils;
-import dev.n3shemmy3.coffre.ui.utils.NumberUtils;
+import dev.n3shemmy3.coffre.ui.utils.CurrencyUtils;
 import dev.n3shemmy3.coffre.ui.utils.PrefUtil;
 
 public class TransactionsAdapter extends ListAdapter<Transaction, TwoLineItem> {
@@ -72,7 +72,7 @@ public class TransactionsAdapter extends ListAdapter<Transaction, TwoLineItem> {
         holder.itemTitle.setText(transaction.getTitle());
         holder.itemSubTitle.setText(DateUtils.formatTime(calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), is24HourFormat));
 
-        holder.itemEndText.setText(NumberUtils.formatCurrency(currency, transaction.getAmount()));
+        holder.itemEndText.setText(CurrencyUtils.formatCurrency(currency, transaction.getAmount()));
         holder.setEndCardColor(transaction.getType());
 
 

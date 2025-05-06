@@ -52,6 +52,7 @@ import dev.n3shemmy3.coffre.ui.base.BaseScreen;
 import dev.n3shemmy3.coffre.ui.navigator.Navigator;
 import dev.n3shemmy3.coffre.ui.screen.currency.CurrencyScreen;
 import dev.n3shemmy3.coffre.ui.utils.AppUtils;
+import dev.n3shemmy3.coffre.ui.utils.CurrencyUtils;
 import dev.n3shemmy3.coffre.ui.utils.FileUtils;
 import dev.n3shemmy3.coffre.ui.utils.InsetsUtils;
 import dev.n3shemmy3.coffre.ui.utils.PrefUtil;
@@ -98,14 +99,14 @@ public class SetupScreen extends BaseScreen {
         actionNext.setOnClickListener(v -> {
             AppUtils.showSoftInput(requireActivity(), inputName, false);
             if (inputName.getText() == null || inputName.getText().toString().isEmpty()) {
-                textName.setError("Please set a name");
+                textName.setError(getString(R.string.warning_set_name));
             } else if (profile == null) {
-                Snackbar.make(coordinator, "Please pick an image", Snackbar.LENGTH_SHORT).setAnchorView(actionNext).show();
+                Snackbar.make(coordinator, getString(R.string.warning_set_picture), Snackbar.LENGTH_SHORT).setAnchorView(actionNext).show();
             } else {
                 profile.setName(String.valueOf(inputName.getText()));
                 PrefUtil.save(Profile.key, new Gson().toJson(profile));
                 ViewCompat.performHapticFeedback(v, HapticFeedbackConstantsCompat.CONTEXT_CLICK);
-                Currency currency = new Gson().fromJson(PrefUtil.getString("currency"), Currency.class);
+                Currency currency = CurrencyUtils.getCurrency();
                 if (currency == null) Navigator.push(getScreenManager(), new CurrencyScreen());
                 else getScreenManager().popBackStack();
 

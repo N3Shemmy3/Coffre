@@ -20,6 +20,8 @@ package dev.n3shemmy3.coffre.ui.utils;
 
 import androidx.annotation.NonNull;
 
+import com.google.gson.Gson;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
@@ -29,7 +31,7 @@ import java.util.Objects;
 
 import dev.n3shemmy3.coffre.backend.entity.Currency;
 
-public class NumberUtils {
+public class CurrencyUtils {
     public static BigDecimal parseNumberLocale(@NonNull String text) {
         try {
             NumberFormat format = NumberFormat.getNumberInstance(Locale.getDefault());
@@ -71,6 +73,14 @@ public class NumberUtils {
         amount = usesDecimals ? amount.setScale(2, RoundingMode.DOWN) : amount.setScale(0, RoundingMode.HALF_UP);
         return String.format("%s %s", currencySymbol, Objects.equals(amount, BigDecimal.ZERO) ? formatter.format(BigDecimal.ZERO) :
                 formatter.format(amount));
+    }
+
+    public static Currency getCurrency() {
+        return new Gson().fromJson(PrefUtil.getString(Currency.key), Currency.class);
+    }
+
+    public static void setCurrency(Currency currency) {
+        PrefUtil.save(Currency.key, new Gson().toJson(currency));
     }
 
 }

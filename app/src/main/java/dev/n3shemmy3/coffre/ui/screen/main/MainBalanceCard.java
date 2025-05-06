@@ -35,7 +35,7 @@ import dev.n3shemmy3.coffre.R;
 import dev.n3shemmy3.coffre.backend.entity.Currency;
 import dev.n3shemmy3.coffre.backend.viewmodel.MainViewModel;
 import dev.n3shemmy3.coffre.ui.base.BaseFragment;
-import dev.n3shemmy3.coffre.ui.utils.NumberUtils;
+import dev.n3shemmy3.coffre.ui.utils.CurrencyUtils;
 import dev.n3shemmy3.coffre.ui.utils.PrefUtil;
 
 public class MainBalanceCard extends BaseFragment {
@@ -65,7 +65,7 @@ public class MainBalanceCard extends BaseFragment {
         decimal.setCharacterLists(TickerUtils.provideNumberList());
         income.setCharacterLists(TickerUtils.provideNumberList());
         expenses.setCharacterLists(TickerUtils.provideNumberList());
-        currency = new Gson().fromJson(PrefUtil.getString("currency"), Currency.class);
+        currency = CurrencyUtils.getCurrency();
         textCurrency.setText(currency.getSymbol().isEmpty() ? currency.getCode() : currency.getSymbol());
     }
 
@@ -77,11 +77,11 @@ public class MainBalanceCard extends BaseFragment {
         viewModel.getNetBalance().observe(getViewLifecycleOwner(), netBalance -> {
             BigDecimal formattedBalance, intPart;
             boolean usesDecimals = Integer.parseInt(currency.getDecimal_digits()) > 0;
-            formattedBalance = NumberUtils.formatAmount(currency, netBalance);
+            formattedBalance = CurrencyUtils.formatAmount(currency, netBalance);
             intPart = usesDecimals ? formattedBalance.setScale(2, RoundingMode.DOWN) : formattedBalance.setScale(0, RoundingMode.HALF_UP);
             DecimalFormat formatter = new DecimalFormat("#,###");
             round.setText(String.valueOf(formatter.format(intPart)));
-            decimal.setText(String.valueOf(NumberUtils.getAbsDecimalPart(formattedBalance)).replaceFirst("^0.", ""));
+            decimal.setText(String.valueOf(CurrencyUtils.getAbsDecimalPart(formattedBalance)));
             if (!usesDecimals) {
                 decimal.setVisibility(View.GONE);
                 separator.setVisibility(View.GONE);
@@ -89,10 +89,10 @@ public class MainBalanceCard extends BaseFragment {
         });
 
         viewModel.getTotalIncome().observe(getViewLifecycleOwner(), incomeBalance ->
-                income.setText(NumberUtils.formatCurrency(currency, incomeBalance))
+                income.setText(CurrencyUtils.formatCurrency(currency, incomeBalance))
         );
         viewModel.getTotalExpenses().observe(getViewLifecycleOwner(), expenseBalance ->
-                expenses.setText(NumberUtils.formatCurrency(currency, expenseBalance))
+                expenses.setText(CurrencyUtils.formatCurrency(currency, expenseBalance))
         );
 
     }

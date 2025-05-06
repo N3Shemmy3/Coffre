@@ -38,7 +38,6 @@ import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.timepicker.MaterialTimePicker;
 import com.google.android.material.timepicker.TimeFormat;
-import com.google.gson.Gson;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -55,11 +54,10 @@ import dev.n3shemmy3.coffre.backend.entity.Transaction;
 import dev.n3shemmy3.coffre.backend.viewmodel.MainViewModel;
 import dev.n3shemmy3.coffre.ui.base.BaseScreen;
 import dev.n3shemmy3.coffre.ui.interfaces.TextChangedListener;
+import dev.n3shemmy3.coffre.ui.utils.CurrencyUtils;
 import dev.n3shemmy3.coffre.ui.utils.DateUtils;
 import dev.n3shemmy3.coffre.ui.utils.DecimalDigitsInputFilter;
 import dev.n3shemmy3.coffre.ui.utils.InsetsUtils;
-import dev.n3shemmy3.coffre.ui.utils.NumberUtils;
-import dev.n3shemmy3.coffre.ui.utils.PrefUtil;
 
 public class RecordScreen extends BaseScreen {
 
@@ -99,7 +97,7 @@ public class RecordScreen extends BaseScreen {
             if (item == null) callback.handleOnBackPressed();
             else navigateUp();
         });
-        currency = new Gson().fromJson(PrefUtil.getString("currency"), Currency.class);
+        currency = CurrencyUtils.getCurrency();
         textCurrency.setText(currency.getSymbol().isEmpty() ? currency.getCode() : currency.getSymbol());
         inputAmount.setInputType(TYPE_NUMBER_FLAG_DECIMAL | TYPE_NUMBER_FLAG_SIGNED | TYPE_CLASS_NUMBER);
         inputAmount.setKeyListener(DigitsKeyListener.getInstance("0123456789,."));
@@ -170,7 +168,7 @@ public class RecordScreen extends BaseScreen {
         format.setRoundingMode(RoundingMode.DOWN);
         BigDecimal amount = item.getAmount() == null ? BigDecimal.ZERO : item.getAmount();
 
-        inputAmount.setText(String.valueOf(NumberUtils.formatAmount(amount)));
+        inputAmount.setText(String.valueOf(CurrencyUtils.formatAmount(amount)));
 
         inputNotes.setText(item.getDescription().trim());
         tabLayout.selectTab(tabLayout.getTabAt(getSelectedTab(item.getType())));
