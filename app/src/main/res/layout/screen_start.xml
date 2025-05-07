@@ -23,8 +23,8 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:foreground="@drawable/backdrop_gradient"
-        android:foregroundTintMode="screen"
+        android:alpha=".34"
+        android:foregroundTint="?android:colorBackground"
         android:scaleType="centerCrop"
         android:src="@drawable/blob_shapes"
         app:layout_constraintBottom_toBottomOf="parent"
