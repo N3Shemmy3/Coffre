@@ -158,7 +158,7 @@
 
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/settingsContainer"
-                android:name="dev.n3shemmy3.coffre.ui.screen.settings.PreferencesScreen"
+                android:name="dev.n3shemmy3.coffre.ui.screen.settings.SettingsScreen$PreferencesScreen"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
