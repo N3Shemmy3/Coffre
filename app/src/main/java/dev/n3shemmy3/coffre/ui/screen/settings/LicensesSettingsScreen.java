@@ -49,6 +49,7 @@ public class LicensesSettingsScreen extends BaseSettingsScreen {
     protected void onCreateScreen(View root, Bundle state) {
         super.onCreateScreen(root, state);
         topToolBar.setTitle(R.string.preference_licenses);
+        headerCover.setImageResource(R.drawable.undraw_open_source);
         setPreferenceFragment(new LibraryPreferencesScreen());
     }
 
