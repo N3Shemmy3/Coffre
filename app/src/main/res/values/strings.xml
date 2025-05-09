@@ -111,6 +111,7 @@
     <string name="warning_set_picture">Please pick an image</string>
     <string name="action_profile_edit">Edit profile</string>
     <string name="screen_more">More</string>
+    <string name="received">Received</string>
 
 
 </resources>

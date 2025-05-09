@@ -109,7 +109,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:alpha="0.72"
-            android:text="@string/available"
+            android:text="@string/received"
             android:textColor="?colorOnSecondaryContainer"
             android:textFontWeight="600"
             app:layout_constraintStart_toStartOf="@id/account_title"
