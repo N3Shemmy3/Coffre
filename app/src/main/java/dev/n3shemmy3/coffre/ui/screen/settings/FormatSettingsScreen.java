@@ -25,6 +25,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.preference.Preference;
 
+import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 
 import dev.n3shemmy3.coffre.R;
@@ -41,7 +42,7 @@ public class FormatSettingsScreen extends BaseSettingsScreen {
     protected void onCreateScreen(View root, Bundle state) {
         super.onCreateScreen(root, state);
         topToolBar.setTitle(R.string.preference_format);
-        headerCover.setImageResource(R.drawable.undraw_setup);
+        Glide.with(requireContext()).load(R.drawable.undraw_setup).into(headerCover);
         setPreferenceFragment(new FormatPreferenceScreen());
     }
 

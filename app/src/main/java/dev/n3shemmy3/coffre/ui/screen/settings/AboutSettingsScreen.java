@@ -25,6 +25,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.preference.Preference;
 
+import com.bumptech.glide.Glide;
+
 import dev.n3shemmy3.coffre.BuildConfig;
 import dev.n3shemmy3.coffre.R;
 import dev.n3shemmy3.coffre.ui.base.BasePreferenceFragment;
@@ -38,7 +40,7 @@ public class AboutSettingsScreen extends BaseSettingsScreen {
     protected void onCreateScreen(View root, Bundle state) {
         super.onCreateScreen(root, state);
         topToolBar.setTitle(R.string.preference_about);
-        headerIcon.setImageResource(R.drawable.ic_launcher_foreground);
+        Glide.with(requireContext()).load(R.drawable.ic_launcher_foreground).into(headerIcon);
         headerTitle.setText(R.string.app_name);
         headerSubtitle.setText(R.string.app_tagline);
         headerIcon.setBackgroundResource(R.drawable.filled_flower_94);

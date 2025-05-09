@@ -27,6 +27,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -49,7 +50,7 @@ public class LicensesSettingsScreen extends BaseSettingsScreen {
     protected void onCreateScreen(View root, Bundle state) {
         super.onCreateScreen(root, state);
         topToolBar.setTitle(R.string.preference_licenses);
-        headerCover.setImageResource(R.drawable.undraw_open_source);
+        Glide.with(requireContext()).load(R.drawable.undraw_open_source).into(headerCover);
         setPreferenceFragment(new LibraryPreferencesScreen());
     }
 
