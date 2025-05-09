@@ -21,7 +21,7 @@
     <SwitchPreference
         android:icon="@drawable/outline_palette_24"
         android:key="dynamicColors"
-        android:layout="@layout/item_preference_basic"
+        android:layout="@layout/item_preference_switch"
         android:summary="Use colors from wallpaper as the app theme"
         android:title="Dynamic Colors"
         android:widgetLayout="@layout/item_preference_switch_widget" />
