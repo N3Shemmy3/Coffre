@@ -96,16 +96,16 @@
                     android:layout_marginTop="16dp"
                     android:layout_marginBottom="16dp"
                     android:adjustViewBounds="true"
-                    android:scaleType="fitCenter"
                     android:contentDescription="@string/app_name"
-                    tools:src="@drawable/ic_launcher_foreground"
+                    android:scaleType="fitCenter"
                     app:backgroundTint="?attr/colorPrimaryContainer"
                     app:cardBackgroundColor="@android:color/transparent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:tint="?colorOnSecondaryContainer"
-                    tools:background="@drawable/filled_flower_94" />
+                    tools:background="@drawable/filled_flower_94"
+                    tools:src="@drawable/ic_launcher_foreground" />
 
 
                 <TextView
@@ -115,24 +115,24 @@
                     android:layout_marginHorizontal="16dp"
                     android:layout_marginTop="16dp"
                     android:maxLines="1"
-                    tools:text="@string/app_name"
                     android:textAppearance="?attr/textAppearanceHeadlineLarge"
                     android:textColor="@color/list_item_tint"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/headerIcon"
-                    app:layout_constraintTop_toTopOf="@id/headerIcon" />
+                    app:layout_constraintTop_toTopOf="@id/headerIcon"
+                    tools:text="@string/app_name" />
 
                 <TextView
                     android:id="@+id/headerSubtitle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:maxLines="2"
-                    tools:text="@string/app_tagline"
                     android:textAppearance="?attr/textAppearanceSubtitle1"
                     android:textColor="@color/list_item_subtitle_tint"
                     app:layout_constraintEnd_toEndOf="@id/headerTitle"
                     app:layout_constraintStart_toStartOf="@id/headerTitle"
-                    app:layout_constraintTop_toBottomOf="@id/headerTitle" />
+                    app:layout_constraintTop_toBottomOf="@id/headerTitle"
+                    tools:text="@string/app_tagline" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
