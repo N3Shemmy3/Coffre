@@ -67,7 +67,7 @@ public class AboutSettingsScreen extends BaseSettingsScreen {
                 }
                 break;
                 case "telegram": {
-                    AppUtils.openLink(requireContext(), "https://t.me/N3Shemmy3meta");
+                    AppUtils.openLink(requireContext(), "https://t.me/PixellateProjects");
                 }
                 break;
                 case "licenses": {
