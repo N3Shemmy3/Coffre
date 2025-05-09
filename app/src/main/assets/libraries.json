@@ -228,5 +228,15 @@
     "version": "4.2.0",
     "website": "https://github.com/objectbox/objectbox-java",
     "license": "Apache License, Version 2.0 or Commercial"
+  },
+  {
+    "author": "Undraw",
+    "authorWebsite": "https://undraw.co/",
+    "name": "Undraw Illustrations",
+    "packageName": "undraw.co",
+    "description": "Open-source illustrations for any idea you can imagine and create.",
+    "version": "1.0",
+    "website": "https://undraw.co/",
+    "license": "Custom"
   }
 ]
