@@ -87,8 +87,8 @@ public class LicensesSettingsScreen extends BaseSettingsScreen {
             libraries.add(0, new Library(
                     "Shemmy",
                     "https://n3shemy3.dev",
-                    "Coffre",
-                    "dev.n3shemmy3.coffre",
+                    getString(R.string.app_name),
+                    requireContext().getPackageName(),
                     "Personal finance manager",
                     BuildConfig.VERSION_NAME.replaceAll("[^\\d.]", ""),
                     "https://github.com/N3Shemmy3/Coffre",
