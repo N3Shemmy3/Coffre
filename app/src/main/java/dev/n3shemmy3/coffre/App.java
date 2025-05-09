@@ -22,6 +22,7 @@ import android.app.Application;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Intent;
+import android.os.Process;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -44,7 +45,7 @@ public class App extends Application implements Thread.UncaughtExceptionHandler 
     @Override
     public void onCreate() {
         super.onCreate();
-        //Thread.setDefaultUncaughtExceptionHandler(this);
+        Thread.setDefaultUncaughtExceptionHandler(this);
         DynamicColors.applyToActivitiesIfAvailable(this);
         ObjectBox.init(this);
         PrefUtil.Init(this);
@@ -83,6 +84,6 @@ public class App extends Application implements Thread.UncaughtExceptionHandler 
         intent.putExtra("thread", threadName);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
-
+        Process.killProcess(Process.myPid());
     }
 }
