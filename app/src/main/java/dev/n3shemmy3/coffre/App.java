@@ -54,13 +54,13 @@ public class App extends Application implements Thread.UncaughtExceptionHandler 
     }
 
     private void createNotificationChannel() {
-        NotificationChannel channel = new NotificationChannel("channeled", "channelService", NotificationManager.IMPORTANCE_DEFAULT);
+        NotificationChannel channel = new NotificationChannel("channeled", "BackupService", NotificationManager.IMPORTANCE_DEFAULT);
         NotificationManager manager = getSystemService(NotificationManager.class);
         manager.createNotificationChannel(channel);
     }
 
     public void updateCurrency() {
-        Currency currency = new Gson().fromJson(PrefUtil.getString("currency"), Currency.class);
+        Currency currency = new Gson().fromJson(PrefUtil.getString(Currency.key), Currency.class);
         if (currency == null) return;
         String data = AssetsUtils.getAssetJsonData(this, "currencies.json");
         Type type = new TypeToken<List<Currency>>() {
@@ -70,7 +70,7 @@ public class App extends Application implements Thread.UncaughtExceptionHandler 
         List<Currency> filteredCurrencies = currencies.stream()
                 .filter(item -> item.getName().equalsIgnoreCase(currency.getName()))
                 .collect(Collectors.toList());
-        PrefUtil.save("currency", new Gson().toJson(filteredCurrencies.get(0)));
+        PrefUtil.save(Currency.key, new Gson().toJson(filteredCurrencies.get(0)));
 
     }
 
