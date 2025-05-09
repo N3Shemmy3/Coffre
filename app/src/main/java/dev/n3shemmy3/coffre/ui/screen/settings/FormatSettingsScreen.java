@@ -34,6 +34,7 @@ import dev.n3shemmy3.coffre.ui.base.BasePreferenceFragment;
 import dev.n3shemmy3.coffre.ui.base.BaseSettingsScreen;
 import dev.n3shemmy3.coffre.ui.navigator.Navigator;
 import dev.n3shemmy3.coffre.ui.screen.currency.CurrencyScreen;
+import dev.n3shemmy3.coffre.ui.utils.CurrencyUtils;
 import dev.n3shemmy3.coffre.ui.utils.PrefUtil;
 
 public class FormatSettingsScreen extends BaseSettingsScreen {
@@ -51,7 +52,7 @@ public class FormatSettingsScreen extends BaseSettingsScreen {
         @Override
         public void onCreatePreferences(@Nullable Bundle savedInstanceState, @Nullable String rootKey) {
             setPreferencesFromResource(R.xml.settings_format, rootKey);
-            Currency currency = new Gson().fromJson(PrefUtil.getString("currency"), Currency.class);
+            Currency currency = CurrencyUtils.getCurrency();
 
             Preference currencyPreference = findPreference("currency");
             currencyPreference.setSummary(currency.getName());
