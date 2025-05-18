@@ -20,6 +20,7 @@ package dev.n3shemmy3.coffre.ui.base;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -30,6 +31,7 @@ import dev.n3shemmy3.coffre.R;
 
 public class BaseSettingsScreen extends BaseScreen {
 
+    public FrameLayout headerFrame;
     public ConstraintLayout header;
     public ImageView headerCover;
     public ImageView headerIcon;
@@ -49,13 +51,14 @@ public class BaseSettingsScreen extends BaseScreen {
     @Override
     protected void onCreateScreen(View root, Bundle state) {
         super.onCreateScreen(root, state);
+        headerFrame = root.findViewById(R.id.headerFrame);
         header = root.findViewById(R.id.header);
         headerCover = root.findViewById(R.id.headerCover);
         headerIcon = root.findViewById(R.id.headerIcon);
         headerTitle = root.findViewById(R.id.headerTitle);
         headerSubtitle = root.findViewById(R.id.headerSubtitle);
-        header.setClipToOutline(true);
-        header.setClipChildren(true);
+        headerFrame.setClipToOutline(true);
+        headerFrame.setClipChildren(true);
     }
 
     @Override

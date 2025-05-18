@@ -19,6 +19,9 @@
   -->
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <SwitchPreference
+        android:key="themeColors"
+        android:layout="@layout/item_preference_colors" />
+    <SwitchPreference
         android:icon="@drawable/outline_palette_24"
         android:key="dynamicColors"
         android:layout="@layout/item_preference_switch"
@@ -26,18 +29,17 @@
         android:title="Dynamic Colors"
         android:widgetLayout="@layout/item_preference_switch_widget" />
 
-    <SwitchPreference
+    <Preference
         android:icon="@drawable/outline_dark_mode_24"
-        android:key="decimals"
+        android:key="theme"
         android:layout="@layout/item_preference_switch"
         android:summary="Follow system"
-        android:title="Dark Theme"
-        android:widgetLayout="@layout/item_preference_switch_widget" />
+        android:title="App Theme" />
 
     <Preference
         android:icon="@drawable/outline_language_24"
         android:key="language"
-        android:layout="@layout/item_preference_basic"
+        android:layout="@layout/item_preference"
         android:summary="System default"
         android:title="Display language" />
 </PreferenceScreen>

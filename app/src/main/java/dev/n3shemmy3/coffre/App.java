@@ -26,6 +26,7 @@ import android.os.Process;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import com.google.android.material.color.DynamicColors;
 import com.google.gson.Gson;
@@ -46,11 +47,26 @@ public class App extends Application implements Thread.UncaughtExceptionHandler 
     public void onCreate() {
         super.onCreate();
         Thread.setDefaultUncaughtExceptionHandler(this);
-        DynamicColors.applyToActivitiesIfAvailable(this);
-        ObjectBox.init(this);
         PrefUtil.Init(this);
+        if (PrefUtil.getBoolean("dynamicColors")) DynamicColors.applyToActivitiesIfAvailable(this);
+        ObjectBox.init(this);
         updateCurrency();
         createNotificationChannel();
+
+        switch (PrefUtil.getInt("theme")) {
+            case 0: {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+            }
+            break;
+            case 1: {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+            }
+            break;
+            case 2: {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+            }
+            break;
+        }
     }
 
     private void createNotificationChannel() {

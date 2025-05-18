@@ -16,32 +16,33 @@
   ~  */
   -->
 
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <Preference
         android:icon="@drawable/outline_code_24"
         android:key="github"
-        android:layout="@layout/item_preference_basic"
+        android:layout="@layout/item_preference"
         android:summary="@string/summary_source_code"
         android:title="@string/preference_source_code" />
 
     <Preference
         android:icon="@drawable/outline_new_releases_24"
         android:key="latest"
-        android:layout="@layout/item_preference_basic"
+        android:layout="@layout/item_preference"
         android:summary="@string/summary_latest_release"
         android:title="@string/preference_latest_release" />
 
     <Preference
         android:icon="@drawable/outline_telegram_24"
         android:key="telegram"
-        android:layout="@layout/item_preference_basic"
+        android:layout="@layout/item_preference"
         android:summary="@string/summary_telegram_channel"
         android:title="@string/preference_telegram_channel" />
 
     <Preference
         android:icon="@drawable/outline_copyright_24"
         android:key="licenses"
-        android:layout="@layout/item_preference_basic"
+        android:layout="@layout/item_preference"
         android:summary="@string/summary_licenses"
         android:title="@string/preference_licenses" />
 
@@ -49,7 +50,7 @@
     <Preference
         android:icon="@drawable/outline_info_24"
         android:key="version"
-        android:layout="@layout/item_preference_basic"
+        android:layout="@layout/item_preference"
         android:summary="1.0.1 Amanatsu-Beta"
         android:title="@string/preference_version" />
 
