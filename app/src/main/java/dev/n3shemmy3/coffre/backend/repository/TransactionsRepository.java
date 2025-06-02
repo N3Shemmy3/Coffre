@@ -82,8 +82,9 @@ public class TransactionsRepository {
 
     public LiveData<List<Transaction>> getTransactions() {
         if (pagedTransactions == null) {
-            Query<Transaction> query = transactionBox.query().filter((transaction) -> DateUtils.isToday(transaction.getTime())).order(Transaction_.time).build();
+            Query<Transaction> query = transactionBox.query().orderDesc(Transaction_.time).build();
             pagedTransactions = new ObjectBoxLiveData<>(query);
+
         }
         return pagedTransactions;
     }
@@ -92,9 +93,9 @@ public class TransactionsRepository {
         Query<Transaction> searchQuery = transactionBox.query()
                 .contains(Transaction_.title, query, QueryBuilder.StringOrder.CASE_INSENSITIVE) // Case-insensitive title search
                 .or().contains(Transaction_.description, query, QueryBuilder.StringOrder.CASE_INSENSITIVE) // Case-insensitive description search
-                .order(Transaction_.time)
+                .orderDesc(Transaction_.time)
                 .build();
-        return new MutableLiveData<>(searchQuery.find(0, PAGE_SIZE));
+        return new MutableLiveData<>(searchQuery.find());
     }
 
     public void insert(Transaction transaction) {

@@ -64,8 +64,7 @@ public class MainTransactionsList extends BaseFragment implements ItemListener<T
         super.onViewCreated(view, savedInstanceState);
         viewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
         viewModel.getTransactions().observe(getViewLifecycleOwner(), items -> {
-            items.sort(Comparator.comparing(Transaction::getTime).reversed());
-            adapter.submitList(items);
+            adapter.submitList(items.subList(0, Math.min(items.size(), 5)));
         });
     }
 
