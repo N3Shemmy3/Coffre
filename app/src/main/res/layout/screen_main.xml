@@ -76,8 +76,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:paddingTop="@dimen/activity_padding_vertical"
             android:paddingHorizontal="@dimen/activity_padding_horizontal"
+            android:paddingTop="@dimen/activity_padding_vertical"
             android:paddingBottom="84dp">
 
             <!-- Current Balance Card-->
@@ -86,17 +86,15 @@
                 android:name="dev.n3shemmy3.coffre.ui.screen.main.MainBalanceCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:layout="@layout/fragment_main_balance_card"
-/>
-
+                tools:layout="@layout/fragment_main_balance_card" />
             <!-- Transaction List -->
             <RelativeLayout
                 android:id="@+id/transactionsCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="@dimen/activity_padding_vertical"
-                android:orientation="vertical"
                 android:background="@drawable/item_background_single"
+                android:orientation="vertical"
                 android:paddingTop="8dp">
 
                 <TextView

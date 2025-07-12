@@ -102,14 +102,16 @@
     <string name="list_item_title">List item title</string>
     <string name="list_item_sub_title">List item subtitle</string>
     <string name="my_balance">My Balance</string>
-    <string name="app_tagline">Personal finance made simple</string>
+    <string name="app_tagline">Personal Finance Made Easy</string>
     <string name="action_set_date">Set date</string>
     <string name="profile">Profile</string>
     <string name="discard_transaction">Discard Transaction?</string>
     <string name="discard_transaction_summary">Quitting now will discard the unsaved transaction.</string>
     <string name="warning_set_name">Please set a name</string>
     <string name="warning_set_picture">Please pick an image</string>
-
+    <string name="action_profile_edit">Edit profile</string>
+    <string name="screen_more">More</string>
+    <string name="received">Received</string>
 
 
 </resources>

@@ -96,6 +96,17 @@ public class CurrencyScreen extends BaseScreen implements ItemListener<Currency>
         setUpRecycler();
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        AppUtils.showSoftInput(requireActivity(), searchView, false);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        AppUtils.showSoftInput(requireActivity(), searchView, true);
+    }
     OnBackPressedCallback callback = new OnBackPressedCallback(false) {
         @Override
         public void handleOnBackPressed() {

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ /*
+  ~  * Copyright (C) 2025 Shemmy
+  ~  *
+  ~  * This program is free software: you can redistribute it and/or modify
+  ~  * it under the terms of the GNU General Public License as published by
+  ~  * the Free Software Foundation, version 3 of the License.
+  ~  *
+  ~  * This program is distributed in the hope that it will be useful,
+  ~  * but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~  * GNU General Public License for more details.
+  ~  *
+  ~  * You should have received a copy of the GNU General Public License
+  ~  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+  ~  */
+  -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:baselineAligned="false"
+    android:gravity="center"
+    android:orientation="horizontal"
+    android:padding="@dimen/activity_padding_horizontal">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_vertical"
+        android:layout_weight="1">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/headerIcon"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:adjustViewBounds="true"
+            android:background="@drawable/ic_launcher_background"
+            android:elevation=".1dp"
+            android:padding=".15dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.ExtraLarge"
+            app:srcCompat="@drawable/ic_launcher_foreground"
+            app:strokeColor="@null"
+            app:strokeWidth=".1dp" />
+
+        <com.robinhood.ticker.TickerView xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/ticker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/activity_padding_vertical"
+            android:textAppearance="?textAppearanceDisplayLarge"
+            android:textColor="?colorOnSurface"
+            android:textSize="48sp"
+            app:ticker_animationDuration="5000"
+            tools:text="69,420" />
+        <TextView
+            android:id="@+id/tagline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif"
+            android:text="@string/app_tagline"
+            android:textAlignment="viewStart"
+            android:textAppearance="?textAppearanceHeadlineSmall"
+            android:textStyle="bold"
+        />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:gravity="center"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/actionStart"
+            style="@style/Widget.Material3.Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/activity_padding_horizontal"
+            android:contentDescription="@string/action_start"
+            android:paddingHorizontal="24dp"
+            android:paddingVertical="16dp"
+            android:shadowColor="?colorSecondaryContainer"
+            android:shadowDx="15.0"
+            android:shadowDy="15.0"
+            android:shadowRadius="120"
+            app:iconGravity="textEnd"
+            android:text="@string/action_start"
+            android:textAppearance="?textAppearanceTitleLarge"
+            app:elevation="8dp"
+            app:icon="@drawable/outline_arrow_forward_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/center"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Large"
+            app:srcCompat="@drawable/outline_arrow_forward_24" />
+    </LinearLayout>
+</LinearLayout>

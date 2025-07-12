@@ -24,50 +24,45 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.preference.Preference;
-
-import com.bumptech.glide.Glide;
-import com.google.gson.Gson;
+import androidx.preference.SwitchPreference;
 
 import dev.n3shemmy3.coffre.R;
-import dev.n3shemmy3.coffre.backend.entity.Currency;
 import dev.n3shemmy3.coffre.ui.base.BasePreferenceFragment;
 import dev.n3shemmy3.coffre.ui.base.BaseSettingsScreen;
 import dev.n3shemmy3.coffre.ui.navigator.Navigator;
-import dev.n3shemmy3.coffre.ui.screen.currency.CurrencyScreen;
-import dev.n3shemmy3.coffre.ui.utils.CurrencyUtils;
+import dev.n3shemmy3.coffre.ui.screen.main.MainBalanceCard;
 import dev.n3shemmy3.coffre.ui.utils.PrefUtil;
 
-public class FormatSettingsScreen extends BaseSettingsScreen {
-
+public class LookNFeelSettingsScreen extends BaseSettingsScreen {
     @Override
     protected void onCreateScreen(View root, Bundle state) {
         super.onCreateScreen(root, state);
-        topToolBar.setTitle(R.string.preference_format);
-        Glide.with(requireContext()).load(R.drawable.undraw_setup).into(headerCover);
-        setPreferenceFragment(new FormatPreferenceScreen());
+        topToolBar.setTitle(R.string.preference_look_and_feel);
+        headerFrame.removeAllViews();
+        Navigator.add(R.id.headerFrame, getChildScreenManager(), new MainBalanceCard());
+        setPreferenceFragment(new LookNFeelPreferencesScreen());
     }
 
-    public static class FormatPreferenceScreen extends BasePreferenceFragment {
+    public static class LookNFeelPreferencesScreen extends BasePreferenceFragment {
 
         @Override
         public void onCreatePreferences(@Nullable Bundle savedInstanceState, @Nullable String rootKey) {
-            setPreferencesFromResource(R.xml.settings_format, rootKey);
-            Currency currency = CurrencyUtils.getCurrency();
-
-            Preference currencyPreference = findPreference("currency");
-            currencyPreference.setSummary(currency.getName());
+            setPreferencesFromResource(R.xml.settings_looknfeel, rootKey);
+            SwitchPreference dynamicColors = findPreference("dynamicColors");
+            dynamicColors.setChecked(PrefUtil.getBoolean("dynamicColors"));
         }
 
         @Override
         public boolean onPreferenceTreeClick(@NonNull Preference preference) {
             switch (preference.getKey()) {
-                case "currency": {
-                    Navigator.push(requireActivity().getSupportFragmentManager(), new CurrencyScreen());
+                case "dynamicColors": {
+                    SwitchPreference switchPreference = (SwitchPreference) preference;
+                    switchPreference.setChecked(!PrefUtil.getBoolean("dynamicColors"));
+                    PrefUtil.save("dynamicColors", switchPreference.isChecked());
                 }
                 break;
             }
             return super.onPreferenceTreeClick(preference);
-
         }
     }
 }

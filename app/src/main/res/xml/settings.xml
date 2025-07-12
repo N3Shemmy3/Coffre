@@ -22,23 +22,22 @@
 
     <Preference
         android:icon="@drawable/outline_palette_24"
-        android:key="looks"
-        android:layout="@layout/item_preference_basic"
+        android:key="looknfeel"
+        android:layout="@layout/item_preference"
         android:summary="@string/summary_look_and_feel"
-        android:title="@string/preference_look_and_feel"
-        app:isPreferenceVisible="false" />
+        android:title="@string/preference_look_and_feel" />
 
     <Preference
         android:icon="@drawable/outline_tag_24"
         android:key="formats"
-        android:layout="@layout/item_preference_basic"
+        android:layout="@layout/item_preference"
         android:summary="@string/summary_format"
         android:title="@string/preference_format" />
 
     <Preference
         android:icon="@drawable/outline_settings_backup_restore_24"
         android:key="backups"
-        android:layout="@layout/item_preference_basic"
+        android:layout="@layout/item_preference"
         android:summary="@string/summary_back_restore"
         android:title="@string/preference_back_restore"
         app:isPreferenceVisible="false" />
@@ -46,7 +45,7 @@
     <Preference
         android:icon="@drawable/outline_info_24"
         android:key="about"
-        android:layout="@layout/item_preference_basic"
+        android:layout="@layout/item_preference"
         android:summary="@string/summary_about"
         android:title="@string/preference_about" />
 

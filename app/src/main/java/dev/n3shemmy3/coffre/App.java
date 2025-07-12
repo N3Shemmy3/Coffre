@@ -22,9 +22,11 @@ import android.app.Application;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Intent;
+import android.os.Process;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import com.google.android.material.color.DynamicColors;
 import com.google.gson.Gson;
@@ -44,22 +46,37 @@ public class App extends Application implements Thread.UncaughtExceptionHandler 
     @Override
     public void onCreate() {
         super.onCreate();
-        //Thread.setDefaultUncaughtExceptionHandler(this);
-        DynamicColors.applyToActivitiesIfAvailable(this);
-        ObjectBox.init(this);
+        Thread.setDefaultUncaughtExceptionHandler(this);
         PrefUtil.Init(this);
+        if (PrefUtil.getBoolean("dynamicColors")) DynamicColors.applyToActivitiesIfAvailable(this);
+        ObjectBox.init(this);
         updateCurrency();
         createNotificationChannel();
+
+        switch (PrefUtil.getInt("theme")) {
+            case 0: {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+            }
+            break;
+            case 1: {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+            }
+            break;
+            case 2: {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+            }
+            break;
+        }
     }
 
     private void createNotificationChannel() {
-        NotificationChannel channel = new NotificationChannel("channeled", "channelService", NotificationManager.IMPORTANCE_DEFAULT);
+        NotificationChannel channel = new NotificationChannel("channeled", "BackupService", NotificationManager.IMPORTANCE_DEFAULT);
         NotificationManager manager = getSystemService(NotificationManager.class);
         manager.createNotificationChannel(channel);
     }
 
     public void updateCurrency() {
-        Currency currency = new Gson().fromJson(PrefUtil.getString("currency"), Currency.class);
+        Currency currency = new Gson().fromJson(PrefUtil.getString(Currency.key), Currency.class);
         if (currency == null) return;
         String data = AssetsUtils.getAssetJsonData(this, "currencies.json");
         Type type = new TypeToken<List<Currency>>() {
@@ -69,7 +86,7 @@ public class App extends Application implements Thread.UncaughtExceptionHandler 
         List<Currency> filteredCurrencies = currencies.stream()
                 .filter(item -> item.getName().equalsIgnoreCase(currency.getName()))
                 .collect(Collectors.toList());
-        PrefUtil.save("currency", new Gson().toJson(filteredCurrencies.get(0)));
+        PrefUtil.save(Currency.key, new Gson().toJson(filteredCurrencies.get(0)));
 
     }
 
@@ -83,6 +100,6 @@ public class App extends Application implements Thread.UncaughtExceptionHandler 
         intent.putExtra("thread", threadName);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
-
+        Process.killProcess(Process.myPid());
     }
 }

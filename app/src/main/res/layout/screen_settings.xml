@@ -41,7 +41,7 @@
                 android:layout_height="?actionBarSize"
                 app:layout_collapseMode="pin"
                 app:navigationIcon="@drawable/outline_arrow_back_24"
-                app:title="@string/screen_settings" />
+                app:title="@string/screen_more" />
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -98,10 +98,11 @@
                     <ImageView
                         android:id="@+id/itemStartIcon"
                         android:layout_width="44dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="44dp"
                         android:adjustViewBounds="true"
                         android:contentDescription="@string/profile_avatar"
-                        android:src="@drawable/outline_person_24" />
+                        android:scaleType="centerCrop"
+                        android:src="@mipmap/ic_launcher" />
 
                 </com.google.android.material.card.MaterialCardView>
 
@@ -110,9 +111,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="16dp"
-                    android:layout_marginTop="-2dp"
                     android:maxLines="1"
-                    android:text="Shemmy Nyirenda"
+                    android:text="@string/app_name"
                     android:textAppearance="?attr/textAppearanceBodyLarge"
                     android:textColor="@color/list_item_tint"
                     app:layout_constraintEnd_toStartOf="@id/endAction"
@@ -124,7 +124,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:maxLines="2"
-                    android:text="@string/profile"
+                    android:text="@string/action_profile_edit"
                     android:textAppearance="?attr/textAppearanceBody2"
                     android:textColor="@color/list_item_subtitle_tint"
                     app:layout_constraintEnd_toEndOf="@id/itemTitle"
@@ -158,7 +158,7 @@
 
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/settingsContainer"
-                android:name="dev.n3shemmy3.coffre.ui.screen.settings.PreferencesScreen"
+                android:name="dev.n3shemmy3.coffre.ui.screen.settings.SettingsScreen$PreferencesScreen"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 

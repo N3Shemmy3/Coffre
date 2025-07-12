@@ -82,6 +82,7 @@ public class SetupScreen extends BaseScreen {
         textName = root.findViewById(R.id.textName);
         inputName = root.findViewById(R.id.inputName);
         actionPick = root.findViewById(R.id.actionPick);
+        InsetsUtils.applyImeInsets(requireActivity().getWindow(), root);
     }
 
     @Override
@@ -120,7 +121,7 @@ public class SetupScreen extends BaseScreen {
         }
         inputName.setText(profile.getName());
         inputName.setSelection(String.valueOf(inputName.getText()).length() - 1);
-        InsetsUtils.applyImeInsets(requireActivity().getWindow(), coordinator);
+
     }
 
     ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<>() {

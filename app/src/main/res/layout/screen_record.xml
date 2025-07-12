@@ -66,7 +66,7 @@
                     android:background="@android:color/transparent"
                     android:hint="@string/title"
                     android:imeOptions="actionNext"
-                    android:inputType="textShortMessage"
+                    android:inputType="textCapSentences|textShortMessage|text"
                     android:maxLines="1"
                     android:paddingVertical="8dp"
                     android:textAppearance="?textAppearanceTitleLarge"
@@ -200,10 +200,11 @@
                         android:layout_height="wrap_content"
                         android:text="@string/expense" />
 
-                    <com.google.android.material.tabs.TabItem
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/transfer" />
+<!--                    <com.google.android.material.tabs.TabItem-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="@string/transfer"-->
+<!--                        android:visibility="gone" />-->
                 </com.google.android.material.tabs.TabLayout>
 
 
@@ -224,12 +225,12 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/activity_padding_horizontal"
-                    android:autofillHints="@null"
+                    android:inputType="textCapSentences|textLongMessage|textMultiLine|text|textEnableTextConversionSuggestions"
                     android:background="@android:color/transparent"
                     android:gravity="start"
                     android:hint="@string/notes"
                     android:imeOptions="actionDone"
-                    android:inputType="textMultiLine"
+                    android:autofillHints="@null"
                     android:maxLength="500"
                     android:minHeight="144dp"
                     app:layout_constraintEnd_toEndOf="@id/inputAmount"

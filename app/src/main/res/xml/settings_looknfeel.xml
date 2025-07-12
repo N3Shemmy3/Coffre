@@ -17,21 +17,22 @@
   ~  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
   ~  */
   -->
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-    <Preference
-        android:icon="@drawable/outline_tag_24"
-        android:key="currency"
-        android:layout="@layout/item_preference"
-        android:summary="Zambian Kwachwa"
-        android:title="@string/preference_currency" />
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <SwitchPreference
+        android:key="themeColors"
+        android:layout="@layout/item_preference_colors" />
 
     <Preference
-        android:icon="@drawable/outline_straighten_24"
-        android:key="decimals"
-        android:layout="@layout/item_preference"
-        android:summary="@string/summary_decimal_points"
-        android:title="@string/preference_decimal_points"
-        app:isPreferenceVisible="false" />
+        android:icon="@drawable/outline_dark_mode_24"
+        android:key="theme"
+        android:layout="@layout/item_preference_switch"
+        android:summary="Follow system"
+        android:title="App Theme" />
 
+    <Preference
+        android:icon="@drawable/outline_language_24"
+        android:key="language"
+        android:layout="@layout/item_preference"
+        android:summary="System default"
+        android:title="Display language" />
 </PreferenceScreen>

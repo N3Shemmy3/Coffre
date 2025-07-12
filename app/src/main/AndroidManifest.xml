@@ -23,7 +23,7 @@
         tools:targetApi="33">
         <activity
             android:name=".ui.activity.MainActivity"
-            android:configChanges="screenSize|orientation"
+            android:configChanges="screenSize"
             android:exported="true"
             android:theme="@style/LaunchTheme"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize">
@@ -38,7 +38,7 @@
             android:exported="false" />
 
         <service
-            android:name=".data.service.service.BackupService"
+            android:name=".backend.service.service.service.BackupService"
             android:exported="false"
             android:foregroundServiceType="dataSync" />
     </application>

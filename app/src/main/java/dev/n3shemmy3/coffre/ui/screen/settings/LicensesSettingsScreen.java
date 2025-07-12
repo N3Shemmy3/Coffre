@@ -27,6 +27,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -49,6 +50,7 @@ public class LicensesSettingsScreen extends BaseSettingsScreen {
     protected void onCreateScreen(View root, Bundle state) {
         super.onCreateScreen(root, state);
         topToolBar.setTitle(R.string.preference_licenses);
+        Glide.with(requireContext()).load(R.drawable.undraw_open_source).into(headerCover);
         setPreferenceFragment(new LibraryPreferencesScreen());
     }
 
@@ -86,8 +88,8 @@ public class LicensesSettingsScreen extends BaseSettingsScreen {
             libraries.add(0, new Library(
                     "Shemmy",
                     "https://n3shemy3.dev",
-                    "Coffre",
-                    "dev.n3shemmy3.coffre",
+                    getString(R.string.app_name),
+                    requireContext().getPackageName(),
                     "Personal finance manager",
                     BuildConfig.VERSION_NAME.replaceAll("[^\\d.]", ""),
                     "https://github.com/N3Shemmy3/Coffre",

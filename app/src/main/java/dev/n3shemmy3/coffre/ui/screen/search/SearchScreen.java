@@ -119,7 +119,6 @@ public class SearchScreen extends BaseScreen implements ItemListener<Transaction
 
     private void performSearch(String query) {
         viewModel.searchTransactions(query).observe(getViewLifecycleOwner(), items -> {
-            items.sort(Comparator.comparing(Transaction::getTime).reversed());
             adapter.submitList(items);
         });
     }

@@ -17,9 +17,10 @@ package dev.n3shemmy3.coffre.ui.screen.main;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
-import com.google.android.material.imageview.ShapeableImageView;
+import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 
 import dev.n3shemmy3.coffre.R;
@@ -35,7 +36,7 @@ import dev.n3shemmy3.coffre.ui.utils.PrefUtil;
 
 public class MainScreen extends BaseScreen {
 
-    private ShapeableImageView toolBarAvatar;
+    private ImageView toolBarAvatar;
     private RelativeLayout transactionsCard;
 
     @Override
@@ -67,7 +68,7 @@ public class MainScreen extends BaseScreen {
     private void setProfile() {
         Profile profile = new Gson().fromJson(PrefUtil.getString(Profile.key), Profile.class);
         if (profile == null) return;
-        toolBarAvatar.setImageBitmap(FileUtils.retrieveImageFromPrivateStorage(requireContext(), profile.getAvatar()));
+        Glide.with(requireContext()).load(FileUtils.retrieveImageFromPrivateStorage(requireContext(), profile.getAvatar())).sizeMultiplier(1).into(toolBarAvatar);
     }
 
 }
