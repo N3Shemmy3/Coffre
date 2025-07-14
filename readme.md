@@ -8,7 +8,7 @@
 
 ![GitHub](https://img.shields.io/github/license/FoedusProgramme/Coffre)
 ![GitHub tag (with filter)](https://img.shields.io/github/v/tag/FoedusProgramme/Coffre?&logoColor=white&labelColor=black&color=white)
-[![Telegram Channel](https://img.shields.io/badge/Telegram-Coffre-blue?style=flat&logo=telegram)](https://t.me/N3Shemmy3)
+[![Telegram Channel](https://img.shields.io/badge/Telegram-Coffre-blue?style=flat&logo=telegram)](https://t.me/FoedusProgramme)
 
 Coffre is a simple and intuitive Android application designed to help you manage your personal finances effectively. Track your income, expenses, and transfers with ease, gain insights into your spending habits, and achieve your financial goals.
 
@@ -45,7 +45,7 @@ Coffre is a simple and intuitive Android application designed to help you manage
 
 ## Contact
 
-Join our [Telegram Channel](https://t.me/PixellateProjects) for discussion, announcements, and releases!
+Join our [Telegram Channel](https://t.me/FoedusProgramme) for discussion, announcements, and releases!
 
 ## Contributing
 
