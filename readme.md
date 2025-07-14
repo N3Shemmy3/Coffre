@@ -2,7 +2,7 @@
     Coffre
     <br/>
     <span>
-        <p>Perosnal Finance Made Simple</p>
+        <p>Personal Finance Made Simple</p>
     </span>
 </h1>
 
