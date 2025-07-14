@@ -30,12 +30,12 @@ Coffre is a simple and intuitive Android application designed to help you manage
 - Balance calculations
 - Record transaction
 - View & edit recorded transactions
-- Delete tracntion
-- Search through recorded tracntions
+- Delete transaction
+- Search through recorded transaction
 - Set currency
 - Profile Avatar
 - Completely offline
-- Persists tracntions
+- Persists transaction
 - Material Design 3 interface
 - Material You support
 
