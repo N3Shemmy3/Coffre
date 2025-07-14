@@ -2,13 +2,13 @@
     Coffre
     <br/>
     <span>
-        <p>Perosnal Finance Made Easy</p>
+        <p>Personal Finance Made Simple</p>
     </span>
 </h1>
 
-![GitHub](https://img.shields.io/github/license/N3Shemmy3/Coffre)
-![GitHub tag (with filter)](https://img.shields.io/github/v/tag/N3Shemmy3/Coffre?&logoColor=white&labelColor=black&color=white)
-[![Telegram Channel](https://img.shields.io/badge/Telegram-Coffre-blue?style=flat&logo=telegram)](https://t.me/N3Shemmy3)
+![GitHub](https://img.shields.io/github/license/FoedusProgramme/Coffre)
+![GitHub tag (with filter)](https://img.shields.io/github/v/tag/FoedusProgramme/Coffre?&logoColor=white&labelColor=black&color=white)
+[![Telegram Channel](https://img.shields.io/badge/Telegram-Coffre-blue?style=flat&logo=telegram)](https://t.me/FoedusProgramme)
 
 Coffre is a simple and intuitive Android application designed to help you manage your personal finances effectively. Track your income, expenses, and transfers with ease, gain insights into your spending habits, and achieve your financial goals.
 
@@ -30,22 +30,22 @@ Coffre is a simple and intuitive Android application designed to help you manage
 - Balance calculations
 - Record transaction
 - View & edit recorded transactions
-- Delete tracntion
-- Search through recorded tracntions
+- Delete transaction
+- Search through recorded transaction
 - Set currency
 - Profile Avatar
 - Completely offline
-- Persists tracntions
+- Persists transaction
 - Material Design 3 interface
 - Material You support
 
 ## Download
 
-- Find the latest <strong>stable</strong> version from [GitHub releases](https://github.com/N3Shemmy3/Coffre/releases/latest)
+- Find the latest <strong>stable</strong> version from [GitHub releases](https://github.com/FoedusProgramme/Coffre/releases/latest)
 
 ## Contact
 
-Join our [Telegram Channel](https://t.me/PixellateProjects) for discussion, announcements, and releases!
+Join our [Telegram Channel](https://t.me/FoedusProgramme) for discussion, announcements, and releases!
 
 ## Contributing
 
@@ -82,7 +82,7 @@ I maintain this project in my free time, if you find it useful consider sending 
 
 ## License
 
-[![GitHub](https://img.shields.io/github/license/N3Shemmy3/Coffre?style=for-the-badge)](https://github.com/N3Shemmy3/Coffre/blob/main/LICENSE)
+[![GitHub](https://img.shields.io/github/license/FoedusProgramme/Coffre?style=for-the-badge)](https://github.com/FoedusProgramme/Coffre/blob/main/LICENSE)
 
 > [!Warning]
 >
