@@ -6,8 +6,8 @@
     </span>
 </h1>
 
-![GitHub](https://img.shields.io/github/license/N3Shemmy3/Coffre)
-![GitHub tag (with filter)](https://img.shields.io/github/v/tag/N3Shemmy3/Coffre?&logoColor=white&labelColor=black&color=white)
+![GitHub](https://img.shields.io/github/license/FoedusProgramme/Coffre)
+![GitHub tag (with filter)](https://img.shields.io/github/v/tag/FoedusProgramme/Coffre?&logoColor=white&labelColor=black&color=white)
 [![Telegram Channel](https://img.shields.io/badge/Telegram-Coffre-blue?style=flat&logo=telegram)](https://t.me/N3Shemmy3)
 
 Coffre is a simple and intuitive Android application designed to help you manage your personal finances effectively. Track your income, expenses, and transfers with ease, gain insights into your spending habits, and achieve your financial goals.
@@ -41,7 +41,7 @@ Coffre is a simple and intuitive Android application designed to help you manage
 
 ## Download
 
-- Find the latest <strong>stable</strong> version from [GitHub releases](https://github.com/N3Shemmy3/Coffre/releases/latest)
+- Find the latest <strong>stable</strong> version from [GitHub releases](https://github.com/FoedusProgramme/Coffre/releases/latest)
 
 ## Contact
 
@@ -82,7 +82,7 @@ I maintain this project in my free time, if you find it useful consider sending 
 
 ## License
 
-[![GitHub](https://img.shields.io/github/license/N3Shemmy3/Coffre?style=for-the-badge)](https://github.com/N3Shemmy3/Coffre/blob/main/LICENSE)
+[![GitHub](https://img.shields.io/github/license/FoedusProgramme/Coffre?style=for-the-badge)](https://github.com/FoedusProgramme/Coffre/blob/main/LICENSE)
 
 > [!Warning]
 >
