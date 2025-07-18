@@ -15,22 +15,32 @@ package dev.n3shemmy3.coffre.backend.viewmodel;
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+import android.app.Application;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.ViewModel;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkManager;
 
 import java.math.BigDecimal;
 import java.util.List;
 
 import dev.n3shemmy3.coffre.backend.entity.Transaction;
 import dev.n3shemmy3.coffre.backend.repository.TransactionsRepository;
+import dev.n3shemmy3.coffre.backend.worker.BackupWorker;
 
-public class MainViewModel extends ViewModel {
+public class MainViewModel extends AndroidViewModel {
 
     private final TransactionsRepository repository;
     private final LiveData<List<Transaction>> transactions;
     private final LiveData<BigDecimal> netBalance;
+    private WorkManager workManager;
 
-    public MainViewModel() {
+    public MainViewModel(@NonNull Application application) {
+        super(application);
+        workManager = WorkManager.getInstance(application);
         repository = new TransactionsRepository();
         transactions = repository.getTransactions();
         netBalance = repository.getNetBalance();
@@ -62,6 +72,10 @@ public class MainViewModel extends ViewModel {
 
     public LiveData<List<Transaction>> searchTransactions(String query) {
         return repository.search(query);
+    }
+
+    public void backup() {
+        workManager.enqueue(OneTimeWorkRequest.from(BackupWorker.class));
     }
 
     public LiveData<BigDecimal> getNetBalance() {
