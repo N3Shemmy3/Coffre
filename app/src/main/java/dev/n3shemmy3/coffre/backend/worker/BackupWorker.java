@@ -22,8 +22,6 @@ import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
-import android.os.Build;
-import android.os.Handler;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
@@ -34,7 +32,7 @@ import androidx.work.WorkerParameters;
 import dev.n3shemmy3.coffre.R;
 
 public class BackupWorker extends Worker {
-    private Context context;
+    private final Context context;
 
     public BackupWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
         super(context, workerParams);
@@ -47,15 +45,14 @@ public class BackupWorker extends Worker {
     @NonNull
     @Override
     public Result doWork() {
-        // Create a notification channel if targeting Android Oreo or higher
         NotificationChannel channel = new NotificationChannel("Backup", "Backup Service", NotificationManager.IMPORTANCE_DEFAULT);
         NotificationManager notificationManager = (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.createNotificationChannel(channel);
         Context context = getApplicationContext();
 
-        for (int i = 0; i < 10; i++) {
+
             showNotification((50));
-        }
+
 
         return Result.success();
     }
@@ -69,16 +66,16 @@ public class BackupWorker extends Worker {
                 .setStyle(new NotificationCompat.BigTextStyle()
                         .bigText("beep boop"))
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                .setOngoing(true); // Make the notification ongoing
+                .setOngoing(true);
         notification = builder.build();
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.notify(1, notification); // Use a non-zero ID for the notification
+        notificationManager.notify(1, notification);
 
     }
 
     @NonNull
     @Override
     public ForegroundInfo getForegroundInfo() {
-        return new ForegroundInfo(1, notification); // Use the same non-zero ID here
+        return new ForegroundInfo(1, notification);
     }
 }
