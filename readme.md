@@ -87,7 +87,7 @@ I maintain this project in my free time, if you find it useful consider sending 
 > [!Warning]
 >
 > Except for the source code licensed under the GPLv3 license,
-> all other parties are prohibited from using Coffre's name as a downloader app,
+> all other parties are prohibited from using Coffre's name as a finance tracking app,
 > and the same is true for Coffre's derivatives.
 > Derivatives include but are not limited to forks and unofficial builds.
 > And must all include the same license
