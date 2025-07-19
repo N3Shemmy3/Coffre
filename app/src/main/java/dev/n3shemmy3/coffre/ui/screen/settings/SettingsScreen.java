@@ -106,7 +106,7 @@ public class SettingsScreen extends BaseScreen {
         @Override
         public boolean onPreferenceTreeClick(@NonNull Preference preference) {
             switch (preference.getKey()) {
-                case "looknfeel": {
+                case "look_n_feel": {
                     Navigator.push(requireActivity().getSupportFragmentManager(), new LookNFeelSettingsScreen());
                 }
                 break;
@@ -116,6 +116,10 @@ public class SettingsScreen extends BaseScreen {
                 break;
                 case "about": {
                     Navigator.push(requireActivity().getSupportFragmentManager(), new AboutSettingsScreen());
+                }
+                break;
+                case "backup_n_restore": {
+                    Navigator.push(requireActivity().getSupportFragmentManager(), new BackupNRestoreSettingsScreen());
                 }
                 break;
             }

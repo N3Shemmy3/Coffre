@@ -25,11 +25,23 @@ import android.content.Context;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
+import androidx.lifecycle.Observer;
 import androidx.work.ForegroundInfo;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Calendar;
+import java.util.List;
+
 import dev.n3shemmy3.coffre.R;
+import dev.n3shemmy3.coffre.backend.entity.Transaction;
+import dev.n3shemmy3.coffre.backend.repository.TransactionsRepository;
 
 public class BackupWorker extends Worker {
     private final Context context;
@@ -49,24 +61,50 @@ public class BackupWorker extends Worker {
         NotificationManager notificationManager = (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.createNotificationChannel(channel);
         Context context = getApplicationContext();
-
-
-            showNotification((50));
-
-
+        TransactionsRepository repository = new TransactionsRepository();
+        List<Transaction> transactions = repository.transactionBox.getAll();
+        if (transactions == null) {
+            showNotification(0);
+            return Result.failure();
+        }
+        showNotification(1);
+        int total = transactions.size();
+        String filename = "app.coffre_" + Calendar.YEAR + "-" + Calendar.MONTH + "-" + Calendar.DAY_OF_MONTH + "_" + Calendar.HOUR_OF_DAY + "-" + Calendar.MINUTE + ".backup";
+//        Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
+//        intent.addCategory(Intent.CATEGORY_OPENABLE);
+//        intent.setType("text/plain");
+//        intent.putExtra(Intent.EXTRA_TITLE, filename);
+        String backup = new Gson().toJson(transactions);
+        saveFileToExternalPrivateStorage(context, filename, backup);
+        showNotification(2);
         return Result.success();
     }
 
-    private void showNotification(int progress) {
+    private void showNotification(int state) {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "Backup")
                 .setSmallIcon(R.drawable.ic_launcher_foreground)
-                .setContentTitle("Backup Service")
-                .setContentText("It is running")
-                .setProgress(100, progress, false)
-                .setStyle(new NotificationCompat.BigTextStyle()
-                        .bigText("beep boop"))
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                .setOngoing(true);
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+        switch (state) {
+            case 0: {
+                builder.setContentTitle("Backup Failed");
+                builder.setContentText("Backup was not created try again");
+                builder.setOngoing(false);
+            }
+            break;
+            case 1: {
+                builder.setContentTitle("Creating Backup");
+                builder.setProgress(100, 50, true);
+                builder.setOngoing(true);
+
+            }
+            break;
+            case 2: {
+                builder.setContentTitle("Backup Created");
+                builder.setContentText("Backup successfully created");
+                builder.setOngoing(false);
+            }
+            break;
+        }
         notification = builder.build();
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.notify(1, notification);
@@ -77,5 +115,14 @@ public class BackupWorker extends Worker {
     @Override
     public ForegroundInfo getForegroundInfo() {
         return new ForegroundInfo(1, notification);
+    }
+
+    public static void saveFileToExternalPrivateStorage(Context context, String filename, String data) {
+        File file = new File(context.getExternalFilesDir(null), filename);
+        try (FileOutputStream fos = new FileOutputStream(file)) {
+            fos.write(data.getBytes());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

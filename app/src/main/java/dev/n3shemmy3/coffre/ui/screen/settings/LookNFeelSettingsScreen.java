@@ -24,14 +24,12 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.preference.Preference;
-import androidx.preference.SwitchPreference;
 
 import dev.n3shemmy3.coffre.R;
 import dev.n3shemmy3.coffre.ui.base.BasePreferenceFragment;
 import dev.n3shemmy3.coffre.ui.base.BaseSettingsScreen;
 import dev.n3shemmy3.coffre.ui.navigator.Navigator;
 import dev.n3shemmy3.coffre.ui.screen.main.MainBalanceCard;
-import dev.n3shemmy3.coffre.ui.utils.PrefUtil;
 
 public class LookNFeelSettingsScreen extends BaseSettingsScreen {
     @Override
@@ -47,18 +45,17 @@ public class LookNFeelSettingsScreen extends BaseSettingsScreen {
 
         @Override
         public void onCreatePreferences(@Nullable Bundle savedInstanceState, @Nullable String rootKey) {
-            setPreferencesFromResource(R.xml.settings_looknfeel, rootKey);
-            SwitchPreference dynamicColors = findPreference("dynamicColors");
-            dynamicColors.setChecked(PrefUtil.getBoolean("dynamicColors"));
+            setPreferencesFromResource(R.xml.settings_look_n_feel, rootKey);
         }
 
         @Override
         public boolean onPreferenceTreeClick(@NonNull Preference preference) {
             switch (preference.getKey()) {
                 case "dynamicColors": {
-                    SwitchPreference switchPreference = (SwitchPreference) preference;
-                    switchPreference.setChecked(!PrefUtil.getBoolean("dynamicColors"));
-                    PrefUtil.save("dynamicColors", switchPreference.isChecked());
+//                    SwitchPreference switchPreference = (SwitchPreference) preference;
+//                    switchPreference.setChecked(!PrefUtil.getBoolean("dynamicColors"));
+//                    PrefUtil.save("dynamicColors", switchPreference.isChecked());
+//
                 }
                 break;
             }

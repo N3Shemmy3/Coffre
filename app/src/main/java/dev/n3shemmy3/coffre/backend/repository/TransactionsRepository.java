@@ -39,8 +39,8 @@ public class TransactionsRepository {
 
     private static final int PAGE_SIZE = 10;
 
-    private final Box<Transaction> transactionBox;
-    private final Box<Amount> amountBox;
+    public final Box<Transaction> transactionBox;
+    public final Box<Amount> amountBox;
 
     private volatile LiveData<List<Transaction>> pagedTransactions;
     private final MediatorLiveData<BigDecimal> netBalance = new MediatorLiveData<>();
@@ -113,7 +113,6 @@ public class TransactionsRepository {
         amountBox.removeAll();
         // LiveData source handles updates.
     }
-
     public LiveData<BigDecimal> getNetBalance() {
         return netBalance;
     }

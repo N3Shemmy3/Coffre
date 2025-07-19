@@ -16,7 +16,6 @@ package dev.n3shemmy3.coffre.backend.viewmodel;
  */
 
 import android.app.Application;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -36,11 +35,9 @@ public class MainViewModel extends AndroidViewModel {
     private final TransactionsRepository repository;
     private final LiveData<List<Transaction>> transactions;
     private final LiveData<BigDecimal> netBalance;
-    private WorkManager workManager;
 
     public MainViewModel(@NonNull Application application) {
         super(application);
-        workManager = WorkManager.getInstance(application);
         repository = new TransactionsRepository();
         transactions = repository.getTransactions();
         netBalance = repository.getNetBalance();
@@ -75,7 +72,7 @@ public class MainViewModel extends AndroidViewModel {
     }
 
     public void backup() {
-        workManager.enqueue(OneTimeWorkRequest.from(BackupWorker.class));
+        WorkManager.getInstance(getApplication()).enqueue(OneTimeWorkRequest.from(BackupWorker.class));
     }
 
     public LiveData<BigDecimal> getNetBalance() {
