@@ -13,9 +13,9 @@
 
 
     <!--Settings Screen -->
-    <string name="preference_look_and_feel">Look &amp; feel</string>
+    <string name="preference_look_n_feel">Look &amp; feel</string>
     <string name="summary_look_and_feel">Theme, colors &amp; languages</string>
-    <string name="preference_back_restore">Backup &amp; Restore</string>
+    <string name="preference_backup_n_restore">Backup &amp; Restore</string>
     <string name="summary_back_restore">Manual, backup folder</string>
 
     <!--Format Preference -->

@@ -33,7 +33,7 @@ public class BackupNRestoreSettingsScreen extends BaseSettingsScreen {
     @Override
     protected void onCreateScreen(View root, Bundle state) {
         super.onCreateScreen(root, state);
-        topToolBar.setTitle(R.string.preference_format);
+        topToolBar.setTitle(R.string.preference_backup_n_restore);
         Glide.with(requireContext()).load(R.drawable.undraw_setup).into(headerCover);
         setPreferenceFragment(new BackupNRestoreSettingsScreen.BackupNRestorePreferenceScreen());
     }

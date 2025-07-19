@@ -35,7 +35,7 @@ public class LookNFeelSettingsScreen extends BaseSettingsScreen {
     @Override
     protected void onCreateScreen(View root, Bundle state) {
         super.onCreateScreen(root, state);
-        topToolBar.setTitle(R.string.preference_look_and_feel);
+        topToolBar.setTitle(R.string.preference_look_n_feel);
         headerFrame.removeAllViews();
         Navigator.add(R.id.headerFrame, getChildScreenManager(), new MainBalanceCard());
         setPreferenceFragment(new LookNFeelPreferencesScreen());
