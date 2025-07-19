@@ -60,15 +60,20 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:padding="@dimen/activity_padding_horizontal">
+            android:padding="@dimen/activity_padding_horizontal"
+            android:paddingVertical="@dimen/activity_padding_vertical">
 
-            <TextView
-                android:id="@+id/textLogs"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAppearance="?textAppearanceBodySmall">
 
-            </TextView>
+
+                <TextView
+                    android:id="@+id/textLogs"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/activity_padding_vertical"
+                    android:background="@drawable/item_background_single"
+                    android:textAppearance="?textAppearanceBodySmall">
+
+                </TextView>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 

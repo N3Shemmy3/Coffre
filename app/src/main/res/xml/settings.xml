@@ -22,7 +22,7 @@
 
     <Preference
         android:icon="@drawable/outline_palette_24"
-        android:key="looknfeel"
+        android:key="look_n_feel"
         android:layout="@layout/item_preference"
         android:summary="@string/summary_look_and_feel"
         android:title="@string/preference_look_and_feel" />
@@ -36,11 +36,11 @@
 
     <Preference
         android:icon="@drawable/outline_settings_backup_restore_24"
-        android:key="backups"
+        android:key="backup_n_restore"
         android:layout="@layout/item_preference"
         android:summary="@string/summary_back_restore"
         android:title="@string/preference_back_restore"
-        app:isPreferenceVisible="false" />
+        app:isPreferenceVisible="true" />
 
     <Preference
         android:icon="@drawable/outline_info_24"
