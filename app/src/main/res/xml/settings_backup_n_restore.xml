@@ -22,12 +22,14 @@
     <Preference
         android:icon="@drawable/outline_file_download_24"
         android:key="backup"
+        android:layout="@layout/item_preference"
         android:summary="Backup all transactions and accounts"
         android:title="Backup Data " />
 
     <Preference
         android:icon="@drawable/outline_file_upload_24"
         android:key="restore"
-        android:title="Restore Data"
-        android:summary="Restore all transactions and accounts" />
+        android:layout="@layout/item_preference"
+        android:summary="Restore all transactions and accounts"
+        android:title="Restore Data" />
 </PreferenceScreen>
