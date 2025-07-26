@@ -30,10 +30,8 @@ import androidx.preference.PreferenceScreen;
 import androidx.preference.PreferenceViewHolder;
 import androidx.recyclerview.widget.RecyclerView;
 
-import dev.n3shemmy3.coffre.R;
 import dev.n3shemmy3.coffre.ui.adapter.PreferencesAdapter;
 import dev.n3shemmy3.coffre.ui.item.decorator.VerticalSpaceItemDecoration;
-import dev.n3shemmy3.coffre.ui.utils.InsetsUtils;
 
 public abstract class BasePreferenceFragment extends PreferenceFragmentCompat {
     @Override
@@ -43,11 +41,8 @@ public abstract class BasePreferenceFragment extends PreferenceFragmentCompat {
         setDividerHeight(0);
         RecyclerView recyclerView = getListView();
         if (recyclerView != null) {
-            int padding = getResources().getDimensionPixelSize(R.dimen.activity_padding_vertical);
             recyclerView.setClipToPadding(false);
             recyclerView.addItemDecoration(new VerticalSpaceItemDecoration(4));
-            //recyclerView.setPadding(recyclerView.getPaddingLeft(), padding / 2, recyclerView.getPaddingRight(), padding);
-           // InsetsUtils.applyContentInsets(recyclerView);
         }
     }
     @NonNull
