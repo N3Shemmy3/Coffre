@@ -22,16 +22,15 @@ import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
+import android.os.Environment;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
-import androidx.lifecycle.Observer;
 import androidx.work.ForegroundInfo;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -69,7 +68,8 @@ public class BackupWorker extends Worker {
         }
         showNotification(1);
         int total = transactions.size();
-        String filename = "app.coffre_" + Calendar.YEAR + "-" + Calendar.MONTH + "-" + Calendar.DAY_OF_MONTH + "_" + Calendar.HOUR_OF_DAY + "-" + Calendar.MINUTE + ".backup";
+        Calendar calendar = Calendar.getInstance();
+        String filename = "backup.coffre";
 //        Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
 //        intent.addCategory(Intent.CATEGORY_OPENABLE);
 //        intent.setType("text/plain");
@@ -118,7 +118,8 @@ public class BackupWorker extends Worker {
     }
 
     public static void saveFileToExternalPrivateStorage(Context context, String filename, String data) {
-        File file = new File(context.getExternalFilesDir(null), filename);
+        File downloadsDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+        File file = new File(downloadsDir, filename);
         try (FileOutputStream fos = new FileOutputStream(file)) {
             fos.write(data.getBytes());
         } catch (IOException e) {
