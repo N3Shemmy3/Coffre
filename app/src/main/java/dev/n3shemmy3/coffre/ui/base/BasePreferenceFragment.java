@@ -46,8 +46,8 @@ public abstract class BasePreferenceFragment extends PreferenceFragmentCompat {
             int padding = getResources().getDimensionPixelSize(R.dimen.activity_padding_vertical);
             recyclerView.setClipToPadding(false);
             recyclerView.addItemDecoration(new VerticalSpaceItemDecoration(4));
-            recyclerView.setPadding(recyclerView.getPaddingLeft(), padding / 2, recyclerView.getPaddingRight(), padding);
-            InsetsUtils.applyContentInsets(recyclerView);
+            //recyclerView.setPadding(recyclerView.getPaddingLeft(), padding / 2, recyclerView.getPaddingRight(), padding);
+           // InsetsUtils.applyContentInsets(recyclerView);
         }
     }
     @NonNull
