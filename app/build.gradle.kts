@@ -14,8 +14,8 @@ android {
         applicationId = "dev.n3shemmy3.coffre"
         minSdk = 27
         targetSdk = 35
-        versionCode = 3
-        versionName = "1.0.2 Amanatsu-Beta"
+        versionCode = 4
+        versionName = "1.0.3 Amanatsu"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
