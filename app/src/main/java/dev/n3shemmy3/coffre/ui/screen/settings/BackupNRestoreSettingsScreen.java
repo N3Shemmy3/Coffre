@@ -20,46 +20,43 @@ package dev.n3shemmy3.coffre.ui.screen.settings;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.preference.Preference;
 
+import com.bumptech.glide.Glide;
+
 import dev.n3shemmy3.coffre.R;
+import dev.n3shemmy3.coffre.backend.viewmodel.MainViewModel;
 import dev.n3shemmy3.coffre.ui.base.BasePreferenceFragment;
 import dev.n3shemmy3.coffre.ui.base.BaseSettingsScreen;
-import dev.n3shemmy3.coffre.ui.navigator.Navigator;
-import dev.n3shemmy3.coffre.ui.screen.main.MainBalanceCard;
 
-public class LookNFeelSettingsScreen extends BaseSettingsScreen {
+public class BackupNRestoreSettingsScreen extends BaseSettingsScreen {
     @Override
     protected void onCreateScreen(View root, Bundle state) {
         super.onCreateScreen(root, state);
-        topToolBar.setTitle(R.string.preference_look_n_feel);
-        headerFrame.removeAllViews();
-        Navigator.add(R.id.headerFrame, getChildScreenManager(), new MainBalanceCard());
-        setPreferenceFragment(new LookNFeelPreferencesScreen());
+        topToolBar.setTitle(R.string.preference_backup_n_restore);
+        Glide.with(requireContext()).load(R.drawable.undraw_my_files).into(headerCover);
+        setPreferenceFragment(new BackupNRestoreSettingsScreen.BackupNRestorePreferenceScreen());
     }
 
-    public static class LookNFeelPreferencesScreen extends BasePreferenceFragment {
+    public static class BackupNRestorePreferenceScreen extends BasePreferenceFragment {
+
+        private MainViewModel viewModel;
 
         @Override
         public void onCreatePreferences(@Nullable Bundle savedInstanceState, @Nullable String rootKey) {
-            setPreferencesFromResource(R.xml.settings_look_n_feel, rootKey);
-        }
+            setPreferencesFromResource(R.xml.settings_backup_n_restore, rootKey);
+            viewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
 
-        @Override
-        public boolean onPreferenceTreeClick(@NonNull Preference preference) {
-            switch (preference.getKey()) {
-                case "dynamicColors": {
-//                    SwitchPreference switchPreference = (SwitchPreference) preference;
-//                    switchPreference.setChecked(!PrefUtil.getBoolean("dynamicColors"));
-//                    PrefUtil.save("dynamicColors", switchPreference.isChecked());
-//
-                }
-                break;
-            }
-            return super.onPreferenceTreeClick(preference);
+            Preference backupPreference = findPreference("backup");
+            backupPreference.setOnPreferenceClickListener(preference -> {
+                Toast.makeText(getContext(), "Creating backup", Toast.LENGTH_SHORT).show();
+                viewModel.backup();
+                return true;
+            });
         }
     }
 }

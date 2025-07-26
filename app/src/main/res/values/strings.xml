@@ -13,15 +13,13 @@
 
 
     <!--Settings Screen -->
-    <string name="preference_look_and_feel">Look &amp; feel</string>
+    <string name="preference_look_n_feel">Look &amp; feel</string>
     <string name="summary_look_and_feel">Theme, colors &amp; languages</string>
-    <string name="preference_back_restore">Backup &amp; Restore</string>
-    <string name="summary_back_restore">Manual, backup folder</string>
 
     <!--Format Preference -->
     <string name="preference_format">Format</string>
     <string name="summary_format">Decimal, thousands &amp; currency</string>
-    <string name="preference_format_header_summary">Style the numbers and symbols</string>
+    <string name="preference_format_header_summary">Style the numbers &amp; symbols</string>
     <string name="preference_currency">Currency</string>
     <string name="preference_decimal_points">Decimal points</string>
     <string name="summary_decimal_points">0.00</string>
@@ -37,9 +35,17 @@
     <string name="summary_telegram_channel">Latest development news</string>
     <string name="summary_settings">Tweaks and treats</string>
     <string name="preference_licenses">Licenses</string>
-    <string name="summary_licenses">Credits and licenses</string>
+    <string name="summary_licenses">Credits &amp; licenses</string>
     <string name="preference_libraries">Libraries</string>
     <string name="preference_version">Version</string>
+
+    <!--Backup & Restore Preference -->
+    <string name="preference_backup_n_restore">Backup &amp; Restore</string>
+    <string name="summary_backup_n_restore">Manual, backup folder</string>
+    <string name="preference_create_backup">Create Backup</string>
+    <string name="preference_create_backup_summary">Creates a backup of all app settings &amp; data</string>
+    <string name="preference_restore_backup">Restore Backup</string>
+    <string name="preference_restore_backup_summary">Restores app data from a backup file</string>
 
 
     <!--Actions -->

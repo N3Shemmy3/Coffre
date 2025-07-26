@@ -15,7 +15,6 @@ package dev.n3shemmy3.coffre.ui.screen.settings;
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
@@ -37,7 +36,6 @@ import com.google.gson.Gson;
 
 import dev.n3shemmy3.coffre.R;
 import dev.n3shemmy3.coffre.backend.entity.Profile;
-import dev.n3shemmy3.coffre.backend.service.service.service.BackupService;
 import dev.n3shemmy3.coffre.ui.adapter.PreferencesAdapter;
 import dev.n3shemmy3.coffre.ui.base.BaseScreen;
 import dev.n3shemmy3.coffre.ui.item.decorator.VerticalSpaceItemDecoration;
@@ -72,11 +70,7 @@ public class SettingsScreen extends BaseScreen {
     @Override
     public void onResume() {
         super.onResume();
-        // ActivityCompat.requestPermissions(requireActivity(), new String[]{android.Manifest.permission.POST_NOTIFICATIONS, android.Manifest.permission.FOREGROUND_SERVICE, android.Manifest.permission.FOREGROUND_SERVICE_DATA_SYNC}, 1);
 
-        Intent intent = new Intent(requireContext(), BackupService.class);
-        intent.setAction(BackupService.BACKUP);
-        //requireActivity().startService(intent);
     }
 
     public static class PreferencesScreen extends PreferenceFragmentCompat {
@@ -111,7 +105,7 @@ public class SettingsScreen extends BaseScreen {
         @Override
         public boolean onPreferenceTreeClick(@NonNull Preference preference) {
             switch (preference.getKey()) {
-                case "looknfeel": {
+                case "look_n_feel": {
                     Navigator.push(requireActivity().getSupportFragmentManager(), new LookNFeelSettingsScreen());
                 }
                 break;
@@ -121,6 +115,10 @@ public class SettingsScreen extends BaseScreen {
                 break;
                 case "about": {
                     Navigator.push(requireActivity().getSupportFragmentManager(), new AboutSettingsScreen());
+                }
+                break;
+                case "backup_n_restore": {
+                    Navigator.push(requireActivity().getSupportFragmentManager(), new BackupNRestoreSettingsScreen());
                 }
                 break;
             }

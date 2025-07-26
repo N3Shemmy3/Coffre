@@ -71,6 +71,8 @@ dependencies {
     implementation (libs.swiperefreshlayout)
     implementation (libs.ticker)
     implementation (libs.objectbox.android)
+    implementation(libs.work.runtime)
+    implementation(libs.vico.views)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)

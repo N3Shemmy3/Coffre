@@ -116,6 +116,7 @@
                     android:layout_alignParentEnd="true"
                     android:layout_marginHorizontal="12dp"
                     android:minWidth="0dp"
+                    android:visibility="invisible"
                     android:text="@string/see_all" />
 
                 <androidx.fragment.app.FragmentContainerView
