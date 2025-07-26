@@ -38,7 +38,7 @@
         android:icon="@drawable/outline_settings_backup_restore_24"
         android:key="backup_n_restore"
         android:layout="@layout/item_preference"
-        android:summary="@string/summary_back_restore"
+        android:summary="@string/summary_backup_n_restore"
         android:title="@string/preference_backup_n_restore"
         app:isPreferenceVisible="true" />
 
