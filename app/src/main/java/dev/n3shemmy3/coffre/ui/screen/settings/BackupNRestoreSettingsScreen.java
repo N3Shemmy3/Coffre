@@ -20,12 +20,16 @@ package dev.n3shemmy3.coffre.ui.screen.settings;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.preference.Preference;
 
 import com.bumptech.glide.Glide;
 
 import dev.n3shemmy3.coffre.R;
+import dev.n3shemmy3.coffre.backend.viewmodel.MainViewModel;
 import dev.n3shemmy3.coffre.ui.base.BasePreferenceFragment;
 import dev.n3shemmy3.coffre.ui.base.BaseSettingsScreen;
 
@@ -40,11 +44,19 @@ public class BackupNRestoreSettingsScreen extends BaseSettingsScreen {
 
     public static class BackupNRestorePreferenceScreen extends BasePreferenceFragment {
 
+        private MainViewModel viewModel;
 
         @Override
         public void onCreatePreferences(@Nullable Bundle savedInstanceState, @Nullable String rootKey) {
             setPreferencesFromResource(R.xml.settings_backup_n_restore, rootKey);
+            viewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
 
+            Preference backupPreference = findPreference("backup");
+            backupPreference.setOnPreferenceClickListener(preference -> {
+                Toast.makeText(getContext(), "Creating backup", Toast.LENGTH_SHORT).show();
+                viewModel.backup();
+                return true;
+            });
         }
     }
 }

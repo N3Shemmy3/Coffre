@@ -23,6 +23,7 @@
     <Preference
         android:icon="@drawable/outline_palette_24"
         android:key="look_n_feel"
+        app:isPreferenceVisible="false"
         android:layout="@layout/item_preference"
         android:summary="@string/summary_look_and_feel"
         android:title="@string/preference_look_n_feel" />

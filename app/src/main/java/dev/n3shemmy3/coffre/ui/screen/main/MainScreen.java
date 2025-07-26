@@ -18,6 +18,7 @@ package dev.n3shemmy3.coffre.ui.screen.main;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.bumptech.glide.Glide;

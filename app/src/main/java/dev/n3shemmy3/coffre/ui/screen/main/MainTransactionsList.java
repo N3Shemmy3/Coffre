@@ -33,6 +33,7 @@ import dev.n3shemmy3.coffre.backend.viewmodel.MainViewModel;
 import dev.n3shemmy3.coffre.ui.adapter.TransactionsAdapter;
 import dev.n3shemmy3.coffre.ui.base.BaseFragment;
 import dev.n3shemmy3.coffre.ui.interfaces.ItemListener;
+import dev.n3shemmy3.coffre.ui.item.decorator.VerticalSpaceItemDecoration;
 import dev.n3shemmy3.coffre.ui.navigator.Navigator;
 import dev.n3shemmy3.coffre.ui.screen.record.RecordScreen;
 
@@ -52,6 +53,7 @@ public class MainTransactionsList extends BaseFragment implements ItemListener<T
         recycler = root.findViewById(R.id.recycler);
         recycler.setItemAnimator(new DefaultItemAnimator());
         layoutManager = new LinearLayoutManager(getContext());
+        recycler.addItemDecoration(new VerticalSpaceItemDecoration(4));
         recycler.setLayoutManager(layoutManager);
         adapter = new TransactionsAdapter();
         adapter.setItemListener(this);

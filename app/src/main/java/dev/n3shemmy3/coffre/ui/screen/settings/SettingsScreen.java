@@ -15,7 +15,6 @@ package dev.n3shemmy3.coffre.ui.screen.settings;
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
