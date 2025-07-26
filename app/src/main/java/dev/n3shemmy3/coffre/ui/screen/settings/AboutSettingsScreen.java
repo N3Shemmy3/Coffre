@@ -59,15 +59,15 @@ public class AboutSettingsScreen extends BaseSettingsScreen {
         public boolean onPreferenceTreeClick(@NonNull Preference preference) {
             switch (preference.getKey()) {
                 case "github": {
-                    AppUtils.openLink(requireContext(), "https://github.com/FoedusProgramme/Coffre");
+                    AppUtils.openLink(requireContext(), "https://github.com/N3Shemmy3/Coffre");
                 }
                 break;
                 case "latest": {
-                    AppUtils.openLink(requireContext(), "https://github.com/FoedusProgramme/Coffre/releases");
+                    AppUtils.openLink(requireContext(), "https://github.com/N3Shemmy3/Coffre/releases");
                 }
                 break;
                 case "telegram": {
-                    AppUtils.openLink(requireContext(), "https://t.me/FoedusProgramme");
+                    AppUtils.openLink(requireContext(), "https://t.me/N3Shemmy3");
                 }
                 break;
                 case "licenses": {

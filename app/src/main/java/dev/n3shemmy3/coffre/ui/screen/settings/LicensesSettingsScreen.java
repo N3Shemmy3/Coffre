@@ -92,7 +92,7 @@ public class LicensesSettingsScreen extends BaseSettingsScreen {
                     requireContext().getPackageName(),
                     "Personal finance manager",
                     BuildConfig.VERSION_NAME.replaceAll("[^\\d.]", ""),
-                    "https://github.com/FoedusProgramme/Coffre",
+                    "https://github.com/N3Shemmy3/Coffre",
                     "General Public License v3.0"
             ));
             adapter.submitList(libraries);
