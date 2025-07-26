@@ -50,7 +50,6 @@ public class BackupNRestoreSettingsScreen extends BaseSettingsScreen {
         public void onCreatePreferences(@Nullable Bundle savedInstanceState, @Nullable String rootKey) {
             setPreferencesFromResource(R.xml.settings_backup_n_restore, rootKey);
             viewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
-
             Preference backupPreference = findPreference("backup");
             backupPreference.setOnPreferenceClickListener(preference -> {
                 Toast.makeText(getContext(), "Creating backup", Toast.LENGTH_SHORT).show();
