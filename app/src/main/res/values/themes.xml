@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="Theme.Coffre" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+
+        <item name="android:windowActionModeOverlay">true</item>
+        <item name="android:windowContentOverlay">@color/windowBackground</item>
+        <item name="android:windowBackground">@color/windowBackground</item>
+    </style>
+
+</resources>

@@ -1,0 +1,124 @@
+<resources>
+    <string name="app_name">Coffre</string>
+
+    <!--Main Screens -->
+    <string name="screen_transactions">Transactions</string>
+    <string name="screen_settings">Settings</string>
+    <string name="screen_save">Save</string>
+    <string name="screen_record">Record</string>
+    <string name="screen_search">Search</string>
+    <string name="screen_category">Category</string>
+    <string name="screen_icon_picker">Icon picker</string>
+    <string name="screen_debug">Debug</string>
+
+
+    <!--Settings Screen -->
+    <string name="preference_look_n_feel">Look &amp; feel</string>
+    <string name="summary_look_and_feel">Theme, colors &amp; languages</string>
+
+    <!--Format Preference -->
+    <string name="preference_format">Format</string>
+    <string name="summary_format">Decimal, thousands &amp; currency</string>
+    <string name="preference_format_header_summary">Style the numbers &amp; symbols</string>
+    <string name="preference_currency">Currency</string>
+    <string name="preference_decimal_points">Decimal points</string>
+    <string name="summary_decimal_points">0.00</string>
+
+    <!--About Preference -->
+    <string name="preference_about">About</string>
+    <string name="summary_about">Version, licenses &amp; source</string>
+    <string name="preference_source_code">Source code</string>
+    <string name="summary_source_code">View the sources on Github</string>
+    <string name="preference_latest_release">Latest release</string>
+    <string name="summary_latest_release">Find the changelogs &amp; new versions</string>
+    <string name="preference_telegram_channel">Telegram channel</string>
+    <string name="summary_telegram_channel">Latest development news</string>
+    <string name="summary_settings">Tweaks and treats</string>
+    <string name="preference_licenses">Licenses</string>
+    <string name="summary_licenses">Credits &amp; licenses</string>
+    <string name="preference_libraries">Libraries</string>
+    <string name="preference_version">Version</string>
+
+    <!--Backup & Restore Preference -->
+    <string name="preference_backup_n_restore">Backup &amp; Restore</string>
+    <string name="summary_backup_n_restore">Manual, backup folder</string>
+    <string name="preference_create_backup">Create Backup</string>
+    <string name="preference_create_backup_summary">Creates a backup of all app settings &amp; data</string>
+    <string name="preference_restore_backup">Restore Backup</string>
+    <string name="preference_restore_backup_summary">Restores app data from a backup file</string>
+
+
+    <!--Actions -->
+    <string name="action_open">Open</string>
+    <string name="action_back">Back</string>
+    <string name="action_close">Close</string>
+    <string name="action_start">Start</string>
+    <string name="action_stop">Stop</string>
+    <string name="action_next">Next</string>
+    <string name="action_skip">Skip</string>
+    <string name="action_save">Save</string>
+    <string name="action_share">Share</string>
+    <string name="action_search">Search</string>
+    <string name="action_clear">Clear</string>
+    <string name="action_copied">Copied</string>
+    <string name="action_discard">Discard</string>
+    <string name="action_history">History</string>
+    <string name="action_present">Present</string>
+    <string name="action_future">Future</string>
+    <string name="action_delete">Delete</string>
+    <string name="action_select">Select</string>
+    <string name="action_create_category">Create Category</string>
+    <string name="action_pick_color">Pick color</string>
+    <string name="action_pick_icon">Pick icon</string>
+    <string name="action_filter">Filter</string>
+    <string name="action_set_currency">Set currency</string>
+    <string name="action_set_time">Set time</string>
+    <string name="action_setup_profile">Setup your profile\n</string>
+    <!-- Errors -->
+    <string name="error_required_filed">Required filed</string>
+
+
+    <!-- Strings -->
+    <string name="title">Title</string>
+    <string name="amount">Amount</string>
+    <string name="notes">Notes</string>
+    <string name="time">Time</string>
+    <string name="date">Date</string>
+    <string name="category">Category</string>
+    <string name="see_all">See all</string>
+    <string name="income">Income</string>
+    <string name="transfer">Transfer</string>
+    <string name="expenses">Expenses</string>
+    <string name="expense">Expense</string>
+    <string name="name">Name</string>
+    <string name="spent">Spent</string>
+    <string name="available">Available</string>
+
+
+    <!--Content Descriptions -->
+    <!--User Profile-->
+    <string name="user_profile_picture">User profile picture</string>
+    <string name="profile_avatar">Avatar</string>
+    <string name="profile_setup_declaimer">Information submitted here will be used to personalize the app but none of it is uploaded.</string>
+
+
+    <!--Views-->
+    <string name="record_new_transaction">Record new transaction</string>
+    <!--List Item-->
+    <string name="list_item_icon">List item icon</string>
+    <string name="list_item_title">List item title</string>
+    <string name="list_item_sub_title">List item subtitle</string>
+    <string name="my_balance">My Balance</string>
+    <string name="app_tagline">Personal Finance Made Easy</string>
+    <string name="action_set_date">Set date</string>
+    <string name="profile">Profile</string>
+    <string name="discard_transaction">Discard Transaction?</string>
+    <string name="discard_transaction_summary">Quitting now will discard the unsaved transaction.</string>
+    <string name="warning_set_name">Please set a name</string>
+    <string name="warning_set_picture">Please pick an image</string>
+    <string name="action_profile_edit">Edit profile</string>
+    <string name="screen_more">More</string>
+    <string name="received">Received</string>
+
+
+</resources>
