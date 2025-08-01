@@ -15,6 +15,10 @@ navigation = "2.9.2"
 composeBom = "2025.07.00"
 activityCompose = "1.10.1"
 
+# Chart Library
+vico = "2.1.3"
+
+
 # Tests
 junit = "4.13.2"
 junitVersion = "1.2.1"
@@ -34,6 +38,12 @@ compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = 
 compose-ui = { group = "androidx.compose.ui", name = "ui" }
 compose-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
 compose-material3 = { group = "androidx.compose.material3", name = "material3" }
+
+# Chart Library
+vico-compose = { group = "com.patrykandpatrick.vico", name = "compose", version.ref = "vico" }
+vico-compose-m3 = { group = "com.patrykandpatrick.vico", name = "compose-m3", version.ref = "vico" }
+
+
 
 # Compose Testing
 compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }

@@ -16,6 +16,9 @@
       <SelectionState runConfigName="DebugActivity">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
+      <SelectionState runConfigName="UndrawPreviewer">
+        <option name="selectionMode" value="DROPDOWN" />
+      </SelectionState>
     </selectionStates>
   </component>
 </project>

@@ -42,7 +42,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun TowLineItem(onClick: () -> Unit, shape: RoundedCornerShape) {
+fun TwoLineItem(onClick: () -> Unit, shape: RoundedCornerShape) {
     Card(shape = shape) {
         Row(
             modifier = Modifier
@@ -99,5 +99,5 @@ fun TowLineItem(onClick: () -> Unit, shape: RoundedCornerShape) {
 @Preview
 @Composable
 fun TowLineItemPreview() {
-    TowLineItem(onClick = {}, shape = RoundedCornerShape(4.dp))
+    TwoLineItem(onClick = {}, shape = RoundedCornerShape(4.dp))
 }

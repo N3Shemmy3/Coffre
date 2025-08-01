@@ -44,6 +44,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.TextFieldValue
@@ -82,7 +83,7 @@ fun PlainTextField(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(paddingValues)
-                        .alpha(.3f),
+                        .alpha(.75f),
                     style = textStyle
                 )
             }
@@ -90,7 +91,7 @@ fun PlainTextField(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 BasicTextField(
-                    modifier = Modifier
+                    modifier = modifier
                         .defaultMinSize(minHeight = 40.dp)
                         .padding(paddingValues)
                         .weight(1f),
@@ -99,6 +100,7 @@ fun PlainTextField(
                     maxLines = maxLines,
                     minLines = minLines,
                     textStyle = textStyle,
+                    cursorBrush = (if (textStyle.brush == null) SolidColor(textStyle.color) else textStyle.brush)!!,
                     singleLine = singleLine,
                     keyboardOptions = keyboardOptions,
                     keyboardActions = keyboardActions

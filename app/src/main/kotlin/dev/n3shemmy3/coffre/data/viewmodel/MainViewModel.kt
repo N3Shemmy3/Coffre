@@ -16,12 +16,8 @@
  *
  */
 
-package dev.n3shemmy3.coffre.ui.navigation;
+package dev.n3shemmy3.coffre.data.viewmodel
 
-object Route {
-    const val START = "start"
-    const val MAIN = "main"
-    const val DETAIL = "detail"
-    const val OVERVIEW = "overview"
-    const val SEARCH = "search"
-}
+import androidx.lifecycle.ViewModel
+
+class MainViewModel: ViewModel()

@@ -22,6 +22,7 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
@@ -29,11 +30,17 @@ import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.displayCutout
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.ime
+import androidx.compose.foundation.layout.imeNestedScroll
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material.icons.outlined.DateRange
@@ -55,7 +62,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.stringResource
@@ -74,9 +80,10 @@ import dev.n3shemmy3.coffre.ui.components.NavigationButton
 import dev.n3shemmy3.coffre.ui.components.PlainTextField
 import dev.n3shemmy3.coffre.ui.components.TabRow
 import dev.n3shemmy3.coffre.ui.components.TabTitle
+import dev.n3shemmy3.coffre.util.positionAwareImePadding
 import java.util.Calendar
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable
 fun DetailScreen(navController: NavController) {
     val cutoutInsets = WindowInsets.displayCutout.asPaddingValues()
@@ -84,6 +91,7 @@ fun DetailScreen(navController: NavController) {
         cutoutInsets.calculateStartPadding(LocalLayoutDirection.current) + cutoutInsets.calculateEndPadding(
             LocalLayoutDirection.current
         )
+    val scrollState = rememberScrollState()
     var title by remember { mutableStateOf("") }
     val time by remember { mutableStateOf(Calendar.getInstance().time) }
     var amount by remember { mutableStateOf("") }
@@ -120,15 +128,21 @@ fun DetailScreen(navController: NavController) {
 
         }) { innerPadding ->
         Column(
-            Modifier.padding(
-                start = hInsets + 16.dp,
-                top = innerPadding.calculateTopPadding(),
-                end = hInsets + 16.dp,
-            ), verticalArrangement = Arrangement.spacedBy(16.dp)
+            Modifier
+                .fillMaxSize()
+                .padding(
+                    start = hInsets + 16.dp,
+                    top = innerPadding.calculateTopPadding(),
+                    end = hInsets + 16.dp,
+
+                )
+                .imeNestedScroll()
+                .imePadding()
+                .verticalScroll(scrollState), verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
 
             PlainTextField(
-                placeholder = stringResource(R.string.title),
+               placeholder = stringResource(R.string.title),
                 textStyle = MaterialTheme.typography.titleLarge.copy(
                     fontSize = 26.sp, color = MaterialTheme.colorScheme.onSurface.copy()
                 ),
@@ -156,7 +170,7 @@ fun DetailScreen(navController: NavController) {
             ) {
                 Text(
                     text = Typography.euro.toString(),
-                    modifier = Modifier.alpha(.3f),
+                    color = MaterialTheme.colorScheme.outline,
                     style = MaterialTheme.typography.displayLarge,
                 )
                 PlainTextField(
@@ -164,7 +178,10 @@ fun DetailScreen(navController: NavController) {
                     keyboardOptions = KeyboardOptions(
                         keyboardType = KeyboardType.Number
                     ),
-                    textStyle = MaterialTheme.typography.displayLarge.copy(textAlign = TextAlign.End),
+                    textStyle = MaterialTheme.typography.displayLarge.copy(
+                        textAlign = TextAlign.End,
+                        color = MaterialTheme.colorScheme.onBackground
+                    ),
                     singleLine = true,
                     onValueChanged = {
 
@@ -177,7 +194,7 @@ fun DetailScreen(navController: NavController) {
             PlainTextField(
                 placeholder = stringResource(R.string.notes),
                 textStyle = MaterialTheme.typography.bodyLarge.copy(
-                    color = MaterialTheme.colorScheme.onBackground.copy(),
+                    color = MaterialTheme.colorScheme.onBackground,
                     textAlign = TextAlign.Start,
                 ),
                 keyboardOptions = KeyboardOptions(
@@ -238,7 +255,7 @@ fun TabView(onTabSelected: (selected: Int) -> Unit) {
         selectedTabPosition = selectedTabPosition
     ) {
         items.forEachIndexed { index, s ->
-            TabTitle(s, position = index) {
+            TabTitle(s, position = index, isSelected = selectedTabPosition == index) {
                 selectedTabPosition = index
                 onTabSelected.invoke(index)
             }

@@ -16,13 +16,11 @@
  *
  */
 
-package dev.n3shemmy3.coffre.ui.screen.main
+package dev.n3shemmy3.coffre.ui.screen.overview
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
@@ -35,52 +33,39 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material.icons.outlined.Add
-import androidx.compose.material.icons.outlined.Search
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TooltipBox
-import androidx.compose.material3.TooltipDefaults
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
-import androidx.compose.material3.rememberTooltipState
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.input.nestedscroll.nestedScroll
-import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.platform.LocalLayoutDirection
-import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import dev.n3shemmy3.coffre.R
-import dev.n3shemmy3.coffre.ui.components.ActionIconButton
-import dev.n3shemmy3.coffre.ui.components.BalanceCard
 import dev.n3shemmy3.coffre.ui.components.HeaderItem
+import dev.n3shemmy3.coffre.ui.components.NavigationButton
+import dev.n3shemmy3.coffre.ui.components.OverviewChart
 import dev.n3shemmy3.coffre.ui.components.TwoLineItem
 import dev.n3shemmy3.coffre.ui.navigation.Route
+import dev.n3shemmy3.coffre.ui.screen.main.AnimatedFloatingActionButton
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainScreen(navController: NavHostController) {
+fun OverviewScreen(navController: NavHostController) {
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
     val cutoutInsets = WindowInsets.displayCutout.asPaddingValues()
     val systemBarInsets = WindowInsets.systemBars.asPaddingValues()
@@ -92,45 +77,33 @@ fun MainScreen(navController: NavHostController) {
 
     Scaffold(modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection), topBar = {
         TopAppBar(
-            title = {}, navigationIcon = {
-
-                IconButton(
-                    onClick = {},
+            title = {
+                Text(text = stringResource(R.string.screen_transactions))
+            },
+            navigationIcon = {
+                Box(
                     Modifier.padding(
                         start = hInsets + 4.dp
                     )
                 ) {
-                    Card(
-                        shape = CircleShape,
-                        modifier = Modifier.padding(6.dp),
-                    ) {
-                        Image(
-                            painter = painterResource(R.drawable.ic_launcher_foreground),
-                            modifier = Modifier.background(
-                                colorResource(R.color.ic_launcher_background),
-                                CircleShape
-                            ),
-                            contentDescription = "Localized description"
-                        )
-                    }
+                    NavigationButton(
+                        onClick = {
+                            navController.popBackStack()
+                        },
+                        imageVector = Icons.AutoMirrored.Outlined.ArrowBack,
+                        stringResource(R.string.action_back)
+                    )
                 }
-            }, actions = {
-
-
-                ActionIconButton(
-                    onClick = {},
-                    imageVector = Icons.Outlined.Search,
-                    stringResource(R.string.action_search)
-                )
-
-                TopAppBarAvatar(onClick = {})
+            },
+            actions = {
 
                 Spacer(
                     Modifier.padding(
                         end = hInsets + 4.dp
                     )
                 )
-            }, scrollBehavior = scrollBehavior
+            },
+            scrollBehavior = scrollBehavior
         )
     }, floatingActionButton = {
         AnimatedFloatingActionButton(
@@ -158,14 +131,21 @@ fun MainScreen(navController: NavHostController) {
         ) {
             item(0) {
                 Row(Modifier.padding(vertical = 12.dp)) {
-                    BalanceCard()
+                    Box(
+                        Modifier
+                            .background(
+                                MaterialTheme.colorScheme.surfaceContainerLow,
+                                RoundedCornerShape(20.dp)
+                            )
+                            .padding(16.dp),
+                    ) {
+                        OverviewChart()
+                    }
                 }
             }
             item(1) {
                 HeaderItem(
-                    onActionClick = {
-                        navController.navigate(Route.OVERVIEW)
-                    },
+                    onActionClick = {},
                     RoundedCornerShape(
                         topStart = 20.dp,
                         topEnd = 20.dp,
@@ -197,64 +177,10 @@ fun MainScreen(navController: NavHostController) {
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun TopAppBarAvatar(onClick: () -> Unit) {
-    val tooltipState = rememberTooltipState(isPersistent = false)
-    if (tooltipState.isVisible) LocalHapticFeedback.current.performHapticFeedback(HapticFeedbackType.ContextClick)
-    TooltipBox(
-        positionProvider = TooltipDefaults.rememberRichTooltipPositionProvider(),
-        state = tooltipState,
-        tooltip = {
-            ElevatedCard(
-                shape = RoundedCornerShape(2.dp),
-                colors = CardDefaults.elevatedCardColors(
-                    containerColor = MaterialTheme.colorScheme.onSurfaceVariant
-                )
-            ) {
-                Text(
-                    text = stringResource(R.string.profile),
-                    modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
-                    color = MaterialTheme.colorScheme.surfaceVariant
-                )
-            }
-        }
-    ) {
-        IconButton(
-            onClick
-        ) {
-            Card(
-                shape = CircleShape,
-                modifier = Modifier.padding(6.dp),
-                border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline),
-            ) {
-                Image(
-                    painter = painterResource(R.drawable.avatar),
-                    contentDescription = "Localized description"
-                )
-            }
-        }
-    }
-}
-
-@Composable
-fun AnimatedFloatingActionButton(
-    onClick: () -> Unit,
-    modifier: Modifier,
-    listState: LazyListState,
-    content: @Composable () -> Unit,
-) {
-    AnimatedVisibility(visible = true) {
-        FloatingActionButton(onClick, modifier) {
-            content.invoke()
-        }
-    }
-}
-
 
 @Preview
 @Composable
-fun MainScreenPreview() {
+fun OverviewScreenPreview() {
     val navController = rememberNavController()
-    MainScreen(navController = navController)
+    OverviewScreen(navController = navController)
 }

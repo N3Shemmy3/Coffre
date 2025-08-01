@@ -71,6 +71,10 @@ dependencies {
     implementation(libs.compose.ui.tooling.preview)
     implementation(libs.compose.material3)
 
+    /* Chart Library */
+    implementation(libs.vico.compose)
+    implementation(libs.vico.compose.m3)
+
     /* Testing */
     testImplementation(libs.junit)
     androidTestImplementation(platform(libs.compose.bom))

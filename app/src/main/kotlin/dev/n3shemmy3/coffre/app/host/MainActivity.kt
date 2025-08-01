@@ -28,10 +28,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
-import dev.n3shemmy3.coffre.ui.navigation.animatedComposable
 import dev.n3shemmy3.coffre.ui.navigation.Route
+import dev.n3shemmy3.coffre.ui.navigation.animatedComposable
 import dev.n3shemmy3.coffre.ui.screen.detail.DetailScreen
 import dev.n3shemmy3.coffre.ui.screen.main.MainScreen
+import dev.n3shemmy3.coffre.ui.screen.overview.OverviewScreen
+import dev.n3shemmy3.coffre.ui.screen.start.StartScreen
 import dev.n3shemmy3.coffre.ui.theme.CoffreTheme
 
 class MainActivity : ComponentActivity() {
@@ -41,7 +43,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             val navController = rememberNavController()
             CoffreTheme {
-                AppRoot(navController = navController, startDestination = Route.MAIN)
+                Navigator(navController = navController, startDestination = Route.DETAIL)
             }
         }
     }
@@ -49,16 +51,22 @@ class MainActivity : ComponentActivity() {
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
-fun AppRoot(navController: NavHostController, startDestination: String) {
+fun Navigator(navController: NavHostController, startDestination: String) {
     NavHost(
         navController = navController,
         startDestination = startDestination,
     ) {
+        animatedComposable(Route.START) {
+            StartScreen(navController)
+        }
         animatedComposable(Route.MAIN) {
             MainScreen(navController)
         }
         animatedComposable(Route.DETAIL) {
             DetailScreen(navController)
+        }
+        animatedComposable(Route.OVERVIEW) {
+            OverviewScreen(navController)
         }
     }
 }
@@ -68,6 +76,6 @@ fun AppRoot(navController: NavHostController, startDestination: String) {
 fun GreetingPreview() {
     val navController = rememberNavController()
     CoffreTheme {
-        AppRoot(navController = navController, startDestination = Route.MAIN)
+        Navigator(navController = navController, startDestination = Route.MAIN)
     }
 }
