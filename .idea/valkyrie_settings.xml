@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Valkyrie.Settings">
+    <option name="generatePreview" value="true" />
+    <option name="iconPackDestination" value="$USER_HOME$/Downloads" />
+    <option name="iconPackName" value="Undraw" />
+    <option name="iconPackPackage" value="dev.n3shemmy3.coffre.ui.undraw" />
+    <option name="mode" value="Simple" />
+    <option name="outputFormat" value="backing_property" />
+    <option name="packageName" value="dev.n3shemmy3.coffre.ui.undraw" />
+  </component>
+</project>
