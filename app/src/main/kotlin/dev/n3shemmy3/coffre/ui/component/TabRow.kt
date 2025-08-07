@@ -16,7 +16,7 @@
  *
  */
 
-package dev.n3shemmy3.coffre.ui.components
+package dev.n3shemmy3.coffre.ui.component
 
 import androidx.compose.animation.core.AnimationSpec
 import androidx.compose.animation.core.FastOutSlowInEasing

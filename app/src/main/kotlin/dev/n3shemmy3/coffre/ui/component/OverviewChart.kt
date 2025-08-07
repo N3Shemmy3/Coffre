@@ -16,7 +16,7 @@
  *
  */
 
-package dev.n3shemmy3.coffre.ui.components
+package dev.n3shemmy3.coffre.ui.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box

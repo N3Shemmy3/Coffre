@@ -16,7 +16,7 @@
  *
  */
 
-package dev.n3shemmy3.coffre.ui.components
+package dev.n3shemmy3.coffre.ui.component
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn

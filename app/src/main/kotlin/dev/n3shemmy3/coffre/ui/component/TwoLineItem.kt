@@ -16,7 +16,7 @@
  *
  */
 
-package dev.n3shemmy3.coffre.ui.components
+package dev.n3shemmy3.coffre.ui.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -30,7 +30,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.MailOutline
+import androidx.compose.material.icons.outlined.CreditCard
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -38,11 +38,19 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun TwoLineItem(onClick: () -> Unit, shape: RoundedCornerShape) {
+fun TwoLineItem(
+    icon: ImageVector,
+    title: String,
+    summary: String,
+    endText: String? = null,
+    onClick: () -> Unit,
+    shape: RoundedCornerShape,
+) {
     Card(shape = shape) {
         Row(
             modifier = Modifier
@@ -63,34 +71,36 @@ fun TwoLineItem(onClick: () -> Unit, shape: RoundedCornerShape) {
                     .padding(10.dp),
             ) {
                 Icon(
-                    imageVector = Icons.Outlined.MailOutline, ""
+                    imageVector = icon, null
                 )
             }
             Column(Modifier.weight(1.0f)) {
                 Text(
-                    "Item title",
+                    title,
                     maxLines = 1,
                     style = MaterialTheme.typography.titleMedium
                 )
                 Text(
-                    "Supporting text",
+                    summary,
                     maxLines = 2,
                     style = MaterialTheme.typography.bodyMedium
                 )
             }
-            Box(
-                Modifier
-                    .background(
-                        MaterialTheme.colorScheme.errorContainer,
-                        CircleShape
+            if (!endText.isNullOrEmpty()) {
+                Box(
+                    Modifier
+                        .background(
+                            MaterialTheme.colorScheme.errorContainer,
+                            CircleShape
+                        )
+                        .padding(8.dp),
+                ) {
+                    Text(
+                        endText,
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onErrorContainer
                     )
-                    .padding(8.dp),
-            ) {
-                Text(
-                    "$10.00",
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onErrorContainer
-                )
+                }
             }
         }
     }
@@ -99,5 +109,11 @@ fun TwoLineItem(onClick: () -> Unit, shape: RoundedCornerShape) {
 @Preview
 @Composable
 fun TowLineItemPreview() {
-    TwoLineItem(onClick = {}, shape = RoundedCornerShape(4.dp))
+    TwoLineItem(
+        onClick = {}, shape = RoundedCornerShape(4.dp),
+        icon = Icons.Outlined.CreditCard,
+        title = "Item title",
+        summary = "Supporting text",
+        endText = "$10"
+    )
 }
