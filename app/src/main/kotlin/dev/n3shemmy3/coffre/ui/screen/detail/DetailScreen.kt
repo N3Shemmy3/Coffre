@@ -32,7 +32,6 @@ import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.displayCutout
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.ime
 import androidx.compose.foundation.layout.imeNestedScroll
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
@@ -75,12 +74,11 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import dev.n3shemmy3.coffre.R
-import dev.n3shemmy3.coffre.ui.components.ActionIconButton
-import dev.n3shemmy3.coffre.ui.components.NavigationButton
-import dev.n3shemmy3.coffre.ui.components.PlainTextField
-import dev.n3shemmy3.coffre.ui.components.TabRow
-import dev.n3shemmy3.coffre.ui.components.TabTitle
-import dev.n3shemmy3.coffre.util.positionAwareImePadding
+import dev.n3shemmy3.coffre.ui.component.ActionIconButton
+import dev.n3shemmy3.coffre.ui.component.NavigationButton
+import dev.n3shemmy3.coffre.ui.component.PlainTextField
+import dev.n3shemmy3.coffre.ui.component.TabRow
+import dev.n3shemmy3.coffre.ui.component.TabTitle
 import java.util.Calendar
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
