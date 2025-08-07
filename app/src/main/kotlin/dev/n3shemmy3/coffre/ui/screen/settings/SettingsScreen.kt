@@ -84,7 +84,7 @@ fun SettingsScreen(navController: NavController) {
         topBar = {
             val overrideTypography =
                 remember(typography) { typography.copy(headlineMedium = typography.displaySmall) }
-            MaterialTheme(typography = overrideTypograpthy) {
+            MaterialTheme(typography = overrideTypography) {
                 LargeTopAppBar(
                     title = {
                         Text(
