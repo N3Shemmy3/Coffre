@@ -70,8 +70,8 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import dev.n3shemmy3.coffre.R
-import dev.n3shemmy3.coffre.ui.components.TabPill
-import dev.n3shemmy3.coffre.ui.components.TabRow
+import dev.n3shemmy3.coffre.ui.component.TabPill
+import dev.n3shemmy3.coffre.ui.component.TabRow
 import dev.n3shemmy3.coffre.ui.motion.materialSharedAxisXIn
 import dev.n3shemmy3.coffre.ui.motion.materialSharedAxisXOut
 import dev.n3shemmy3.coffre.ui.navigation.Route
