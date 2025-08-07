@@ -16,7 +16,7 @@
  *
  */
 
-package dev.n3shemmy3.coffre.ui.components
+package dev.n3shemmy3.coffre.ui.component
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
