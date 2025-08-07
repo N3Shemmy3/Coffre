@@ -33,6 +33,7 @@ import dev.n3shemmy3.coffre.ui.navigation.animatedComposable
 import dev.n3shemmy3.coffre.ui.screen.detail.DetailScreen
 import dev.n3shemmy3.coffre.ui.screen.main.MainScreen
 import dev.n3shemmy3.coffre.ui.screen.overview.OverviewScreen
+import dev.n3shemmy3.coffre.ui.screen.settings.SettingsScreen
 import dev.n3shemmy3.coffre.ui.screen.start.StartScreen
 import dev.n3shemmy3.coffre.ui.theme.CoffreTheme
 
@@ -43,7 +44,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             val navController = rememberNavController()
             CoffreTheme {
-                Navigator(navController = navController, startDestination = Route.DETAIL)
+                Navigator(navController = navController, startDestination = Route.MAIN)
             }
         }
     }
@@ -67,6 +68,9 @@ fun Navigator(navController: NavHostController, startDestination: String) {
         }
         animatedComposable(Route.OVERVIEW) {
             OverviewScreen(navController)
+        }
+        animatedComposable(Route.SETTINGS) {
+            SettingsScreen(navController)
         }
     }
 }
