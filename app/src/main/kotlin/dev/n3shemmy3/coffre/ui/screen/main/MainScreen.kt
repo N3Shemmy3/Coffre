@@ -19,9 +19,10 @@
 package dev.n3shemmy3.coffre.ui.screen.main
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.slideInVertically
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -41,9 +42,11 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Add
+import androidx.compose.material.icons.outlined.CreditCard
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
@@ -56,152 +59,192 @@ import androidx.compose.material3.TooltipBox
 import androidx.compose.material3.TooltipDefaults
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.rememberDrawerState
 import androidx.compose.material3.rememberTooltipState
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.platform.LocalLayoutDirection
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavHostController
+import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import dev.n3shemmy3.coffre.R
-import dev.n3shemmy3.coffre.ui.components.ActionIconButton
-import dev.n3shemmy3.coffre.ui.components.BalanceCard
-import dev.n3shemmy3.coffre.ui.components.HeaderItem
-import dev.n3shemmy3.coffre.ui.components.TwoLineItem
+import dev.n3shemmy3.coffre.ui.component.ActionIconButton
+import dev.n3shemmy3.coffre.ui.component.BalanceCard
+import dev.n3shemmy3.coffre.ui.component.HeaderItem
+import dev.n3shemmy3.coffre.ui.component.NavigationDrawer
+import dev.n3shemmy3.coffre.ui.component.TwoLineItem
+import dev.n3shemmy3.coffre.ui.navigation.DURATION_ENTER
 import dev.n3shemmy3.coffre.ui.navigation.Route
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainScreen(navController: NavHostController) {
-    val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
+fun MainScreen(navController: NavController) {
     val cutoutInsets = WindowInsets.displayCutout.asPaddingValues()
     val systemBarInsets = WindowInsets.systemBars.asPaddingValues()
     val hInsets =
         cutoutInsets.calculateStartPadding(LocalLayoutDirection.current) + cutoutInsets.calculateEndPadding(
             LocalLayoutDirection.current
         )
+
+    val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
+    val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val listState = rememberLazyListState()
+    val scope = rememberCoroutineScope()
 
-    Scaffold(modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection), topBar = {
-        TopAppBar(
-            title = {}, navigationIcon = {
-
-                IconButton(
-                    onClick = {},
-                    Modifier.padding(
-                        start = hInsets + 4.dp
-                    )
-                ) {
-                    Card(
-                        shape = CircleShape,
-                        modifier = Modifier.padding(6.dp),
+    NavigationDrawer(
+        drawerState = drawerState,
+        onItemClick = { id -> },
+    ) {
+        Scaffold(modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection), topBar = {
+            TopAppBar(
+                title = {}, navigationIcon = {
+                    IconButton(
+                        onClick = {},
+                        Modifier.padding(
+                            start = hInsets + 4.dp
+                        )
                     ) {
-                        Image(
-                            painter = painterResource(R.drawable.ic_launcher_foreground),
-                            modifier = Modifier.background(
-                                colorResource(R.color.ic_launcher_background),
-                                CircleShape
-                            ),
-                            contentDescription = "Localized description"
+                        TopAppBarAvatar(onClick = {
+                            scope.launch {
+                                drawerState.apply {
+                                    if (isClosed) open() else close()
+                                }
+                            }
+                        })
+                    }
+                },
+                actions = {
+                    ActionIconButton(
+                        onClick = {
+                            scope.launch {
+                                navController.navigate(Route.SETTINGS)
+                            }
+                        },
+                        imageVector = Icons.Outlined.Search,
+                        stringResource(R.string.action_search)
+                    )
+                    Spacer(
+                        Modifier.padding(
+                            end = hInsets + 4.dp
+                        )
+                    )
+                }, scrollBehavior = scrollBehavior
+            )
+        }, floatingActionButton = {
+            AnimatedFloatingActionButton(
+                onClick = {
+                    scope.launch {
+                        navController.navigate(Route.DETAIL)
+                    }
+                },
+                modifier = Modifier.padding(
+                    horizontal = hInsets,
+                    vertical = systemBarInsets.calculateBottomPadding()
+                ),
+                listState
+            ) {
+                Icon(Icons.Outlined.Add, null)
+            }
+        }) { it ->
+            LazyColumn(
+                state = listState,
+                modifier = Modifier
+                    .padding(
+                        start = hInsets + 16.dp,
+                        top = it.calculateTopPadding(),
+                        end = hInsets + 16.dp,
+                    ),
+                verticalArrangement = Arrangement.spacedBy(4.dp)
+            ) {
+                item(0) {
+                    Row(Modifier.padding(vertical = 12.dp)) {
+                        AnimatedVisibility(
+                            visible = true,
+                            enter = slideInVertically(
+                                initialOffsetY = { fullHeight -> fullHeight },
+                                animationSpec = tween(durationMillis = DURATION_ENTER)
+                            )
+                        ) {
+                            BalanceCard()
+                        }
+                    }
+                }
+                item(1) {
+                    AnimatedVisibility(
+                        visible = true,
+                        enter = slideInVertically(
+                            initialOffsetY = { fullHeight -> fullHeight },
+                            animationSpec = tween(durationMillis = DURATION_ENTER)
+                        )
+                    ) {
+                        HeaderItem(
+                            onActionClick = {
+                                scope.launch {
+                                    navController.navigate(Route.OVERVIEW)
+                                }
+                            },
+                            RoundedCornerShape(
+                                topStart = 20.dp,
+                                topEnd = 20.dp,
+                                bottomEnd = 4.dp,
+                                bottomStart = 4.dp
+                            )
                         )
                     }
                 }
-            }, actions = {
-
-
-                ActionIconButton(
-                    onClick = {},
-                    imageVector = Icons.Outlined.Search,
-                    stringResource(R.string.action_search)
-                )
-
-                TopAppBarAvatar(onClick = {})
-
-                Spacer(
-                    Modifier.padding(
-                        end = hInsets + 4.dp
-                    )
-                )
-            }, scrollBehavior = scrollBehavior
-        )
-    }, floatingActionButton = {
-        AnimatedFloatingActionButton(
-            onClick = {
-                navController.navigate(Route.DETAIL)
-            },
-            modifier = Modifier.padding(
-                horizontal = hInsets,
-                vertical = systemBarInsets.calculateBottomPadding()
-            ),
-            listState
-        ) {
-            Icon(Icons.Outlined.Add, "")
-        }
-    }) { innerPadding ->
-        LazyColumn(
-            state = listState,
-            modifier = Modifier
-                .padding(
-                    start = hInsets + 16.dp,
-                    top = innerPadding.calculateTopPadding(),
-                    end = hInsets + 16.dp,
-                ),
-            verticalArrangement = Arrangement.spacedBy(4.dp)
-        ) {
-            item(0) {
-                Row(Modifier.padding(vertical = 12.dp)) {
-                    BalanceCard()
+                items(5) {
+                    val bottomRadius = if (it == 4) 20.dp else 4.dp
+                    AnimatedVisibility(
+                        visible = true,
+                        enter = slideInVertically(
+                            initialOffsetY = { fullHeight -> fullHeight },
+                            animationSpec = tween(durationMillis = DURATION_ENTER)
+                        )
+                    ) {
+                        TwoLineItem(
+                            icon = Icons.Outlined.CreditCard,
+                            title = "Item title",
+                            summary = "Supporting text",
+                            endText = Typography.euro + "10",
+                            onClick = {},
+                            RoundedCornerShape(
+                                topStart = 4.dp,
+                                topEnd = 4.dp,
+                                bottomEnd = bottomRadius,
+                                bottomStart = bottomRadius
+                            )
+                        )
+                    }
                 }
-            }
-            item(1) {
-                HeaderItem(
-                    onActionClick = {
-                        navController.navigate(Route.OVERVIEW)
-                    },
-                    RoundedCornerShape(
-                        topStart = 20.dp,
-                        topEnd = 20.dp,
-                        bottomEnd = 4.dp,
-                        bottomStart = 4.dp
+                item {
+                    Spacer(
+                        Modifier
+                            .fillMaxWidth()
+                            .height(systemBarInsets.calculateBottomPadding() + systemBarInsets.calculateTopPadding())
                     )
-                )
-            }
-            items(5) {
-                val bottomRadius = if (it == 4) 20.dp else 4.dp
-                TwoLineItem(
-                    onClick = {},
-                    RoundedCornerShape(
-                        topStart = 4.dp,
-                        topEnd = 4.dp,
-                        bottomEnd = bottomRadius,
-                        bottomStart = bottomRadius
-                    )
-                )
-            }
-            item {
-                Spacer(
-                    Modifier
-                        .fillMaxWidth()
-                        .height(systemBarInsets.calculateBottomPadding() + systemBarInsets.calculateTopPadding())
-                )
+                }
             }
         }
     }
 }
 
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TopAppBarAvatar(onClick: () -> Unit) {
     val tooltipState = rememberTooltipState(isPersistent = false)
-    if (tooltipState.isVisible) LocalHapticFeedback.current.performHapticFeedback(HapticFeedbackType.ContextClick)
+    if (tooltipState.isVisible) LocalHapticFeedback.current.performHapticFeedback(
+        HapticFeedbackType.ContextClick
+    )
     TooltipBox(
         positionProvider = TooltipDefaults.rememberRichTooltipPositionProvider(),
         state = tooltipState,
@@ -225,7 +268,7 @@ fun TopAppBarAvatar(onClick: () -> Unit) {
         ) {
             Card(
                 shape = CircleShape,
-                modifier = Modifier.padding(6.dp),
+                modifier = Modifier.padding(2.dp),
                 border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline),
             ) {
                 Image(
