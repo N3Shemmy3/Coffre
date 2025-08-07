@@ -24,4 +24,5 @@ object Route {
     const val DETAIL = "detail"
     const val OVERVIEW = "overview"
     const val SEARCH = "search"
+    const val SETTINGS = "settings"
 }
