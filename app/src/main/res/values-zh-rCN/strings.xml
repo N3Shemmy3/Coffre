@@ -1,0 +1,123 @@
+<resources>
+    <string name="app_name">Coffre</string>
+
+    <!--Main Screens -->
+    <string name="screen_transactions">收支</string>
+    <string name="screen_settings">设置</string>
+    <string name="screen_save">保存</string>
+    <string name="screen_record">记录</string>
+    <string name="screen_search">搜索</string>
+    <string name="screen_category">类型</string>
+    <string name="screen_icon_picker">图标选择</string>
+    <string name="screen_debug">Debug</string>
+
+
+    <!--Settings Screen -->
+    <string name="preference_look_n_feel">查看 &amp; 感觉</string>
+    <string name="summary_look_and_feel">主题, 颜色 &amp; 语言</string>
+
+    <!--Format Preference -->
+    <string name="preference_format">格式</string>
+    <string name="summary_format">十进制, 千进制 &amp; 货币</string>
+    <string name="preference_format_header_summary">自定义数字 &amp; 标志</string>
+    <string name="preference_currency">货币</string>
+    <string name="preference_decimal_points">小数点</string>
+    <string name="summary_decimal_points">0.00</string>
+
+    <!--About Preference -->
+    <string name="preference_about">关于</string>
+    <string name="summary_about">版本, 许可证 &amp; 源代码</string>
+    <string name="preference_source_code">源代码</string>
+    <string name="summary_source_code">在Github上查看源代码</string>
+    <string name="preference_latest_release">最新的发行版</string>
+    <string name="summary_latest_release">查看更新日志 &amp; 获取新版本</string>
+    <string name="preference_telegram_channel">Telegram 频道</string>
+    <string name="summary_telegram_channel">获取最新的开发进度</string>
+    <string name="summary_settings">细微的调整</string>
+    <string name="preference_licenses">许可证</string>
+    <string name="summary_licenses">查看贡献人员 &amp; 许可证</string>
+    <string name="preference_libraries">库</string>
+    <string name="preference_version">版本</string>
+
+    <!--Backup & Restore Preference -->
+    <string name="preference_backup_n_restore">备份 &amp; 还原</string>
+    <string name="summary_backup_n_restore">需要手动备份</string>
+    <string name="preference_create_backup">创建备份</string>
+    <string name="preference_create_backup_summary">为应用的设置 &amp; 数据 创建备份</string>
+    <string name="preference_restore_backup">还原备份</string>
+    <string name="preference_restore_backup_summary">从备份文件中还原应用设置</string>
+
+
+    <!--Actions -->
+    <string name="action_open">打开</string>
+    <string name="action_close">关闭</string>
+    <string name="action_start">开始吧</string>
+    <string name="action_stop">停止</string>
+    <string name="action_next">下一个</string>
+    <string name="action_skip">跳过</string>
+    <string name="action_save">保存</string>
+    <string name="action_share">分享</string>
+    <string name="action_search">搜索</string>
+    <string name="action_clear">清除</string>
+    <string name="action_copied">已复制</string>
+    <string name="action_discard">放弃</string>
+    <string name="action_history">历史</string>
+    <string name="action_present">过去</string>
+    <string name="action_future">未来</string>
+    <string name="action_delete">删除</string>
+    <string name="action_select">选择</string>
+    <string name="action_create_category">创建类型</string>
+    <string name="action_pick_color">选择颜色</string>
+    <string name="action_pick_icon">选择图标</string>
+    <string name="action_filter">过滤器</string>
+    <string name="action_set_currency">设置货币</string>
+    <string name="action_set_time">设置时间</string>
+    <string name="action_setup_profile">设置您的档案</string>
+    <!-- Errors -->
+    <string name="error_required_filed">此为必填项</string>
+
+
+    <!-- Strings -->
+    <string name="title">标题</string>
+    <string name="amount">金额</string>
+    <string name="notes">笔记</string>
+    <string name="time">时间</string>
+    <string name="date">日期</string>
+    <string name="category">类型</string>
+    <string name="see_all">查看全部</string>
+    <string name="income">收入</string>
+    <string name="transfer">转移</string>
+    <string name="expenses">支出</string>
+    <string name="expense">支出</string>
+    <string name="name">名字</string>
+    <string name="spent">支出</string>
+    <string name="available">可用的</string>
+
+
+    <!--Content Descriptions -->
+    <!--User Profile-->
+    <string name="user_profile_picture">您的头像</string>
+    <string name="profile_avatar">头像</string>
+    <string name="profile_setup_declaimer">应用在此处记录的信息仅用于档案，不会被上传</string>
+
+
+    <!--Views-->
+    <string name="record_new_transaction">开始记录</string>
+    <!--List Item-->
+    <string name="list_item_icon">列表项图标</string>
+    <string name="list_item_title">列表项标题</string>
+    <string name="list_item_sub_title">列表项子标题</string>
+    <string name="my_balance">当前余额</string>
+    <string name="app_tagline">制作一个简单的私人账本</string>
+    <string name="action_set_date">设置日期</string>
+    <string name="profile">档案</string>
+    <string name="discard_transaction">放弃该记录?</string>
+    <string name="discard_transaction_summary">现在退出将会失去该记录</string>
+    <string name="warning_set_name">请设置一个名字</string>
+    <string name="warning_set_picture">请选择一张图片</string>
+    <string name="action_profile_edit">编辑档案</string>
+    <string name="screen_more">更多</string>
+    <string name="received">收入</string>
+
+
+</resources>
