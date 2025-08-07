@@ -38,6 +38,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material.icons.outlined.Add
+import androidx.compose.material.icons.outlined.CreditCard
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -56,10 +57,10 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import dev.n3shemmy3.coffre.R
-import dev.n3shemmy3.coffre.ui.components.HeaderItem
-import dev.n3shemmy3.coffre.ui.components.NavigationButton
-import dev.n3shemmy3.coffre.ui.components.OverviewChart
-import dev.n3shemmy3.coffre.ui.components.TwoLineItem
+import dev.n3shemmy3.coffre.ui.component.HeaderItem
+import dev.n3shemmy3.coffre.ui.component.NavigationButton
+import dev.n3shemmy3.coffre.ui.component.OverviewChart
+import dev.n3shemmy3.coffre.ui.component.TwoLineItem
 import dev.n3shemmy3.coffre.ui.navigation.Route
 import dev.n3shemmy3.coffre.ui.screen.main.AnimatedFloatingActionButton
 
@@ -156,7 +157,10 @@ fun OverviewScreen(navController: NavHostController) {
             }
             items(5) {
                 val bottomRadius = if (it == 4) 20.dp else 4.dp
-                TwoLineItem(
+                TwoLineItem(   icon = Icons.Outlined.CreditCard,
+                    title = "Item title",
+                    summary = "Supporting text",
+                    endText = Typography.euro + "10",
                     onClick = {},
                     RoundedCornerShape(
                         topStart = 4.dp,
