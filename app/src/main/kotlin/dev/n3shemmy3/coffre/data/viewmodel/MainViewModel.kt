@@ -30,7 +30,6 @@ import kotlinx.coroutines.launch
 
 class MainViewModel : ViewModel() {
 
-    // Example UI state — replace with your real state type later
     private val _state = MutableStateFlow<Any?>(null)
     val state = _state.asStateFlow()
 
