@@ -26,3 +26,8 @@ object Route {
     const val SEARCH = "search"
     const val SETTINGS = "settings"
 }
+data class RouteEvent (
+    val route: String,
+    val payload: Any? = null,
+    val result: Any? = null
+)
