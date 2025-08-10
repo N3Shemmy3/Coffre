@@ -76,6 +76,10 @@ dependencies {
     implementation(libs.vico.compose)
     implementation(libs.vico.compose.m3)
 
+    /* Kotlin */
+    implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.kotlinx.coroutines.android)
+
     /* Testing */
     testImplementation(libs.junit)
     androidTestImplementation(platform(libs.compose.bom))
