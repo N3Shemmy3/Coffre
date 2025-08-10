@@ -10,7 +10,7 @@
 ![GitHub tag (with filter)](https://img.shields.io/github/v/tag/N3Shemmy3/Coffre?&logoColor=white&labelColor=black&color=white)
 [![Telegram Channel](https://img.shields.io/badge/Telegram-Coffre-blue?style=flat&logo=telegram)](https://t.me/N3Shemmy3)
 
-[Engligh](./readme.md) | Chinease
+[Engligh](./readme.md) | Chinese
 
 Coffre 是一个 Android 应用, 它的设计宗旨是 简单直观 且 高效率 地帮助你管理个人收支
 轻松地记录你的收入, 支出 和 转账, 深入了解你的消费习惯, 并实现你的财务目标

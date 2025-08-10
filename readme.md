@@ -10,7 +10,7 @@
 ![GitHub tag (with filter)](https://img.shields.io/github/v/tag/N3Shemmy3/Coffre?&logoColor=white&labelColor=black&color=white)
 [![Telegram](https://img.shields.io/badge/Telegram-Coffre-blue?style=flat&logo=telegram)](https://t.me/N3Shemmy3)
 
-Engligh | [Chinease](./readme.zh-CN.md)
+Engligh | [Chinese](./readme.zh-CN.md)
 
 Coffre is a simple and intuitive Android application designed to help you manage your personal
 finances effectively. Track your income, expenses, and transfers with ease, gain insights into your
