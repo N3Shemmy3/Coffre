@@ -12,6 +12,8 @@ coreKtx = "1.16.0"
 lifecycleRuntimeKtx = "2.9.2"
 materialIconsExtendedAndroid = "1.7.8"
 navigation = "2.9.3"
+room = "2.7.2"
+
 
 # Compose
 composeBom = "2025.07.00"
@@ -32,7 +34,10 @@ espressoCore = "3.7.0"
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
 androidx-activity = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
-androidx-navigation = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigation"}
+androidx-navigation = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigation" }
+androidx-room = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
+androidx-room-coroutines = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
+androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
 
 
 # Compose
