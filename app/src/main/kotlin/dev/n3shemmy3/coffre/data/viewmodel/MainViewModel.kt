@@ -22,6 +22,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dev.n3shemmy3.coffre.data.action.Action
 import dev.n3shemmy3.coffre.ui.navigation.RouteEvent
+import dev.n3shemmy3.coffre.ui.screen.main.MainScreenState
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
@@ -30,7 +31,7 @@ import kotlinx.coroutines.launch
 
 class MainViewModel : ViewModel() {
 
-    private val _state = MutableStateFlow<Any?>(null)
+    private val _state = MutableStateFlow(MainScreenState())
     val state = _state.asStateFlow()
 
     private val _navEvents = MutableSharedFlow<RouteEvent>()
