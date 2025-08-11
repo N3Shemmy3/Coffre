@@ -18,6 +18,8 @@
 
 package dev.n3shemmy3.coffre.data.action
 
+import dev.n3shemmy3.coffre.data.entity.Transaction
+
 
 sealed class Action {
 
@@ -27,16 +29,19 @@ sealed class Action {
     }
 
     sealed class DataFlow : Action() {
-        data class Create<T>(val items: List<T>) : DataFlow() {
-            constructor(vararg items: T) : this(items.toList())
+        data class Create(val items: List<Transaction>) : DataFlow() {
+            constructor(vararg items: Transaction) : this(items.toList())
         }
-        data class Read<T>(val ids: List<Long>) : DataFlow() {
+
+        data class Read(val ids: List<Long>) : DataFlow() {
             constructor(vararg ids: Long) : this(ids.toList())
         }
-        data class Update<T>(val items: List<T>) : DataFlow() {
-            constructor(vararg items: T) : this(items.toList())
+
+        data class Update(val items: List<Transaction>) : DataFlow() {
+            constructor(vararg items: Transaction) : this(items.toList())
         }
-        data class Delete<T>(val ids: List<Long>) : DataFlow() {
+
+        data class Delete(val ids: List<Long>) : DataFlow() {
             constructor(vararg ids: Long) : this(ids.toList())
         }
     }
