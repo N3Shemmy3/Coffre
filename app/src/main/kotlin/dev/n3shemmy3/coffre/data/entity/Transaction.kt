@@ -26,7 +26,7 @@ data class Transaction(
     val icon: String? = null,
     val amount: Double,
     val memo: String?,
-    val date: LocalDateTime,
+    val time: LocalDateTime,
     val type: Type,
     val accountId: Long
 ) {
