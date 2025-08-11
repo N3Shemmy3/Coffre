@@ -63,7 +63,7 @@ dependencies {
     implementation(libs.androidx.activity)
     implementation(libs.androidx.navigation)
     implementation(libs.androidx.room)
-    implementation(libs.androidx.room.compiler)
+    annotationProcessor(libs.androidx.room.compiler)
     implementation(libs.androidx.room.coroutines)
 
 
@@ -91,4 +91,5 @@ dependencies {
     androidTestImplementation(libs.compose.ui.test.junit4)
     debugImplementation(libs.compose.ui.tooling)
     debugImplementation(libs.compose.ui.test.manifest)
+
 }
