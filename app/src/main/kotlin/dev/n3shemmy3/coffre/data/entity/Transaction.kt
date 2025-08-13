@@ -18,20 +18,41 @@
 
 package dev.n3shemmy3.coffre.data.entity
 
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.ForeignKey
+import androidx.room.PrimaryKey
+import java.math.BigDecimal
 import java.time.LocalDateTime
 
+@Entity(
+    tableName = "transactions",
+    foreignKeys = [ForeignKey(
+        entity = Account::class,
+        parentColumns = arrayOf("id"),
+        childColumns = arrayOf("accountId"),
+        onDelete = ForeignKey.NO_ACTION
+    )]
+)
 data class Transaction(
+    @PrimaryKey(autoGenerate = true)
     val id: Long,
     val title: String,
     val icon: String? = null,
-    val amount: Double,
+    val amount: BigDecimal,
     val memo: String?,
     val time: LocalDateTime,
     val type: Type,
-    val accountId: Long
+    @ColumnInfo(index = true)
+    val accountId: Long,
+    @ColumnInfo(index = true)
+    val fromAccountId: Long? = null,
+    @ColumnInfo(index = true)
+    val toAccountId: Long? = null,
 ) {
     enum class Type {
         INCOME,
-        EXPENSE
+        EXPENSE,
+        TRANSFER,
     }
 }
