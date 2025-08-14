@@ -18,9 +18,9 @@
 
 package dev.n3shemmy3.coffre.data.convertor
 
-import android.icu.math.BigDecimal
 import androidx.room.TypeConverter
 import dev.n3shemmy3.coffre.data.entity.Transaction
+import java.math.BigDecimal
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
@@ -44,10 +44,12 @@ class Converters {
         type?.name
 
     @TypeConverter
-    fun fromBigDecimal(value: BigDecimal?): String? =
-        value?.toString()
+    fun fromBigDecimal(value: BigDecimal?): String? {
+        return value?.toPlainString()
+    }
 
     @TypeConverter
-    fun toBigDecimal(value: String?): BigDecimal? =
-        value?.let { BigDecimal(it) }
+    fun toBigDecimal(value: String?): BigDecimal? {
+        return value?.let { BigDecimal(it) }
+    }
 }
