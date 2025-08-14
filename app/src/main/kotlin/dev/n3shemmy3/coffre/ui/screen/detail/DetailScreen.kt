@@ -122,7 +122,7 @@ fun DetailScreenContent(state: DetailScreenState, onAction: (Action) -> Unit) {
     var showDiscardDialog by remember { mutableStateOf(false) }
     var isDeleted by remember { mutableStateOf(false) }
 
-    print(transaction.toString())
+
     BackHandler(
         enabled = title.isEmpty() && (amount > BigDecimal(0))
     ) {
@@ -239,7 +239,7 @@ fun DetailScreenContent(state: DetailScreenState, onAction: (Action) -> Unit) {
                     style = MaterialTheme.typography.displayLarge,
                 )
                 PlainTextField(
-                    textValue = amount.toString(),
+                    textValue = if (amount.equals(BigDecimal.ZERO)) "" else amount.toString(),
                     placeholder = "0.00",
                     keyboardOptions = KeyboardOptions(
                         keyboardType = KeyboardType.Number

@@ -29,7 +29,7 @@ data class DetailScreenState(
         id = 0,
         icon = "",
         title = "",
-        amount = BigDecimal(0),
+        amount = BigDecimal.ZERO,
         time = LocalDateTime.now(),
         type = Transaction.Type.INCOME,
         accountId = 0,
