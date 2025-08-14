@@ -2,14 +2,18 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.google.ksp)
 }
 
 android {
     namespace = "dev.n3shemmy3.coffre"
     compileSdk = 36
+
     buildFeatures {
         buildConfig = true
+        compose = true
     }
+
     defaultConfig {
         applicationId = "dev.n3shemmy3.coffre"
         minSdk = 26
@@ -19,6 +23,9 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         signingConfig = signingConfigs.getByName("debug")
+        ksp {
+            arg("room.schemaLocation", "$projectDir/schemas")
+        }
     }
     signingConfigs {
         create("release") {
@@ -43,16 +50,16 @@ android {
             signingConfig = signingConfigs.getByName("release")
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
+
     kotlinOptions {
         jvmTarget = "11"
     }
-    buildFeatures {
-        compose = true
-    }
+
 }
 
 dependencies {
@@ -63,7 +70,8 @@ dependencies {
     implementation(libs.androidx.activity)
     implementation(libs.androidx.navigation)
     implementation(libs.androidx.room)
-    annotationProcessor(libs.androidx.room.compiler)
+    implementation(libs.androidx.graphics.shapes)
+    ksp(libs.androidx.room.compiler)
     implementation(libs.androidx.room.coroutines)
 
 
