@@ -19,30 +19,23 @@
 package dev.n3shemmy3.coffre.ui.screen.main
 
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.core.tween
-import androidx.compose.animation.slideInVertically
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.displayCutout
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBars
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Add
-import androidx.compose.material.icons.outlined.CreditCard
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -63,6 +56,8 @@ import androidx.compose.material3.rememberDrawerState
 import androidx.compose.material3.rememberTooltipState
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
@@ -73,21 +68,28 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
+import androidx.lifecycle.viewmodel.compose.viewModel
 import dev.n3shemmy3.coffre.R
+import dev.n3shemmy3.coffre.data.action.Action
+import dev.n3shemmy3.coffre.data.viewmodel.MainViewModel
 import dev.n3shemmy3.coffre.ui.component.ActionIconButton
-import dev.n3shemmy3.coffre.ui.component.BalanceCard
-import dev.n3shemmy3.coffre.ui.component.HeaderItem
 import dev.n3shemmy3.coffre.ui.component.NavigationDrawer
-import dev.n3shemmy3.coffre.ui.component.TwoLineItem
-import dev.n3shemmy3.coffre.ui.navigation.DURATION_ENTER
+import dev.n3shemmy3.coffre.ui.component.StateComposable
+import dev.n3shemmy3.coffre.ui.component.States
+import dev.n3shemmy3.coffre.ui.component.TransactionsList
 import dev.n3shemmy3.coffre.ui.navigation.Route
 import kotlinx.coroutines.launch
 
+
+@Composable
+fun MainScreen(viewModel: MainViewModel) {
+    val state by viewModel.mainState.collectAsState()
+    MainScreenContent(state = state, onAction = viewModel::onAction)
+}
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainScreen(navController: NavController) {
+fun MainScreenContent(state: MainScreenState, onAction: (Action) -> Unit) {
     val cutoutInsets = WindowInsets.displayCutout.asPaddingValues()
     val systemBarInsets = WindowInsets.systemBars.asPaddingValues()
     val hInsets =
@@ -125,9 +127,7 @@ fun MainScreen(navController: NavController) {
                 actions = {
                     ActionIconButton(
                         onClick = {
-                            scope.launch {
-                                navController.navigate(Route.SETTINGS)
-                            }
+                            onAction(Action.ViewFlow.Open(route = Route.SETTINGS))
                         },
                         imageVector = Icons.Outlined.Search,
                         stringResource(R.string.action_search)
@@ -142,9 +142,7 @@ fun MainScreen(navController: NavController) {
         }, floatingActionButton = {
             AnimatedFloatingActionButton(
                 onClick = {
-                    scope.launch {
-                        navController.navigate(Route.DETAIL)
-                    }
+                    onAction(Action.ViewFlow.Open(route = Route.DETAIL))
                 },
                 modifier = Modifier.padding(
                     horizontal = hInsets,
@@ -155,83 +153,27 @@ fun MainScreen(navController: NavController) {
                 Icon(Icons.Outlined.Add, null)
             }
         }) { it ->
-            LazyColumn(
-                state = listState,
-                modifier = Modifier
-                    .padding(
-                        start = hInsets + 16.dp,
-                        top = it.calculateTopPadding(),
-                        end = hInsets + 16.dp,
-                    ),
-                verticalArrangement = Arrangement.spacedBy(4.dp)
-            ) {
-                item(0) {
-                    Row(Modifier.padding(vertical = 12.dp)) {
-                        AnimatedVisibility(
-                            visible = true,
-                            enter = slideInVertically(
-                                initialOffsetY = { fullHeight -> fullHeight },
-                                animationSpec = tween(durationMillis = DURATION_ENTER)
-                            )
-                        ) {
-                            BalanceCard()
-                        }
-                    }
+            if (state.transactions.isEmpty()) {
+                Box(modifier = Modifier.padding(it)) {
+                    if (state.error != null)
+                        StateComposable(states = States.ERROR)
+                    if (state.isLoading)
+                        StateComposable(states = States.LOADING)
+                    if (state.transactions.isEmpty())
+                        StateComposable(states = States.LOADING)
                 }
-                item(1) {
-                    AnimatedVisibility(
-                        visible = true,
-                        enter = slideInVertically(
-                            initialOffsetY = { fullHeight -> fullHeight },
-                            animationSpec = tween(durationMillis = DURATION_ENTER)
-                        )
-                    ) {
-                        HeaderItem(
-                            onActionClick = {
-                                scope.launch {
-                                    navController.navigate(Route.OVERVIEW)
-                                }
-                            },
-                            RoundedCornerShape(
-                                topStart = 20.dp,
-                                topEnd = 20.dp,
-                                bottomEnd = 4.dp,
-                                bottomStart = 4.dp
-                            )
-                        )
-                    }
-                }
-                items(5) {
-                    val bottomRadius = if (it == 4) 20.dp else 4.dp
-                    AnimatedVisibility(
-                        visible = true,
-                        enter = slideInVertically(
-                            initialOffsetY = { fullHeight -> fullHeight },
-                            animationSpec = tween(durationMillis = DURATION_ENTER)
-                        )
-                    ) {
-                        TwoLineItem(
-                            icon = Icons.Outlined.CreditCard,
-                            title = "Item title",
-                            summary = "Supporting text",
-                            endText = Typography.euro + "10",
-                            onClick = {},
-                            RoundedCornerShape(
-                                topStart = 4.dp,
-                                topEnd = 4.dp,
-                                bottomEnd = bottomRadius,
-                                bottomStart = bottomRadius
-                            )
-                        )
-                    }
-                }
-                item {
-                    Spacer(
-                        Modifier
-                            .fillMaxWidth()
-                            .height(systemBarInsets.calculateBottomPadding() + systemBarInsets.calculateTopPadding())
-                    )
-                }
+            } else {
+                TransactionsList(
+                    modifier = Modifier
+                        .padding(
+                            start = hInsets + 16.dp,
+                            top = it.calculateTopPadding(),
+                            end = hInsets + 16.dp,
+                        ),
+                    mainState = state,
+                    state = listState,
+                    onAction = onAction,
+                )
             }
         }
     }
@@ -298,6 +240,5 @@ fun AnimatedFloatingActionButton(
 @Preview
 @Composable
 fun MainScreenPreview() {
-    val navController = rememberNavController()
-    MainScreen(navController = navController)
+    MainScreen(viewModel = viewModel())
 }
