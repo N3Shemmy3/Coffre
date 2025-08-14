@@ -18,11 +18,19 @@
 
 package dev.n3shemmy3.coffre.data.entity
 
+import androidx.room.Entity
+import androidx.room.Index
+import androidx.room.PrimaryKey
+
+@Entity(tableName = "accounts", indices = [Index(value = ["name"], unique = true)])
 data class Account(
+    @PrimaryKey(autoGenerate = true)
     val id: Long,
     val name: String,
     val icon: String? = null,
     val number: String? = null,
     val memo: String? = null,
-    val hidden: Boolean = false  // true means exclude from summaries/reports
+    val hidden: Boolean = false,  // true means exclude from summaries/reports
 )
+
+const val DEFAULT_ACCOUNT_NAME = "Default"
