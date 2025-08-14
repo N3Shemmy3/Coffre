@@ -16,18 +16,26 @@
  *
  */
 
-package dev.n3shemmy3.coffre.ui.screen.main
+package dev.n3shemmy3.coffre.ui.screen.detail
 
 import dev.n3shemmy3.coffre.data.entity.Account
 import dev.n3shemmy3.coffre.data.entity.Transaction
 import java.math.BigDecimal
+import java.time.LocalDateTime
 
-data class MainScreenState(
-    val totalBalance: BigDecimal = BigDecimal(0.00),
-    val totalExpenses: BigDecimal = BigDecimal(0.00),
-    val totalIncomes: BigDecimal = BigDecimal(0.00),
+
+data class DetailScreenState(
+    val transaction: Transaction = Transaction(
+        id = 0,
+        icon = "",
+        title = "",
+        amount = BigDecimal(0),
+        time = LocalDateTime.now(),
+        type = Transaction.Type.INCOME,
+        accountId = 0,
+        memo = "",
+    ),
     val accounts: List<Account> = emptyList(),
-    val transactions: List<Transaction> = emptyList(),
     val isLoading: Boolean = false,
-    val error: String? = null
+    val error: String? = null,
 )
