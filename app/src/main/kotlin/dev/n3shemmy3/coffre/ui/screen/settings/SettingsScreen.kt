@@ -22,6 +22,7 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.slideInVertically
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
@@ -39,7 +40,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material.icons.outlined.CreditCard
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.LargeTopAppBar
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -47,6 +47,8 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -56,16 +58,24 @@ import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
+import androidx.lifecycle.viewmodel.compose.viewModel
 import dev.n3shemmy3.coffre.R
-import dev.n3shemmy3.coffre.ui.component.ActionIconButton
+import dev.n3shemmy3.coffre.data.action.Action
+import dev.n3shemmy3.coffre.data.viewmodel.MainViewModel
+import dev.n3shemmy3.coffre.ui.component.NavigationButton
 import dev.n3shemmy3.coffre.ui.component.TwoLineItem
 import dev.n3shemmy3.coffre.ui.navigation.DURATION_ENTER
+import dev.n3shemmy3.coffre.ui.navigation.Route
+
+@Composable
+fun SettingsScreen(viewModel: MainViewModel) {
+    val state by viewModel.detailState.collectAsState()
+    SettingsScreenContent(state = "", viewModel::onAction)
+}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SettingsScreen(navController: NavController) {
+fun SettingsScreenContent(state: Any, onAction: (Action) -> Unit) {
     val cutoutInsets = WindowInsets.displayCutout.asPaddingValues()
     val systemBarInsets = WindowInsets.systemBars.asPaddingValues()
     val hInsets =
@@ -95,14 +105,15 @@ fun SettingsScreen(navController: NavController) {
                         )
                     },
                     navigationIcon = {
-                        IconButton(
-                            onClick = {},
+                        Box(
                             Modifier.padding(
                                 start = hInsets + 4.dp
                             )
                         ) {
-                            ActionIconButton(
-                                onClick = {},
+                            NavigationButton(
+                                onClick = {
+                                    onAction(Action.ViewFlow.Close(route = Route.DETAIL))
+                                },
                                 imageVector = Icons.AutoMirrored.Outlined.ArrowBack,
                                 stringResource(R.string.action_back)
                             )
@@ -140,7 +151,7 @@ fun SettingsScreen(navController: NavController) {
                             summary = "Supporting text",
                             endText = Typography.euro + "10",
                             onClick = {},
-                            RoundedCornerShape(
+                            shape = RoundedCornerShape(
                                 topStart = topRadius,
                                 topEnd = topRadius,
                                 bottomEnd = bottomRadius,
@@ -164,6 +175,5 @@ fun SettingsScreen(navController: NavController) {
 @Preview
 @Composable
 fun SettingsScreenPreview() {
-    val navController = rememberNavController()
-    SettingsScreen(navController = navController)
+    SettingsScreen(viewModel = viewModel())
 }
