@@ -19,6 +19,14 @@
 package dev.n3shemmy3.coffre.app.android
 
 import android.app.Application
+import dev.n3shemmy3.coffre.data.entity.Account
+import dev.n3shemmy3.coffre.data.entity.DEFAULT_ACCOUNT_NAME
+import dev.n3shemmy3.coffre.data.repo.AccountRepository
+import dev.n3shemmy3.coffre.data.repo.TransactionRepository
+import dev.n3shemmy3.coffre.data.room.AppDatabase
 
 class App : Application() {
+    val database by lazy { AppDatabase.getInstance(this) }
+    val accountRepository by lazy { AccountRepository(database.accountDao()) }
+    val transactionRepository by lazy { TransactionRepository(database.transactionDao()) }
 }
