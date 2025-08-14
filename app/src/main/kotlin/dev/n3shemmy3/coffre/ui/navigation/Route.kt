@@ -26,10 +26,3 @@ object Route {
     const val SEARCH = "search"
     const val SETTINGS = "settings"
 }
-
-data class RouteEvent(
-    val id: Long = System.currentTimeMillis(),
-    val route: String,
-    val payload: Any? = null,
-    val result: Any? = null,
-)
