@@ -22,9 +22,11 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
+import kotlinx.serialization.Serializable
 import java.math.BigDecimal
 import java.time.LocalDateTime
 
+@Serializable
 @Entity(
     tableName = "transactions",
     foreignKeys = [ForeignKey(
