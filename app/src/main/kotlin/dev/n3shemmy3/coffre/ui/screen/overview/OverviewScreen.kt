@@ -162,7 +162,7 @@ fun OverviewScreen(navController: NavHostController) {
                     summary = "Supporting text",
                     endText = Typography.euro + "10",
                     onClick = {},
-                    RoundedCornerShape(
+                    shape = RoundedCornerShape(
                         topStart = 4.dp,
                         topEnd = 4.dp,
                         bottomEnd = bottomRadius,
