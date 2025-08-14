@@ -1,74 +1,128 @@
-/*
- *
- *  * Copyright (C) 2025 Shemmy
- *  *
- *  * This program is free software: you can redistribute it and/or modify
- *  * it under the terms of the GNU General Public License as published by
- *  * the Free Software Foundation, version 3 of the License.
- *  *
- *  * This program is distributed in the hope that it will be useful,
- *  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  * GNU General Public License for more details.
- *  *
- *  * You should have received a copy of the GNU General Public License
- *  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
- *
- */
-
 package dev.n3shemmy3.coffre.data.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dev.n3shemmy3.coffre.data.action.Action
-import dev.n3shemmy3.coffre.ui.navigation.RouteEvent
+import dev.n3shemmy3.coffre.data.entity.Account
+import dev.n3shemmy3.coffre.data.entity.DEFAULT_ACCOUNT_NAME
+import dev.n3shemmy3.coffre.data.entity.Transaction
+import dev.n3shemmy3.coffre.data.repo.AccountRepository
+import dev.n3shemmy3.coffre.data.repo.TransactionRepository
+import dev.n3shemmy3.coffre.ui.navigation.Route
+import dev.n3shemmy3.coffre.ui.screen.detail.DetailScreenState
 import dev.n3shemmy3.coffre.ui.screen.main.MainScreenState
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-class MainViewModel : ViewModel() {
+class MainViewModel(
+    private val accountRepo: AccountRepository,
+    private val transactionRepo: TransactionRepository,
+) : ViewModel() {
 
-    private val _state = MutableStateFlow(MainScreenState())
-    val state = _state.asStateFlow()
+    // UI state exposed to Composables
+    private val _mainState = MutableStateFlow(MainScreenState())
+    val mainState = _mainState.asStateFlow()
 
-    private val _navEvents = MutableSharedFlow<RouteEvent>()
+    private val _detailState = MutableStateFlow(DetailScreenState())
+    val detailState = _detailState.asStateFlow()
+
+    // Navigation events exposed as SharedFlow
+    private val _navEvents = MutableSharedFlow<Action.ViewFlow>()
     val navEvents = _navEvents.asSharedFlow()
 
-    // Handle incoming actions
-    fun onAction(action: Action) {
+    init {
         viewModelScope.launch {
-            when (action) {
-
-                is Action.ViewFlow.Open -> _navEvents.emit(
-                    RouteEvent(action.route, payload = action.payload)
-                )
-
-                is Action.ViewFlow.Close -> _navEvents.emit(
-                    RouteEvent(
-                        action.route, result = action.result
+            println("accounts:" + accountRepo.getAll().toString())
+            accountRepo.getAll().collect { accounts ->
+                if (accounts.isEmpty()) accountRepo.insert(
+                    Account(
+                        id = 0,
+                        name = DEFAULT_ACCOUNT_NAME,
+                        icon = "Money"
                     )
                 )
+                println("accounts:" + accountRepo.getAll().toString())
+                _mainState.update { it.copy(accounts = accounts) }
+                _detailState.update { it.copy(accounts = accounts) }
+            }
+        }
 
-                is Action.DataFlow.Create<*> -> {
-                    // Handle create later
-                }
+        viewModelScope.launch {
+            transactionRepo.getAll().collect { transactions ->
+                _mainState.update { it.copy(transactions = transactions) }
+            }
+        }
 
-                is Action.DataFlow.Read<*> -> {
-                    // Handle read later
-                }
-
-                is Action.DataFlow.Update<*> -> {
-                    // Handle update later
-                }
-
-                is Action.DataFlow.Delete<*> -> {
-                    // Handle delete later
+        // Totals
+        viewModelScope.launch {
+            combine(
+                transactionRepo.getTotalIncomes(),
+                transactionRepo.getTotalExpenses(),
+                transactionRepo.getTotalBalance()
+            ) { incomes, expenses, balance ->
+                Triple(incomes, expenses, balance)
+            }.collect { (incomes, expenses, balance) ->
+                _mainState.update {
+                    it.copy(
+                        totalIncomes = incomes,
+                        totalExpenses = expenses,
+                        totalBalance = balance
+                    )
                 }
             }
         }
     }
-}
 
+
+    fun onAction(action: Action) {
+        viewModelScope.launch {
+            when (action) {
+                // Navigation
+                is Action.ViewFlow.Open -> {
+                    if (action.payload is Transaction && action.route == Route.DETAIL)
+                        _detailState.update { it.copy(transaction = action.payload) }
+
+                    _navEvents.emit(action)
+                }
+
+                is Action.ViewFlow.Close -> _navEvents.emit(action)
+
+                is Action.AccountFlow.Create -> {
+                    accountRepo.insert(action.items)
+                }
+
+                is Action.AccountFlow.Read -> {
+
+                }
+
+                is Action.AccountFlow.Update -> {
+                    accountRepo.insert(action.items)
+                }
+
+                is Action.AccountFlow.Delete -> {
+                    accountRepo.delete(action.items)
+                }
+
+                is Action.TransactionFlow.Create -> {
+                    transactionRepo.insert(action.items)
+                }
+
+                is Action.TransactionFlow.Read -> {}
+
+                is Action.TransactionFlow.Update -> {
+                    transactionRepo.update(action.items)
+                }
+
+                is Action.TransactionFlow.Delete -> {
+                    transactionRepo.delete(action.items)
+                }
+
+            }
+        }
+    }
+}
