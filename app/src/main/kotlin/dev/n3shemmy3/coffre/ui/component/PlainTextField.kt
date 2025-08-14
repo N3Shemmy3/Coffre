@@ -55,6 +55,7 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun PlainTextField(
     placeholder: String,
+    textValue: String,
     modifier: Modifier = Modifier,
     textStyle: TextStyle = TextStyle.Default,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
@@ -66,7 +67,7 @@ fun PlainTextField(
     onValueChanged: (String) -> Unit,
     onActionClick: (() -> Unit?)? = null,
 ) {
-    var textValue by remember { mutableStateOf(TextFieldValue()) }
+    var textValue by remember { mutableStateOf(TextFieldValue(textValue)) }
 
     val paddingValues = PaddingValues(start = 16.dp, top = 8.dp, end = 12.dp, bottom = 8.dp)
     Surface(
@@ -134,6 +135,7 @@ fun PlainTextField(
 @Composable
 fun PlainTextFieldPreview() {
     PlainTextField(
+        textValue = "",
         placeholder = "Enter text...",
         endIcon = null,
         onValueChanged = {}
