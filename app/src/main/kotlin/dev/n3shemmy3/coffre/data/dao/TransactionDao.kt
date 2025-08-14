@@ -25,6 +25,8 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import dev.n3shemmy3.coffre.data.entity.Transaction
+import kotlinx.coroutines.flow.Flow
+import java.math.BigDecimal
 
 @Dao
 interface TransactionDao {
@@ -50,8 +52,18 @@ interface TransactionDao {
     suspend fun getById(id: Long): Transaction?
 
     @Query("SELECT * FROM transactions WHERE id IN (:ids)")
-    suspend fun getByIds(ids: List<Long>): List<Transaction>
+     fun getByIds(ids: List<Long>): Flow<List<Transaction>>
 
     @Query("SELECT * FROM transactions")
-    suspend fun getAll(): List<Transaction>
+    fun getAll(): Flow<List<Transaction>>
+
+    @Query("SELECT COALESCE(SUM(amount), 0) FROM transactions WHERE type = 'INCOME'")
+    fun getTotalIncomes(): Flow<BigDecimal>
+
+    @Query("SELECT COALESCE(SUM(amount), 0) FROM transactions WHERE type = 'EXPENSE'")
+    fun getTotalExpenses(): Flow<BigDecimal>
+
+    @Query("SELECT COALESCE(SUM(CASE WHEN type='INCOME' THEN amount ELSE -amount END), 0) FROM transactions")
+    fun getTotalBalance(): Flow<BigDecimal>
+
 }
