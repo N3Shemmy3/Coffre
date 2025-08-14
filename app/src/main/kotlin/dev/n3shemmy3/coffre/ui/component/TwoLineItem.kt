@@ -38,9 +38,17 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import dev.n3shemmy3.coffre.data.entity.Transaction
+
+
+class ItemColors(
+    val containerColor: Color,
+    val contentColor: Color,
+)
 
 @Composable
 fun TwoLineItem(
@@ -49,6 +57,7 @@ fun TwoLineItem(
     summary: String,
     endText: String? = null,
     onClick: () -> Unit,
+    type: Transaction.Type = Transaction.Type.INCOME,
     shape: RoundedCornerShape,
 ) {
     Card(shape = shape) {
@@ -87,10 +96,27 @@ fun TwoLineItem(
                 )
             }
             if (!endText.isNullOrEmpty()) {
+
+                val colors = when (type) {
+                    Transaction.Type.INCOME -> ItemColors(
+                        MaterialTheme.colorScheme.primaryContainer,
+                        MaterialTheme.colorScheme.onPrimaryContainer
+                    )
+
+                    Transaction.Type.EXPENSE -> ItemColors(
+                        MaterialTheme.colorScheme.errorContainer,
+                        MaterialTheme.colorScheme.onErrorContainer
+                    )
+
+                    Transaction.Type.TRANSFER -> ItemColors(
+                        MaterialTheme.colorScheme.tertiaryContainer,
+                        MaterialTheme.colorScheme.onTertiaryContainer
+                    )
+                }
                 Box(
                     Modifier
                         .background(
-                            MaterialTheme.colorScheme.errorContainer,
+                            colors.containerColor,
                             CircleShape
                         )
                         .padding(8.dp),
@@ -98,13 +124,14 @@ fun TwoLineItem(
                     Text(
                         endText,
                         style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onErrorContainer
+                        color = colors.contentColor
                     )
                 }
             }
         }
     }
 }
+
 
 @Preview
 @Composable
