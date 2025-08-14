@@ -18,31 +18,37 @@
 
 package dev.n3shemmy3.coffre.data.action
 
+import dev.n3shemmy3.coffre.data.entity.Account
 import dev.n3shemmy3.coffre.data.entity.Transaction
 
 
 sealed class Action {
 
     sealed class ViewFlow : Action() {
-        data class Open(val route: String, val payload: Any? = null) : ViewFlow()
-        data class Close(val route: String, val result: Any? = null) : ViewFlow()
+        data class Open(
+            val route: String,
+            val payload: Any? = null,
+            val id: Long = System.currentTimeMillis(),
+        ) : ViewFlow()
+
+        data class Close(
+            val route: String,
+            val result: Any? = null,
+            val id: Long = System.currentTimeMillis(),
+        ) : ViewFlow()
     }
 
-    sealed class DataFlow : Action() {
-        data class Create(val items: List<Transaction>) : DataFlow() {
-            constructor(vararg items: Transaction) : this(items.toList())
-        }
+    sealed class AccountFlow : Action() {
+        data class Create(val items: List<Account>) : AccountFlow()
+        data class Read(val ids: List<Long>) : AccountFlow()
+        data class Update(val items: List<Account>) : AccountFlow()
+        data class Delete(val items: List<Account>) : AccountFlow()
+    }
 
-        data class Read(val ids: List<Long>) : DataFlow() {
-            constructor(vararg ids: Long) : this(ids.toList())
-        }
-
-        data class Update(val items: List<Transaction>) : DataFlow() {
-            constructor(vararg items: Transaction) : this(items.toList())
-        }
-
-        data class Delete(val ids: List<Long>) : DataFlow() {
-            constructor(vararg ids: Long) : this(ids.toList())
-        }
+    sealed class TransactionFlow : Action() {
+        data class Create(val items: List<Transaction>) : TransactionFlow()
+        data class Read(val ids: List<Long>) : TransactionFlow()
+        data class Update(val items: List<Transaction>) : TransactionFlow()
+        data class Delete(val items: List<Transaction>) : TransactionFlow()
     }
 }
