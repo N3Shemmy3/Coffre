@@ -18,6 +18,7 @@
 
 package dev.n3shemmy3.coffre.ui.screen.detail
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -54,6 +55,7 @@ import androidx.compose.material3.SuggestionChipDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -71,30 +73,87 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
 import dev.n3shemmy3.coffre.R
+import dev.n3shemmy3.coffre.data.action.Action
+import dev.n3shemmy3.coffre.data.entity.Account
+import dev.n3shemmy3.coffre.data.entity.DEFAULT_ACCOUNT_NAME
+import dev.n3shemmy3.coffre.data.entity.Transaction
+import dev.n3shemmy3.coffre.data.viewmodel.MainViewModel
 import dev.n3shemmy3.coffre.ui.component.ActionIconButton
+import dev.n3shemmy3.coffre.ui.component.MaterialDialog
 import dev.n3shemmy3.coffre.ui.component.NavigationButton
 import dev.n3shemmy3.coffre.ui.component.PlainTextField
 import dev.n3shemmy3.coffre.ui.component.TabRow
 import dev.n3shemmy3.coffre.ui.component.TabTitle
-import java.util.Calendar
+import dev.n3shemmy3.coffre.ui.navigation.ComposableLifecycle
+import dev.n3shemmy3.coffre.ui.navigation.Route
+import java.math.BigDecimal
+import java.time.LocalDateTime
+
+@Composable
+fun DetailScreen(viewModel: MainViewModel) {
+    val state by viewModel.detailState.collectAsState()
+    DetailScreenContent(state = state, viewModel::onAction)
+
+}
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable
-fun DetailScreen(navController: NavController) {
+fun DetailScreenContent(state: DetailScreenState, onAction: (Action) -> Unit) {
     val cutoutInsets = WindowInsets.displayCutout.asPaddingValues()
     val hInsets =
         cutoutInsets.calculateStartPadding(LocalLayoutDirection.current) + cutoutInsets.calculateEndPadding(
             LocalLayoutDirection.current
         )
     val scrollState = rememberScrollState()
-    var title by remember { mutableStateOf("") }
-    val time by remember { mutableStateOf(Calendar.getInstance().time) }
-    var amount by remember { mutableStateOf("") }
-    var notes by remember { mutableStateOf("") }
+    var transaction = state.transaction
+    var title by remember(transaction.title) { mutableStateOf(transaction.title) }
+    var amount by remember(transaction.amount) {
+        mutableStateOf(
+            transaction.amount
+        )
+    }
+    var notes by remember(transaction.memo) { mutableStateOf(transaction.memo ?: "") }
+    var type by remember(transaction.type) { mutableStateOf(Transaction.Type.valueOf(transaction.type.toString())) }
+    val time by remember { mutableStateOf(LocalDateTime.now()) }
 
+    var showDiscardDialog by remember { mutableStateOf(false) }
+    var isDeleted by remember { mutableStateOf(false) }
+
+    print(transaction.toString())
+    BackHandler(
+        enabled = title.isEmpty() && (amount > BigDecimal(0))
+    ) {
+        showDiscardDialog = true
+    }
+
+    if (showDiscardDialog) {
+        MaterialDialog(
+            onDismissRequest = { showDiscardDialog = false },
+            onConfirmation = {
+                showDiscardDialog = true
+                onAction(Action.ViewFlow.Close(route = Route.DETAIL))
+            },
+            title = stringResource(R.string.discard_transaction),
+            text = stringResource(R.string.discard_transaction_summary),
+            positiveText = stringResource(R.string.action_discard)
+        )
+    }
+    ComposableLifecycle { source, event ->
+        if (event == Lifecycle.Event.ON_PAUSE) {
+            if (isDeleted) return@ComposableLifecycle
+            var defaultAccountId = state.accounts.getDefaultAccountId()
+            transaction = Transaction(
+                transaction.id, title, "CreditCard", amount, notes, time,
+                type, defaultAccountId
+            )
+            if (title.isNotEmpty() && amount.toString().isNotEmpty()) {
+                onAction(Action.TransactionFlow.Create(listOf(transaction)))
+            }
+        }
+    }
 
     Scaffold(
         topBar = {
@@ -106,15 +165,22 @@ fun DetailScreen(navController: NavController) {
                 ) {
                     NavigationButton(
                         onClick = {
-                            navController.popBackStack()
+                            onAction(Action.ViewFlow.Close(route = Route.DETAIL))
                         },
                         imageVector = Icons.AutoMirrored.Outlined.ArrowBack,
                         stringResource(R.string.action_back)
                     )
                 }
             }, actions = {
+                if (transaction.title.isEmpty()) return@TopAppBar
                 ActionIconButton(
-                    onClick = {}, Icons.Outlined.Delete, stringResource(R.string.action_delete)
+                    onClick = {
+                        onAction(Action.TransactionFlow.Delete(listOf(transaction)))
+                        onAction(Action.ViewFlow.Close(Route.DETAIL))
+                        isDeleted = true
+                    },
+                    Icons.Outlined.Delete,
+                    stringResource(R.string.action_delete)
                 )
 
                 Spacer(
@@ -133,14 +199,15 @@ fun DetailScreen(navController: NavController) {
                     top = innerPadding.calculateTopPadding(),
                     end = hInsets + 16.dp,
 
-                )
+                    )
                 .imeNestedScroll()
                 .imePadding()
                 .verticalScroll(scrollState), verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
 
             PlainTextField(
-               placeholder = stringResource(R.string.title),
+                textValue = title,
+                placeholder = stringResource(R.string.title),
                 textStyle = MaterialTheme.typography.titleLarge.copy(
                     fontSize = 26.sp, color = MaterialTheme.colorScheme.onSurface.copy()
                 ),
@@ -172,6 +239,7 @@ fun DetailScreen(navController: NavController) {
                     style = MaterialTheme.typography.displayLarge,
                 )
                 PlainTextField(
+                    textValue = amount.toString(),
                     placeholder = "0.00",
                     keyboardOptions = KeyboardOptions(
                         keyboardType = KeyboardType.Number
@@ -182,14 +250,22 @@ fun DetailScreen(navController: NavController) {
                     ),
                     singleLine = true,
                     onValueChanged = {
-
+                        //BigDecimal doesn't like being passed an empty value
+                        amount = BigDecimal(if (it.isEmpty()) "0" else it)
                     })
             }
-            TabView(onTabSelected = { selected -> })
+            TabView(selected = type.ordinal, onTabSelected = { selected ->
+                when (selected) {
+                    0 -> type = Transaction.Type.INCOME
+                    1 -> type = Transaction.Type.EXPENSE
+                    2 -> type = Transaction.Type.TRANSFER
+                }
+            })
 
             HorizontalDivider(Modifier.fillMaxWidth())
 
             PlainTextField(
+                textValue = notes,
                 placeholder = stringResource(R.string.notes),
                 textStyle = MaterialTheme.typography.bodyLarge.copy(
                     color = MaterialTheme.colorScheme.onBackground,
@@ -209,6 +285,7 @@ fun DetailScreen(navController: NavController) {
         }
     }
 }
+
 
 @Composable
 fun TonalChip(icon: ImageVector, text: String, onClick: () -> Unit) {
@@ -240,8 +317,8 @@ fun TonalChip(icon: ImageVector, text: String, onClick: () -> Unit) {
 }
 
 @Composable
-fun TabView(onTabSelected: (selected: Int) -> Unit) {
-    var selectedTabPosition by remember { mutableIntStateOf(0) }
+fun TabView(selected: Int, onTabSelected: (selected: Int) -> Unit) {
+    var selectedTabPosition by remember { mutableIntStateOf(selected) }
 
     val items = listOf(
         stringResource(R.string.income),
@@ -261,9 +338,14 @@ fun TabView(onTabSelected: (selected: Int) -> Unit) {
     }
 }
 
+
+fun List<Account>.getDefaultAccountId(): Long {
+    return this.find { it.name.equals(DEFAULT_ACCOUNT_NAME, false) }?.id
+        ?: throw IllegalStateException("NO DEFAULT ACCOUNT FOUND")
+}
+
 @Preview
 @Composable
 fun DetailScreenPreview() {
-    val navController = rememberNavController()
-    DetailScreen(navController)
+    DetailScreen(viewModel = viewModel())
 }
