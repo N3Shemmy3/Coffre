@@ -18,6 +18,11 @@
 
 package dev.n3shemmy3.coffre.util
 
+import android.content.Context
+import android.util.LayoutDirection
+import dev.n3shemmy3.coffre.data.entity.Account
+import dev.n3shemmy3.coffre.data.entity.DEFAULT_ACCOUNT_NAME
+import java.math.BigDecimal
 import java.text.NumberFormat
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -30,8 +35,19 @@ fun formatToLocalTime(dateTime: LocalDateTime): String {
     return dateTime.format(formatter)
 }
 
-fun formatCurrency(amount: Double, locale: Locale = Locale.getDefault(), currencyCode: String = "EUR"): String {
+fun formatCurrency(
+    amount: BigDecimal,
+    locale: Locale = Locale.getDefault(),
+    currencyCode: String = "EUR",
+): String {
     val currencyFormatter = NumberFormat.getCurrencyInstance(locale)
     currencyFormatter.currency = java.util.Currency.getInstance(currencyCode)
     return currencyFormatter.format(amount)
+}
+fun Context.isRTL(): Boolean {
+    return resources.configuration.layoutDirection == LayoutDirection.RTL
+}
+
+fun Context.isLTR(): Boolean {
+    return resources.configuration.layoutDirection == LayoutDirection.LTR
 }
