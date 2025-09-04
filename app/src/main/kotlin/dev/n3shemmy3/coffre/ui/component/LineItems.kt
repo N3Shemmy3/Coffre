@@ -40,8 +40,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import dev.n3shemmy3.coffre.data.entity.Transaction
 
 
@@ -80,14 +83,18 @@ fun TwoLineItem(
                     .padding(10.dp),
             ) {
                 Icon(
-                    imageVector = icon, null
+                    imageVector = icon, null, tint = MaterialTheme.colorScheme.onBackground
                 )
             }
             Column(Modifier.weight(1.0f)) {
                 Text(
                     title,
                     maxLines = 1,
-                    style = MaterialTheme.typography.titleMedium
+                    style = MaterialTheme.typography.titleLarge,
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.colorScheme.onBackground,
+                    overflow = TextOverflow.Ellipsis,
                 )
                 Text(
                     summary,
