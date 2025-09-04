@@ -3,6 +3,7 @@
 
     <!--Main Screens -->
     <string name="screen_transactions">Transactions</string>
+    <string name="screen_overview">Overview</string>
     <string name="screen_settings">Settings</string>
     <string name="screen_save">Save</string>
     <string name="screen_record">Record</string>

@@ -4,6 +4,7 @@
     <!--Main Screens -->
     <string name="screen_transactions">收支</string>
     <string name="screen_settings">设置</string>
+    <string name="screen_overview">总览</string>
     <string name="screen_save">保存</string>
     <string name="screen_record">记录</string>
     <string name="screen_search">搜索</string>
@@ -50,6 +51,7 @@
 
     <!--Actions -->
     <string name="action_open">打开</string>
+    <string name="action_back">返回</string>
     <string name="action_close">关闭</string>
     <string name="action_start">开始吧</string>
     <string name="action_stop">停止</string>
