@@ -109,6 +109,7 @@ fun DetailScreenContent(state: DetailScreenState, onAction: (Action) -> Unit) {
         )
     val scrollState = rememberScrollState()
     var transaction = state.transaction
+    val defaultAccountId = state.accounts.getDefaultAccountId()
     var title by remember(transaction.title) { mutableStateOf(transaction.title) }
     var amount by remember(transaction.amount) {
         mutableStateOf(
@@ -144,12 +145,12 @@ fun DetailScreenContent(state: DetailScreenState, onAction: (Action) -> Unit) {
     ComposableLifecycle { source, event ->
         if (event == Lifecycle.Event.ON_PAUSE) {
             if (isDeleted) return@ComposableLifecycle
-            var defaultAccountId = state.accounts.getDefaultAccountId()
-            transaction = Transaction(
-                transaction.id, title, "CreditCard", amount, notes, time,
-                type, defaultAccountId
-            )
+
             if (title.isNotEmpty() && amount.toString().isNotEmpty()) {
+                transaction = Transaction(
+                    transaction.id, title, "CreditCard", amount, notes, time,
+                    type, defaultAccountId
+                )
                 onAction(Action.TransactionFlow.Create(listOf(transaction)))
             }
         }
@@ -236,7 +237,7 @@ fun DetailScreenContent(state: DetailScreenState, onAction: (Action) -> Unit) {
                 Text(
                     text = Typography.euro.toString(),
                     color = MaterialTheme.colorScheme.outline,
-                    style = MaterialTheme.typography.displayLarge,
+                    style = MaterialTheme.typography.displayMedium,
                 )
                 PlainTextField(
                     textValue = if (amount.equals(BigDecimal.ZERO)) "" else amount.toString(),
@@ -244,7 +245,7 @@ fun DetailScreenContent(state: DetailScreenState, onAction: (Action) -> Unit) {
                     keyboardOptions = KeyboardOptions(
                         keyboardType = KeyboardType.Number
                     ),
-                    textStyle = MaterialTheme.typography.displayLarge.copy(
+                    textStyle = MaterialTheme.typography.displayMedium.copy(
                         textAlign = TextAlign.End,
                         color = MaterialTheme.colorScheme.onBackground
                     ),

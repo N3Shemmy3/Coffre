@@ -1,6 +1,7 @@
 package dev.n3shemmy3.coffre.data.viewmodel
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import dev.n3shemmy3.coffre.data.action.Action
 import dev.n3shemmy3.coffre.data.entity.Account
@@ -126,3 +127,17 @@ class MainViewModel(
         }
     }
 }
+
+class MainViewModelFactory(
+    private val accountRepo: AccountRepository,
+    private val transactionRepo: TransactionRepository,
+) : ViewModelProvider.Factory {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(MainViewModel::class.java)) {
+            @Suppress("UNCHECKED_CAST")
+            return MainViewModel(accountRepo, transactionRepo) as T
+        }
+        throw IllegalArgumentException("Unknown ViewModel class")
+    }
+}
+

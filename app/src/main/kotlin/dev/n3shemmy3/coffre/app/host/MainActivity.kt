@@ -27,6 +27,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -34,6 +35,7 @@ import androidx.navigation.compose.rememberNavController
 import dev.n3shemmy3.coffre.app.android.App
 import dev.n3shemmy3.coffre.data.action.Action
 import dev.n3shemmy3.coffre.data.viewmodel.MainViewModel
+import dev.n3shemmy3.coffre.data.viewmodel.MainViewModelFactory
 import dev.n3shemmy3.coffre.ui.navigation.Route
 import dev.n3shemmy3.coffre.ui.navigation.animatedComposable
 import dev.n3shemmy3.coffre.ui.screen.detail.DetailScreen
@@ -48,7 +50,10 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         val app = application as App
-        val viewModel = MainViewModel(app.accountRepository, app.transactionRepository)
+        val viewModel = ViewModelProvider(
+            this,
+            MainViewModelFactory(app.accountRepository, app.transactionRepository)
+        )[MainViewModel::class.java]
 
         setContent {
             CoffreTheme {
