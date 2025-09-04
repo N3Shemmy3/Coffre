@@ -18,27 +18,30 @@
 
 package dev.n3shemmy3.coffre.ui.screen.settings
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.core.tween
-import androidx.compose.animation.slideInVertically
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.displayCutout
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.systemBars
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.ArrowBack
-import androidx.compose.material.icons.outlined.CreditCard
+import androidx.compose.material.icons.outlined.Info
+import androidx.compose.material.icons.outlined.Palette
+import androidx.compose.material.icons.outlined.SettingsBackupRestore
+import androidx.compose.material.icons.outlined.Tag
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.LargeTopAppBar
 import androidx.compose.material3.MaterialTheme
@@ -47,8 +50,6 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -63,32 +64,29 @@ import dev.n3shemmy3.coffre.R
 import dev.n3shemmy3.coffre.data.action.Action
 import dev.n3shemmy3.coffre.data.viewmodel.MainViewModel
 import dev.n3shemmy3.coffre.ui.component.NavigationButton
-import dev.n3shemmy3.coffre.ui.component.TwoLineItem
-import dev.n3shemmy3.coffre.ui.navigation.DURATION_ENTER
+import dev.n3shemmy3.coffre.ui.component.PreferenceItem
 import dev.n3shemmy3.coffre.ui.navigation.Route
 
 @Composable
 fun SettingsScreen(viewModel: MainViewModel) {
-    val state by viewModel.detailState.collectAsState()
-    SettingsScreenContent(state = "", viewModel::onAction)
+    SettingsScreenContent(viewModel::onAction)
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SettingsScreenContent(state: Any, onAction: (Action) -> Unit) {
+fun SettingsScreenContent(onAction: (Action) -> Unit) {
     val cutoutInsets = WindowInsets.displayCutout.asPaddingValues()
     val systemBarInsets = WindowInsets.systemBars.asPaddingValues()
     val hInsets =
         cutoutInsets.calculateStartPadding(LocalLayoutDirection.current) + cutoutInsets.calculateEndPadding(
             LocalLayoutDirection.current
         )
-    val scrollBehavior =
-        TopAppBarDefaults.exitUntilCollapsedScrollBehavior(rememberTopAppBarState())
+    val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior(rememberTopAppBarState())
+    val scrollState = rememberScrollState()
     val isCollapsed = remember {
         mutableStateOf<Boolean>(scrollBehavior.state.collapsedFraction > .5)
     }
     val typography = MaterialTheme.typography
-    val listState = rememberLazyListState()
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
@@ -125,49 +123,70 @@ fun SettingsScreenContent(state: Any, onAction: (Action) -> Unit) {
             }
         },
         content = { it ->
-            LazyColumn(
-                state = listState,
+            Column(
                 modifier = Modifier
+                    .fillMaxSize()
                     .padding(
                         start = hInsets + 16.dp,
                         top = it.calculateTopPadding(),
                         end = hInsets + 16.dp,
-                    ),
+                    )
+                    .verticalScroll(scrollState),
                 verticalArrangement = Arrangement.spacedBy(4.dp)
             ) {
-                items(5) { index ->
-                    val topRadius = if (index == 0) 20.dp else 4.dp
-                    val bottomRadius = if (index == 4) 20.dp else 4.dp
-                    AnimatedVisibility(
-                        visible = true,
-                        enter = slideInVertically(
-                            initialOffsetY = { fullHeight -> fullHeight },
-                            animationSpec = tween(durationMillis = DURATION_ENTER)
-                        )
-                    ) {
-                        TwoLineItem(
-                            icon = Icons.Outlined.CreditCard,
-                            title = "Preference title",
-                            summary = "Supporting text",
-                            endText = Typography.euro + "10",
-                            onClick = {},
-                            shape = RoundedCornerShape(
-                                topStart = topRadius,
-                                topEnd = topRadius,
-                                bottomEnd = bottomRadius,
-                                bottomStart = bottomRadius
-                            )
-                        )
-                    }
-                }
-                item {
-                    Spacer(
-                        Modifier
-                            .fillMaxWidth()
-                            .height(systemBarInsets.calculateBottomPadding() + systemBarInsets.calculateTopPadding())
-                    )
-                }
+                val firstItemShape = RoundedCornerShape(
+                    topStart = 20.dp,
+                    topEnd = 20.dp,
+                    bottomEnd = 4.dp,
+                    bottomStart = 4.dp
+                )
+                val middleItemShape = RoundedCornerShape(4.dp)
+                val lastItemShape = RoundedCornerShape(
+                    topStart = 4.dp,
+                    topEnd = 4.dp,
+                    bottomEnd = 20.dp,
+                    bottomStart = 20.dp
+                )
+                Spacer(
+                    Modifier.size(16.dp)
+                )
+
+                PreferenceItem(
+                    icon = Icons.Outlined.Palette,
+                    title = stringResource(R.string.preference_look_n_feel),
+                    summary = stringResource(R.string.summary_look_and_feel),
+                    onClick = {},
+                    shape = firstItemShape
+                )
+                PreferenceItem(
+                    icon = Icons.Outlined.Tag,
+                    title = stringResource(R.string.preference_format),
+                    summary = stringResource(R.string.summary_format),
+                    onClick = {},
+                    shape = middleItemShape
+                )
+                PreferenceItem(
+                    icon = Icons.Outlined.SettingsBackupRestore,
+                    title = stringResource(R.string.preference_backup_n_restore),
+                    summary = stringResource(R.string.summary_backup_n_restore),
+                    onClick = {},
+                    shape = middleItemShape
+                )
+                PreferenceItem(
+                    icon = Icons.Outlined.Info,
+                    title = stringResource(R.string.preference_about),
+                    summary = stringResource(R.string.summary_about),
+                    onClick = {},
+                    shape = lastItemShape
+                )
+
+                Spacer(
+                    Modifier
+                        .fillMaxWidth()
+                        .height(systemBarInsets.calculateBottomPadding() + systemBarInsets.calculateTopPadding())
+                )
             }
+
         }
     )
 }
