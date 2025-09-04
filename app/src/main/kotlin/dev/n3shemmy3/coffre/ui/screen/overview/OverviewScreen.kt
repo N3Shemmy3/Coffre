@@ -79,7 +79,7 @@ fun OverviewScreen(navController: NavHostController) {
     Scaffold(modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection), topBar = {
         TopAppBar(
             title = {
-                Text(text = stringResource(R.string.screen_transactions))
+                Text(text = stringResource(R.string.screen_overview))
             },
             navigationIcon = {
                 Box(
