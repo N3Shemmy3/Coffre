@@ -20,6 +20,7 @@ package dev.n3shemmy3.coffre.ui.screen.detail
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -54,6 +55,8 @@ import androidx.compose.material3.SuggestionChip
 import androidx.compose.material3.SuggestionChipDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -64,6 +67,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
@@ -107,6 +111,7 @@ fun DetailScreenContent(state: DetailScreenState, onAction: (Action) -> Unit) {
         cutoutInsets.calculateStartPadding(LocalLayoutDirection.current) + cutoutInsets.calculateEndPadding(
             LocalLayoutDirection.current
         )
+    val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
     val scrollState = rememberScrollState()
     var transaction = state.transaction
     val defaultAccountId = state.accounts.getDefaultAccountId()
@@ -157,39 +162,43 @@ fun DetailScreenContent(state: DetailScreenState, onAction: (Action) -> Unit) {
     }
 
     Scaffold(
+        modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
-            TopAppBar(title = {}, navigationIcon = {
-                Box(
-                    Modifier.padding(
-                        start = hInsets + 4.dp
-                    )
-                ) {
-                    NavigationButton(
+            TopAppBar(
+                title = {}, navigationIcon = {
+                    Box(
+                        Modifier.padding(
+                            start = hInsets + 4.dp
+                        )
+                    ) {
+                        NavigationButton(
+                            onClick = {
+                                onAction(Action.ViewFlow.Close(route = Route.DETAIL))
+                            },
+                            imageVector = Icons.AutoMirrored.Outlined.ArrowBack,
+                            stringResource(R.string.action_back)
+                        )
+                    }
+                }, actions = {
+                    if (transaction.title.isEmpty()) return@TopAppBar
+                    ActionIconButton(
                         onClick = {
-                            onAction(Action.ViewFlow.Close(route = Route.DETAIL))
+                            onAction(Action.TransactionFlow.Delete(listOf(transaction)))
+                            onAction(Action.ViewFlow.Close(Route.DETAIL))
+                            isDeleted = true
                         },
-                        imageVector = Icons.AutoMirrored.Outlined.ArrowBack,
-                        stringResource(R.string.action_back)
+                        Icons.Outlined.Delete,
+                        stringResource(R.string.action_delete)
                     )
-                }
-            }, actions = {
-                if (transaction.title.isEmpty()) return@TopAppBar
-                ActionIconButton(
-                    onClick = {
-                        onAction(Action.TransactionFlow.Delete(listOf(transaction)))
-                        onAction(Action.ViewFlow.Close(Route.DETAIL))
-                        isDeleted = true
-                    },
-                    Icons.Outlined.Delete,
-                    stringResource(R.string.action_delete)
-                )
 
-                Spacer(
-                    Modifier.padding(
-                        end = hInsets + 4.dp
+                    Spacer(
+                        Modifier.padding(
+                            end = hInsets + 4.dp
+                        )
                     )
-                )
-            })
+                },
+                scrollBehavior = scrollBehavior
+            )
 
         }) { innerPadding ->
         Column(
@@ -205,6 +214,7 @@ fun DetailScreenContent(state: DetailScreenState, onAction: (Action) -> Unit) {
                 .imePadding()
                 .verticalScroll(scrollState), verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
+            Spacer(Modifier.size(16.dp))
 
             PlainTextField(
                 textValue = title,
