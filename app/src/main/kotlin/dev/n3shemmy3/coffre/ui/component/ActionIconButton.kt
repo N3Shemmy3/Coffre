@@ -28,6 +28,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilledTonalIconButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TooltipBox
@@ -69,12 +70,16 @@ fun ActionIconButton(onClick: () -> Unit, imageVector: ImageVector, contentDescr
                 Text(
                     text = contentDescription,
                     modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
-                    color = MaterialTheme.colorScheme.surfaceVariant
+                    color = MaterialTheme.colorScheme.surfaceVariant,
+                    style = MaterialTheme.typography.labelSmall
                 )
             }
         },
     ) {
         FilledTonalIconButton(
+            colors = IconButtonDefaults.filledTonalIconButtonColors(
+                containerColor = MaterialTheme.colorScheme.surfaceContainerHigh
+            ),
             onClick = onClick,
         ) {
             Icon(
@@ -104,7 +109,8 @@ fun ActionIconButton(onClick: () -> Unit, painter: VectorPainter, contentDescrip
                 Text(
                     text = contentDescription,
                     modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
-                    color = MaterialTheme.colorScheme.surfaceVariant
+                    color = MaterialTheme.colorScheme.surfaceVariant,
+                    style = MaterialTheme.typography.labelSmall
                 )
             }
         },
@@ -118,9 +124,4 @@ fun ActionIconButton(onClick: () -> Unit, painter: VectorPainter, contentDescrip
             )
         }
     }
-}
-
-@Composable
-fun BaseToolTip() {
-
 }
