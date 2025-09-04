@@ -19,23 +19,33 @@
 package dev.n3shemmy3.coffre.ui.screen.main
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.slideInVertically
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.displayCutout
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBars
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Add
+import androidx.compose.material.icons.outlined.CreditCard
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -64,6 +74,7 @@ import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.platform.LocalLayoutDirection
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -73,11 +84,16 @@ import dev.n3shemmy3.coffre.R
 import dev.n3shemmy3.coffre.data.action.Action
 import dev.n3shemmy3.coffre.data.viewmodel.MainViewModel
 import dev.n3shemmy3.coffre.ui.component.ActionIconButton
+import dev.n3shemmy3.coffre.ui.component.BalanceCard
+import dev.n3shemmy3.coffre.ui.component.HeaderItem
 import dev.n3shemmy3.coffre.ui.component.NavigationDrawer
 import dev.n3shemmy3.coffre.ui.component.StateComposable
 import dev.n3shemmy3.coffre.ui.component.States
-import dev.n3shemmy3.coffre.ui.component.TransactionsList
+import dev.n3shemmy3.coffre.ui.component.TwoLineItem
+import dev.n3shemmy3.coffre.ui.navigation.DURATION_ENTER
 import dev.n3shemmy3.coffre.ui.navigation.Route
+import dev.n3shemmy3.coffre.util.formatCurrency
+import dev.n3shemmy3.coffre.util.formatToLocalTime
 import kotlinx.coroutines.launch
 
 
@@ -106,15 +122,40 @@ fun MainScreenContent(state: MainScreenState, onAction: (Action) -> Unit) {
         drawerState = drawerState,
         onItemClick = { id -> },
     ) {
-        Scaffold(modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection), topBar = {
-            TopAppBar(
-                title = {}, navigationIcon = {
-                    IconButton(
-                        onClick = {},
-                        Modifier.padding(
-                            start = hInsets + 4.dp
+        Scaffold(
+            modifier = Modifier
+                .nestedScroll(scrollBehavior.nestedScrollConnection)
+                .background(MaterialTheme.colorScheme.surfaceContainerHigh),
+            topBar = {
+                TopAppBar(
+                    title = {}, navigationIcon = {
+                        IconButton(
+                            onClick = {},
+                            Modifier.padding(
+                                start = hInsets + 4.dp
+                            )
+                        ) {
+                            Box(
+                                Modifier.background(
+                                    colorResource(R.color.ic_launcher_background),
+                                    CircleShape
+                                )
+                            ) {
+                                Image(
+                                    painter = painterResource(R.drawable.ic_launcher_foreground),
+                                    null
+                                )
+                            }
+                        }
+                    },
+                    actions = {
+                        ActionIconButton(
+                            onClick = {
+                                onAction(Action.ViewFlow.Open(route = Route.SETTINGS))
+                            },
+                            imageVector = Icons.Outlined.Search,
+                            stringResource(R.string.action_search)
                         )
-                    ) {
                         TopAppBarAvatar(onClick = {
                             scope.launch {
                                 drawerState.apply {
@@ -122,37 +163,27 @@ fun MainScreenContent(state: MainScreenState, onAction: (Action) -> Unit) {
                                 }
                             }
                         })
-                    }
-                },
-                actions = {
-                    ActionIconButton(
-                        onClick = {
-                            onAction(Action.ViewFlow.Open(route = Route.SETTINGS))
-                        },
-                        imageVector = Icons.Outlined.Search,
-                        stringResource(R.string.action_search)
-                    )
-                    Spacer(
-                        Modifier.padding(
-                            end = hInsets + 4.dp
+                        Spacer(
+                            Modifier.padding(
+                                end = hInsets + 4.dp
+                            )
                         )
-                    )
-                }, scrollBehavior = scrollBehavior
-            )
-        }, floatingActionButton = {
-            AnimatedFloatingActionButton(
-                onClick = {
-                    onAction(Action.ViewFlow.Open(route = Route.DETAIL))
-                },
-                modifier = Modifier.padding(
-                    horizontal = hInsets,
-                    vertical = systemBarInsets.calculateBottomPadding()
-                ),
-                listState
-            ) {
-                Icon(Icons.Outlined.Add, null)
-            }
-        }) { it ->
+                    }, scrollBehavior = scrollBehavior
+                )
+            }, floatingActionButton = {
+                AnimatedFloatingActionButton(
+                    onClick = {
+                        onAction(Action.ViewFlow.Open(route = Route.DETAIL))
+                    },
+                    modifier = Modifier.padding(
+                        horizontal = hInsets,
+                        vertical = systemBarInsets.calculateBottomPadding()
+                    ),
+                    listState
+                ) {
+                    Icon(Icons.Outlined.Add, null)
+                }
+            }) { it ->
             if (state.transactions.isEmpty()) {
                 Box(modifier = Modifier.padding(it)) {
                     if (state.error != null)
@@ -163,17 +194,97 @@ fun MainScreenContent(state: MainScreenState, onAction: (Action) -> Unit) {
                         StateComposable(states = States.LOADING)
                 }
             } else {
-                TransactionsList(
-                    modifier = Modifier
-                        .padding(
-                            start = hInsets + 16.dp,
-                            top = it.calculateTopPadding(),
-                            end = hInsets + 16.dp,
-                        ),
-                    mainState = state,
+                LazyColumn(
+                    modifier = Modifier.padding(
+                        start = hInsets + 16.dp,
+                        top = it.calculateTopPadding(),
+                        end = hInsets + 16.dp,
+                    ),
                     state = listState,
-                    onAction = onAction,
-                )
+                    verticalArrangement = Arrangement.spacedBy(4.dp)
+
+                ) {
+                    item(0) {
+                        Row(Modifier.padding(vertical = 16.dp)) {
+                            AnimatedVisibility(
+                                visible = true,
+                                enter = slideInVertically(
+                                    initialOffsetY = { fullHeight -> fullHeight },
+                                    animationSpec = tween(durationMillis = DURATION_ENTER)
+                                )
+                            ) {
+                                BalanceCard(
+                                    title = stringResource(R.string.my_balance),
+                                    currency = Typography.euro.toString(),
+                                    balance = state.totalBalance,
+                                    received = state.totalIncomes,
+                                    spent = state.totalExpenses
+                                )
+                            }
+                        }
+                    }
+                    item(1) {
+                        AnimatedVisibility(
+                            visible = true,
+                            enter = slideInVertically(
+                                initialOffsetY = { fullHeight -> fullHeight },
+                                animationSpec = tween(durationMillis = DURATION_ENTER)
+                            )
+                        ) {
+                            HeaderItem(
+                                onActionClick = {
+                                    onAction(Action.ViewFlow.Open(route = Route.OVERVIEW))
+                                },
+                                RoundedCornerShape(
+                                    topStart = 20.dp,
+                                    topEnd = 20.dp,
+                                    bottomEnd = 4.dp,
+                                    bottomStart = 4.dp
+                                )
+                            )
+                        }
+                    }
+                    itemsIndexed(state.transactions) { index, item ->
+                        val bottomRadius =
+                            if (index == state.transactions.lastIndex) 20.dp else 4.dp
+                        AnimatedVisibility(
+                            visible = true,
+                            enter = slideInVertically(
+                                initialOffsetY = { fullHeight -> fullHeight },
+                                animationSpec = tween(durationMillis = DURATION_ENTER)
+                            )
+                        ) {
+                            TwoLineItem(
+                                icon = Icons.Outlined.CreditCard,
+                                title = item.title,
+                                summary = formatToLocalTime(item.time),
+                                endText = formatCurrency(item.amount),
+                                type = item.type,
+                                onClick = {
+                                    onAction(
+                                        Action.ViewFlow.Open(
+                                            route = Route.DETAIL,
+                                            payload = item
+                                        )
+                                    )
+                                },
+                                shape = RoundedCornerShape(
+                                    topStart = 4.dp,
+                                    topEnd = 4.dp,
+                                    bottomEnd = bottomRadius,
+                                    bottomStart = bottomRadius
+                                )
+                            )
+                        }
+                    }
+                    item {
+                        Spacer(
+                            Modifier
+                                .fillMaxWidth()
+                                .height(84.dp)
+                        )
+                    }
+                }
             }
         }
     }
