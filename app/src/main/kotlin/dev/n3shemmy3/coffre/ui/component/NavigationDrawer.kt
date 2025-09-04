@@ -35,7 +35,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredWidth
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
@@ -51,7 +50,6 @@ import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalDrawerSheet
 import androidx.compose.material3.ModalNavigationDrawer
@@ -60,6 +58,7 @@ import androidx.compose.material3.NavigationDrawerItemDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -72,6 +71,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import dev.n3shemmy3.coffre.R
 import dev.n3shemmy3.coffre.data.entity.MenuItem
@@ -82,9 +82,8 @@ fun NavigationDrawer(
     drawerState: DrawerState,
     onItemClick: (id: String) -> Unit,
     content: @Composable () -> Unit,
-): Unit {
+) {
     val cutoutInsets = WindowInsets.displayCutout.asPaddingValues()
-    val systemBarInsets = WindowInsets.systemBars.asPaddingValues()
     val hInsets =
         cutoutInsets.calculateStartPadding(LocalLayoutDirection.current) + cutoutInsets.calculateEndPadding(
             LocalLayoutDirection.current
@@ -114,89 +113,105 @@ fun NavigationDrawer(
     )
 
     val scrollState = rememberScrollState()
-    ModalNavigationDrawer(
-        drawerState = drawerState,
-        drawerContent = {
-            Column(
-                Modifier
-                    .background(MaterialTheme.colorScheme.surfaceContainerLow)
-                    .padding(start = hInsets)
-            ) {
-                ModalDrawerSheet(
-                    drawerState = drawerState,
-                    drawerShape = RectangleShape,
-                    drawerContainerColor = MaterialTheme.colorScheme.surfaceContainerLow,
-                    modifier = Modifier
-                        .requiredWidth(300.dp)
-                        .fillMaxHeight()
-                        .verticalScroll(scrollState),
-                ) {
-
+    CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
+        ModalNavigationDrawer(
+            drawerState = drawerState,
+            drawerContent = {
+                CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
+                    // under the hood, drawerContent is wrapped in a Column, but it would be under the Rtl layout
+                    // so we create new column under the Ltr layout
                     Column(
-                        modifier = Modifier.padding(
-                            start = 16.dp,
-                            top = 24.dp,
-                            end = 16.dp,
-                            bottom = 8.dp
-                        ),
-                        verticalArrangement = Arrangement.spacedBy(12.dp)
+                        Modifier
+                            .background(MaterialTheme.colorScheme.surfaceContainerLow)
+                            .padding(start = hInsets)
                     ) {
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            verticalAlignment = Alignment.Top,
-                            horizontalArrangement = Arrangement.SpaceBetween
+                        ModalDrawerSheet(
+                            drawerState = drawerState,
+                            drawerShape = RectangleShape,
+                            drawerContainerColor = MaterialTheme.colorScheme.surfaceContainerLow,
+                            modifier = Modifier
+                                .requiredWidth(300.dp)
+                                .fillMaxHeight()
+                                .verticalScroll(scrollState),
                         ) {
-                            Card(
-                                shape = CircleShape,
-                                modifier = Modifier.size(56.dp),
-                                border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline),
+
+                            Column(
+                                modifier = Modifier.padding(
+                                    start = 16.dp,
+                                    top = 24.dp,
+                                    end = 16.dp,
+                                    bottom = 8.dp
+                                ),
+                                verticalArrangement = Arrangement.spacedBy(12.dp)
                             ) {
-                                Image(
-                                    painter = painterResource(R.drawable.avatar),
-                                    contentDescription = "Localized description"
-                                )
-                            }
-                            IconButton(onClick = {}) {
-                                Icon(Icons.Outlined.DarkMode, null)
-                            }
-                        }
-                        Text("Shemmy", style = MaterialTheme.typography.titleLarge)
-                    }
-                    Spacer(Modifier.padding(8.dp))
-                    HorizontalDivider()
-                    Spacer(Modifier.padding(4.dp))
-                    Column {
-                        items.forEachIndexed { index, item ->
-                            NavigationDrawerItem(
-                                label = {
-                                    Text(
-                                        text = item.title,
-                                        fontWeight = FontWeight.SemiBold,
-                                        style = MaterialTheme.typography.bodyMedium
+                                Row(
+                                    modifier = Modifier.fillMaxWidth(),
+                                    verticalAlignment = Alignment.Top,
+                                    horizontalArrangement = Arrangement.SpaceBetween
+                                ) {
+                                    Card(
+                                        shape = CircleShape,
+                                        modifier = Modifier.size(56.dp),
+                                        border = BorderStroke(
+                                            1.dp,
+                                            MaterialTheme.colorScheme.outline
+                                        ),
+                                    ) {
+                                        Image(
+                                            painter = painterResource(R.drawable.avatar),
+                                            contentDescription = "Localized description"
+                                        )
+                                    }
+                                    NavigationButton(
+                                        onClick = {
+                                        },
+                                        imageVector = Icons.Outlined.DarkMode,
+                                        ""
                                     )
-                                },
-                                selected = index == selectedItemIndex,
-                                onClick = {
-                                    onItemClick.invoke(item.title)
-                                },
-                                icon = {
-                                    Icon(
-                                        imageVector = item.icon,
-                                        contentDescription = item.title
+                                }
+                                Text("Shemmy", style = MaterialTheme.typography.titleLarge)
+                            }
+                            Spacer(Modifier.padding(8.dp))
+                            HorizontalDivider()
+                            Spacer(Modifier.padding(4.dp))
+                            Column {
+                                items.forEachIndexed { index, item ->
+                                    NavigationDrawerItem(
+                                        label = {
+                                            Text(
+                                                text = item.title,
+                                                fontWeight = FontWeight.SemiBold,
+                                                style = MaterialTheme.typography.bodyMedium
+                                            )
+                                        },
+                                        selected = index == selectedItemIndex,
+                                        onClick = {
+                                            onItemClick.invoke(item.title)
+                                        },
+                                        icon = {
+                                            Icon(
+                                                imageVector = item.icon,
+                                                contentDescription = item.title
+                                            )
+                                            Spacer(Modifier.padding(2.dp))
+                                        },
+                                        modifier = Modifier
+                                            .padding(NavigationDrawerItemDefaults.ItemPadding)
                                     )
-                                    Spacer(Modifier.padding(2.dp))
-                                },
-                                modifier = Modifier
-                                    .padding(NavigationDrawerItemDefaults.ItemPadding)
-                            )
+                                }
+                            }
                         }
                     }
                 }
-            }
-        },
-        gesturesEnabled = true,
-        content = content
-    )
+            },
+            gesturesEnabled = true,
+            content = {
+                CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
+                    content()
+                }
+            },
+        )
+    }
 }
 
 
