@@ -1,4 +1,4 @@
-name: Dev branch CI
+name: Compose dev branch CI
 
 on:
   push:
