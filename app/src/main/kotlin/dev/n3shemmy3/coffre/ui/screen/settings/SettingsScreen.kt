@@ -19,176 +19,104 @@
 package dev.n3shemmy3.coffre.ui.screen.settings
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.asPaddingValues
-import androidx.compose.foundation.layout.calculateEndPadding
-import androidx.compose.foundation.layout.calculateStartPadding
-import androidx.compose.foundation.layout.displayCutout
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.systemBars
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.Palette
+import androidx.compose.material.icons.outlined.Person4
 import androidx.compose.material.icons.outlined.SettingsBackupRestore
 import androidx.compose.material.icons.outlined.Tag
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.LargeTopAppBar
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBarDefaults
-import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.input.nestedscroll.nestedScroll
-import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import dev.n3shemmy3.coffre.R
 import dev.n3shemmy3.coffre.data.action.Action
+import dev.n3shemmy3.coffre.data.entity.Preference
 import dev.n3shemmy3.coffre.data.viewmodel.MainViewModel
-import dev.n3shemmy3.coffre.ui.component.NavigationButton
 import dev.n3shemmy3.coffre.ui.component.PreferenceItem
+import dev.n3shemmy3.coffre.ui.component.PreferenceTitle
 import dev.n3shemmy3.coffre.ui.navigation.Route
+import dev.n3shemmy3.coffre.util.getItemShape
 
 @Composable
 fun SettingsScreen(viewModel: MainViewModel) {
-    SettingsScreenContent(viewModel::onAction)
-}
 
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun SettingsScreenContent(onAction: (Action) -> Unit) {
-    val cutoutInsets = WindowInsets.displayCutout.asPaddingValues()
-    val systemBarInsets = WindowInsets.systemBars.asPaddingValues()
-    val hInsets =
-        cutoutInsets.calculateStartPadding(LocalLayoutDirection.current) + cutoutInsets.calculateEndPadding(
-            LocalLayoutDirection.current
-        )
-    val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior(rememberTopAppBarState())
-    val scrollState = rememberScrollState()
-    val isCollapsed = remember {
-        mutableStateOf<Boolean>(scrollBehavior.state.collapsedFraction > .5)
-    }
-    val typography = MaterialTheme.typography
-    Scaffold(
-        modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
-        topBar = {
-            val overrideTypography =
-                remember(typography) { typography.copy(headlineMedium = typography.displaySmall) }
-            MaterialTheme(typography = overrideTypography) {
-                LargeTopAppBar(
-                    title = {
-                        Text(
-                            modifier = Modifier
-                                .padding(start = if (isCollapsed.value) 0.dp else hInsets)
-                                .alpha(if (isCollapsed.value) 0f else 1f),
-                            text = stringResource(R.string.screen_settings)
-                        )
-                    },
-                    navigationIcon = {
-                        Box(
-                            Modifier.padding(
-                                start = hInsets + 4.dp
-                            )
-                        ) {
-                            NavigationButton(
-                                onClick = {
-                                    onAction(Action.ViewFlow.Close(route = Route.DETAIL))
-                                },
-                                imageVector = Icons.AutoMirrored.Outlined.ArrowBack,
-                                stringResource(R.string.action_back)
-                            )
-                        }
-                    },
-                    scrollBehavior = scrollBehavior,
-                    expandedHeight = TopAppBarDefaults.LargeAppBarExpandedHeight + 24.dp,
-                )
-            }
-        },
-        content = { it ->
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(
-                        start = hInsets + 16.dp,
-                        top = it.calculateTopPadding(),
-                        end = hInsets + 16.dp,
-                    )
-                    .verticalScroll(scrollState),
-                verticalArrangement = Arrangement.spacedBy(4.dp)
-            ) {
-                val firstItemShape = RoundedCornerShape(
-                    topStart = 20.dp,
-                    topEnd = 20.dp,
-                    bottomEnd = 4.dp,
-                    bottomStart = 4.dp
-                )
-                val middleItemShape = RoundedCornerShape(4.dp)
-                val lastItemShape = RoundedCornerShape(
-                    topStart = 4.dp,
-                    topEnd = 4.dp,
-                    bottomEnd = 20.dp,
-                    bottomStart = 20.dp
-                )
-                Spacer(
-                    Modifier.size(16.dp)
-                )
-
-                PreferenceItem(
-                    icon = Icons.Outlined.Palette,
-                    title = stringResource(R.string.preference_look_n_feel),
-                    summary = stringResource(R.string.summary_look_and_feel),
-                    onClick = {},
-                    shape = firstItemShape
-                )
-                PreferenceItem(
-                    icon = Icons.Outlined.Tag,
-                    title = stringResource(R.string.preference_format),
-                    summary = stringResource(R.string.summary_format),
-                    onClick = {},
-                    shape = middleItemShape
-                )
-                PreferenceItem(
-                    icon = Icons.Outlined.SettingsBackupRestore,
-                    title = stringResource(R.string.preference_backup_n_restore),
-                    summary = stringResource(R.string.summary_backup_n_restore),
-                    onClick = {},
-                    shape = middleItemShape
-                )
-                PreferenceItem(
-                    icon = Icons.Outlined.Info,
-                    title = stringResource(R.string.preference_about),
-                    summary = stringResource(R.string.summary_about),
-                    onClick = {},
-                    shape = lastItemShape
-                )
-
-                Spacer(
-                    Modifier
-                        .fillMaxWidth()
-                        .height(systemBarInsets.calculateBottomPadding() + systemBarInsets.calculateTopPadding())
-                )
-            }
-
+    BaseSettingsScreenContent(
+        stringResource(R.string.screen_settings),
+        onBackClicked = {
+            viewModel.onAction(Action.ViewFlow.Close(Route.SETTINGS))
         }
-    )
+    ) {
+        Column(
+            verticalArrangement = Arrangement.spacedBy(4.dp)
+        ) {
+            PreferenceTitle(stringResource(R.string.profile))
+            PreferenceItem(
+                icon = Icons.Outlined.Person4,
+                title = stringResource(R.string.preference_profile),
+                summary = stringResource(R.string.summary_profile),
+                onClick = {},
+                shape = CircleShape
+            )
+        }
+
+        Column(
+            verticalArrangement = Arrangement.spacedBy(4.dp)
+        ) {
+            PreferenceTitle(stringResource(R.string.screen_settings))
+            val preferences = remember {
+                listOf(
+                    Preference(
+                        Icons.Outlined.Palette,
+                        R.string.preference_look_n_feel,
+                        R.string.summary_look_and_feel,
+                        onClick = {
+                            viewModel.onAction(Action.ViewFlow.Open(Route.LOOKNFEELSETTINGS))
+                        }
+                    ),
+                    Preference(
+                        Icons.Outlined.Tag,
+                        R.string.preference_format,
+                        R.string.summary_format,
+                        onClick = {
+                            viewModel.onAction(Action.ViewFlow.Open(Route.FORMATSETTINGS))
+                        }
+                    ),
+                    Preference(
+                        Icons.Outlined.SettingsBackupRestore,
+                        R.string.preference_backup_n_restore,
+                        R.string.summary_backup_n_restore,
+                        onClick = {
+                            viewModel.onAction(Action.ViewFlow.Open(Route.BACKUPNRESTORESETTINGS))
+                        }
+                    ),
+                    Preference(
+                        Icons.Outlined.Info,
+                        R.string.preference_about,
+                        R.string.summary_about,
+                        onClick = {
+                            viewModel.onAction(Action.ViewFlow.Open(Route.ABOUTSETTINGS))
+                        }
+                    )
+                )
+            }
+
+            preferences.forEachIndexed { index, item ->
+                PreferenceItem(
+                    item.icon,
+                    stringResource(item.title),
+                    stringResource(item.summary),
+                    onClick = item.onClick,
+                    shape = getItemShape(index, preferences.lastIndex)
+                )
+            }
+        }
+
+    }
 }
 
 @Preview
