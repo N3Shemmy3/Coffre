@@ -68,6 +68,8 @@ import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
@@ -79,6 +81,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import dev.n3shemmy3.coffre.R
 import dev.n3shemmy3.coffre.data.action.Action
@@ -90,6 +93,7 @@ import dev.n3shemmy3.coffre.ui.component.NavigationDrawer
 import dev.n3shemmy3.coffre.ui.component.StateComposable
 import dev.n3shemmy3.coffre.ui.component.States
 import dev.n3shemmy3.coffre.ui.component.TwoLineItem
+import dev.n3shemmy3.coffre.ui.navigation.ComposableLifecycle
 import dev.n3shemmy3.coffre.ui.navigation.DURATION_ENTER
 import dev.n3shemmy3.coffre.ui.navigation.Route
 import dev.n3shemmy3.coffre.util.formatCurrency
@@ -188,8 +192,6 @@ fun MainScreenContent(state: MainScreenState, onAction: (Action) -> Unit) {
                 Box(modifier = Modifier.padding(it)) {
                     if (state.error != null)
                         StateComposable(states = States.ERROR)
-                    if (state.isLoading)
-                        StateComposable(states = States.LOADING)
                     if (state.transactions.isEmpty())
                         StateComposable(states = States.LOADING)
                 }
