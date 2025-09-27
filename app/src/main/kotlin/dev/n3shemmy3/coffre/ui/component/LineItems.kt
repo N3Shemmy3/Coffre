@@ -90,8 +90,8 @@ fun TwoLineItem(
                 Text(
                     title,
                     maxLines = 1,
-                    style = MaterialTheme.typography.titleLarge,
-                    fontSize = 18.sp,
+                    style = MaterialTheme.typography.bodyLarge,
+                    fontSize = 16.sp,
                     fontWeight = FontWeight.Bold,
                     color = MaterialTheme.colorScheme.onBackground,
                     overflow = TextOverflow.Ellipsis,
