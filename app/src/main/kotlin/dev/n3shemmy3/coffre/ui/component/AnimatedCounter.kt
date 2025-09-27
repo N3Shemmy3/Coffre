@@ -119,7 +119,7 @@ fun AnimatedBalance(
     balance: BigDecimal,
     modifier: Modifier = Modifier,
     currencySymbol: String = "€",
-    wholeStyle: TextStyle = MaterialTheme.typography.headlineLarge.copy(fontSize = 54.sp),
+    wholeStyle: TextStyle = MaterialTheme.typography.headlineLarge.copy(fontSize = 50.sp),
     fractionStyle: TextStyle = MaterialTheme.typography.headlineSmall.copy(fontSize = 36.sp),
     color: Color = MaterialTheme.colorScheme.onSecondaryContainer,
 ) {
@@ -142,7 +142,7 @@ fun AnimatedBalance(
         horizontalArrangement = Arrangement.Start
     ) {
         if (!isRtl) {
-            Text(currencySymbol, style = fractionStyle, color = color)
+            Text(currencySymbol, style = wholeStyle, color = color.copy(alpha = .75f))
             Spacer(Modifier.weight(1f))
         }
 
@@ -171,7 +171,7 @@ fun AnimatedBalance(
 
         if (isRtl) {
             Spacer(Modifier.weight(1f))
-            Text(currencySymbol, style = fractionStyle, color = color)
+            Text(currencySymbol, style = wholeStyle, color = color)
         }
     }
 }
