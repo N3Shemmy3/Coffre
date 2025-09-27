@@ -58,7 +58,7 @@ fun BalanceCard(
                     MaterialTheme.colorScheme.secondaryContainer, RoundedCornerShape(20.dp)
                 )
                 .padding(20.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
+            verticalArrangement = Arrangement.spacedBy(24.dp)
 
         ) {
             Row(modifier = Modifier.fillMaxWidth()) {
@@ -70,7 +70,7 @@ fun BalanceCard(
                     color = MaterialTheme.colorScheme.onSecondaryContainer,
                 )
             }
-            AnimatedBalance(balance)
+            AnimatedBalance(balance = balance, currencySymbol = currency)
             Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
