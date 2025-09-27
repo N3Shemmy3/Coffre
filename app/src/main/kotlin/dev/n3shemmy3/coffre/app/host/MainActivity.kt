@@ -41,6 +41,10 @@ import dev.n3shemmy3.coffre.ui.navigation.animatedComposable
 import dev.n3shemmy3.coffre.ui.screen.detail.DetailScreen
 import dev.n3shemmy3.coffre.ui.screen.main.MainScreen
 import dev.n3shemmy3.coffre.ui.screen.overview.OverviewScreen
+import dev.n3shemmy3.coffre.ui.screen.settings.AboutSettingsScreen
+import dev.n3shemmy3.coffre.ui.screen.settings.BackupNRestoreSettingsScreen
+import dev.n3shemmy3.coffre.ui.screen.settings.FormatSettingsScreen
+import dev.n3shemmy3.coffre.ui.screen.settings.LookNFeelSettingsScreen
 import dev.n3shemmy3.coffre.ui.screen.settings.SettingsScreen
 import dev.n3shemmy3.coffre.ui.screen.start.StartScreen
 import dev.n3shemmy3.coffre.ui.theme.CoffreTheme
@@ -102,6 +106,18 @@ fun Navigator(
         }
         animatedComposable(Route.SETTINGS) {
             SettingsScreen(viewModel)
+        }
+        animatedComposable(Route.LOOKNFEELSETTINGS) {
+            LookNFeelSettingsScreen(viewModel)
+        }
+        animatedComposable(Route.FORMATSETTINGS) {
+            FormatSettingsScreen(viewModel)
+        }
+        animatedComposable(Route.BACKUPNRESTORESETTINGS) {
+            BackupNRestoreSettingsScreen(viewModel)
+        }
+        animatedComposable(Route.ABOUTSETTINGS) {
+            AboutSettingsScreen(viewModel)
         }
     }
 }
