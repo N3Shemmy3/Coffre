@@ -49,10 +49,10 @@ import androidx.compose.ui.unit.sp
 fun PreferenceTitle(text: String) {
     Text(
         modifier = Modifier
-            .padding(top = 32.dp)
-            .padding(horizontal = 20.dp, vertical = 16.dp),
+            .padding(top = 16.dp)
+            .padding(horizontal = 20.dp, vertical = 8.dp),
         text = text,
-        style = MaterialTheme.typography.displaySmall,
+        style = MaterialTheme.typography.bodyLarge,
     )
 }
 
@@ -92,7 +92,7 @@ fun PreferenceItem(
                 Text(
                     title,
                     maxLines = 1,
-                    style = MaterialTheme.typography.titleLarge,
+                    style = MaterialTheme.typography.bodyLarge,
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Bold,
                     color = MaterialTheme.colorScheme.onBackground,
