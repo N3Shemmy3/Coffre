@@ -87,7 +87,7 @@ fun BackupNRestoreSettingsScreen(viewModel: MainViewModel) {
                 title = stringResource(R.string.preference_restore_backup),
                 summary = stringResource(R.string.summary_restore_backup),
                 onClick = {},
-                shape = getItemShape(1, 2)
+                shape = getItemShape(2, 2)
             )
 
         }
