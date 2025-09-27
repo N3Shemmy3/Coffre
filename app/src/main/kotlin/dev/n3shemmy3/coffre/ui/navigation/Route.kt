@@ -19,10 +19,15 @@
 package dev.n3shemmy3.coffre.ui.navigation
 
 object Route {
+
     const val START = "start"
     const val MAIN = "main"
     const val DETAIL = "detail"
     const val OVERVIEW = "overview"
     const val SEARCH = "search"
     const val SETTINGS = "settings"
+    const val LOOKNFEELSETTINGS = "lookNFeelSettings"
+    const val FORMATSETTINGS = "formatSettings"
+    const val BACKUPNRESTORESETTINGS = "backupNRestoreSettings"
+    const val ABOUTSETTINGS = "aboutSettings"
 }
