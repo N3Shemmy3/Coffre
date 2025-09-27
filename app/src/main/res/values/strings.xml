@@ -48,9 +48,9 @@
     <string name="preference_backup_n_restore">Backup &amp; Restore</string>
     <string name="summary_backup_n_restore">Manual, backup folder</string>
     <string name="preference_create_backup">Create Backup</string>
-    <string name="summary_create_backup">Creates a backup of all app settings &amp; data</string>
+    <string name="summary_create_backup">Restore app data from file</string>
     <string name="preference_restore_backup">Restore Backup</string>
-    <string name="summary_restore_backup">Restores app data from a backup file</string>
+    <string name="summary_restore_backup">Restore app data from file</string>
 
 
     <!--Actions -->
