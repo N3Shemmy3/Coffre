@@ -28,7 +28,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.calculateEndPadding
-import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.displayCutout
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -84,8 +83,8 @@ fun NavigationDrawer(
     content: @Composable () -> Unit,
 ) {
     val cutoutInsets = WindowInsets.displayCutout.asPaddingValues()
-    val hInsets =
-        cutoutInsets.calculateStartPadding(LocalLayoutDirection.current) + cutoutInsets.calculateEndPadding(
+    val endInsets =
+        cutoutInsets.calculateEndPadding(
             LocalLayoutDirection.current
         )
     var selectedItemIndex by rememberSaveable { mutableIntStateOf(0) }
@@ -123,14 +122,14 @@ fun NavigationDrawer(
                     Column(
                         Modifier
                             .background(MaterialTheme.colorScheme.surfaceContainerLow)
-                            .padding(start = hInsets)
+                            .padding(end = endInsets)
                     ) {
                         ModalDrawerSheet(
                             drawerState = drawerState,
                             drawerShape = RectangleShape,
                             drawerContainerColor = MaterialTheme.colorScheme.surfaceContainerLow,
                             modifier = Modifier
-                                .requiredWidth(300.dp)
+                                .requiredWidth(300.dp + endInsets)
                                 .fillMaxHeight()
                                 .verticalScroll(scrollState),
                         ) {
