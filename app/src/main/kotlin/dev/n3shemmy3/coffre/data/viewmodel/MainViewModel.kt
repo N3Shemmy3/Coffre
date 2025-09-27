@@ -91,7 +91,11 @@ class MainViewModel(
                     _navEvents.emit(action)
                 }
 
-                is Action.ViewFlow.Close -> _navEvents.emit(action)
+                is Action.ViewFlow.Close -> {
+                    if (action.route == Route.DETAIL)
+                        _detailState.update { it.copy(transaction = DetailScreenState().transaction) }
+                    _navEvents.emit(action)
+                }
 
                 is Action.AccountFlow.Create -> {
                     accountRepo.insert(action.items)
