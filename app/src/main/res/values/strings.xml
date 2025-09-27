@@ -17,6 +17,10 @@
     <string name="preference_look_n_feel">Look &amp; feel</string>
     <string name="summary_look_and_feel">Theme, colors &amp; languages</string>
 
+    <!--Profile Preference -->
+    <string name="preference_profile">User profile</string>
+    <string name="summary_profile">Name &amp; avatar</string>
+
     <!--Format Preference -->
     <string name="preference_format">Format</string>
     <string name="summary_format">Decimal, thousands &amp; currency</string>
@@ -44,9 +48,9 @@
     <string name="preference_backup_n_restore">Backup &amp; Restore</string>
     <string name="summary_backup_n_restore">Manual, backup folder</string>
     <string name="preference_create_backup">Create Backup</string>
-    <string name="preference_create_backup_summary">Creates a backup of all app settings &amp; data</string>
+    <string name="summary_create_backup">Creates a backup of all app settings &amp; data</string>
     <string name="preference_restore_backup">Restore Backup</string>
-    <string name="preference_restore_backup_summary">Restores app data from a backup file</string>
+    <string name="summary_restore_backup">Restores app data from a backup file</string>
 
 
     <!--Actions -->

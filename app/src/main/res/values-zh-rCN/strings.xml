@@ -44,9 +44,9 @@
     <string name="preference_backup_n_restore">备份 &amp; 还原</string>
     <string name="summary_backup_n_restore">需要手动备份</string>
     <string name="preference_create_backup">创建备份</string>
-    <string name="preference_create_backup_summary">为应用的设置 &amp; 数据 创建备份</string>
+    <string name="summary_create_backup">为应用的设置 &amp; 数据 创建备份</string>
     <string name="preference_restore_backup">还原备份</string>
-    <string name="preference_restore_backup_summary">从备份文件中还原应用设置</string>
+    <string name="summary_restore_backup">从备份文件中还原应用设置</string>
 
 
     <!--Actions -->
