@@ -21,6 +21,7 @@ package dev.n3shemmy3.coffre.data.entity
 import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
+const val DEFAULT_ACCOUNT_NAME = "Default"
 
 @Entity(tableName = "accounts", indices = [Index(value = ["name"], unique = true)])
 data class Account(
@@ -33,4 +34,3 @@ data class Account(
     val hidden: Boolean = false,  // true means exclude from summaries/reports
 )
 
-const val DEFAULT_ACCOUNT_NAME = "Default"
