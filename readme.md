@@ -1,4 +1,11 @@
 <h1>
+    ⚠️ Undergoing Rewrite
+</h1>
+I am in the process of rewriting the enitire app from scratch, currenly working on the design. feel free to pop in on telegram to chat. thanks :D
+
+[![Telegram](https://img.shields.io/badge/Telegram-Coffre-blue?style=flat&logo=telegram)](https://t.me/n3shemmy3)
+
+<h1>
     Coffre
     <br/>
     <span>
@@ -6,9 +13,9 @@
     </span>
 </h1>
 
-![GitHub](https://img.shields.io/github/license/FoedusProgramme/Coffre)
-![GitHub tag (with filter)](https://img.shields.io/github/v/tag/FoedusProgramme/Coffre?&logoColor=white&labelColor=black&color=white)
-[![Telegram Channel](https://img.shields.io/badge/Telegram-Coffre-blue?style=flat&logo=telegram)](https://t.me/FoedusProgramme)
+![GitHub](https://img.shields.io/github/license/N3Shemmy3/Coffre)
+![GitHub tag (with filter)](https://img.shields.io/github/v/tag/N3Shemmy3/Coffre?&logoColor=white&labelColor=black&color=white)
+[![Telegram](https://img.shields.io/badge/Telegram-Coffre-blue?style=flat&logo=telegram)](https://t.me/n3shemmy3)
 
 Coffre is a simple and intuitive Android application designed to help you manage your personal finances effectively. Track your income, expenses, and transfers with ease, gain insights into your spending habits, and achieve your financial goals.
 
@@ -59,25 +66,9 @@ Contributions are welcome! Please follow these steps:
 
 ## Support the project
 
-I maintain this project in my free time, if you find it useful consider sending me a coffee.
+I maintain this project in my free time, if you find it useful consider buying me a coffee.
 
-<p>Scan the QR code or copy the address to donate:</p>
-
-<div style="display: flex; flex-wrap: wrap; justify-content: space-around; gap: 20px;">
-  <div style="text-align: center;">
-    <img src="./metadata/qrcodes/btc.png" width="150px" alt="Bitcoin QR Code" style="border-radius: 8px;" />
-    <p><strong>Bitcoin (BTC)</strong><br><code>12XZvVjSRbpJG8mBCWz46swDrDwxCTcKAM</code></p>
-  </div>
-  <div style="text-align: center;">
-    <img src="./metadata/qrcodes/eth.png" width="150px" alt="Ethereum QR Code" style="border-radius: 8px;" />
-    <p><strong>Ethereum (ETH)</strong><br><code>0xe6916037bb01d596c78f01974a21942ead928618</code></p>
-  </div>
-  <div style="text-align: center;">
-    <img src="./metadata/qrcodes/ltc.png" width="150px" alt="Litecoin QR Code" style="border-radius: 8px;" />
-    <p><strong>Litecoin (LTC)</strong><br><code>LWHmZyJ6a7xJQ77YFz1q2RkvBeivy6Em5z</code></p>
-  </div>
-</div>
-
+<a href='https://ko-fi.com/O5O11RS7DG' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://storage.ko-fi.com/cdn/kofi6.png?v=6' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
 <p>Thank you for your generosity!</p>
 
 ## License
