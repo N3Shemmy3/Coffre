@@ -48,11 +48,11 @@ Coffre is a simple and intuitive Android application designed to help you manage
 
 ## Download
 
-- Find the latest <strong>stable</strong> version from [GitHub releases](https://github.com/FoedusProgramme/Coffre/releases/latest)
+- Find the latest <strong>stable</strong> version from [GitHub releases](https://github.com/N3Shemmy3/Coffre/releases/latest)
 
 ## Contact
 
-Join our [Telegram Channel](https://t.me/FoedusProgramme) for discussion, announcements, and releases!
+Join our [Telegram Channel](https://t.me/n3shemmy3) for announcements, and releases!
 
 ## Contributing
 
@@ -73,7 +73,7 @@ I maintain this project in my free time, if you find it useful consider buying m
 
 ## License
 
-[![GitHub](https://img.shields.io/github/license/FoedusProgramme/Coffre?style=for-the-badge)](https://github.com/FoedusProgramme/Coffre/blob/main/LICENSE)
+[![GitHub](https://img.shields.io/github/license/N3Shemmy3/Coffre?style=for-the-badge)](https://github.com/FoedusProgramme/Coffre/blob/main/LICENSE)
 
 > [!Warning]
 >
