@@ -11,17 +11,19 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import dev.n3shemmy3.coffre.ui.theme.CoffreTheme
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import dev.n3shemmy3.coffre.ui.theme.AppTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(state: Bundle?) {
+        installSplashScreen()
         super.onCreate(state)
         enableEdgeToEdge()
         setContent {
-            CoffreTheme {
+            AppTheme {
                 Scaffold( modifier = Modifier.fillMaxSize() ) { innerPadding ->
                     Greeting(
-                        name = "Android",
+                        name = "Shemmy",
                         modifier = Modifier.padding(innerPadding)
                     )
                 }
@@ -41,7 +43,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
-    CoffreTheme {
+    AppTheme {
         Greeting("Android")
     }
 }
