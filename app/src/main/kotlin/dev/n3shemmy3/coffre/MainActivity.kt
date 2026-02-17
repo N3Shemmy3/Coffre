@@ -5,28 +5,42 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.navigation3.runtime.entryProvider
+import androidx.navigation3.runtime.rememberNavBackStack
+import androidx.navigation3.ui.NavDisplay
+import dev.n3shemmy3.coffre.ui.navigation.AppRoute
+import dev.n3shemmy3.coffre.ui.screen.main.MainScreen
 import dev.n3shemmy3.coffre.ui.theme.AppTheme
 
+
 class MainActivity : ComponentActivity() {
-    override fun onCreate(state: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
-        super.onCreate(state)
+        super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
+            val backStack = rememberNavBackStack(AppRoute.Main)
             AppTheme {
-                Scaffold( modifier = Modifier.fillMaxSize() ) { innerPadding ->
-                    Greeting(
-                        name = "Shemmy",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
+                NavDisplay(
+                    backStack = backStack,
+                    onBack = { backStack.removeLastOrNull() },
+                    entryProvider = entryProvider {
+                        entry<AppRoute.Main> {
+                            MainScreen()
+                        }
+                        entry<AppRoute.Detail> {
+
+                        }
+                        entry<AppRoute.Settings> {
+
+                        }
+                    },
+                )
             }
         }
     }

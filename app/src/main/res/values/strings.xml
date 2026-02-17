@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Coffre</string>
+
+    <string name="search">Search</string>
+
+
+    <string name="new_transaction">Create a new transaction</string>
+
 </resources>
