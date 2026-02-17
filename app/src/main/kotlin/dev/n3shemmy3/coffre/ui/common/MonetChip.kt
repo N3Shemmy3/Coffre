@@ -9,27 +9,27 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
-enum class TonalChipColors {
+enum class MonetChipColors {
     Secondary,
     Error,
     Tertiary
 }
 
 @Composable
-fun TonalChip(
+fun MonetChip(
     modifier: Modifier = Modifier,
-    tonalChipColors: TonalChipColors = TonalChipColors.Secondary,
+    monetChipColors: MonetChipColors = MonetChipColors.Secondary,
     content: @Composable () -> Unit,
 ) {
-    val color = when (tonalChipColors) {
-        TonalChipColors.Secondary -> MaterialTheme.colorScheme.secondaryContainer
-        TonalChipColors.Error -> MaterialTheme.colorScheme.errorContainer
-        TonalChipColors.Tertiary -> MaterialTheme.colorScheme.tertiaryContainer
+    val color = when (monetChipColors) {
+        MonetChipColors.Secondary -> MaterialTheme.colorScheme.secondaryContainer
+        MonetChipColors.Error -> MaterialTheme.colorScheme.errorContainer
+        MonetChipColors.Tertiary -> MaterialTheme.colorScheme.tertiaryContainer
     }
-    val contentColor = when (tonalChipColors) {
-        TonalChipColors.Secondary -> MaterialTheme.colorScheme.onSecondaryContainer
-        TonalChipColors.Error -> MaterialTheme.colorScheme.onErrorContainer
-        TonalChipColors.Tertiary -> MaterialTheme.colorScheme.onTertiaryContainer
+    val contentColor = when (monetChipColors) {
+        MonetChipColors.Secondary -> MaterialTheme.colorScheme.onSecondaryContainer
+        MonetChipColors.Error -> MaterialTheme.colorScheme.onErrorContainer
+        MonetChipColors.Tertiary -> MaterialTheme.colorScheme.onTertiaryContainer
     }
     Surface(
         modifier = modifier,

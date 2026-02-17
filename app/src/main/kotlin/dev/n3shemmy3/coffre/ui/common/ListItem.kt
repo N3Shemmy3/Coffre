@@ -73,7 +73,7 @@ fun SingleLineItemPreview() {
         },
         content = { Text("Single line item", style = MaterialTheme.typography.bodyLarge) },
         actionContent = {
-            TonalChip { Text("£19.67", style = MaterialTheme.typography.labelMedium) }
+            MonetChip { Text("£19.67", style = MaterialTheme.typography.labelMedium) }
 
         }
     )
@@ -94,7 +94,7 @@ fun TwoLineItemPreview() {
             )
         },
         actionContent = {
-            TonalChip { Text("£19.67", style = MaterialTheme.typography.labelMedium) }
+            MonetChip { Text("£19.67", style = MaterialTheme.typography.labelMedium) }
         }
     )
 }
@@ -118,7 +118,7 @@ fun ThreeLineItemPreview() {
             )
         },
         actionContent = {
-            TonalChip { Text("£19.67", style = MaterialTheme.typography.labelMedium) }
+            MonetChip { Text("£19.67", style = MaterialTheme.typography.labelMedium) }
         }
     )
 }

@@ -43,8 +43,8 @@ import dev.n3shemmy3.coffre.R
 import dev.n3shemmy3.coffre.ui.common.CategoryItem
 import dev.n3shemmy3.coffre.ui.common.LeadingIcon
 import dev.n3shemmy3.coffre.ui.common.ListItem
-import dev.n3shemmy3.coffre.ui.common.TonalChip
-import dev.n3shemmy3.coffre.ui.common.TonalChipColors
+import dev.n3shemmy3.coffre.ui.common.MonetChip
+import dev.n3shemmy3.coffre.ui.common.MonetChipColors
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -222,14 +222,14 @@ fun MainScreen() {
                         )
                     },
                     actionContent = {
-                        TonalChip(
-                            tonalChipColors = when (index) {
-                                0 -> TonalChipColors.Error
-                                1 -> TonalChipColors.Secondary
-                                2 -> TonalChipColors.Tertiary
-                                3 -> TonalChipColors.Secondary
+                        MonetChip(
+                            monetChipColors = when (index) {
+                                0 -> MonetChipColors.Error
+                                1 -> MonetChipColors.Secondary
+                                2 -> MonetChipColors.Tertiary
+                                3 -> MonetChipColors.Secondary
                                 else -> {
-                                    TonalChipColors.Error
+                                    MonetChipColors.Error
                                 }
                             }
                         ) { Text("£19.67", style = MaterialTheme.typography.labelMedium) }
@@ -256,7 +256,7 @@ fun MainScreen() {
                         )
                     },
                     actionContent = {
-                        TonalChip { Text("£19.67", style = MaterialTheme.typography.labelMedium) }
+                        MonetChip { Text("£19.67", style = MaterialTheme.typography.labelMedium) }
                     }
                 )
 
