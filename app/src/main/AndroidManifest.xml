@@ -12,11 +12,12 @@
             android:label="@string/app_name"
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
-            android:theme="@style/Theme.Coffre">
+            tools:targetApi="33">
         <activity
                 android:name=".MainActivity"
                 android:exported="true"
                 android:label="@string/app_name"
+                android:launchMode="singleTask"
                 android:theme="@style/Theme.Coffre">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,7 +26,9 @@
             </intent-filter>
         </activity>
         <activity
-                android:name=".DebugActivity"
+                android:name=".CrashReportActivity"
+                android:theme="@style/Theme.Coffre"
+                android:label="CrashReportActivity"
                 android:exported="false" />
     </application>
 
