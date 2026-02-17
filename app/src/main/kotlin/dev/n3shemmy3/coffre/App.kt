@@ -1,9 +1,6 @@
 package dev.n3shemmy3.coffre
 
 import android.app.Application
-import android.content.Intent
-import android.util.Log
-import kotlin.system.exitProcess
 
 
 class App : Application() {
