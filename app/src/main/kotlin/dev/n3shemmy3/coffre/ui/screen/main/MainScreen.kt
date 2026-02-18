@@ -1,5 +1,6 @@
 package dev.n3shemmy3.coffre.ui.screen.main
 
+import android.content.Intent
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -32,6 +33,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -39,12 +41,13 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import dev.n3shemmy3.coffre.CrashReportActivity
 import dev.n3shemmy3.coffre.R
-import dev.n3shemmy3.coffre.ui.common.CategoryItem
-import dev.n3shemmy3.coffre.ui.common.LeadingIcon
-import dev.n3shemmy3.coffre.ui.common.ListItem
-import dev.n3shemmy3.coffre.ui.common.MonetChip
-import dev.n3shemmy3.coffre.ui.common.MonetChipColors
+import dev.n3shemmy3.coffre.ui.components.CategoryItem
+import dev.n3shemmy3.coffre.ui.components.ActionButton
+import dev.n3shemmy3.coffre.ui.components.ListItem
+import dev.n3shemmy3.coffre.ui.components.MonetChip
+import dev.n3shemmy3.coffre.ui.components.MonetChipColors
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -58,19 +61,20 @@ fun MainScreen() {
             .nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
             TopAppBar(
-                title = { Text(stringResource(R.string.app_name)) }, actions = {
-                    IconButton(onClick = {}) {
-                        Icon(
-                            Icons.Outlined.Search,
-                            contentDescription = stringResource(R.string.search)
-                        )
-                    }
+                title = { Text(stringResource(R.string.app_name)) },
+                actions = {
+                    ActionButton(Icons.Outlined.Search, stringResource(R.string.search))
                 }, scrollBehavior = scrollBehavior
             )
         },
         floatingActionButton = {
+            val context = LocalContext.current
             FloatingActionButton(
-                onClick = {},
+                onClick = {
+                    context.startActivity(
+                        Intent(context, CrashReportActivity::class.java)
+                    )
+                },
                 modifier = Modifier.padding(0.dp, 16.dp),
             ) {
                 Icon(
@@ -212,7 +216,7 @@ fun MainScreen() {
             itemsIndexed((1..4).toList()) { index, item ->
                 ListItem(
                     leadingContent = {
-                        LeadingIcon(Icons.Outlined.CreditCard, "")
+                        ActionButton(Icons.Outlined.CreditCard, "")
                     },
                     content = {
                         Text("Item title", style = MaterialTheme.typography.bodyLarge)
@@ -246,7 +250,7 @@ fun MainScreen() {
                         largeCorner
                     ),
                     leadingContent = {
-                        LeadingIcon(Icons.Outlined.CreditCard, "")
+                        ActionButton(Icons.Outlined.CreditCard, "")
                     },
                     content = {
                         Text("Item title", style = MaterialTheme.typography.bodyLarge)
