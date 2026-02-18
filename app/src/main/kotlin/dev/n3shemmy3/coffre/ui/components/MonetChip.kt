@@ -1,4 +1,4 @@
-package dev.n3shemmy3.coffre.ui.common
+package dev.n3shemmy3.coffre.ui.components
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
