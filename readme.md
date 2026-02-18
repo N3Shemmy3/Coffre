@@ -1,7 +1,7 @@
 <h1>
-    ⚠️ Undergoing Rewrite
+    ⚠️ [Undergoing Rewrite](https://github.com/N3Shemmy3/Coffre/tree/dev)
 </h1>
-I am in the process of rewriting the enitire app from scratch, currenly working on the design. feel free to pop in on telegram to chat. thanks :D
+I am in the process of rewriting the entire app from scratch, currently working on the mvp check . feel free to pop in on telegram to chat. thanks :D
 
 [![Telegram](https://img.shields.io/badge/Telegram-Coffre-blue?style=flat&logo=telegram)](https://t.me/n3shemmy3)
 
@@ -52,7 +52,7 @@ Coffre is a simple and intuitive Android application designed to help you manage
 
 ## Contact
 
-Join our [Telegram Channel](https://t.me/n3shemmy3) for announcements, and releases!
+Join our [Telegram Channel](https://t.me/N3shemmy3) for discussion, announcements, and releases!
 
 ## Contributing
 
