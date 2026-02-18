@@ -12,7 +12,7 @@ android {
     compileSdk {
         version = release(36)
     }
-
+    buildFeatures { buildConfig = true }
     defaultConfig {
         applicationId = "dev.n3shemmy3.coffre"
         minSdk = 27
@@ -37,6 +37,7 @@ android {
             resValue("string", "app_name", "Coffre Debug")
         }
     }
+
     room { schemaDirectory("$projectDir/schemas") }
     ksp { arg("room.incremental", "true") }
 
@@ -44,7 +45,6 @@ android {
         sourceCompatibility = JavaVersion.VERSION_21
         targetCompatibility = JavaVersion.VERSION_21
     }
-
     kotlin {
         jvmToolchain(21)
     }
@@ -64,10 +64,11 @@ dependencies {
     implementation(libs.androidx.compose.ui.graphics)
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.material3)
-    implementation(libs.androidx.compose.material)
+    //implementation(libs.androidx.compose.material)
     implementation(libs.androidx.compose.material.icons)
-    implementation(libs.android.material)
+    implementation(libs.androidx.compose.foundation)
     implementation(libs.androidx.appcompat)
+    implementation(libs.android.material)
 
 
     // room
