@@ -5,5 +5,8 @@
 
 
     <string name="new_transaction">Create a new transaction</string>
+    <string name="back">Navigate back\n</string>
+    <string name="delete">Delete</string>
+    <string name="report_bug">Report bug</string>
 
 </resources>
