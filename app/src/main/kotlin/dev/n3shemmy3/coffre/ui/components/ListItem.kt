@@ -1,4 +1,4 @@
-package dev.n3shemmy3.coffre.ui.common
+package dev.n3shemmy3.coffre.ui.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -69,7 +69,7 @@ fun ListItem(
 fun SingleLineItemPreview() {
     ListItem(
         leadingContent = {
-            LeadingIcon(Icons.Outlined.CreditCard, "")
+            ActionButton(Icons.Outlined.CreditCard, "")
         },
         content = { Text("Single line item", style = MaterialTheme.typography.bodyLarge) },
         actionContent = {
@@ -84,7 +84,7 @@ fun SingleLineItemPreview() {
 fun TwoLineItemPreview() {
     ListItem(
         leadingContent = {
-            LeadingIcon(Icons.Outlined.CreditCard, "")
+            ActionButton(Icons.Outlined.CreditCard, "")
         },
         content = {
             Text("Item title", style = MaterialTheme.typography.bodyLarge)
@@ -104,7 +104,7 @@ fun TwoLineItemPreview() {
 fun ThreeLineItemPreview() {
     ListItem(
         leadingContent = {
-            LeadingIcon(Icons.Outlined.CreditCard, "")
+            ActionButton(Icons.Outlined.CreditCard, "")
         },
         content = {
             Text("Item title", style = MaterialTheme.typography.bodyLarge)
