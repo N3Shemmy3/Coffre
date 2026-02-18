@@ -1,7 +1,7 @@
 <h1>
     ⚠️ Undergoing Rewrite
 </h1>
-I am in the process of rewriting the enitire app from scratch, currenly working on the design. feel free to pop in on telegram to chat. thanks :D
+I am in the process of rewriting the entire app from scratch, currently working on the mvp now. feel free to pop in on telegram to chat. thanks :D
 
 [![Telegram](https://img.shields.io/badge/Telegram-Coffre-blue?style=flat&logo=telegram)](https://t.me/n3shemmy3)
 
