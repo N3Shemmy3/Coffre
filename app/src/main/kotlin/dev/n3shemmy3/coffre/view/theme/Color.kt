@@ -1,4 +1,4 @@
-package dev.n3shemmy3.coffre.ui.theme
+package dev.n3shemmy3.coffre.view.theme
 
 import androidx.compose.ui.graphics.Color
 
