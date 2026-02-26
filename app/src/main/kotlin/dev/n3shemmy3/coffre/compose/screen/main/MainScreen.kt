@@ -57,13 +57,8 @@ import kotlinx.coroutines.flow.StateFlow
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainScreen(viewModel: MainViewModel) {
-    Screen(viewModel.viewState)
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-private fun Screen(viewState: StateFlow<MainViewModel.ViewState>) {
+fun MainScreen(backstack: NavBackStack<NavKey>, viewModel: MainViewModel) {
+    val viewState = viewModel.viewState
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
     val context = LocalContext.current
     Scaffold(
