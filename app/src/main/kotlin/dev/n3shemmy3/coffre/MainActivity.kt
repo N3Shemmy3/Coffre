@@ -22,7 +22,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
 
         setContent {
-            val backStack = rememberNavBackStack()
+            val backStack = rememberNavBackStack(AppRoute.Main)
 
             val viewModel = remember {
                 MainViewModel(App.appDatabase)

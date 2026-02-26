@@ -19,6 +19,7 @@ class App : Application() {
         DynamicColors.applyToActivitiesIfAvailable(this)
 
         appDatabase = AppDatabase.getInstance(applicationContext)
+        packageInfo = PackageInfo()
     }
 
     fun exceptionHandler() {

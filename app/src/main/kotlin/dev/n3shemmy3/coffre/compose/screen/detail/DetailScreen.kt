@@ -29,6 +29,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableLongStateOf
@@ -57,19 +58,22 @@ import dev.n3shemmy3.coffre.R
 import dev.n3shemmy3.coffre.compose.components.ActionButton
 import dev.n3shemmy3.coffre.compose.components.BackButton
 import dev.n3shemmy3.coffre.compose.components.MonetChip
+import dev.n3shemmy3.coffre.compose.components.TabRow
+import dev.n3shemmy3.coffre.compose.components.TabTitle
 import dev.n3shemmy3.coffre.compose.navigation.AppRoute
 import dev.n3shemmy3.coffre.compose.screen.main.MainViewModel
 import dev.n3shemmy3.coffre.domain.model.Transaction
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.math.BigDecimal
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DetailScreen(backStack: NavBackStack<NavKey>, viewModel: MainViewModel) {
-    val route = backStack[backStack.lastIndex] as AppRoute.Detail
+    //val route = backStack.last() as AppRoute.Detail
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
 
     var title by remember { mutableStateOf("") }
@@ -85,16 +89,13 @@ fun DetailScreen(backStack: NavBackStack<NavKey>, viewModel: MainViewModel) {
         topBar = {
             TopAppBar(
                 navigationIcon = {
-                    BackButton(onClick = {
-                        backStack.removeLast()
-                    })
-                },
-                title = { },
-                actions = {
-                    ActionButton(
-                        Icons.Outlined.Delete, stringResource(R.string.delete), { })
-                },
-                scrollBehavior = scrollBehavior
+                BackButton(onClick = {
+                    backStack.removeLast()
+                })
+            }, title = { }, actions = {
+                ActionButton(
+                    Icons.Outlined.Delete, stringResource(R.string.delete), { })
+            }, scrollBehavior = scrollBehavior
             )
         },
 
@@ -177,16 +178,33 @@ fun DetailScreen(backStack: NavBackStack<NavKey>, viewModel: MainViewModel) {
             }
 
             item {
-                val tabs = arrayOf("Received", "Spent", "Transferred")
-                SecondaryTabRow(
-                    0, Modifier.background(
-                        MaterialTheme.colorScheme.surfaceContainerLow, shape = CircleShape
-                    )
+
+                var selectedTabPosition by remember { mutableStateOf(0) }
+
+                val items = listOf(
+                    "Received", "Spent", "Transferred"
+                )
+
+//                val sequence = listOf(Transaction.Type.entries)
+//                var index = 0
+//                LaunchedEffect(key1 = "", block = {
+//                    while (true) {
+//                        delay(1000)
+//                        selectedTabPosition = sequence.get(index)
+//                        index += 1
+//                        if (index >= 4) {
+//                            index = 0
+//                        }
+//                    }
+//                })
+
+                TabRow(
+                    selectedTabPosition = selectedTabPosition
                 ) {
-                    tabs.forEachIndexed { index, tab ->
-                        Tab(index == 0, onClick = {}) {
-                            Text(tab)
-                        }
+                    items.forEachIndexed { index, s ->
+                        TabTitle(
+                            s, position = index, isSelected = index == selectedTabPosition
+                        ) { selectedTabPosition = index }
                     }
                 }
             }
@@ -197,7 +215,8 @@ fun DetailScreen(backStack: NavBackStack<NavKey>, viewModel: MainViewModel) {
 
             item {
                 TextField(
-                    note, placeholder = "Notes",
+                    note,
+                    placeholder = "Notes",
                     onValueChange = { note = it },
                     keyboardOptions = KeyboardOptions(
                         capitalization = KeyboardCapitalization.Sentences,

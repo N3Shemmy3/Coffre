@@ -80,7 +80,7 @@ fun CrashReportScreen(
                     ) {
                         Text(
                             text = errorMessage,
-                            style = MaterialTheme.typography.bodyLarge,
+                            style = MaterialTheme.typography.bodySmall,
                             fontFamily = FontFamily.Monospace,
                         )
                     }
