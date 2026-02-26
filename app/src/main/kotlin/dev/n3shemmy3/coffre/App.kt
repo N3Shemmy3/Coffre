@@ -5,21 +5,21 @@ import android.app.Application
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageInfo
-import android.net.ConnectivityManager
 import android.os.Build
-import android.util.Log
+import androidx.room.Room
 import com.google.android.material.color.DynamicColors
+import dev.n3shemmy3.coffre.data.source.AppDatabase
 import kotlinx.coroutines.CoroutineScope
-import kotlin.system.exitProcess
-
+import kotlin.properties.Delegates
 
 class App : Application() {
     override fun onCreate() {
         super.onCreate()
         exceptionHandler()
         DynamicColors.applyToActivitiesIfAvailable(this)
-    }
 
+        appDatabase = AppDatabase.getInstance(applicationContext)
+    }
 
     fun exceptionHandler() {
         Thread.setDefaultUncaughtExceptionHandler { thread, throwable ->
@@ -39,6 +39,7 @@ class App : Application() {
     }
 
     companion object {
+        var appDatabase: AppDatabase by Delegates.notNull()
         lateinit var applicationScope: CoroutineScope
         lateinit var packageInfo: PackageInfo
 

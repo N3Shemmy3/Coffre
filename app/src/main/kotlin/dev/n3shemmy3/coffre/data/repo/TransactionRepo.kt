@@ -3,27 +3,11 @@ package dev.n3shemmy3.coffre.data.repo
 import dev.n3shemmy3.coffre.data.source.TransactionDao
 import dev.n3shemmy3.coffre.domain.model.Transaction
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.withContext
+import java.math.BigDecimal
 
-interface TransactionRepo {
-
-    fun observe(id: Long): Flow<Transaction>
-    fun observe(): Flow<List<Transaction>>
-
-    suspend fun get(id: Long): Transaction?
-    suspend fun get(): List<Transaction>
-
-    suspend fun upsert(item: Transaction)
-    suspend fun upsert(items: List<Transaction>)
-
-    suspend fun delete(id: Long): Long
-    suspend fun delete(ids: List<Long>): Long
-}
-
-class TransactionRepoImpl(
+class TransactionRepo(
     private val localDataSource: TransactionDao
-) : TransactionRepo {
+) : Repository<Transaction> {
 
     override fun observe(id: Long): Flow<Transaction> {
         return localDataSource.observe(id)
@@ -41,6 +25,18 @@ class TransactionRepoImpl(
         return localDataSource.get()
     }
 
+    suspend fun totalIncome(): Flow<BigDecimal> {
+        return localDataSource.totalIncome()
+    }
+
+    suspend fun totalExpense(): Flow<BigDecimal> {
+        return localDataSource.totalExpense()
+    }
+
+    suspend fun totalTransfer(): Flow<BigDecimal> {
+        return localDataSource.totalTransfer()
+    }
+
     override suspend fun upsert(item: Transaction) {
         localDataSource.upsert(item)
     }
@@ -49,11 +45,11 @@ class TransactionRepoImpl(
         localDataSource.upsert(items)
     }
 
-    override suspend fun delete(id: Long): Long {
+    override suspend fun delete(id: Long): Int {
         return localDataSource.delete(id)
     }
 
-    override suspend fun delete(ids: List<Long>): Long {
+    override suspend fun delete(ids: List<Long>): Int {
         return localDataSource.delete(ids)
     }
 }
