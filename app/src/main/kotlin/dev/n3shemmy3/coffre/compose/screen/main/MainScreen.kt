@@ -68,8 +68,14 @@ fun MainScreen(backStack: NavBackStack<NavKey>, viewModel: MainViewModel) {
             .nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
             TopAppBar(
-                title = { Text(stringResource(R.string.app_name)) }, actions = {
-                    ActionButton(Icons.Outlined.Search, stringResource(R.string.search))
+                title = {
+                    Text(stringResource(R.string.app_name))
+                },
+                actions = {
+                    ActionButton(
+                        Icons.Outlined.Search,
+                        stringResource(R.string.search)
+                    )
                 }, scrollBehavior = scrollBehavior
             )
         },
@@ -77,7 +83,7 @@ fun MainScreen(backStack: NavBackStack<NavKey>, viewModel: MainViewModel) {
             val context = LocalContext.current
             FloatingActionButton(
                 onClick = {
-                    backstack.add(AppRoute.Detail())
+                    backStack.add(AppRoute.Detail())
                 },
                 modifier = Modifier.padding(0.dp, 16.dp),
             ) {
