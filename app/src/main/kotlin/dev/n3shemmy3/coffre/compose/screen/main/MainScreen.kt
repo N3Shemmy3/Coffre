@@ -43,6 +43,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation3.runtime.NavBackStack
+import androidx.navigation3.runtime.NavKey
 import dev.n3shemmy3.coffre.App
 import dev.n3shemmy3.coffre.CrashReportActivity
 import dev.n3shemmy3.coffre.R
@@ -51,6 +53,7 @@ import dev.n3shemmy3.coffre.compose.components.CategoryItem
 import dev.n3shemmy3.coffre.compose.components.ListItem
 import dev.n3shemmy3.coffre.compose.components.MonetChip
 import dev.n3shemmy3.coffre.compose.components.MonetChipColors
+import dev.n3shemmy3.coffre.compose.navigation.AppRoute
 import dev.n3shemmy3.coffre.domain.model.Transaction
 import dev.n3shemmy3.coffre.util.humanTime
 import kotlinx.coroutines.flow.StateFlow
@@ -58,9 +61,11 @@ import kotlinx.coroutines.flow.StateFlow
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainScreen(backstack: NavBackStack<NavKey>, viewModel: MainViewModel) {
-    val viewState = viewModel.viewState
+    val viewState = viewModel.viewState.value
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
     val context = LocalContext.current
+
+
     Scaffold(
         modifier = Modifier
             .fillMaxSize()
@@ -76,9 +81,7 @@ fun MainScreen(backstack: NavBackStack<NavKey>, viewModel: MainViewModel) {
             val context = LocalContext.current
             FloatingActionButton(
                 onClick = {
-                    context.startActivity(
-                        Intent(context, CrashReportActivity::class.java)
-                    )
+                    backstack.add(AppRoute.Detail)
                 },
                 modifier = Modifier.padding(0.dp, 16.dp),
             ) {
@@ -90,7 +93,7 @@ fun MainScreen(backstack: NavBackStack<NavKey>, viewModel: MainViewModel) {
         }
 
     ) { paddings ->
-        if (viewState.value.items.count() > 0) {
+        if (viewState.items.count() > 0) {
             LazyColumn(
                 Modifier.padding(paddings),
                 contentPadding = PaddingValues(16.dp),
@@ -151,7 +154,7 @@ fun MainScreen(backstack: NavBackStack<NavKey>, viewModel: MainViewModel) {
                                                     fontSize = balanceStyle.fontSize
                                                 )
                                             ) {
-                                                append(viewState.value.balance.toString())
+                                                append(viewState.balance.toString())
                                             }
                                             withStyle(
                                                 SpanStyle(
@@ -178,7 +181,7 @@ fun MainScreen(backstack: NavBackStack<NavKey>, viewModel: MainViewModel) {
                                 ) {
                                     Text("Received", style = labelStyle)
                                     Text(
-                                        "£" + viewState.value.received.toString(),
+                                        "£" + viewState.received.toString(),
                                         style = labelStyle,
                                         textAlign = textAlign
                                     )
@@ -195,7 +198,7 @@ fun MainScreen(backstack: NavBackStack<NavKey>, viewModel: MainViewModel) {
                                         "Spent", style = labelStyle, color = spentColor
                                     )
                                     Text(
-                                        "£" + viewState.value.spent.toString(),
+                                        "£" + viewState.spent.toString(),
                                         style = labelStyle,
                                         color = spentColor,
                                         textAlign = textAlign
@@ -220,10 +223,10 @@ fun MainScreen(backstack: NavBackStack<NavKey>, viewModel: MainViewModel) {
                         })
 
                 }
-                itemsIndexed(viewState.value.items) { index, item ->
+                itemsIndexed(viewState.items) { index, item ->
 
                     ListItem(
-                        shape = if (index == viewState.collectAsState().value.items.lastIndex)
+                        shape = if (index == viewState.collectAsState().items.lastIndex)
                             RoundedCornerShape(
                                 smallCorner
                             )
