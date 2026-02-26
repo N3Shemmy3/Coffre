@@ -2,6 +2,7 @@ package dev.n3shemmy3.coffre.domain.model
 
 import androidx.room.Entity
 import androidx.room.ForeignKey
+import androidx.room.Index
 import androidx.room.PrimaryKey
 import java.math.BigDecimal
 
@@ -11,14 +12,18 @@ import java.math.BigDecimal
     foreignKeys = [
         ForeignKey(
             entity = Account::class,
-            parentColumns = ["account"],
+            parentColumns = ["id"],
             childColumns = ["account"]
         ),
         ForeignKey(
             entity = Account::class,
-            parentColumns = ["toAccount"],
+            parentColumns = ["id"],
             childColumns = ["toAccount"]
         )
+    ],
+    indices = [
+        Index(value = ["account"]),
+        Index(value = ["toAccount"])
     ]
 )
 data class Transaction(
@@ -34,6 +39,7 @@ data class Transaction(
     enum class Type {
         Income,
         Expense,
+
         Transfer
     }
 
