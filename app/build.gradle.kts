@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.room)
+//    alias(libs.plugins.hilt)
     alias(libs.plugins.ksp)
 }
 
@@ -42,11 +43,11 @@ android {
     ksp { arg("room.incremental", "true") }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_21
-        targetCompatibility = JavaVersion.VERSION_21
+        sourceCompatibility = JavaVersion.VERSION_25
+        targetCompatibility = JavaVersion.VERSION_25
     }
     kotlin {
-        jvmToolchain(21)
+        jvmToolchain(25)
     }
 
     buildFeatures {
@@ -97,6 +98,11 @@ dependencies {
     // coil3
     implementation(libs.io.coil3)
     implementation(libs.io.coil3.network)
+
+    //Hilt
+//    ksp(libs.dagger.hilt.compiler)
+//    implementation(libs.dagger.hilt)
+//    implementation(libs.androidx.hilt.compose)
 
 
     testImplementation(libs.junit)
