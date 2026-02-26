@@ -8,5 +8,6 @@
     <string name="back">Navigate back\n</string>
     <string name="delete">Delete</string>
     <string name="report_bug">Report bug</string>
+    <string name="loading_data_error">Error while loading data</string>
 
 </resources>
