@@ -9,6 +9,7 @@ import dev.n3shemmy3.coffre.data.source.AppDatabase
 import dev.n3shemmy3.coffre.domain.model.Transaction
 import dev.n3shemmy3.coffre.util.Async
 import dev.n3shemmy3.coffre.util.WhileUiSubscribed
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
@@ -98,6 +99,9 @@ class MainViewModel(
         transactionRepo.totalExpense().collect {
             _spent.value = it
         }
+    }
 
+    suspend fun item(id: Long): Transaction? {
+        return transactionRepo.get(id)
     }
 }

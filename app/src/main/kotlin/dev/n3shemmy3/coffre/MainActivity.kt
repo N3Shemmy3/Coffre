@@ -9,7 +9,6 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.ui.NavDisplay
-import dev.n3shemmy3.coffre.data.repo.TransactionRepo
 import dev.n3shemmy3.coffre.compose.navigation.AppRoute
 import dev.n3shemmy3.coffre.compose.screen.detail.DetailScreen
 import dev.n3shemmy3.coffre.compose.screen.main.MainScreen
@@ -23,20 +22,22 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
 
         setContent {
-            val backStack = rememberNavBackStack(AppRoute.Main)
-            val mainViewModel = remember {
+            val backStack = rememberNavBackStack()
+
+            val viewModel = remember {
                 MainViewModel(App.appDatabase)
             }
+
             AppTheme {
                 NavDisplay(
                     backStack = backStack,
                     onBack = { backStack.removeLastOrNull() },
                     entryProvider = entryProvider {
                         entry<AppRoute.Main> {
-                            DetailScreen()
+                            MainScreen(backStack, viewModel)
                         }
                         entry<AppRoute.Detail> {
-                            MainScreen(mainViewModel)
+                            DetailScreen(backStack, viewModel)
                         }
                         entry<AppRoute.Settings> {
 

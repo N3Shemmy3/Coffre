@@ -1,6 +1,5 @@
 package dev.n3shemmy3.coffre.compose.screen.main
 
-import android.content.Intent
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -30,8 +29,6 @@ import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
@@ -45,8 +42,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation3.runtime.NavBackStack
 import androidx.navigation3.runtime.NavKey
+import androidx.navigation3.runtime.rememberNavBackStack
 import dev.n3shemmy3.coffre.App
-import dev.n3shemmy3.coffre.CrashReportActivity
 import dev.n3shemmy3.coffre.R
 import dev.n3shemmy3.coffre.compose.components.ActionButton
 import dev.n3shemmy3.coffre.compose.components.CategoryItem
@@ -56,11 +53,10 @@ import dev.n3shemmy3.coffre.compose.components.MonetChipColors
 import dev.n3shemmy3.coffre.compose.navigation.AppRoute
 import dev.n3shemmy3.coffre.domain.model.Transaction
 import dev.n3shemmy3.coffre.util.humanTime
-import kotlinx.coroutines.flow.StateFlow
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainScreen(backstack: NavBackStack<NavKey>, viewModel: MainViewModel) {
+fun MainScreen(backStack: NavBackStack<NavKey>, viewModel: MainViewModel) {
     val viewState = viewModel.viewState.value
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
     val context = LocalContext.current
@@ -81,7 +77,7 @@ fun MainScreen(backstack: NavBackStack<NavKey>, viewModel: MainViewModel) {
             val context = LocalContext.current
             FloatingActionButton(
                 onClick = {
-                    backstack.add(AppRoute.Detail)
+                    backstack.add(AppRoute.Detail())
                 },
                 modifier = Modifier.padding(0.dp, 16.dp),
             ) {
@@ -226,7 +222,7 @@ fun MainScreen(backstack: NavBackStack<NavKey>, viewModel: MainViewModel) {
                 itemsIndexed(viewState.items) { index, item ->
 
                     ListItem(
-                        shape = if (index == viewState.collectAsState().items.lastIndex)
+                        shape = if (index == viewState.items.lastIndex)
                             RoundedCornerShape(
                                 smallCorner
                             )
@@ -285,8 +281,8 @@ fun MainScreen(backstack: NavBackStack<NavKey>, viewModel: MainViewModel) {
 @Composable
 @Preview
 fun MainScreenPreview() {
-    val mainViewModel = remember {
-        MainViewModel(App.appDatabase)
-    }
-    MainScreen(mainViewModel)
+    val mainViewModel = MainViewModel(App.appDatabase)
+    val backStack = rememberNavBackStack(AppRoute.Main)
+
+    MainScreen(backStack, mainViewModel)
 }

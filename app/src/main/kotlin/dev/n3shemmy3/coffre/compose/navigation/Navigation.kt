@@ -6,7 +6,11 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 sealed interface AppRoute : NavKey {
-    @Serializable data object Main : AppRoute
-    @Serializable data class Detail(val id: String) : AppRoute
-    @Serializable data object Settings : AppRoute
+    @Serializable
+    data object Main : AppRoute
+    @Serializable
+    data class Detail(val id: Long? = null) : AppRoute
+
+    @Serializable
+    data object Settings : AppRoute
 }

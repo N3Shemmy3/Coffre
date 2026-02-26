@@ -1,16 +1,9 @@
 package dev.n3shemmy3.coffre.compose.screen.detail
 
-import android.icu.text.DisplayOptions
 import androidx.compose.foundation.background
-import androidx.compose.foundation.gestures.Orientation
-import androidx.compose.foundation.gestures.rememberScrollableState
-import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.calculateEndPadding
-import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -36,7 +29,9 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -44,7 +39,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
-import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
@@ -53,30 +47,58 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.LifecycleCoroutineScope
+import androidx.lifecycle.LifecycleOwner
+import androidx.navigation3.runtime.NavBackStack
+import androidx.navigation3.runtime.NavKey
+import androidx.navigation3.runtime.rememberNavBackStack
+import dev.n3shemmy3.coffre.App
 import dev.n3shemmy3.coffre.R
 import dev.n3shemmy3.coffre.compose.components.ActionButton
 import dev.n3shemmy3.coffre.compose.components.BackButton
 import dev.n3shemmy3.coffre.compose.components.MonetChip
+import dev.n3shemmy3.coffre.compose.navigation.AppRoute
+import dev.n3shemmy3.coffre.compose.screen.main.MainViewModel
+import dev.n3shemmy3.coffre.domain.model.Transaction
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
+import java.math.BigDecimal
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DetailScreen() {
+fun DetailScreen(backStack: NavBackStack<NavKey>, viewModel: MainViewModel) {
+    val route = backStack[backStack.lastIndex] as AppRoute.Detail
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
+
+    var title by remember { mutableStateOf("") }
+    var time by remember { mutableLongStateOf(-1) }
+    var type by remember { mutableStateOf(Transaction.Type.Income) }
+    var amount by remember { mutableStateOf("") }
+    var note by remember { mutableStateOf("") }
+
     Scaffold(
         modifier = Modifier
             .fillMaxSize()
             .nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
             TopAppBar(
-                navigationIcon = { BackButton(onClick = {}) }, title = { }, actions = {
+                navigationIcon = {
+                    BackButton(onClick = {
+                        backStack.removeLast()
+                    })
+                },
+                title = { },
+                actions = {
                     ActionButton(
                         Icons.Outlined.Delete, stringResource(R.string.delete), { })
-                }, scrollBehavior = scrollBehavior
+                },
+                scrollBehavior = scrollBehavior
             )
         },
 
         ) { paddings ->
-        var text by remember { mutableStateOf("") }
         LazyColumn(
             Modifier
                 .padding(
@@ -89,9 +111,9 @@ fun DetailScreen() {
 
             item {
                 TextField(
-                    text,
+                    title,
                     placeholder = "Title",
-                    onValueChange = { text = it },
+                    onValueChange = { title = it },
                     textStyle = MaterialTheme.typography.headlineSmall,
                     keyboardOptions = KeyboardOptions(
                         autoCorrectEnabled = false,
@@ -141,9 +163,9 @@ fun DetailScreen() {
                         color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = .55f)
                     )
                     TextField(
-                        text,
+                        amount,
                         placeholder = "0.00",
-                        onValueChange = { text = it },
+                        onValueChange = { amount = it },
                         textStyle = textStyle.copy(textAlign = TextAlign.End),
                         keyboardOptions = KeyboardOptions(
                             showKeyboardOnFocus = true,
@@ -175,7 +197,8 @@ fun DetailScreen() {
 
             item {
                 TextField(
-                    text, placeholder = "Notes", onValueChange = { text = it },
+                    note, placeholder = "Notes",
+                    onValueChange = { note = it },
                     keyboardOptions = KeyboardOptions(
                         capitalization = KeyboardCapitalization.Sentences,
                         showKeyboardOnFocus = true,
@@ -225,5 +248,8 @@ private fun TextField(
 @Composable
 @Preview
 fun DetailScreenPreview() {
-    DetailScreen()
+
+    val viewModel = MainViewModel(App.appDatabase)
+    val backStack = rememberNavBackStack(AppRoute.Detail())
+    DetailScreen(backStack, viewModel)
 }
