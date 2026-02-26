@@ -20,6 +20,9 @@ androidMaterial = "1.13.0"
 materialIcons = "1.7.8"
 appcompat = "1.7.1"
 foundation = "1.10.3"
+hilt = "2.53.1"
+hiltExt = "1.2.0"
+androidxHilt = "1.2.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -42,6 +45,7 @@ androidx-compose-material = { group = "androidx.compose.material", name = "mater
 androidx-compose-material-icons = { group = "androidx.compose.material", name = "material-icons-extended-android", version.ref = "materialIcons" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 android-material = { group = "com.google.android.material", name = "material", version.ref = "androidMaterial" }
+
 # room
 androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
 androidx-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
@@ -69,6 +73,10 @@ androidx-navigtion3-ui = { group = "androidx.navigation3", name = "navigation3-u
 io-coil3 = { group = "io.coil-kt.coil3", name = "coil-compose", version.ref = 'coil3' }
 io-coil3-network = { group = "io.coil-kt.coil3", name = "coil-network-okhttp", version.ref = 'coil3' }
 
+#hilt
+dagger-hilt-compiler = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
+dagger-hilt = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt" }
+androidx-hilt-compose = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "androidxHilt" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
@@ -77,5 +85,5 @@ kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "ko
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 room = { id = "androidx.room", version.ref = "room" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
-
+hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 
