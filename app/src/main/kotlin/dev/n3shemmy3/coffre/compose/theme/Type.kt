@@ -1,4 +1,4 @@
-package dev.n3shemmy3.coffre.ui.theme
+package dev.n3shemmy3.coffre.compose.theme
 
 import androidx.compose.material3.Typography
 

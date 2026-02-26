@@ -1,4 +1,4 @@
-package dev.n3shemmy3.coffre.ui.screen.crashreport
+package dev.n3shemmy3.coffre.compose.screen.crashreport
 
 import android.content.ClipData
 import androidx.compose.foundation.layout.Column
@@ -26,7 +26,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import dev.n3shemmy3.coffre.R
-import dev.n3shemmy3.coffre.ui.components.ActionButton
+import dev.n3shemmy3.coffre.compose.components.ActionButton
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)

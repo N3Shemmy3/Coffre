@@ -1,4 +1,4 @@
-package dev.n3shemmy3.coffre.ui.common
+package dev.n3shemmy3.coffre.compose.common
 
 import android.view.HapticFeedbackConstants
 import android.view.View

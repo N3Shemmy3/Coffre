@@ -1,4 +1,4 @@
-package dev.n3shemmy3.coffre.ui.navigation
+package dev.n3shemmy3.coffre.compose.navigation
 
 import androidx.navigation3.runtime.NavKey
 import kotlinx.serialization.Serializable

@@ -1,4 +1,4 @@
-package dev.n3shemmy3.coffre.ui.theme
+package dev.n3shemmy3.coffre.compose.theme
 
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme

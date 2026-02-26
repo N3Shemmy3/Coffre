@@ -1,4 +1,4 @@
-package dev.n3shemmy3.coffre.ui.components
+package dev.n3shemmy3.coffre.compose.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
