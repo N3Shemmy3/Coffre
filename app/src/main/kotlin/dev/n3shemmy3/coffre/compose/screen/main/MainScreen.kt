@@ -228,7 +228,7 @@ fun MainScreen(backStack: NavBackStack<NavKey>, viewModel: MainViewModel) {
                 itemsIndexed(viewState.items) { index, item ->
 
                     ListItem(
-                        shape = if (index == viewState.items.lastIndex)
+                        shape = if (index != viewState.items.lastIndex)
                             RoundedCornerShape(
                                 smallCorner
                             )
