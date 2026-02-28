@@ -29,6 +29,8 @@ import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
@@ -57,7 +59,7 @@ import dev.n3shemmy3.coffre.util.humanTime
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainScreen(backStack: NavBackStack<NavKey>, viewModel: MainViewModel) {
-    val viewState = viewModel.viewState.value
+    val viewState by viewModel.viewState.collectAsState()
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
     val context = LocalContext.current
 
@@ -95,7 +97,7 @@ fun MainScreen(backStack: NavBackStack<NavKey>, viewModel: MainViewModel) {
         }
 
     ) { paddings ->
-        if (viewState.items.count() > 0) {
+        if (true) {
             LazyColumn(
                 Modifier.padding(paddings),
                 contentPadding = PaddingValues(16.dp),
@@ -253,9 +255,9 @@ fun MainScreen(backStack: NavBackStack<NavKey>, viewModel: MainViewModel) {
                             MonetChip(
                                 monetChipColors = when (item.type) {
                                     Transaction.Type.Income -> MonetChipColors.Secondary
-                                    Transaction.Type.Expense -> MonetChipColors.Tertiary
+                                    Transaction.Type.Expense -> MonetChipColors.Error
                                     else -> {
-                                        MonetChipColors.Error
+                                        MonetChipColors.Tertiary
                                     }
                                 }
                             ) {
