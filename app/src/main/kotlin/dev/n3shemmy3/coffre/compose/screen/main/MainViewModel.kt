@@ -116,4 +116,14 @@ class MainViewModel(
     suspend fun item(id: Long): Transaction? {
         return transactionRepo.get(id)
     }
+
+    suspend fun upsert(item: Transaction) {
+        val account = if (accountRepo.get(item.account) == null) accountRepo.get()
+            .first() else accountRepo.get(item.account)
+
+        if (account == null)
+            throw NullPointerException("Account cannot be null")
+        transactionRepo.upsert(item)
+        accountRepo.upsert(account.copy(balance = account.balance.add(item.amount)))
+    }
 }
