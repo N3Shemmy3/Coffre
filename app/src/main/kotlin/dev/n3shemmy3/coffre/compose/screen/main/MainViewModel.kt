@@ -90,6 +90,18 @@ class MainViewModel(
     }
 
     suspend fun refresh() {
+        if (accountRepo.get().isEmpty()) accountRepo.upsert(
+            Account(
+                0,
+                "Default Account",
+                "Default cash account",
+                Calendar.getInstance().time.time,
+                Account.Type.Cash,
+                balance = BigDecimal.ZERO,
+                isPublic = true
+            )
+        )
+
         accountRepo.totalBalance().collect {
             _balance.value = it
         }
