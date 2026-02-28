@@ -29,6 +29,6 @@ class CrashReportActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        //if (isFinishing) finishAffinity()
+        if (isFinishing) finishAffinity()
     }
 }
