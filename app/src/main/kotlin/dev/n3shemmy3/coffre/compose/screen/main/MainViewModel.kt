@@ -81,7 +81,6 @@ class MainViewModel(
                 _viewState.update { currentState ->
                     currentState.copy(items = it)
                 }
-                Log.v("MainViewModel", "$it")
             }
         }
     }
@@ -94,14 +93,48 @@ class MainViewModel(
     suspend fun upsert(item: Transaction) {
         val account = accountRepo.get(item.account)
             ?: throw IllegalArgumentException("Source account ${item.account} does not exist")
+        var destination: Account? = null;
 
-//        if (item.type == Transaction.Type.Transfer && item.toAccount != null) {
-//            val destination = accountRepo.get(item.toAccount)
-//                ?: throw IllegalArgumentException("Destination account ${item.toAccount} does not exist")
-//
-//         accountRepo.upsert()
-//        }
+        when (item.type) {
+            Transaction.Type.Income -> {
+                account.balance.add(item.amount)
+            }
+
+            Transaction.Type.Expense -> {
+                account.balance.subtract(item.amount)
+            }
+
+            Transaction.Type.Transfer -> {
+                requireNotNull(item.toAccount) {
+                    "Destination account ${item.toAccount} cannot be null"
+                }
+
+                destination = accountRepo.get(item.toAccount)
+                    ?: throw IllegalArgumentException("Destination account ${item.toAccount} does not exist")
+
+
+                account.balance.subtract(item.amount)
+                destination.balance.add(item.amount)
+
+            }
+        }
+
+        accountRepo.upsert(account)
+        if (destination != null) accountRepo.upsert(destination)
         transactionRepo.upsert(item)
-        accountRepo.upsert(account.copy(balance = account.balance.add(item.amount)))
+    }
+
+    suspend fun upsert(items: List<Transaction>) {
+        items.forEach { transaction ->
+            upsert(transaction)
+        }
+    }
+
+    suspend fun delete(id: Long): Int {
+        return transactionRepo.delete(id)
+    }
+
+    suspend fun delete(ids: List<Long>): Int {
+        return transactionRepo.delete(ids)
     }
 }
