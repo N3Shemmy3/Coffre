@@ -72,7 +72,6 @@ fun DetailScreen(backStack: NavBackStack<NavKey>, viewModel: MainViewModel) {
     var title by remember { mutableStateOf("") }
     var time by remember { mutableLongStateOf(System.currentTimeMillis()) }
     var type by remember { mutableIntStateOf(Transaction.Type.Income.ordinal) }
-    Log.v("MainScreen:Type", "selected position $type")
     var amount by remember { mutableStateOf("") }
     var note by remember { mutableStateOf("") }
 
