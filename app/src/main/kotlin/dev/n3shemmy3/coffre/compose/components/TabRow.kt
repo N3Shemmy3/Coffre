@@ -46,7 +46,7 @@ fun TabRow(
     paddingValues: PaddingValues = PaddingValues(4.dp),
     animationSpec: AnimationSpec<Dp> = tween(durationMillis = 250, easing = FastOutSlowInEasing),
     fixedSize: Boolean = true,
-    selectedTabPosition: Int = 0,
+    selectedPosition: Int = 0,
     tabItem: @Composable () -> Unit
 ) {
 
@@ -90,7 +90,7 @@ fun TabRow(
                 subcompose(SubComposeID.INDICATOR) {
                     Box(
                         Modifier
-                            .tabIndicator(tabPositions[selectedTabPosition], animationSpec)
+                            .tabIndicator(tabPositions[selectedPosition], animationSpec)
                             .fillMaxWidth()
                             .height(maxItemHeight.toDp())
                             .background(color = indicatorColor, indicatorShape)

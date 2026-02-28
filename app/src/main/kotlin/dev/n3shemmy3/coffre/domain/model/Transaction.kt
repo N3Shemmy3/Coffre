@@ -13,12 +13,14 @@ import java.math.BigDecimal
         ForeignKey(
             entity = Account::class,
             parentColumns = ["id"],
-            childColumns = ["account"]
+            childColumns = ["account"],
+            onDelete = ForeignKey.CASCADE
         ),
         ForeignKey(
             entity = Account::class,
             parentColumns = ["id"],
-            childColumns = ["toAccount"]
+            childColumns = ["toAccount"],
+            onDelete = ForeignKey.SET_NULL
         )
     ],
     indices = [
@@ -31,8 +33,8 @@ data class Transaction(
     val title: String,
     val note: String? = null,
     val amount: BigDecimal,
-    val time: Long,
-    val type: Transaction.Type,
+    val time: Long = System.currentTimeMillis(),
+    val type: Type,
     val account: Long,
     val toAccount: Long? = null
 ) {

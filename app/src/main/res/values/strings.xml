@@ -9,5 +9,8 @@
     <string name="delete">Delete</string>
     <string name="report_bug">Report bug</string>
     <string name="loading_data_error">Error while loading data</string>
+    <string name="received">Received</string>
+    <string name="spent">Spent</string>
+    <string name="transferred">Transferred</string>
 
 </resources>

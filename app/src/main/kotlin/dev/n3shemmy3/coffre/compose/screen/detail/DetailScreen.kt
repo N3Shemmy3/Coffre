@@ -1,6 +1,7 @@
 package dev.n3shemmy3.coffre.compose.screen.detail
 
-import androidx.compose.foundation.background
+import android.annotation.SuppressLint
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -9,32 +10,27 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.CalendarToday
 import androidx.compose.material.icons.outlined.Delete
-import androidx.compose.material3.AssistChip
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.SecondaryTabRow
-import androidx.compose.material3.Tab
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -48,8 +44,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.LifecycleCoroutineScope
-import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.Lifecycle
 import androidx.navigation3.runtime.NavBackStack
 import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.runtime.rememberNavBackStack
@@ -57,16 +52,13 @@ import dev.n3shemmy3.coffre.App
 import dev.n3shemmy3.coffre.R
 import dev.n3shemmy3.coffre.compose.components.ActionButton
 import dev.n3shemmy3.coffre.compose.components.BackButton
+import dev.n3shemmy3.coffre.compose.components.LifecycleListener
 import dev.n3shemmy3.coffre.compose.components.MonetChip
 import dev.n3shemmy3.coffre.compose.components.TabRow
 import dev.n3shemmy3.coffre.compose.components.TabTitle
 import dev.n3shemmy3.coffre.compose.navigation.AppRoute
 import dev.n3shemmy3.coffre.compose.screen.main.MainViewModel
 import dev.n3shemmy3.coffre.domain.model.Transaction
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.math.BigDecimal
 
@@ -75,12 +67,39 @@ import java.math.BigDecimal
 fun DetailScreen(backStack: NavBackStack<NavKey>, viewModel: MainViewModel) {
     //val route = backStack.last() as AppRoute.Detail
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
+    val scope = rememberCoroutineScope()
 
     var title by remember { mutableStateOf("") }
-    var time by remember { mutableLongStateOf(-1) }
-    var type by remember { mutableStateOf(Transaction.Type.Income) }
+    var time by remember { mutableLongStateOf(System.currentTimeMillis()) }
+    var type by remember { mutableIntStateOf(Transaction.Type.Income.ordinal) }
+    Log.v("MainScreen:Type", "selected position $type")
     var amount by remember { mutableStateOf("") }
     var note by remember { mutableStateOf("") }
+
+    LifecycleListener { _, event ->
+        when (event) {
+            Lifecycle.Event.ON_PAUSE -> {
+
+                if (BigDecimal(amount) == BigDecimal(0)) return@LifecycleListener
+                scope.launch {
+                    viewModel.upsert(
+                        Transaction(
+                            0,
+                            title,
+                            note,
+                            BigDecimal(amount),
+                            time,
+                            Transaction.Type.entries[type],
+                            1
+                        )
+                    )
+                }
+            }
+
+            else -> {}
+        }
+
+    }
 
     Scaffold(
         modifier = Modifier
@@ -89,13 +108,13 @@ fun DetailScreen(backStack: NavBackStack<NavKey>, viewModel: MainViewModel) {
         topBar = {
             TopAppBar(
                 navigationIcon = {
-                BackButton(onClick = {
-                    backStack.removeLast()
-                })
-            }, title = { }, actions = {
-                ActionButton(
-                    Icons.Outlined.Delete, stringResource(R.string.delete), { })
-            }, scrollBehavior = scrollBehavior
+                    BackButton(onClick = {
+                        backStack.removeAt(backStack.lastIndex)
+                    })
+                }, title = { }, actions = {
+                    ActionButton(
+                        Icons.Outlined.Delete, stringResource(R.string.delete), { })
+                }, scrollBehavior = scrollBehavior
             )
         },
 
@@ -126,22 +145,20 @@ fun DetailScreen(backStack: NavBackStack<NavKey>, viewModel: MainViewModel) {
             }
 
             item {
-                Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                    MonetChip(Modifier.wrapContentSize()) {
-                        Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
-                            Icon(Icons.Outlined.CalendarToday, "")
-                            Text("10:30")
-                        }
-                    }
-                    AssistChip(
-                        onClick = {},
-                        leadingIcon = {
-                            Icon(Icons.Outlined.CalendarToday, "")
-                        },
-                        label = {
-                            Text("25-01-26")
-                        },
-                    )
+                Row(
+                    Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    MonetChip(
+                        Modifier.wrapContentSize(),
+                        icon = Icons.Outlined.CalendarToday,
+                        title = "10:30 AM",
+                        onClick = {})
+
+                    MonetChip(
+                        Modifier.wrapContentSize(),
+                        icon = Icons.Outlined.CalendarToday,
+                        title = "10:30 AM",
+                        onClick = {})
                 }
             }
 
@@ -178,33 +195,22 @@ fun DetailScreen(backStack: NavBackStack<NavKey>, viewModel: MainViewModel) {
             }
 
             item {
-
-                var selectedTabPosition by remember { mutableStateOf(0) }
-
-                val items = listOf(
-                    "Received", "Spent", "Transferred"
-                )
-
-//                val sequence = listOf(Transaction.Type.entries)
-//                var index = 0
-//                LaunchedEffect(key1 = "", block = {
-//                    while (true) {
-//                        delay(1000)
-//                        selectedTabPosition = sequence.get(index)
-//                        index += 1
-//                        if (index >= 4) {
-//                            index = 0
-//                        }
-//                    }
-//                })
-
                 TabRow(
-                    selectedTabPosition = selectedTabPosition
+                    selectedPosition = type
                 ) {
-                    items.forEachIndexed { index, s ->
+                    listOf(
+                        stringResource(R.string.received),
+                        stringResource(R.string.spent),
+                        stringResource(R.string.transferred)
+                    ).forEachIndexed { position, title ->
                         TabTitle(
-                            s, position = index, isSelected = index == selectedTabPosition
-                        ) { selectedTabPosition = index }
+                            title,
+                            position,
+                            isSelected = position == type,
+                            onClick = {
+                                type = it
+                                Log.v("DetailScreen:TabRow", "onClick $type")
+                            })
                     }
                 }
             }
@@ -264,6 +270,7 @@ private fun TextField(
     )
 }
 
+@SuppressLint("ViewModelConstructorInComposable")
 @Composable
 @Preview
 fun DetailScreenPreview() {
