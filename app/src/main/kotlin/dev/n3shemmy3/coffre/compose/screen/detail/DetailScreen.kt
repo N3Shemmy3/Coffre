@@ -2,6 +2,8 @@ package dev.n3shemmy3.coffre.compose.screen.detail
 
 import android.annotation.SuppressLint
 import android.util.Log
+import androidx.activity.compose.BackHandler
+import androidx.activity.compose.LocalOnBackPressedDispatcherOwner
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -10,18 +12,17 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.CalendarToday
 import androidx.compose.material.icons.outlined.Delete
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
@@ -34,10 +35,8 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
@@ -56,6 +55,7 @@ import dev.n3shemmy3.coffre.compose.components.LifecycleListener
 import dev.n3shemmy3.coffre.compose.components.MonetChip
 import dev.n3shemmy3.coffre.compose.components.TabRow
 import dev.n3shemmy3.coffre.compose.components.TabTitle
+import dev.n3shemmy3.coffre.compose.components.TextField
 import dev.n3shemmy3.coffre.compose.navigation.AppRoute
 import dev.n3shemmy3.coffre.compose.screen.main.MainViewModel
 import dev.n3shemmy3.coffre.domain.model.Transaction
@@ -65,21 +65,29 @@ import java.math.BigDecimal
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DetailScreen(backStack: NavBackStack<NavKey>, viewModel: MainViewModel) {
-    //val route = backStack.last() as AppRoute.Detail
+    var route: AppRoute.Detail
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
     val scope = rememberCoroutineScope()
+    val onBackPressedDispatcher = LocalOnBackPressedDispatcherOwner.current?.onBackPressedDispatcher
+
+    val titleIsEmpty = remember { mutableStateOf(false) }
+    val amountIsEmpty = remember { mutableStateOf(false) }
 
     var title by remember { mutableStateOf("") }
     var time by remember { mutableLongStateOf(System.currentTimeMillis()) }
     var type by remember { mutableIntStateOf(Transaction.Type.Income.ordinal) }
-    var amount by remember { mutableStateOf("") }
+    var amount by remember { mutableStateOf(" ") }
     var note by remember { mutableStateOf("") }
 
+    scope.launch {
+        route = backStack.last() as AppRoute.Detail
+    }
     LifecycleListener { _, event ->
         when (event) {
             Lifecycle.Event.ON_PAUSE -> {
 
-                if (BigDecimal(amount) == BigDecimal(0)) return@LifecycleListener
+                if (BigDecimal(amount.ifEmpty { 0 }
+                        .toString()) == BigDecimal(0)) return@LifecycleListener
                 scope.launch {
                     viewModel.upsert(
                         Transaction(
@@ -97,8 +105,22 @@ fun DetailScreen(backStack: NavBackStack<NavKey>, viewModel: MainViewModel) {
 
             else -> {}
         }
-
     }
+    BackHandler(
+        onBack = {
+            amountIsEmpty.value = title.isNotEmpty()
+                    && BigDecimal(amount.ifEmpty { 0 }.toString()) <= BigDecimal.ZERO
+
+            // Amount might be null and setting its value to 0 would trigger amountIsEmpty
+            titleIsEmpty.value = title.isEmpty()
+                    && BigDecimal(0).add(BigDecimal(amount)) >= BigDecimal.ZERO
+
+            if (amountIsEmpty.value || titleIsEmpty.value) return@BackHandler
+
+            onBackPressedDispatcher?.onBackPressed()
+        }
+    );
+
 
     Scaffold(
         modifier = Modifier
@@ -108,21 +130,22 @@ fun DetailScreen(backStack: NavBackStack<NavKey>, viewModel: MainViewModel) {
             TopAppBar(
                 navigationIcon = {
                     BackButton(onClick = {
-                        backStack.removeAt(backStack.lastIndex)
+                        onBackPressedDispatcher?.onBackPressed()
                     })
-                }, title = { }, actions = {
+                },
+                title = { },
+                actions = {
                     ActionButton(
                         Icons.Outlined.Delete, stringResource(R.string.delete), { })
-                }, scrollBehavior = scrollBehavior
+                },
+                scrollBehavior = scrollBehavior
             )
         },
 
         ) { paddings ->
         LazyColumn(
             Modifier
-                .padding(
-                    PaddingValues(16.dp)
-                )
+                .padding(PaddingValues(start = 16.dp, top = 16.dp, end = 16.dp))
                 .fillMaxSize(),
             contentPadding = paddings,
             verticalArrangement = Arrangement.spacedBy(16.dp),
@@ -145,7 +168,8 @@ fun DetailScreen(backStack: NavBackStack<NavKey>, viewModel: MainViewModel) {
 
             item {
                 Row(
-                    Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)
+                    Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     MonetChip(
                         Modifier.wrapContentSize(),
@@ -232,40 +256,81 @@ fun DetailScreen(backStack: NavBackStack<NavKey>, viewModel: MainViewModel) {
             }
         }
     }
+
+    val dialogTitle = stringResource(R.string.discard_transaction)
+    val dismissalText = stringResource(R.string.keep)
+    val confirmationText = stringResource(R.string.discard)
+
+    if (titleIsEmpty.value) {
+        MaterialDialog(
+            onDismissRequest = {
+                titleIsEmpty.value = false
+            },
+            onConfirmation = {
+                titleIsEmpty.value = false
+                backStack.removeLast()
+            },
+            title = dialogTitle,
+            note = stringResource(R.string.discard_transaction_title_is_empty),
+            confirmationText,
+            dismissalText
+        )
+    }
+
+    if (amountIsEmpty.value) {
+        MaterialDialog(
+            onDismissRequest = {
+                amountIsEmpty.value = false
+            },
+            onConfirmation = {
+                amountIsEmpty.value = false
+                backStack.removeLast()
+            },
+            title = dialogTitle,
+            note = stringResource(R.string.discard_transaction_amount_is_empty),
+            confirmationText,
+            dismissalText
+        )
+    }
 }
 
 @Composable
-private fun TextField(
-    value: String,
-    placeholder: String,
-    onValueChange: (String) -> Unit,
-    textStyle: TextStyle = MaterialTheme.typography.bodyLarge,
-    keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
-    keyboardActions: KeyboardActions = KeyboardActions.Default,
+fun MaterialDialog(
+    onDismissRequest: () -> Unit,
+    onConfirmation: () -> Unit,
+    title: String,
+    note: String,
+    confirmationText: String = stringResource(R.string.confirm),
+    dismissalText: String = stringResource(R.string.cancel),
 ) {
-    OutlinedTextField(
-        value = value,
-        onValueChange = onValueChange,
-        modifier = Modifier.fillMaxWidth(),
-        colors = OutlinedTextFieldDefaults.colors(
-            focusedBorderColor = Color.Transparent,
-            unfocusedBorderColor = Color.Transparent,
-            disabledBorderColor = Color.Transparent,
-            errorBorderColor = Color.Transparent,
-        ),
-        textStyle = textStyle,
-        placeholder = {
-            if (value.isEmpty()) {
-                Text(
-                    modifier = Modifier.fillMaxWidth(),
-                    text = placeholder,
-                    style = textStyle,
-                    color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = .55f)
-                )
+    AlertDialog(
+        title = {
+            Text(text = title)
+        },
+        text = {
+            Text(text = note)
+        },
+        onDismissRequest = {
+            onDismissRequest()
+        },
+        confirmButton = {
+            TextButton(
+                onClick = {
+                    onConfirmation()
+                }
+            ) {
+                Text(confirmationText)
             }
         },
-        keyboardOptions = keyboardOptions,
-        keyboardActions = keyboardActions
+        dismissButton = {
+            TextButton(
+                onClick = {
+                    onDismissRequest()
+                }
+            ) {
+                Text(dismissalText)
+            }
+        }
     )
 }
 

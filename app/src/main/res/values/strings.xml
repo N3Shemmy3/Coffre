@@ -12,5 +12,13 @@
     <string name="received">Received</string>
     <string name="spent">Spent</string>
     <string name="transferred">Transferred</string>
+    <string name="no_transactions">No Transactions</string>
+    <string name="confirm">Confirm</string>
+    <string name="cancel">Cancel</string>
+    <string name="discard_transaction">Discard transaction</string>
+    <string name="discard_transaction_title_is_empty">You have not entered the title, if you leave now this transaction won\'t be saved.</string>
+    <string name="discard_transaction_amount_is_empty">You have not entered an amount, if you leave now this transaction won\'t be saved.</string>
+    <string name="discard">Discard</string>
+    <string name="keep">Keep</string>
 
 </resources>
