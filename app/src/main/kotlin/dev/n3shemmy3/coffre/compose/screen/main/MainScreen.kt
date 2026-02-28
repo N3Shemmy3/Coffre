@@ -48,6 +48,7 @@ import androidx.navigation3.runtime.rememberNavBackStack
 import dev.n3shemmy3.coffre.App
 import dev.n3shemmy3.coffre.R
 import dev.n3shemmy3.coffre.compose.components.ActionButton
+import dev.n3shemmy3.coffre.compose.components.AnimatedCounter
 import dev.n3shemmy3.coffre.compose.components.CategoryItem
 import dev.n3shemmy3.coffre.compose.components.ListItem
 import dev.n3shemmy3.coffre.compose.components.MonetChip
@@ -97,10 +98,12 @@ fun MainScreen(backStack: NavBackStack<NavKey>, viewModel: MainViewModel) {
         }
 
     ) { paddings ->
-        if (true) {
+        if (viewState.items.isNotEmpty()) {
             LazyColumn(
-                Modifier.padding(paddings),
-                contentPadding = PaddingValues(16.dp),
+                Modifier
+                    .padding(PaddingValues(start = 16.dp, top = 16.dp, end = 16.dp))
+                    .fillMaxSize(),
+                contentPadding = paddings,
                 verticalArrangement = Arrangement.spacedBy(4.dp),
             ) {
                 val largeCorner = 16.dp
@@ -151,7 +154,7 @@ fun MainScreen(backStack: NavBackStack<NavKey>, viewModel: MainViewModel) {
                                 ) {
                                     Text("£", style = balanceStyle)
 
-                                    Text(
+                                    AnimatedCounter(
                                         buildAnnotatedString {
                                             withStyle(
                                                 SpanStyle(
@@ -167,7 +170,7 @@ fun MainScreen(backStack: NavBackStack<NavKey>, viewModel: MainViewModel) {
                                             ) {
                                                 append(".63")
                                             }
-                                        },
+                                        }.toString(),
                                         style = MaterialTheme.typography.displaySmall,
                                         textAlign = textAlign,
                                         color = balanceColor
@@ -279,7 +282,10 @@ fun MainScreen(backStack: NavBackStack<NavKey>, viewModel: MainViewModel) {
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Text("No Transactions", style = MaterialTheme.typography.titleMedium)
+                Text(
+                    stringResource(R.string.no_transactions),
+                    style = MaterialTheme.typography.titleMedium
+                )
             }
         }
     }
