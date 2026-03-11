@@ -57,7 +57,7 @@ class MainViewModel(
         viewModelScope.launch {
             accountRepo.totalBalance().collect {
                 _viewState.update { currentState ->
-                    currentState.copy(balance = it)
+                    currentState.copy(balance = it, isLoading = true)
                 }
             }
         }
@@ -79,7 +79,7 @@ class MainViewModel(
         viewModelScope.launch {
             transactionRepo.observe().collect {
                 _viewState.update { currentState ->
-                    currentState.copy(items = it)
+                    currentState.copy(items = it, isLoading = false)
                 }
             }
         }

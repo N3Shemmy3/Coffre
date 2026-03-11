@@ -1,5 +1,6 @@
 package dev.n3shemmy3.coffre.compose.screen.main
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -8,6 +9,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -18,6 +20,7 @@ import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material.icons.outlined.Visibility
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
@@ -98,7 +101,30 @@ fun MainScreen(backStack: NavBackStack<NavKey>, viewModel: MainViewModel) {
         }
 
     ) { paddings ->
-        if (viewState.items.isNotEmpty()) {
+        if (viewState.isLoading) {
+            Column(
+                Modifier
+                    .padding(paddings)
+                    .fillMaxSize(),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                CircularProgressIndicator(modifier = Modifier.size(64.dp), strokeWidth = 8.dp)
+            }
+        } else if (viewState.items.isEmpty()) {
+            Column(
+                Modifier
+                    .padding(paddings)
+                    .fillMaxSize(),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text(
+                    stringResource(R.string.no_transactions),
+                    style = MaterialTheme.typography.titleMedium
+                )
+            }
+        } else {
             LazyColumn(
                 Modifier
                     .padding(PaddingValues(start = 16.dp, top = 16.dp, end = 16.dp))
@@ -148,7 +174,7 @@ fun MainScreen(backStack: NavBackStack<NavKey>, viewModel: MainViewModel) {
                                 Row(
                                     Modifier
                                         .fillMaxWidth()
-                                        .padding(top = 8.dp, end = 12.dp, bottom = 16.dp),
+                                        .padding(top = 8.dp, end = paddingEnd, bottom = 16.dp),
                                     horizontalArrangement = Arrangement.SpaceBetween,
                                     verticalAlignment = Alignment.Bottom
                                 ) {
@@ -269,34 +295,32 @@ fun MainScreen(backStack: NavBackStack<NavKey>, viewModel: MainViewModel) {
                                     style = MaterialTheme.typography.labelMedium
                                 )
                             }
-                        })
-
+                        },
+                        onClick = {
+                            backStack.add(AppRoute.Detail(item.id))
+                        }
+                    )
                 }
-            }
-
-        } else {
-            Column(
-                Modifier
-                    .padding(paddings)
-                    .fillMaxSize(),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Text(
-                    stringResource(R.string.no_transactions),
-                    style = MaterialTheme.typography.titleMedium
-                )
             }
         }
     }
 }
 
-
+@SuppressLint("ViewModelConstructorInComposable")
 @Composable
 @Preview
 fun MainScreenPreview() {
-    val mainViewModel = MainViewModel(App.appDatabase)
-    val backStack = rememberNavBackStack(AppRoute.Main)
-
-    MainScreen(backStack, mainViewModel)
+//    val mainViewModel = MainViewModel(App.appDatabase)
+//    val backStack = rememberNavBackStack(AppRoute.Main)
+//
+//    MainScreen(backStack, mainViewModel)
+    Column(
+        Modifier
+            .padding(16.dp)
+            .fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        CircularProgressIndicator(modifier = Modifier.size(64.dp), strokeWidth = 4.dp)
+    }
 }

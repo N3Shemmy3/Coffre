@@ -79,13 +79,22 @@ fun DetailScreen(backStack: NavBackStack<NavKey>, viewModel: MainViewModel) {
     var amount by remember { mutableStateOf(" ") }
     var note by remember { mutableStateOf("") }
 
-    scope.launch {
-        route = backStack.last() as AppRoute.Detail
-    }
+
     LifecycleListener { _, event ->
         when (event) {
-            Lifecycle.Event.ON_PAUSE -> {
+            Lifecycle.Event.ON_CREATE -> {
+                scope.launch {
+                    route = backStack.last() as AppRoute.Detail
+                    val item = viewModel.item(route.id!!)?: return@launch
+                    title = item.title
+                    time = item.time
+                    type = item.type.ordinal
+                    amount = item.amount.toString()
+                    note = item.note!!
+                }
+            }
 
+            Lifecycle.Event.ON_PAUSE -> {
                 if (BigDecimal(amount.ifEmpty { 0 }
                         .toString()) == BigDecimal(0)) return@LifecycleListener
                 scope.launch {
@@ -112,8 +121,8 @@ fun DetailScreen(backStack: NavBackStack<NavKey>, viewModel: MainViewModel) {
                     && BigDecimal(amount.ifEmpty { 0 }.toString()) <= BigDecimal.ZERO
 
             // Amount might be null and setting its value to 0 would trigger amountIsEmpty
-            titleIsEmpty.value = title.isEmpty()
-                    && BigDecimal(0).add(BigDecimal(amount)) >= BigDecimal.ZERO
+//            titleIsEmpty.value = title.isEmpty()
+//                    && BigDecimal(0).add(BigDecimal(amount)) >= BigDecimal.ZERO
 
             if (amountIsEmpty.value || titleIsEmpty.value) return@BackHandler
 
@@ -284,7 +293,7 @@ fun DetailScreen(backStack: NavBackStack<NavKey>, viewModel: MainViewModel) {
             },
             onConfirmation = {
                 amountIsEmpty.value = false
-                backStack.removeLast()
+                backStack.removeAt(backStack.lastIndex)
             },
             title = dialogTitle,
             note = stringResource(R.string.discard_transaction_amount_is_empty),

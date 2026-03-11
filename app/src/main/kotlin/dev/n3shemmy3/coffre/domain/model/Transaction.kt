@@ -29,19 +29,18 @@ import java.math.BigDecimal
     ]
 )
 data class Transaction(
-    @PrimaryKey(autoGenerate = true) val id: Long,
-    val title: String,
+    @PrimaryKey(autoGenerate = true) val id: Long = 0,
+    val title: String = "",
     val note: String? = null,
-    val amount: BigDecimal,
+    val amount: BigDecimal = BigDecimal.ZERO,
     val time: Long = System.currentTimeMillis(),
-    val type: Type,
-    val account: Long,
+    val type: Type = Type.Income,
+    val account: Long = 0,
     val toAccount: Long? = null
 ) {
     enum class Type {
         Income,
         Expense,
-
         Transfer
     }
 
