@@ -181,22 +181,7 @@ fun MainScreen(backStack: NavBackStack<NavKey>, viewModel: MainViewModel) {
                                     Text("£", style = balanceStyle)
 
                                     AnimatedCounter(
-                                        buildAnnotatedString {
-                                            withStyle(
-                                                SpanStyle(
-                                                    fontSize = balanceStyle.fontSize
-                                                )
-                                            ) {
-                                                append(viewState.balance.toString())
-                                            }
-                                            withStyle(
-                                                SpanStyle(
-                                                    fontSize = MaterialTheme.typography.displaySmall.fontSize
-                                                )
-                                            ) {
-                                                append(".63")
-                                            }
-                                        }.toString(),
+                                        count = state.balance.toString(),
                                         style = MaterialTheme.typography.displaySmall,
                                         textAlign = textAlign,
                                         color = balanceColor
