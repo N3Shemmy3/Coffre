@@ -1,6 +1,7 @@
 package dev.n3shemmy3.coffre.compose.screen.main
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -39,16 +40,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation3.runtime.NavBackStack
 import androidx.navigation3.runtime.NavKey
-import androidx.navigation3.runtime.rememberNavBackStack
-import dev.n3shemmy3.coffre.App
 import dev.n3shemmy3.coffre.R
 import dev.n3shemmy3.coffre.compose.components.ActionButton
 import dev.n3shemmy3.coffre.compose.components.AnimatedCounter
@@ -59,11 +55,18 @@ import dev.n3shemmy3.coffre.compose.components.MonetChipColors
 import dev.n3shemmy3.coffre.compose.navigation.AppRoute
 import dev.n3shemmy3.coffre.domain.model.Transaction
 import dev.n3shemmy3.coffre.util.humanTime
+import dev.n3shemmy3.coffre.util.localDecimalSeparator
+import dev.n3shemmy3.coffre.util.localIntegerSeparator
+import dev.n3shemmy3.coffre.util.decimalPart
+import dev.n3shemmy3.coffre.util.formatToLocal
+import dev.n3shemmy3.coffre.util.formatToLocalCurrency
+import dev.n3shemmy3.coffre.util.integerPart
+import java.util.Locale
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainScreen(backStack: NavBackStack<NavKey>, viewModel: MainViewModel) {
-    val viewState by viewModel.viewState.collectAsState()
+    val state by viewModel.viewState.collectAsState()
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
     val context = LocalContext.current
 
@@ -101,7 +104,7 @@ fun MainScreen(backStack: NavBackStack<NavKey>, viewModel: MainViewModel) {
         }
 
     ) { paddings ->
-        if (viewState.isLoading) {
+        if (state.isLoading) {
             Column(
                 Modifier
                     .padding(paddings)
@@ -109,9 +112,9 @@ fun MainScreen(backStack: NavBackStack<NavKey>, viewModel: MainViewModel) {
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                CircularProgressIndicator(modifier = Modifier.size(64.dp), strokeWidth = 8.dp)
+                CircularProgressIndicator(modifier = Modifier.size(64.dp), strokeWidth = 4.dp)
             }
-        } else if (viewState.items.isEmpty()) {
+        } else if (state.items.isEmpty()) {
             Column(
                 Modifier
                     .padding(paddings)
@@ -155,6 +158,7 @@ fun MainScreen(backStack: NavBackStack<NavKey>, viewModel: MainViewModel) {
                                 val paddingEnd = 12.dp
                                 val balanceColor = MaterialTheme.colorScheme.onSurface
                                 val balanceStyle = MaterialTheme.typography.displayMedium
+                                val decimalStyle = MaterialTheme.typography.displaySmall
                                 val labelStyle = MaterialTheme.typography.bodyMedium
                                 val spentColor = MaterialTheme.colorScheme.error
                                 val textAlign = TextAlign.End
@@ -180,12 +184,47 @@ fun MainScreen(backStack: NavBackStack<NavKey>, viewModel: MainViewModel) {
                                 ) {
                                     Text("£", style = balanceStyle)
 
-                                    AnimatedCounter(
-                                        count = state.balance.toString(),
-                                        style = MaterialTheme.typography.displaySmall,
-                                        textAlign = textAlign,
-                                        color = balanceColor
-                                    )
+                                    Row(
+                                        Modifier.fillMaxSize(),
+                                        horizontalArrangement = Arrangement.End,
+                                        verticalAlignment = Alignment.Bottom
+                                    ) {
+                                        val local = Locale.getDefault()
+                                        Log.d("Balance", state.balance.toString())
+                                        Log.d("Integer Separator", localIntegerSeparator(local))
+                                        Log.d("Decimal Separator", localDecimalSeparator(local))
+                                        Log.d("Integer", integerPart(state.balance, local))
+                                        Log.d("Decimal", decimalPart(state.balance, local))
+
+                                        Text(
+                                            text = integerPart(state.balance, local),
+                                            style = balanceStyle,
+                                            textAlign = textAlign,
+                                            color = balanceColor
+                                        )
+//                                        AnimatedCounter(
+//                                            count = integerPart(state.balance, local),
+//                                            style = balanceStyle,
+//                                            textAlign = textAlign,
+//                                            color = balanceColor
+//                                        )
+                                        Text(
+                                            text = localDecimalSeparator(local),
+                                            style = decimalStyle,
+                                            textAlign = textAlign,
+                                            color = balanceColor
+                                        )
+                                        AnimatedCounter(
+                                            count = decimalPart(
+                                                state.balance,
+                                                local
+                                            ),
+                                            style = decimalStyle,
+                                            textAlign = textAlign,
+                                            color = balanceColor
+                                        )
+                                    }
+
 
                                 }
 
@@ -199,7 +238,10 @@ fun MainScreen(backStack: NavBackStack<NavKey>, viewModel: MainViewModel) {
                                 ) {
                                     Text("Received", style = labelStyle)
                                     Text(
-                                        "£" + viewState.received.toString(),
+                                        "£" + formatToLocal(
+                                            Locale.getDefault(),
+                                            state.received
+                                        ),
                                         style = labelStyle,
                                         textAlign = textAlign
                                     )
@@ -216,7 +258,10 @@ fun MainScreen(backStack: NavBackStack<NavKey>, viewModel: MainViewModel) {
                                         "Spent", style = labelStyle, color = spentColor
                                     )
                                     Text(
-                                        "£" + viewState.spent.toString(),
+                                        "£" + formatToLocal(
+                                            Locale.getDefault(),
+                                            state.spent
+                                        ),
                                         style = labelStyle,
                                         color = spentColor,
                                         textAlign = textAlign
@@ -241,10 +286,10 @@ fun MainScreen(backStack: NavBackStack<NavKey>, viewModel: MainViewModel) {
                         })
 
                 }
-                itemsIndexed(viewState.items) { index, item ->
+                itemsIndexed(state.items) { index, item ->
 
                     ListItem(
-                        shape = if (index != viewState.items.lastIndex)
+                        shape = if (index != state.items.lastIndex)
                             RoundedCornerShape(
                                 smallCorner
                             )
