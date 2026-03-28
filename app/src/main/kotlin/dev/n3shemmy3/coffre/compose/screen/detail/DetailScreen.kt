@@ -3,6 +3,7 @@ package dev.n3shemmy3.coffre.compose.screen.detail
 import android.annotation.SuppressLint
 import android.icu.util.Calendar
 import android.util.Log
+import androidx.activity.compose.BackHandler
 import androidx.activity.compose.LocalOnBackPressedDispatcherOwner
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
@@ -60,8 +61,10 @@ import dev.n3shemmy3.coffre.compose.components.TabTitle
 import dev.n3shemmy3.coffre.compose.components.TextField
 import dev.n3shemmy3.coffre.compose.components.TimePicker
 import dev.n3shemmy3.coffre.compose.navigation.AppRoute
+import dev.n3shemmy3.coffre.compose.navigation.pop
 import dev.n3shemmy3.coffre.compose.screen.main.MainViewModel
 import dev.n3shemmy3.coffre.domain.model.Transaction
+import dev.n3shemmy3.coffre.util.sanitize
 import dev.n3shemmy3.coffre.util.toHumanDate
 import dev.n3shemmy3.coffre.util.toHumanTime
 import dev.n3shemmy3.coffre.util.toMilliseconds
@@ -77,17 +80,20 @@ fun DetailScreen(backStack: NavBackStack<NavKey>, viewModel: MainViewModel) {
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
     val onBackPressedDispatcher = LocalOnBackPressedDispatcherOwner.current?.onBackPressedDispatcher
 
-    val titleIsEmpty = remember { mutableStateOf(false) }
-    val amountIsEmpty = remember { mutableStateOf(false) }
-    val isDeleted = remember { mutableStateOf(false) }
-    val showTimePicker = remember { mutableStateOf(false) }
-    val showDatePicker = remember { mutableStateOf(false) }
-
     var title by remember { mutableStateOf("") }
     var time by remember { mutableStateOf(System.currentTimeMillis()) }
     var type by remember { mutableIntStateOf(Transaction.Type.Income.ordinal) }
-    var amount by remember { mutableStateOf(" ") }
+    var amount by remember { mutableStateOf("") }
     var note by remember { mutableStateOf("") }
+
+    val titleIsEmpty = remember { mutableStateOf(title.isEmpty() && sanitize(amount).isNotEmpty()) }
+    val amountIsEmpty =
+        remember { mutableStateOf(sanitize(amount).isEmpty() && title.isNotEmpty()) }
+    val askForTitle = remember { mutableStateOf(false) }
+    val askForAmount = remember { mutableStateOf(false) }
+    val isDeleted = remember { mutableStateOf(false) }
+    val showTimePicker = remember { mutableStateOf(false) }
+    val showDatePicker = remember { mutableStateOf(false) }
 
 
     LifecycleListener { _, event ->
@@ -104,51 +110,43 @@ fun DetailScreen(backStack: NavBackStack<NavKey>, viewModel: MainViewModel) {
                 }
             }
 
-            Lifecycle.Event.ON_DESTROY -> {
-                viewModel.clearItem()
-            }
-
             Lifecycle.Event.ON_PAUSE -> {
                 if (isDeleted.value) return@LifecycleListener
-                // Sanitize the string: remove all whitespace and commas
-                val cleanAmount = amount.replace(Regex("[\\s,]+"), "")
-
+                val cleanAmount = sanitize(amount)
                 val amountValue = cleanAmount.toBigDecimalOrNull() ?: BigDecimal.ZERO
-
                 if (amountValue == BigDecimal.ZERO) return@LifecycleListener
 
                 scope.launch {
                     viewModel.upsert(
-                        Transaction(
+                        item = Transaction(
                             id = if (state.item == null) 0 else state.item!!.id,
                             title = title,
                             note = note,
                             amount = amountValue,
                             time = time,
                             type = Transaction.Type.entries[type],
-                            1
+                            account = 1
                         )
                     )
                 }
             }
 
+            Lifecycle.Event.ON_DESTROY -> {
+                viewModel.clearItem()
+            }
+
             else -> {}
         }
     }
-//    BackHandler(
-//        onBack = {
-//            amountIsEmpty.value = title.isNotEmpty()
-//                    && BigDecimal(amount.ifEmpty { 0 }.toString()) <= BigDecimal.ZERO
-//
-//            // Amount might be null and setting its value to 0 would trigger amountIsEmpty
-////            titleIsEmpty.value = title.isEmpty()
-////                    && BigDecimal(0).add(BigDecimal(amount)) >= BigDecimal.ZERO
-//
-//            if (amountIsEmpty.value || titleIsEmpty.value) return@BackHandler
-//
-//            onBackPressedDispatcher?.onBackPressed()
-//        }
-//    );
+    BackHandler(
+        enabled = amountIsEmpty.value || titleIsEmpty.value,
+        onBack = {
+            if (amountIsEmpty.value)
+                askForAmount.value = true
+            else if (titleIsEmpty.value)
+                askForTitle.value = true
+        }
+    );
 
 
     Scaffold(
@@ -171,7 +169,7 @@ fun DetailScreen(backStack: NavBackStack<NavKey>, viewModel: MainViewModel) {
                             {
                                 viewModel.delete(state.item!!)
                                 isDeleted.value = true
-                                backStack.removeAt(backStack.lastIndex)
+                                backStack.pop()
                             })
                     }
                 },
@@ -307,11 +305,11 @@ fun DetailScreen(backStack: NavBackStack<NavKey>, viewModel: MainViewModel) {
     if (titleIsEmpty.value) {
         MaterialDialog(
             onDismissRequest = {
-                titleIsEmpty.value = false
+                askForTitle.value = false
             },
             onConfirmRequest = {
-                titleIsEmpty.value = false
-                backStack.removeAt(backStack.lastIndex)
+                askForTitle.value = false
+                backStack.pop()
             },
             title = dialogTitle,
             note = stringResource(R.string.discard_transaction_title_is_empty),
@@ -323,11 +321,11 @@ fun DetailScreen(backStack: NavBackStack<NavKey>, viewModel: MainViewModel) {
     if (amountIsEmpty.value) {
         MaterialDialog(
             onDismissRequest = {
-                amountIsEmpty.value = false
+                askForAmount.value = false
             },
             onConfirmRequest = {
-                amountIsEmpty.value = false
-                backStack.removeAt(backStack.lastIndex)
+                askForAmount.value = false
+                backStack.pop()
             },
             title = dialogTitle,
             note = stringResource(R.string.discard_transaction_amount_is_empty),
@@ -352,7 +350,7 @@ fun DetailScreen(backStack: NavBackStack<NavKey>, viewModel: MainViewModel) {
         onConfirmRequest = { state ->
             val selection = state.selectedDateMillis
             if (selection != null) {
-                // prevent selection of future dates
+                // prevent injection of future dates
                 time =
                     if (selection > time) time else
                         toMilliseconds(

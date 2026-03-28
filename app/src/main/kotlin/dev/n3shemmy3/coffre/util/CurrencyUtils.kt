@@ -62,6 +62,10 @@ fun decimalPart(
     return if (segments.size > 1) splitter(value, locale)[1] else "00"
 }
 
+fun sanitize(value: String): String {
+    return value.replace(Regex("[\\s,]+"), "")
+}
+
 private fun toDecimalPlaces(count: Int): String {
     var result = ""
     for (i in 0..count) {
