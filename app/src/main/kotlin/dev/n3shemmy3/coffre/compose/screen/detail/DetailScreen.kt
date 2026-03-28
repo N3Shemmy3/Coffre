@@ -1,8 +1,9 @@
 package dev.n3shemmy3.coffre.compose.screen.detail
 
 import android.annotation.SuppressLint
+import android.icu.util.Calendar
+import android.text.format.DateUtils
 import android.util.Log
-import androidx.activity.compose.BackHandler
 import androidx.activity.compose.LocalOnBackPressedDispatcherOwner
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
@@ -14,6 +15,7 @@ import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.CalendarMonth
 import androidx.compose.material.icons.outlined.CalendarToday
 import androidx.compose.material.icons.outlined.Delete
 import androidx.compose.material3.AlertDialog
@@ -26,6 +28,7 @@ import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableLongStateOf
@@ -36,6 +39,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
@@ -51,30 +55,41 @@ import dev.n3shemmy3.coffre.App
 import dev.n3shemmy3.coffre.R
 import dev.n3shemmy3.coffre.compose.components.ActionButton
 import dev.n3shemmy3.coffre.compose.components.BackButton
+import dev.n3shemmy3.coffre.compose.components.DatePicker
 import dev.n3shemmy3.coffre.compose.components.LifecycleListener
+import dev.n3shemmy3.coffre.compose.components.MaterialDialog
 import dev.n3shemmy3.coffre.compose.components.MonetChip
 import dev.n3shemmy3.coffre.compose.components.TabRow
 import dev.n3shemmy3.coffre.compose.components.TabTitle
 import dev.n3shemmy3.coffre.compose.components.TextField
+import dev.n3shemmy3.coffre.compose.components.TimePicker
 import dev.n3shemmy3.coffre.compose.navigation.AppRoute
 import dev.n3shemmy3.coffre.compose.screen.main.MainViewModel
 import dev.n3shemmy3.coffre.domain.model.Transaction
+import dev.n3shemmy3.coffre.util.toHumanDate
+import dev.n3shemmy3.coffre.util.toHumanTime
 import kotlinx.coroutines.launch
 import java.math.BigDecimal
+import java.time.LocalDateTime
+import java.util.Date
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DetailScreen(backStack: NavBackStack<NavKey>, viewModel: MainViewModel) {
-    var route: AppRoute.Detail
-    val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
+    val state by viewModel.detailState.collectAsState()
     val scope = rememberCoroutineScope()
+    val context = LocalContext.current
+    val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
     val onBackPressedDispatcher = LocalOnBackPressedDispatcherOwner.current?.onBackPressedDispatcher
 
     val titleIsEmpty = remember { mutableStateOf(false) }
     val amountIsEmpty = remember { mutableStateOf(false) }
+    val isDeleted = remember { mutableStateOf(false) }
+    val showTimePicker = remember { mutableStateOf(false) }
+    val showDatePicker = remember { mutableStateOf(false) }
 
     var title by remember { mutableStateOf("") }
-    var time by remember { mutableLongStateOf(System.currentTimeMillis()) }
+    val calendar = remember { Calendar.getInstance() }
     var type by remember { mutableIntStateOf(Transaction.Type.Income.ordinal) }
     var amount by remember { mutableStateOf(" ") }
     var note by remember { mutableStateOf("") }
@@ -84,28 +99,38 @@ fun DetailScreen(backStack: NavBackStack<NavKey>, viewModel: MainViewModel) {
         when (event) {
             Lifecycle.Event.ON_CREATE -> {
                 scope.launch {
-                    route = backStack.last() as AppRoute.Detail
-                    val item = viewModel.item(route.id!!)?: return@launch
+                    val item = state.item ?: return@launch
+
                     title = item.title
-                    time = item.time
+                    calendar.timeInMillis = item.time
                     type = item.type.ordinal
-                    amount = item.amount.toString()
-                    note = item.note!!
+                    amount = item.amount.toPlainString().trim()
+                    note = item.note ?: ""
                 }
             }
 
+            Lifecycle.Event.ON_DESTROY -> {
+                viewModel.clearItem()
+            }
+
             Lifecycle.Event.ON_PAUSE -> {
-                if (BigDecimal(amount.ifEmpty { 0 }
-                        .toString()) == BigDecimal(0)) return@LifecycleListener
+                if (isDeleted.value) return@LifecycleListener
+                // Sanitize the string: remove all whitespace and commas
+                val cleanAmount = amount.replace(Regex("[\\s,]+"), "")
+
+                val amountValue = cleanAmount.toBigDecimalOrNull() ?: BigDecimal.ZERO
+
+                if (amountValue == BigDecimal.ZERO) return@LifecycleListener
+
                 scope.launch {
                     viewModel.upsert(
                         Transaction(
-                            0,
-                            title,
-                            note,
-                            BigDecimal(amount),
-                            time,
-                            Transaction.Type.entries[type],
+                            id = if (state.item == null) 0 else state.item!!.id,
+                            title = title,
+                            note = note,
+                            amount = amountValue,
+                            time = calendar.timeInMillis,
+                            type = Transaction.Type.entries[type],
                             1
                         )
                     )
@@ -115,20 +140,20 @@ fun DetailScreen(backStack: NavBackStack<NavKey>, viewModel: MainViewModel) {
             else -> {}
         }
     }
-    BackHandler(
-        onBack = {
-            amountIsEmpty.value = title.isNotEmpty()
-                    && BigDecimal(amount.ifEmpty { 0 }.toString()) <= BigDecimal.ZERO
-
-            // Amount might be null and setting its value to 0 would trigger amountIsEmpty
-//            titleIsEmpty.value = title.isEmpty()
-//                    && BigDecimal(0).add(BigDecimal(amount)) >= BigDecimal.ZERO
-
-            if (amountIsEmpty.value || titleIsEmpty.value) return@BackHandler
-
-            onBackPressedDispatcher?.onBackPressed()
-        }
-    );
+//    BackHandler(
+//        onBack = {
+//            amountIsEmpty.value = title.isNotEmpty()
+//                    && BigDecimal(amount.ifEmpty { 0 }.toString()) <= BigDecimal.ZERO
+//
+//            // Amount might be null and setting its value to 0 would trigger amountIsEmpty
+////            titleIsEmpty.value = title.isEmpty()
+////                    && BigDecimal(0).add(BigDecimal(amount)) >= BigDecimal.ZERO
+//
+//            if (amountIsEmpty.value || titleIsEmpty.value) return@BackHandler
+//
+//            onBackPressedDispatcher?.onBackPressed()
+//        }
+//    );
 
 
     Scaffold(
@@ -144,8 +169,16 @@ fun DetailScreen(backStack: NavBackStack<NavKey>, viewModel: MainViewModel) {
                 },
                 title = { },
                 actions = {
-                    ActionButton(
-                        Icons.Outlined.Delete, stringResource(R.string.delete), { })
+                    if (state.item != null) {
+                        ActionButton(
+                            Icons.Outlined.Delete,
+                            stringResource(R.string.delete),
+                            {
+                                viewModel.delete(state.item!!)
+                                isDeleted.value = true
+                                backStack.removeAt(backStack.lastIndex)
+                            })
+                    }
                 },
                 scrollBehavior = scrollBehavior
             )
@@ -183,14 +216,15 @@ fun DetailScreen(backStack: NavBackStack<NavKey>, viewModel: MainViewModel) {
                     MonetChip(
                         Modifier.wrapContentSize(),
                         icon = Icons.Outlined.CalendarToday,
-                        title = "10:30 AM",
-                        onClick = {})
-
+                        title = toHumanTime(calendar.timeInMillis, context),
+                        onClick = { showTimePicker.value = !showTimePicker.value }
+                    )
                     MonetChip(
                         Modifier.wrapContentSize(),
-                        icon = Icons.Outlined.CalendarToday,
-                        title = "10:30 AM",
-                        onClick = {})
+                        icon = Icons.Outlined.CalendarMonth,
+                        title = toHumanDate(calendar.timeInMillis, context),
+                        onClick = { showDatePicker.value = !showDatePicker.value }
+                    )
                 }
             }
 
@@ -213,9 +247,14 @@ fun DetailScreen(backStack: NavBackStack<NavKey>, viewModel: MainViewModel) {
                         color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = .55f)
                     )
                     TextField(
-                        amount,
+                        value = amount.trim(),
                         placeholder = "0.00",
-                        onValueChange = { amount = it },
+                        onValueChange = { input ->
+                            val cleanInput = input.filter { it.isDigit() }
+                            if (cleanInput.length <= 12) {
+                                amount = cleanInput
+                            }
+                        },
                         textStyle = textStyle.copy(textAlign = TextAlign.End),
                         keyboardOptions = KeyboardOptions(
                             showKeyboardOnFocus = true,
@@ -275,9 +314,9 @@ fun DetailScreen(backStack: NavBackStack<NavKey>, viewModel: MainViewModel) {
             onDismissRequest = {
                 titleIsEmpty.value = false
             },
-            onConfirmation = {
+            onConfirmRequest = {
                 titleIsEmpty.value = false
-                backStack.removeLast()
+                backStack.removeAt(backStack.lastIndex)
             },
             title = dialogTitle,
             note = stringResource(R.string.discard_transaction_title_is_empty),
@@ -291,7 +330,7 @@ fun DetailScreen(backStack: NavBackStack<NavKey>, viewModel: MainViewModel) {
             onDismissRequest = {
                 amountIsEmpty.value = false
             },
-            onConfirmation = {
+            onConfirmRequest = {
                 amountIsEmpty.value = false
                 backStack.removeAt(backStack.lastIndex)
             },
@@ -301,53 +340,39 @@ fun DetailScreen(backStack: NavBackStack<NavKey>, viewModel: MainViewModel) {
             dismissalText
         )
     }
-}
 
-@Composable
-fun MaterialDialog(
-    onDismissRequest: () -> Unit,
-    onConfirmation: () -> Unit,
-    title: String,
-    note: String,
-    confirmationText: String = stringResource(R.string.confirm),
-    dismissalText: String = stringResource(R.string.cancel),
-) {
-    AlertDialog(
-        title = {
-            Text(text = title)
-        },
-        text = {
-            Text(text = note)
-        },
+    if (showTimePicker.value) TimePicker(
+        title = stringResource(R.string.select),
         onDismissRequest = {
-            onDismissRequest()
+            showTimePicker.value = false
         },
-        confirmButton = {
-            TextButton(
-                onClick = {
-                    onConfirmation()
-                }
-            ) {
-                Text(confirmationText)
-            }
+        onConfirmRequest = { state ->
+            calendar.set(Calendar.HOUR_OF_DAY, state.hour)
+            calendar.set(Calendar.MINUTE, state.minute)
+            showTimePicker.value = false
+        }
+    )
+    if (showDatePicker.value) DatePicker(
+        onDismissRequest = {
+            showDatePicker.value = false
         },
-        dismissButton = {
-            TextButton(
-                onClick = {
-                    onDismissRequest()
-                }
-            ) {
-                Text(dismissalText)
+        onConfirmRequest = { state ->
+            val date = state.selectedDateMillis
+            if (date != null) {
+                // prevent selection of future dates
+                calendar.timeInMillis =
+                    if (date > calendar.timeInMillis) calendar.timeInMillis else date
             }
+            showDatePicker.value = false
         }
     )
 }
+
 
 @SuppressLint("ViewModelConstructorInComposable")
 @Composable
 @Preview
 fun DetailScreenPreview() {
-
     val viewModel = MainViewModel(App.appDatabase)
     val backStack = rememberNavBackStack(AppRoute.Detail())
     DetailScreen(backStack, viewModel)

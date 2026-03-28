@@ -12,6 +12,7 @@ import dev.n3shemmy3.coffre.domain.model.Transaction
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.math.BigDecimal
@@ -29,11 +30,19 @@ class MainViewModel(
         val isLoading: Boolean = false,
     )
 
+    data class DetailState(
+        val item: Transaction? = null,
+        val isLoading: Boolean = false
+    )
+
     private val transactionRepo = TransactionRepo(database.transDao())
     private val accountRepo = AccountRepo(database.accountDao())
 
     private val _viewState = MutableStateFlow(ViewState())
     val viewState: StateFlow<ViewState> = _viewState.asStateFlow()
+
+    private val _detailState = MutableStateFlow(DetailState())
+    val detailState: StateFlow<DetailState> = _detailState.asStateFlow()
 
 
     init {
@@ -55,11 +64,24 @@ class MainViewModel(
             )
         }
         viewModelScope.launch {
-            accountRepo.totalBalance().collect {
-                _viewState.update { currentState ->
-                    currentState.copy(balance = it, isLoading = true)
+            transactionRepo.totalIncome()
+                .combine(transactionRepo.totalExpense()) { incomes, expenses ->
+                    incomes.subtract(expenses)
+                }.collect { value ->
+                    _viewState.update { currentState ->
+                        currentState.copy(balance = value, isLoading = false)
+                    }
                 }
-            }
+//            transactionRepo.totalIncome().collect {
+//                _viewState.update { currentState ->
+//                    currentState.copy(balance = currentState.balance.add(it), isLoading = true)
+//                }
+//            }
+//            transactionRepo.totalExpense().collect {
+//                _viewState.update { currentState ->
+//                    currentState.copy(balance = currentState.balance.subtract(it), isLoading = true)
+//                }
+//            }
         }
         viewModelScope.launch {
             transactionRepo.totalIncome().collect {
@@ -88,6 +110,26 @@ class MainViewModel(
 
     suspend fun item(id: Long): Transaction? {
         return transactionRepo.get(id)
+    }
+
+    fun loadItem(id: Long) {
+        viewModelScope.launch {
+            _detailState.update { currentState ->
+                currentState.copy(
+                    item = item(id)
+                )
+            }
+        }
+    }
+
+    fun clearItem() {
+        viewModelScope.launch {
+            _detailState.update { currentState ->
+                currentState.copy(
+                    item = null
+                )
+            }
+        }
     }
 
     suspend fun upsert(item: Transaction) {
@@ -130,8 +172,10 @@ class MainViewModel(
         }
     }
 
-    suspend fun delete(id: Long): Int {
-        return transactionRepo.delete(id)
+    fun delete(item: Transaction) {
+        viewModelScope.launch {
+            transactionRepo.delete(item)
+        }
     }
 
     suspend fun delete(ids: List<Long>): Int {

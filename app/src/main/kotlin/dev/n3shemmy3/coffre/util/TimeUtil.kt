@@ -6,7 +6,7 @@ import android.text.format.DateUtils
 import java.util.Date
 
 
-fun relativeTime(timestamp: Long): String {
+fun toRelativeTime(timestamp: Long): String {
     return DateUtils.getRelativeTimeSpanString(
         timestamp,
         System.currentTimeMillis(),
@@ -14,8 +14,13 @@ fun relativeTime(timestamp: Long): String {
     ).toString()
 }
 
-fun humanTime(timestamp: Long, context: Context): String {
+fun toHumanTime(timestamp: Long, context: Context): String {
     val timeFormat =
         DateFormat.getTimeFormat(context)
+    return timeFormat.format(Date(timestamp))
+}
+fun toHumanDate(timestamp: Long, context: Context): String {
+    val timeFormat =
+        DateFormat.getDateFormat(context)
     return timeFormat.format(Date(timestamp))
 }

@@ -1,6 +1,7 @@
 package dev.n3shemmy3.coffre.compose.screen.main
 
 import android.annotation.SuppressLint
+import android.text.format.DateUtils
 import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -54,13 +55,13 @@ import dev.n3shemmy3.coffre.compose.components.MonetChip
 import dev.n3shemmy3.coffre.compose.components.MonetChipColors
 import dev.n3shemmy3.coffre.compose.navigation.AppRoute
 import dev.n3shemmy3.coffre.domain.model.Transaction
-import dev.n3shemmy3.coffre.util.humanTime
+import dev.n3shemmy3.coffre.util.toHumanDate
 import dev.n3shemmy3.coffre.util.localDecimalSeparator
 import dev.n3shemmy3.coffre.util.localIntegerSeparator
 import dev.n3shemmy3.coffre.util.decimalPart
 import dev.n3shemmy3.coffre.util.formatToLocal
-import dev.n3shemmy3.coffre.util.formatToLocalCurrency
 import dev.n3shemmy3.coffre.util.integerPart
+import dev.n3shemmy3.coffre.util.toRelativeTime
 import java.util.Locale
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -306,7 +307,8 @@ fun MainScreen(backStack: NavBackStack<NavKey>, viewModel: MainViewModel) {
                             Text(item.title, style = MaterialTheme.typography.bodyLarge)
 
                             Text(
-                                humanTime(item.time, context),
+                                if (DateUtils.isToday(item.time))
+                                    toRelativeTime(item.time) else toHumanDate(item.time, context),
                                 style = MaterialTheme.typography.bodyMedium
                             )
                         },
@@ -321,13 +323,18 @@ fun MainScreen(backStack: NavBackStack<NavKey>, viewModel: MainViewModel) {
                                 }
                             ) {
                                 Text(
-                                    item.amount.toString(),
+                                    "£" + formatToLocal(
+                                        Locale.getDefault(),
+                                        item.amount
+                                    ),
                                     style = MaterialTheme.typography.labelMedium
                                 )
                             }
                         },
                         onClick = {
-                            backStack.add(AppRoute.Detail(item.id))
+                            viewModel.loadItem(item.id)
+                            backStack.add(AppRoute.Detail())
+
                         }
                     )
                 }

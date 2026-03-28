@@ -45,8 +45,8 @@ class TransactionRepo(
         localDataSource.upsert(items)
     }
 
-    override suspend fun delete(id: Long): Int {
-        return localDataSource.delete(id)
+    override suspend fun delete(item: Transaction) {
+        localDataSource.delete(item)
     }
 
     override suspend fun delete(ids: List<Long>): Int {

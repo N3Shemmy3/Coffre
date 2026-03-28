@@ -1,6 +1,7 @@
 package dev.n3shemmy3.coffre.data.source
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Query
 import androidx.room.Upsert
 import dev.n3shemmy3.coffre.domain.model.Transaction
@@ -13,14 +14,14 @@ interface TransactionDao {
     @Query("SELECT * FROM Transactions")
     fun observe(): Flow<List<Transaction>>
 
-    @Query("SELECT * FROM Transactions WHERE :id")
+    @Query("SELECT * FROM Transactions WHERE id = :id ")
     fun observe(id: Long): Flow<Transaction>
 
 
     @Query("SELECT * FROM Transactions")
     suspend fun get(): List<Transaction>
 
-    @Query("SELECT * FROM Transactions WHERE :id")
+    @Query("SELECT * FROM Transactions WHERE id = :id ")
     suspend fun get(id: Long): Transaction?
 
     @Query("SELECT COALESCE(SUM(amount), 0) FROM transactions WHERE type = 0")
@@ -39,7 +40,10 @@ interface TransactionDao {
     suspend fun upsert(items: List<Transaction>)
 
 
-    @Query("DELETE FROM Transactions WHERE :id")
+    @Delete
+    suspend fun delete(item: Transaction)
+
+    @Query("DELETE FROM Transactions WHERE id = :id")
     suspend fun delete(id: Long): Int
 
     @Query("DELETE FROM Transactions WHERE id in (:ids)")

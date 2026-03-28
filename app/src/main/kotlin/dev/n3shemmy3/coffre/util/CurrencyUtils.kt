@@ -58,10 +58,14 @@ fun decimalPart(
     value: BigDecimal,
     locale: Locale = Locale.getDefault()
 ): String {
-    val formatter = DecimalFormat.getInstance(locale)
-    val defaultFractionDigits =
-        if (formatter.currency == null) 0 else formatter.currency!!.defaultFractionDigits
-    val separators = splitter(value, locale)
-    // TODO: return 00s based on the size of @defaultFractionDigits & implement custom currencies
-    return if (separators.size > 1) separators[1] else if (defaultFractionDigits > 0) "00" else "0"
+    val segments = splitter(value, locale)
+    return if (segments.size > 1) splitter(value, locale)[1] else "00"
+}
+
+private fun toDecimalPlaces(count: Int): String {
+    var result = ""
+    for (i in 0..count) {
+        result += "0"
+    }
+    return result
 }

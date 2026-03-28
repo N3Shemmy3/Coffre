@@ -2,6 +2,7 @@ package dev.n3shemmy3.coffre.data.repo
 
 import dev.n3shemmy3.coffre.data.source.AccountDao
 import dev.n3shemmy3.coffre.domain.model.Account
+import dev.n3shemmy3.coffre.domain.model.Transaction
 import kotlinx.coroutines.flow.Flow
 import java.math.BigDecimal
 
@@ -38,8 +39,8 @@ class AccountRepo(
         localDataSource.upsert(items)
     }
 
-    override suspend fun delete(id: Long): Int {
-        return localDataSource.delete(id)
+    override suspend fun delete(item: Account) {
+        localDataSource.delete(item)
     }
 
     override suspend fun delete(ids: List<Long>): Int {

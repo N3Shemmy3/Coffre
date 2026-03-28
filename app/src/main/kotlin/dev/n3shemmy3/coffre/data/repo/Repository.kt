@@ -13,6 +13,6 @@ interface Repository<T> {
     suspend fun upsert(item: T)
     suspend fun upsert(items: List<T>)
 
-    suspend fun delete(id: Long): Int
+    suspend fun delete(item: T)
     suspend fun delete(ids: List<Long>): Int
 }

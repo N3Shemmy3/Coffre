@@ -20,5 +20,6 @@
     <string name="discard_transaction_amount_is_empty">You have not entered an amount, if you leave now this transaction won\'t be saved.</string>
     <string name="discard">Discard</string>
     <string name="keep">Keep</string>
+    <string name="select">Select</string>
 
 </resources>

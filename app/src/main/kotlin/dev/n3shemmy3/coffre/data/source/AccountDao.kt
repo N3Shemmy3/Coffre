@@ -1,6 +1,7 @@
 package dev.n3shemmy3.coffre.data.source
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Query
 import androidx.room.Upsert
 import dev.n3shemmy3.coffre.domain.model.Account
@@ -13,14 +14,14 @@ interface AccountDao {
     @Query("SELECT * FROM Accounts")
     fun observe(): Flow<List<Account>>
 
-    @Query("SELECT * FROM Accounts WHERE :id")
+    @Query("SELECT * FROM Accounts WHERE id = :id")
     fun observe(id: Long): Flow<Account>
 
 
     @Query("SELECT * FROM Accounts")
     suspend fun get(): List<Account>
 
-    @Query("SELECT * FROM Accounts WHERE :id")
+    @Query("SELECT * FROM Accounts WHERE id = :id")
     suspend fun get(id: Long): Account?
 
     @Upsert
@@ -33,8 +34,8 @@ interface AccountDao {
     fun totalBalance(): Flow<BigDecimal>
 
 
-    @Query("DELETE FROM Accounts WHERE :id")
-    suspend fun delete(id: Long): Int
+    @Delete
+    suspend fun delete(item: Account)
 
     @Query("DELETE FROM Accounts WHERE id in (:ids)")
     suspend fun delete(ids: List<Long>): Int
