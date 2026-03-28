@@ -11,14 +11,14 @@ import java.math.BigDecimal
 @Dao
 interface AccountDao {
 
-    @Query("SELECT * FROM Accounts")
+    @Query("SELECT * FROM Accounts ORDER BY name")
     fun observe(): Flow<List<Account>>
 
     @Query("SELECT * FROM Accounts WHERE id = :id")
     fun observe(id: Long): Flow<Account>
 
 
-    @Query("SELECT * FROM Accounts")
+    @Query("SELECT * FROM Accounts ORDER BY name")
     suspend fun get(): List<Account>
 
     @Query("SELECT * FROM Accounts WHERE id = :id")
