@@ -337,7 +337,6 @@ fun DetailScreen(backStack: NavBackStack<NavKey>, viewModel: MainViewModel) {
     }
 
     if (showTimePicker.value) TimePicker(
-        title = stringResource(R.string.select),
         onDismissRequest = {
             showTimePicker.value = false
         },
