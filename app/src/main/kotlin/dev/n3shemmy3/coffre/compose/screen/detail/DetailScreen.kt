@@ -2,7 +2,6 @@ package dev.n3shemmy3.coffre.compose.screen.detail
 
 import android.annotation.SuppressLint
 import android.icu.util.Calendar
-import android.text.format.DateUtils
 import android.util.Log
 import androidx.activity.compose.LocalOnBackPressedDispatcherOwner
 import androidx.compose.foundation.layout.Arrangement
@@ -18,20 +17,17 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.CalendarMonth
 import androidx.compose.material.icons.outlined.CalendarToday
 import androidx.compose.material.icons.outlined.Delete
-import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -68,10 +64,9 @@ import dev.n3shemmy3.coffre.compose.screen.main.MainViewModel
 import dev.n3shemmy3.coffre.domain.model.Transaction
 import dev.n3shemmy3.coffre.util.toHumanDate
 import dev.n3shemmy3.coffre.util.toHumanTime
+import dev.n3shemmy3.coffre.util.toMilliseconds
 import kotlinx.coroutines.launch
 import java.math.BigDecimal
-import java.time.LocalDateTime
-import java.util.Date
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -89,7 +84,7 @@ fun DetailScreen(backStack: NavBackStack<NavKey>, viewModel: MainViewModel) {
     val showDatePicker = remember { mutableStateOf(false) }
 
     var title by remember { mutableStateOf("") }
-    val calendar = remember { Calendar.getInstance() }
+    var time by remember { mutableStateOf(System.currentTimeMillis()) }
     var type by remember { mutableIntStateOf(Transaction.Type.Income.ordinal) }
     var amount by remember { mutableStateOf(" ") }
     var note by remember { mutableStateOf("") }
@@ -102,7 +97,7 @@ fun DetailScreen(backStack: NavBackStack<NavKey>, viewModel: MainViewModel) {
                     val item = state.item ?: return@launch
 
                     title = item.title
-                    calendar.timeInMillis = item.time
+                    time = item.time
                     type = item.type.ordinal
                     amount = item.amount.toPlainString().trim()
                     note = item.note ?: ""
@@ -129,7 +124,7 @@ fun DetailScreen(backStack: NavBackStack<NavKey>, viewModel: MainViewModel) {
                             title = title,
                             note = note,
                             amount = amountValue,
-                            time = calendar.timeInMillis,
+                            time = time,
                             type = Transaction.Type.entries[type],
                             1
                         )
@@ -216,13 +211,13 @@ fun DetailScreen(backStack: NavBackStack<NavKey>, viewModel: MainViewModel) {
                     MonetChip(
                         Modifier.wrapContentSize(),
                         icon = Icons.Outlined.CalendarToday,
-                        title = toHumanTime(calendar.timeInMillis, context),
+                        title = toHumanTime(time, context),
                         onClick = { showTimePicker.value = !showTimePicker.value }
                     )
                     MonetChip(
                         Modifier.wrapContentSize(),
                         icon = Icons.Outlined.CalendarMonth,
-                        title = toHumanDate(calendar.timeInMillis, context),
+                        title = toHumanDate(time, context),
                         onClick = { showDatePicker.value = !showDatePicker.value }
                     )
                 }
@@ -347,8 +342,7 @@ fun DetailScreen(backStack: NavBackStack<NavKey>, viewModel: MainViewModel) {
             showTimePicker.value = false
         },
         onConfirmRequest = { state ->
-            calendar.set(Calendar.HOUR_OF_DAY, state.hour)
-            calendar.set(Calendar.MINUTE, state.minute)
+            time = toMilliseconds(state.hour, state.minute, time)
             showTimePicker.value = false
         }
     )
@@ -357,11 +351,20 @@ fun DetailScreen(backStack: NavBackStack<NavKey>, viewModel: MainViewModel) {
             showDatePicker.value = false
         },
         onConfirmRequest = { state ->
-            val date = state.selectedDateMillis
-            if (date != null) {
+            val selection = state.selectedDateMillis
+            if (selection != null) {
                 // prevent selection of future dates
-                calendar.timeInMillis =
-                    if (date > calendar.timeInMillis) calendar.timeInMillis else date
+                time =
+                    if (selection > time) time else
+                        toMilliseconds(
+                            hour = Calendar.getInstance().get(
+                                Calendar.HOUR
+                            ),
+                            minute = Calendar.getInstance().get(
+                                Calendar.MINUTE
+                            ),
+                            date = selection,
+                        )
             }
             showDatePicker.value = false
         }
