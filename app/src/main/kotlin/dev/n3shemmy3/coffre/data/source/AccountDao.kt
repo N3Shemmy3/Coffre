@@ -30,7 +30,7 @@ interface AccountDao {
     @Upsert
     suspend fun upsert(items: List<Account>)
 
-    @Query("SELECT COALESCE(SUM(balance), 0) FROM accounts WHERE isPublic = true")
+    @Query("SELECT COALESCE(SUM(balance), 0) FROM accounts WHERE isPublic = 1")
     fun totalBalance(): Flow<BigDecimal>
 
 
