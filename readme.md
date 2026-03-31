@@ -1,6 +1,5 @@
-<h1>
-    ⚠️ [Undergoing Rewrite](https://github.com/N3Shemmy3/Coffre/tree/dev)
-</h1>
+# Undergoing Rewrite
+
 I am in the process of rewriting the entire app from scratch, currently working on the mvp check . feel free to pop in on telegram to chat. thanks :D
 
 [![Telegram](https://img.shields.io/badge/Telegram-Coffre-blue?style=flat&logo=telegram)](https://t.me/n3shemmy3)
