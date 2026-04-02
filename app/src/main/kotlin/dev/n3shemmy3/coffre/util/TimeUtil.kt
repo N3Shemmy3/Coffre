@@ -11,7 +11,17 @@ fun toRelativeTime(timestamp: Long): String {
     return DateUtils.getRelativeTimeSpanString(
         timestamp,
         System.currentTimeMillis(),
-        DateUtils.MINUTE_IN_MILLIS
+        DateUtils.SECOND_IN_MILLIS
+    ).toString()
+}
+
+fun toRelativeDateTime(timestamp: Long, context: Context): String {
+    return DateUtils.getRelativeDateTimeString(
+        context,
+        timestamp,
+        DateUtils.WEEK_IN_MILLIS,
+        System.currentTimeMillis(),
+        DateUtils.FORMAT_ABBREV_ALL
     ).toString()
 }
 

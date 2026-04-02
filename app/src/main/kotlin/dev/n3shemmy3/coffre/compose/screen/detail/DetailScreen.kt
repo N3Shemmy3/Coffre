@@ -189,7 +189,7 @@ fun DetailScreen(backStack: NavBackStack<NavKey>, viewModel: MainViewModel) {
             item {
                 TextField(
                     title,
-                    placeholder = "Title",
+                    placeholder = stringResource(R.string.title),
                     onValueChange = { title = it },
                     textStyle = MaterialTheme.typography.headlineSmall,
                     keyboardOptions = KeyboardOptions(
@@ -286,7 +286,7 @@ fun DetailScreen(backStack: NavBackStack<NavKey>, viewModel: MainViewModel) {
             item {
                 TextField(
                     note,
-                    placeholder = "Notes",
+                    placeholder = stringResource(R.string.note),
                     onValueChange = { note = it },
                     keyboardOptions = KeyboardOptions(
                         capitalization = KeyboardCapitalization.Sentences,

@@ -1,7 +1,6 @@
 package dev.n3shemmy3.coffre.compose.screen.main
 
 import android.annotation.SuppressLint
-import android.text.format.DateUtils
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -48,8 +47,7 @@ import dev.n3shemmy3.coffre.compose.components.MonetChipColors
 import dev.n3shemmy3.coffre.compose.navigation.AppRoute
 import dev.n3shemmy3.coffre.domain.model.Transaction
 import dev.n3shemmy3.coffre.util.formatToLocal
-import dev.n3shemmy3.coffre.util.toHumanDate
-import dev.n3shemmy3.coffre.util.toRelativeTime
+import dev.n3shemmy3.coffre.util.toRelativeDateTime
 import java.util.Locale
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -124,7 +122,7 @@ fun MainScreen(backStack: NavBackStack<NavKey>, viewModel: MainViewModel) {
 
                 item {
                     BalanceCard(
-                        label = "My Balance",
+                        label = stringResource(R.string.my_balance),
                         currencySymbol = currencySymbol,
                         balance = state.balance,
                         received = state.received,
@@ -136,10 +134,10 @@ fun MainScreen(backStack: NavBackStack<NavKey>, viewModel: MainViewModel) {
                         shape = RoundedCornerShape(
                             largeCorner, largeCorner, smallCorner, smallCorner
                         ), content = {
-                            Text("Transactions")
+                            Text(stringResource(R.string.transactions))
                         }, actionContent = {
                             TextButton(onClick = {}) {
-                                Text("See All")
+                                Text(stringResource(R.string.see_all))
                             }
                         })
 
@@ -164,8 +162,7 @@ fun MainScreen(backStack: NavBackStack<NavKey>, viewModel: MainViewModel) {
                             Text(item.title, style = MaterialTheme.typography.bodyLarge)
 
                             Text(
-                                if (DateUtils.isToday(item.time))
-                                    toRelativeTime(item.time) else toHumanDate(item.time, context),
+                                toRelativeDateTime(item.time, context),
                                 style = MaterialTheme.typography.bodyMedium
                             )
                         },
