@@ -2,7 +2,6 @@ package dev.n3shemmy3.coffre.util
 
 import android.icu.text.NumberFormat
 import java.math.BigDecimal
-import java.text.DecimalFormat
 import java.util.Locale
 
 private val numbers = arrayOf("0", "1", "2", "3", "4", "5", "6", "7", "8", "9")
@@ -18,10 +17,10 @@ fun formatToLocalCurrency(locale: Locale, symbol: String, value: BigDecimal): St
     val formatter = NumberFormat.getInstance(locale)
     formatter.maximumFractionDigits = 2
     formatter.minimumFractionDigits = 2
-    return formatter.format(value).toString().format(symbol, value)
+    return symbol + formatter.format(value)
 }
 
-fun localIntegerSeparator(
+fun localeIntegerSeparator(
     locale: Locale
 ): String {
     val sample = formatToLocal(locale, BigDecimal(1234))
@@ -30,7 +29,7 @@ fun localIntegerSeparator(
     return separators[0].toString()
 }
 
-fun localDecimalSeparator(
+fun localeDecimalSeparator(
     locale: Locale
 ): String {
     val sample = formatToLocal(locale, BigDecimal(0.457))
@@ -44,7 +43,7 @@ private fun splitter(
 ): List<String> {
     val formatter = NumberFormat.getInstance(locale)
     val formattedString = formatter.format(param)
-    return formattedString.split(localDecimalSeparator(locale))
+    return formattedString.split(localeDecimalSeparator(locale))
 }
 
 fun integerPart(

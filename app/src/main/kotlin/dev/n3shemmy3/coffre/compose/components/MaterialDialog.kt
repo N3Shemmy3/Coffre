@@ -6,6 +6,7 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import dev.n3shemmy3.coffre.R
+import dev.n3shemmy3.coffre.compose.theme.AppTypography
 
 
 @Composable

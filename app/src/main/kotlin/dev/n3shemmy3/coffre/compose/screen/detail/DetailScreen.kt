@@ -29,6 +29,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -81,7 +82,7 @@ fun DetailScreen(backStack: NavBackStack<NavKey>, viewModel: MainViewModel) {
     val onBackPressedDispatcher = LocalOnBackPressedDispatcherOwner.current?.onBackPressedDispatcher
 
     var title by remember { mutableStateOf("") }
-    var time by remember { mutableStateOf(System.currentTimeMillis()) }
+    var time by remember { mutableLongStateOf(System.currentTimeMillis()) }
     var type by remember { mutableIntStateOf(Transaction.Type.Income.ordinal) }
     var amount by remember { mutableStateOf("") }
     var note by remember { mutableStateOf("") }
@@ -139,14 +140,13 @@ fun DetailScreen(backStack: NavBackStack<NavKey>, viewModel: MainViewModel) {
         }
     }
     BackHandler(
-        enabled = amountIsEmpty.value || titleIsEmpty.value,
         onBack = {
             if (amountIsEmpty.value)
                 askForAmount.value = true
             else if (titleIsEmpty.value)
                 askForTitle.value = true
         }
-    );
+    )
 
 
     Scaffold(

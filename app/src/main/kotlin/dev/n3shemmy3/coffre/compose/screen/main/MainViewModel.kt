@@ -56,7 +56,7 @@ class MainViewModel(
                     0,
                     "Default Account",
                     "Default cash account",
-                    Calendar.getInstance().time.time,
+                    System.currentTimeMillis(),
                     Account.Type.Cash,
                     balance = BigDecimal.ZERO,
                     isPublic = true
@@ -72,16 +72,6 @@ class MainViewModel(
                         currentState.copy(balance = value, isLoading = false)
                     }
                 }
-//            transactionRepo.totalIncome().collect {
-//                _viewState.update { currentState ->
-//                    currentState.copy(balance = currentState.balance.add(it), isLoading = true)
-//                }
-//            }
-//            transactionRepo.totalExpense().collect {
-//                _viewState.update { currentState ->
-//                    currentState.copy(balance = currentState.balance.subtract(it), isLoading = true)
-//                }
-//            }
         }
         viewModelScope.launch {
             transactionRepo.totalIncome().collect {

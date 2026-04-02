@@ -25,7 +25,7 @@ import androidx.compose.ui.unit.dp
 import dev.n3shemmy3.coffre.util.decimalPart
 import dev.n3shemmy3.coffre.util.formatToLocalCurrency
 import dev.n3shemmy3.coffre.util.integerPart
-import dev.n3shemmy3.coffre.util.localDecimalSeparator
+import dev.n3shemmy3.coffre.util.localeDecimalSeparator
 import java.math.BigDecimal
 import java.util.Locale
 
@@ -109,7 +109,7 @@ fun BalanceCard(
                             color = balanceColor
                         )
                         Text(
-                            text = localDecimalSeparator(locale),
+                            text = localeDecimalSeparator(locale),
                             style = decimalStyle,
                             textAlign = figureAlign,
                             color = balanceColor
