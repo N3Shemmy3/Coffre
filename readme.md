@@ -57,29 +57,6 @@ Contributions are welcome! Please follow these steps:
 4.  Push your changes to your fork: `git push origin feature/my-new-feature`
 5.  Create a pull request to the main branch of the original repository.
 
-## Support the project
-
-I maintain this project in my free time, if you find it useful consider sending me a coffee.
-
-<p>Scan the QR code or copy the address to donate:</p>
-
-<div style="display: flex; flex-wrap: wrap; justify-content: space-around; gap: 20px;">
-  <div style="text-align: center;">
-    <img src="./metadata/qrcodes/btc.png" width="150px" alt="Bitcoin QR Code" style="border-radius: 8px;" />
-    <p><strong>Bitcoin (BTC)</strong><br><code>12XZvVjSRbpJG8mBCWz46swDrDwxCTcKAM</code></p>
-  </div>
-  <div style="text-align: center;">
-    <img src="./metadata/qrcodes/eth.png" width="150px" alt="Ethereum QR Code" style="border-radius: 8px;" />
-    <p><strong>Ethereum (ETH)</strong><br><code>0xe6916037bb01d596c78f01974a21942ead928618</code></p>
-  </div>
-  <div style="text-align: center;">
-    <img src="./metadata/qrcodes/ltc.png" width="150px" alt="Litecoin QR Code" style="border-radius: 8px;" />
-    <p><strong>Litecoin (LTC)</strong><br><code>LWHmZyJ6a7xJQ77YFz1q2RkvBeivy6Em5z</code></p>
-  </div>
-</div>
-
-<p>Thank you for your generosity!</p>
-
 ## License
 
 [![GitHub](https://img.shields.io/github/license/N3Shemmy3/Coffre?style=for-the-badge)](https://github.com/N3Shemmy3/Coffre/blob/main/LICENSE)
