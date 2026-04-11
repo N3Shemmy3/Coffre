@@ -63,13 +63,6 @@ Contributions are welcome! Please follow these steps:
 4.  Push your changes to your fork: `git push origin feature/my-new-feature`
 5.  Create a pull request to the main branch of the original repository.
 
-## Support the project
-
-I maintain this project in my free time, if you find it useful consider buying me a coffee.
-
-<a href='https://ko-fi.com/O5O11RS7DG' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://storage.ko-fi.com/cdn/kofi6.png?v=6' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
-<p>Thank you for your generosity!</p>
-
 ## License
 
 [![GitHub](https://img.shields.io/github/license/N3Shemmy3/Coffre?style=for-the-badge)](https://github.com/FoedusProgramme/Coffre/blob/main/LICENSE)
