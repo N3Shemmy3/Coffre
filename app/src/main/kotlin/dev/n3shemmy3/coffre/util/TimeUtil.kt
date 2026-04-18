@@ -4,6 +4,9 @@ import android.content.Context
 import android.icu.util.Calendar
 import android.text.format.DateFormat
 import android.text.format.DateUtils
+import java.time.Instant
+import java.time.LocalDateTime
+import java.time.ZoneId
 import java.util.Date
 
 
@@ -15,13 +18,18 @@ fun toRelativeTime(timestamp: Long): String {
     ).toString()
 }
 
-fun toRelativeDateTime(timestamp: Long, context: Context): String {
+fun toRelativeDateTime(
+    context: Context,
+    timestamp: Long,
+    minResolution: Long = DateUtils.WEEK_IN_MILLIS,
+    flags: Int = DateUtils.FORMAT_ABBREV_ALL
+): String {
     return DateUtils.getRelativeDateTimeString(
         context,
         timestamp,
-        DateUtils.WEEK_IN_MILLIS,
+        minResolution,
         System.currentTimeMillis(),
-        DateUtils.FORMAT_ABBREV_ALL
+        flags
     ).toString()
 }
 

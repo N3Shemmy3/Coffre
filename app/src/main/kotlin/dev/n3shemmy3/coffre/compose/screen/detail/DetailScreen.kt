@@ -141,12 +141,9 @@ fun DetailScreen(backStack: NavBackStack<NavKey>, viewModel: MainViewModel) {
     }
     BackHandler(
         onBack = {
-            if (amountIsEmpty.value)
-                askForAmount.value = true
-            else if (titleIsEmpty.value)
-                askForTitle.value = true
-        }
-    )
+            if (amountIsEmpty.value) askForAmount.value = true
+            else if (titleIsEmpty.value) askForTitle.value = true
+        })
 
 
     Scaffold(
@@ -159,21 +156,16 @@ fun DetailScreen(backStack: NavBackStack<NavKey>, viewModel: MainViewModel) {
                     BackButton(onClick = {
                         onBackPressedDispatcher?.onBackPressed()
                     })
-                },
-                title = { },
-                actions = {
+                }, title = { }, actions = {
                     if (state.item != null) {
                         ActionButton(
-                            Icons.Outlined.Delete,
-                            stringResource(R.string.delete),
-                            {
+                            Icons.Outlined.Delete, stringResource(R.string.delete), {
                                 viewModel.delete(state.item!!)
                                 isDeleted.value = true
                                 backStack.pop()
                             })
                     }
-                },
-                scrollBehavior = scrollBehavior
+                }, scrollBehavior = scrollBehavior
             )
         },
 
@@ -188,7 +180,7 @@ fun DetailScreen(backStack: NavBackStack<NavKey>, viewModel: MainViewModel) {
 
             item {
                 TextField(
-                    title,
+                    value = title,
                     placeholder = stringResource(R.string.title),
                     onValueChange = { title = it },
                     textStyle = MaterialTheme.typography.headlineSmall,
@@ -203,21 +195,18 @@ fun DetailScreen(backStack: NavBackStack<NavKey>, viewModel: MainViewModel) {
 
             item {
                 Row(
-                    Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                    Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     MonetChip(
                         Modifier.wrapContentSize(),
                         icon = Icons.Outlined.CalendarToday,
                         title = toHumanTime(time, context),
-                        onClick = { showTimePicker.value = !showTimePicker.value }
-                    )
+                        onClick = { showTimePicker.value = !showTimePicker.value })
                     MonetChip(
                         Modifier.wrapContentSize(),
                         icon = Icons.Outlined.CalendarMonth,
                         title = toHumanDate(time, context),
-                        onClick = { showDatePicker.value = !showDatePicker.value }
-                    )
+                        onClick = { showDatePicker.value = !showDatePicker.value })
                 }
             }
 
@@ -268,10 +257,7 @@ fun DetailScreen(backStack: NavBackStack<NavKey>, viewModel: MainViewModel) {
                         stringResource(R.string.transferred)
                     ).forEachIndexed { position, title ->
                         TabTitle(
-                            title,
-                            position,
-                            isSelected = position == type,
-                            onClick = {
+                            title, position, isSelected = position == type, onClick = {
                                 type = it
                                 Log.v("DetailScreen:TabRow", "onClick $type")
                             })
@@ -334,38 +320,30 @@ fun DetailScreen(backStack: NavBackStack<NavKey>, viewModel: MainViewModel) {
         )
     }
 
-    if (showTimePicker.value) TimePicker(
-        onDismissRequest = {
-            showTimePicker.value = false
-        },
-        onConfirmRequest = { state ->
-            time = toMilliseconds(state.hour, state.minute, time)
-            showTimePicker.value = false
+    if (showTimePicker.value) TimePicker(onDismissRequest = {
+        showTimePicker.value = false
+    }, onConfirmRequest = { state ->
+        time = toMilliseconds(state.hour, state.minute, time)
+        showTimePicker.value = false
+    })
+    if (showDatePicker.value) DatePicker(onDismissRequest = {
+        showDatePicker.value = false
+    }, onConfirmRequest = { state ->
+        val selection = state.selectedDateMillis
+        if (selection != null) {
+            // prevent injection of future dates
+            time = if (selection > time) time else toMilliseconds(
+                hour = Calendar.getInstance().get(
+                    Calendar.HOUR
+                ),
+                minute = Calendar.getInstance().get(
+                    Calendar.MINUTE
+                ),
+                date = selection,
+            )
         }
-    )
-    if (showDatePicker.value) DatePicker(
-        onDismissRequest = {
-            showDatePicker.value = false
-        },
-        onConfirmRequest = { state ->
-            val selection = state.selectedDateMillis
-            if (selection != null) {
-                // prevent injection of future dates
-                time =
-                    if (selection > time) time else
-                        toMilliseconds(
-                            hour = Calendar.getInstance().get(
-                                Calendar.HOUR
-                            ),
-                            minute = Calendar.getInstance().get(
-                                Calendar.MINUTE
-                            ),
-                            date = selection,
-                        )
-            }
-            showDatePicker.value = false
-        }
-    )
+        showDatePicker.value = false
+    })
 }
 
 
@@ -374,6 +352,6 @@ fun DetailScreen(backStack: NavBackStack<NavKey>, viewModel: MainViewModel) {
 @Preview
 fun DetailScreenPreview() {
     val viewModel = MainViewModel(App.appDatabase)
-    val backStack = rememberNavBackStack(AppRoute.Detail())
+    val backStack = rememberNavBackStack(AppRoute.Detail)
     DetailScreen(backStack, viewModel)
 }

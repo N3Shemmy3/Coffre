@@ -13,6 +13,7 @@ import dev.n3shemmy3.coffre.compose.navigation.AppRoute
 import dev.n3shemmy3.coffre.compose.screen.detail.DetailScreen
 import dev.n3shemmy3.coffre.compose.screen.main.MainScreen
 import dev.n3shemmy3.coffre.compose.screen.main.MainViewModel
+import dev.n3shemmy3.coffre.compose.screen.search.SearchScreen
 import dev.n3shemmy3.coffre.compose.theme.AppTheme
 
 class MainActivity : ComponentActivity() {
@@ -38,6 +39,9 @@ class MainActivity : ComponentActivity() {
                         }
                         entry<AppRoute.Detail> {
                             DetailScreen(backStack, viewModel)
+                        }
+                        entry<AppRoute.Search> {
+                            SearchScreen(backStack)
                         }
                         entry<AppRoute.Settings> {
 

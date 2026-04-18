@@ -17,8 +17,10 @@ import androidx.compose.ui.text.input.VisualTransformation
 fun TextField(
     value: String,
     placeholder: String,
+    modifier: Modifier = Modifier,
     onValueChange: (String) -> Unit,
     textStyle: TextStyle = MaterialTheme.typography.bodyLarge,
+    singleLine: Boolean = true,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     keyboardActions: KeyboardActions = KeyboardActions.Default,
     visualTransformation: VisualTransformation = VisualTransformation.None,
@@ -26,7 +28,7 @@ fun TextField(
     OutlinedTextField(
         value = value,
         onValueChange = onValueChange,
-        modifier = Modifier.fillMaxWidth(),
+        modifier = modifier,
         colors = OutlinedTextFieldDefaults.colors(
             focusedBorderColor = Color.Transparent,
             unfocusedBorderColor = Color.Transparent,
@@ -34,6 +36,7 @@ fun TextField(
             errorBorderColor = Color.Transparent,
         ),
         textStyle = textStyle,
+        singleLine = singleLine,
         placeholder = {
             if (value.isEmpty()) {
                 Text(

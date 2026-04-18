@@ -43,11 +43,11 @@ android {
     ksp { arg("room.incremental", "true") }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_25
-        targetCompatibility = JavaVersion.VERSION_25
+        sourceCompatibility = JavaVersion.VERSION_23
+        targetCompatibility = JavaVersion.VERSION_23
     }
     kotlin {
-        jvmToolchain(25)
+        jvmToolchain(23)
     }
 
     buildFeatures {

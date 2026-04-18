@@ -1,6 +1,8 @@
 package dev.n3shemmy3.coffre.compose.screen.main
 
 import android.annotation.SuppressLint
+import android.text.format.DateUtils
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -8,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Add
@@ -17,6 +20,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -29,6 +33,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -38,6 +43,7 @@ import androidx.navigation3.runtime.rememberNavBackStack
 import dev.n3shemmy3.coffre.App
 import dev.n3shemmy3.coffre.R
 import dev.n3shemmy3.coffre.compose.components.ActionButton
+import dev.n3shemmy3.coffre.compose.components.BackButton
 import dev.n3shemmy3.coffre.compose.components.BalanceCard
 import dev.n3shemmy3.coffre.compose.components.CategoryItem
 import dev.n3shemmy3.coffre.compose.components.ListItem
@@ -48,6 +54,7 @@ import dev.n3shemmy3.coffre.compose.navigation.AppRoute
 import dev.n3shemmy3.coffre.domain.model.Transaction
 import dev.n3shemmy3.coffre.util.formatToLocal
 import dev.n3shemmy3.coffre.util.toRelativeDateTime
+import dev.n3shemmy3.coffre.util.toRelativeTime
 import java.util.Locale
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -64,13 +71,31 @@ fun MainScreen(backStack: NavBackStack<NavKey>, viewModel: MainViewModel) {
             .nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
             TopAppBar(
+                navigationIcon = {
+                    BackButton(
+                        onClick = {
+
+                        },
+                        content = {
+                            OutlinedCard(shape = CircleShape) {
+                                Icon(
+                                    painterResource(R.drawable.ic_launcher_foreground),
+                                    "Open Menu"
+                                )
+                            }
+                        }
+                    )
+                },
                 title = {
                     Text(stringResource(R.string.app_name))
                 },
                 actions = {
                     ActionButton(
                         Icons.Outlined.Search,
-                        stringResource(R.string.search)
+                        stringResource(R.string.search),
+                        onClick = {
+                            backStack.add(AppRoute.Search)
+                        }
                     )
                 }, scrollBehavior = scrollBehavior
             )
@@ -78,7 +103,7 @@ fun MainScreen(backStack: NavBackStack<NavKey>, viewModel: MainViewModel) {
         floatingActionButton = {
             FloatingActionButton(
                 onClick = {
-                    backStack.add(AppRoute.Detail())
+                    backStack.add(AppRoute.Detail)
                 },
                 modifier = Modifier.padding(0.dp, 16.dp),
             ) {
@@ -162,7 +187,13 @@ fun MainScreen(backStack: NavBackStack<NavKey>, viewModel: MainViewModel) {
                             Text(item.title, style = MaterialTheme.typography.bodyLarge)
 
                             Text(
-                                toRelativeDateTime(item.time, context),
+                                if (DateUtils.isToday(item.time))
+                                    toRelativeTime(item.time)
+                                else
+                                    toRelativeDateTime(
+                                        context = context,
+                                        timestamp = item.time,
+                                    ),
                                 style = MaterialTheme.typography.bodyMedium
                             )
                         },
@@ -187,7 +218,7 @@ fun MainScreen(backStack: NavBackStack<NavKey>, viewModel: MainViewModel) {
                         },
                         onClick = {
                             viewModel.loadItem(item.id)
-                            backStack.add(AppRoute.Detail())
+                            backStack.add(AppRoute.Detail)
 
                         }
                     )

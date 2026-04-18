@@ -11,7 +11,10 @@ sealed interface AppRoute : NavKey {
     data object Main : AppRoute
 
     @Serializable
-    data class Detail(val id: Long? = null) : AppRoute
+    data object Detail : AppRoute
+
+    @Serializable
+    data object Search : AppRoute
 
     @Serializable
     data object Settings : AppRoute
