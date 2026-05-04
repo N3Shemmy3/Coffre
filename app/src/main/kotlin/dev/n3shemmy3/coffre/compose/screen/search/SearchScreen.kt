@@ -131,7 +131,7 @@ fun SearchScreen(backStack: NavBackStack<NavKey>) {
                         Text("Item title: $item", style = MaterialTheme.typography.bodyLarge)
 
                         Text(
-                            toRelativeDateTime(System.currentTimeMillis(), context),
+                            toRelativeDateTime( context, System.currentTimeMillis()),
                             style = MaterialTheme.typography.bodyMedium
                         )
                     },
