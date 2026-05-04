@@ -2,7 +2,6 @@ package dev.n3shemmy3.coffre.compose.screen.main
 
 import android.annotation.SuppressLint
 import android.text.format.DateUtils
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -50,6 +49,7 @@ import dev.n3shemmy3.coffre.compose.components.ListItem
 import dev.n3shemmy3.coffre.compose.components.LoadingIndicator
 import dev.n3shemmy3.coffre.compose.components.MonetChip
 import dev.n3shemmy3.coffre.compose.components.MonetChipColors
+import dev.n3shemmy3.coffre.compose.components.SwipeableItem
 import dev.n3shemmy3.coffre.compose.navigation.AppRoute
 import dev.n3shemmy3.coffre.domain.model.Transaction
 import dev.n3shemmy3.coffre.util.formatToLocal
@@ -72,31 +72,22 @@ fun MainScreen(backStack: NavBackStack<NavKey>, viewModel: MainViewModel) {
         topBar = {
             TopAppBar(
                 navigationIcon = {
-                    BackButton(
-                        onClick = {
+                    BackButton(onClick = {
 
-                        },
-                        content = {
-                            OutlinedCard(shape = CircleShape) {
-                                Icon(
-                                    painterResource(R.drawable.ic_launcher_foreground),
-                                    "Open Menu"
-                                )
-                            }
+                    }, content = {
+                        OutlinedCard(shape = CircleShape) {
+                            Icon(
+                                painterResource(R.drawable.ic_launcher_foreground), "Open Menu"
+                            )
                         }
-                    )
-                },
-                title = {
+                    })
+                }, title = {
                     Text(stringResource(R.string.app_name))
-                },
-                actions = {
+                }, actions = {
                     ActionButton(
-                        Icons.Outlined.Search,
-                        stringResource(R.string.search),
-                        onClick = {
+                        Icons.Outlined.Search, stringResource(R.string.search), onClick = {
                             backStack.add(AppRoute.Search)
-                        }
-                    )
+                        })
                 }, scrollBehavior = scrollBehavior
             )
         },
@@ -117,8 +108,7 @@ fun MainScreen(backStack: NavBackStack<NavKey>, viewModel: MainViewModel) {
     ) { paddingValues ->
         if (state.isLoading) {
             LoadingIndicator(
-                modifier = Modifier.fillMaxSize(),
-                paddingValues = paddingValues
+                modifier = Modifier.fillMaxSize(), paddingValues = paddingValues
             )
         } else if (state.items.isEmpty()) {
             Column(
@@ -168,60 +158,57 @@ fun MainScreen(backStack: NavBackStack<NavKey>, viewModel: MainViewModel) {
 
                 }
                 itemsIndexed(state.items) { index, item ->
+                    val shape = if (index != state.items.lastIndex) RoundedCornerShape(
+                        smallCorner
+                    )
+                    else RoundedCornerShape(
+                        smallCorner, smallCorner, largeCorner, largeCorner
+                    )
 
-                    ListItem(
-                        shape = if (index != state.items.lastIndex)
-                            RoundedCornerShape(
-                                smallCorner
-                            )
-                        else RoundedCornerShape(
-                            smallCorner,
-                            smallCorner,
-                            largeCorner,
-                            largeCorner
-                        ),
-                        leadingContent = {
-                            ActionButton(Icons.Outlined.CreditCard, "")
-                        },
-                        content = {
-                            Text(item.title, style = MaterialTheme.typography.bodyLarge)
-
-                            Text(
-                                if (DateUtils.isToday(item.time))
-                                    toRelativeTime(item.time)
-                                else
-                                    toRelativeDateTime(
-                                        context = context,
-                                        timestamp = item.time,
-                                    ),
-                                style = MaterialTheme.typography.bodyMedium
-                            )
-                        },
-                        actionContent = {
-                            MonetChip(
-                                monetChipColors = when (item.type) {
-                                    Transaction.Type.Income -> MonetChipColors.Secondary
-                                    Transaction.Type.Expense -> MonetChipColors.Error
-                                    else -> {
-                                        MonetChipColors.Tertiary
-                                    }
-                                }
-                            ) {
-                                Text(
-                                    currencySymbol + formatToLocal(
-                                        Locale.getDefault(),
-                                        item.amount
-                                    ),
-                                    style = MaterialTheme.typography.labelMedium
-                                )
-                            }
-                        },
-                        onClick = {
+                    SwipeableItem(
+                        shape = shape,
+                        onEdit = {
                             viewModel.loadItem(item.id)
                             backStack.add(AppRoute.Detail)
+                        },
+                        onDelete = {
+                            viewModel.delete(item)
+                        },
+                        content = {
+                            ListItem(shape = shape, leadingContent = {
+                                ActionButton(Icons.Outlined.CreditCard, "")
+                            }, content = {
+                                Text(item.title, style = MaterialTheme.typography.bodyLarge)
 
-                        }
-                    )
+                                Text(
+                                    if (DateUtils.isToday(item.time)) toRelativeTime(item.time)
+                                    else toRelativeDateTime(
+                                        context = context,
+                                        timestamp = item.time,
+                                    ), style = MaterialTheme.typography.bodyMedium
+                                )
+                            }, actionContent = {
+                                MonetChip(
+                                    monetChipColors = when (item.type) {
+                                        Transaction.Type.Income -> MonetChipColors.Secondary
+                                        Transaction.Type.Expense -> MonetChipColors.Error
+                                        else -> {
+                                            MonetChipColors.Tertiary
+                                        }
+                                    }
+                                ) {
+                                    Text(
+                                        currencySymbol + formatToLocal(
+                                            Locale.getDefault(), item.amount
+                                        ), style = MaterialTheme.typography.labelMedium
+                                    )
+                                }
+                            }, onClick = {
+                                viewModel.loadItem(item.id)
+                                backStack.add(AppRoute.Detail)
+
+                            })
+                        })
                 }
             }
         }

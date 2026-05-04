@@ -3,8 +3,6 @@ package dev.n3shemmy3.coffre.compose.screen.detail
 import android.annotation.SuppressLint
 import android.icu.util.Calendar
 import android.util.Log
-import androidx.activity.compose.BackHandler
-import androidx.activity.compose.LocalOnBackPressedDispatcherOwner
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -79,7 +77,7 @@ fun DetailScreen(backStack: NavBackStack<NavKey>, viewModel: MainViewModel) {
     val scope = rememberCoroutineScope()
     val context = LocalContext.current
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
-    val onBackPressedDispatcher = LocalOnBackPressedDispatcherOwner.current?.onBackPressedDispatcher
+
 
     var title by remember { mutableStateOf("") }
     var time by remember { mutableLongStateOf(System.currentTimeMillis()) }
@@ -87,9 +85,7 @@ fun DetailScreen(backStack: NavBackStack<NavKey>, viewModel: MainViewModel) {
     var amount by remember { mutableStateOf("") }
     var note by remember { mutableStateOf("") }
 
-    val titleIsEmpty = remember { mutableStateOf(title.isEmpty() && sanitize(amount).isNotEmpty()) }
-    val amountIsEmpty =
-        remember { mutableStateOf(sanitize(amount).isEmpty() && title.isNotEmpty()) }
+
     val askForTitle = remember { mutableStateOf(false) }
     val askForAmount = remember { mutableStateOf(false) }
     val isDeleted = remember { mutableStateOf(false) }
@@ -139,13 +135,6 @@ fun DetailScreen(backStack: NavBackStack<NavKey>, viewModel: MainViewModel) {
             else -> {}
         }
     }
-    BackHandler(
-        onBack = {
-            if (amountIsEmpty.value) askForAmount.value = true
-            else if (titleIsEmpty.value) askForTitle.value = true
-        })
-
-
     Scaffold(
         modifier = Modifier
             .fillMaxSize()
@@ -154,7 +143,7 @@ fun DetailScreen(backStack: NavBackStack<NavKey>, viewModel: MainViewModel) {
             TopAppBar(
                 navigationIcon = {
                     BackButton(onClick = {
-                        onBackPressedDispatcher?.onBackPressed()
+                        backStack.pop()
                     })
                 }, title = { }, actions = {
                     if (state.item != null) {
@@ -288,7 +277,7 @@ fun DetailScreen(backStack: NavBackStack<NavKey>, viewModel: MainViewModel) {
     val dismissalText = stringResource(R.string.keep)
     val confirmationText = stringResource(R.string.discard)
 
-    if (titleIsEmpty.value) {
+    if (askForTitle.value) {
         MaterialDialog(
             onDismissRequest = {
                 askForTitle.value = false
@@ -304,7 +293,7 @@ fun DetailScreen(backStack: NavBackStack<NavKey>, viewModel: MainViewModel) {
         )
     }
 
-    if (amountIsEmpty.value) {
+    if (askForAmount.value) {
         MaterialDialog(
             onDismissRequest = {
                 askForAmount.value = false
