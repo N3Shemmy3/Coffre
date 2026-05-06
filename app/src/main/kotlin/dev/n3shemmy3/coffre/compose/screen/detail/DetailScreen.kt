@@ -23,6 +23,8 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.rememberDatePickerState
+import androidx.compose.material3.rememberTimePickerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -52,6 +54,7 @@ import dev.n3shemmy3.coffre.R
 import dev.n3shemmy3.coffre.compose.components.ActionButton
 import dev.n3shemmy3.coffre.compose.components.BackButton
 import dev.n3shemmy3.coffre.compose.components.DatePicker
+import dev.n3shemmy3.coffre.compose.components.FutureSelectableDates
 import dev.n3shemmy3.coffre.compose.components.LifecycleListener
 import dev.n3shemmy3.coffre.compose.components.MaterialDialog
 import dev.n3shemmy3.coffre.compose.components.MonetChip
@@ -69,6 +72,7 @@ import dev.n3shemmy3.coffre.util.toHumanTime
 import dev.n3shemmy3.coffre.util.toMilliseconds
 import kotlinx.coroutines.launch
 import java.math.BigDecimal
+import java.util.Date
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -77,10 +81,11 @@ fun DetailScreen(backStack: NavBackStack<NavKey>, viewModel: MainViewModel) {
     val scope = rememberCoroutineScope()
     val context = LocalContext.current
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
+    val calendar = remember { Calendar.getInstance() }
 
 
     var title by remember { mutableStateOf("") }
-    var time by remember { mutableLongStateOf(System.currentTimeMillis()) }
+    var time by remember { mutableLongStateOf(calendar.time.time) }
     var type by remember { mutableIntStateOf(Transaction.Type.Income.ordinal) }
     var amount by remember { mutableStateOf("") }
     var note by remember { mutableStateOf("") }
@@ -309,30 +314,48 @@ fun DetailScreen(backStack: NavBackStack<NavKey>, viewModel: MainViewModel) {
         )
     }
 
-    if (showTimePicker.value) TimePicker(onDismissRequest = {
-        showTimePicker.value = false
-    }, onConfirmRequest = { state ->
-        time = toMilliseconds(state.hour, state.minute, time)
-        showTimePicker.value = false
-    })
-    if (showDatePicker.value) DatePicker(onDismissRequest = {
-        showDatePicker.value = false
-    }, onConfirmRequest = { state ->
-        val selection = state.selectedDateMillis
-        if (selection != null) {
-            // prevent injection of future dates
-            time = if (selection > time) time else toMilliseconds(
-                hour = Calendar.getInstance().get(
-                    Calendar.HOUR
-                ),
-                minute = Calendar.getInstance().get(
-                    Calendar.MINUTE
-                ),
-                date = selection,
-            )
+
+    if (showTimePicker.value) TimePicker(
+        rememberTimePickerState(
+            initialHour = calendar.get(Calendar.HOUR_OF_DAY),
+            initialMinute = calendar.get(Calendar.MINUTE)
+        ), onDismissRequest = {
+            showTimePicker.value = false
+        }, onConfirmRequest = { state ->
+            time = toMilliseconds(state.hour, state.minute, time)
+            calendar.set(Calendar.HOUR_OF_DAY, state.hour)
+            calendar.set(Calendar.MINUTE, state.minute)
+            showTimePicker.value = false
         }
-        showDatePicker.value = false
-    })
+    )
+
+
+    if (showDatePicker.value) DatePicker(
+        rememberDatePickerState(
+            initialSelectedDateMillis = time,
+            selectableDates = FutureSelectableDates()
+        ),
+        onDismissRequest = {
+            showDatePicker.value = false
+        },
+        onConfirmRequest = { state ->
+            val selection = state.selectedDateMillis
+            if (selection != null) {
+                // prevent injection of future dates
+                time = if (selection > time) time else toMilliseconds(
+                    hour = calendar.get(
+                        Calendar.HOUR
+                    ),
+                    minute = calendar.get(
+                        Calendar.MINUTE
+                    ),
+                    time = selection,
+                )
+                calendar.time = Date(time)
+            }
+            showDatePicker.value = false
+        }
+    )
 }
 
 

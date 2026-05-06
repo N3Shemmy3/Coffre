@@ -32,17 +32,12 @@ class FutureSelectableDates : SelectableDates {
 
 @Composable
 fun DatePicker(
+    state: DatePickerState,
     onDismissRequest: () -> Unit,
     onConfirmRequest: (state: DatePickerState) -> Unit,
     confirmationText: String = stringResource(R.string.select),
     dismissalText: String = stringResource(R.string.cancel),
 ) {
-    val state =
-        rememberDatePickerState(
-            initialSelectedDateMillis = System.currentTimeMillis(),
-            selectableDates = FutureSelectableDates()
-        )
-
     DatePickerDialog(
         onDismissRequest = onDismissRequest,
         confirmButton = {
@@ -69,17 +64,12 @@ fun DatePicker(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TimePicker(
+    state: TimePickerState,
     onDismissRequest: () -> Unit,
     onConfirmRequest: (state: TimePickerState) -> Unit,
     confirmationText: String = stringResource(R.string.select),
     dismissalText: String = stringResource(R.string.cancel),
 ) {
-    val calendar = Calendar.getInstance()
-    val state = rememberTimePickerState(
-        initialHour = calendar.get(Calendar.HOUR_OF_DAY),
-        initialMinute = calendar.get(Calendar.MINUTE)
-    )
-
     TimePickerDialog(
         onDismissRequest = onDismissRequest,
         title = { TimePickerDialogDefaults.Title(displayMode = TimePickerDisplayMode.Picker) },

@@ -4,9 +4,6 @@ import android.content.Context
 import android.icu.util.Calendar
 import android.text.format.DateFormat
 import android.text.format.DateUtils
-import java.time.Instant
-import java.time.LocalDateTime
-import java.time.ZoneId
 import java.util.Date
 
 
@@ -45,9 +42,9 @@ fun toHumanDate(timestamp: Long, context: Context): String {
     return timeFormat.format(Date(timestamp))
 }
 
-fun toMilliseconds(hour: Int, minute: Int, date: Long): Long {
+fun toMilliseconds(hour: Int, minute: Int, time: Long): Long {
     val calendar = Calendar.getInstance()
-    calendar.timeInMillis = date
+    calendar.timeInMillis = time
     calendar.set(Calendar.HOUR_OF_DAY, hour)
     calendar.set(Calendar.MINUTE, minute)
     return calendar.timeInMillis
