@@ -7,8 +7,10 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -154,24 +156,21 @@ fun TabTitle(
         if (isSelected) MaterialTheme.colorScheme.secondaryContainer else MaterialTheme.colorScheme.surfaceContainer
     val contentColor =
         if (isSelected) MaterialTheme.colorScheme.onSecondaryContainer else MaterialTheme.colorScheme.onSurface
-
-    Surface(
+    Row(
         Modifier
+            .padding(16.dp, 4.dp)
             .wrapContentWidth(Alignment.CenterHorizontally)
-            .padding(horizontal = 12.dp, vertical = 6.dp)
+            .background(Color.Transparent, CircleShape)
             .clickable(
                 interactionSource = remember { MutableInteractionSource() },
-            ) {
-                onClick(position)
-            },
-        shape = CircleShape,
-        color = containerColor,
-        contentColor = contentColor
+            ) { onClick(position) },
+        horizontalArrangement = Arrangement.Center,
+        verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
             text = title,
             color = contentColor,
-            style = MaterialTheme.typography.labelLarge
+            style = MaterialTheme.typography.labelLarge,
         )
     }
 }
