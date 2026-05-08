@@ -41,7 +41,7 @@ class MainActivity : ComponentActivity() {
                             DetailScreen(backStack, viewModel)
                         }
                         entry<AppRoute.Search> {
-                            SearchScreen(backStack)
+                            SearchScreen(backStack, viewModel)
                         }
                         entry<AppRoute.Settings> {
 

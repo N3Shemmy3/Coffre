@@ -24,9 +24,7 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun ListItem(
-    modifier: Modifier = Modifier
-        .fillMaxWidth()
-        .height(IntrinsicSize.Min),
+    modifier: Modifier = Modifier,
     shape: RoundedCornerShape = RoundedCornerShape(4.dp),
     onClick: () -> Unit = {},
     leadingContent: @Composable (() -> Unit) = {},
@@ -35,7 +33,9 @@ fun ListItem(
 ) {
     Card(
         onClick = onClick,
-        modifier = modifier,
+        modifier = modifier
+            .fillMaxWidth()
+            .height(IntrinsicSize.Min),
         shape = shape
     ) {
         Row(

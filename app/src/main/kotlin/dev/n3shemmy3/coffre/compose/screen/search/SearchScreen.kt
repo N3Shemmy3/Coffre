@@ -1,5 +1,6 @@
 package dev.n3shemmy3.coffre.compose.screen.search
 
+import android.text.format.DateUtils
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -20,6 +21,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -35,23 +37,29 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation3.runtime.NavBackStack
 import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.runtime.rememberNavBackStack
+import dev.n3shemmy3.coffre.App
 import dev.n3shemmy3.coffre.R
 import dev.n3shemmy3.coffre.compose.components.ActionButton
 import dev.n3shemmy3.coffre.compose.components.BackButton
 import dev.n3shemmy3.coffre.compose.components.ListItem
 import dev.n3shemmy3.coffre.compose.components.MonetChip
 import dev.n3shemmy3.coffre.compose.components.MonetChipColors
+import dev.n3shemmy3.coffre.compose.components.SwipeableItem
 import dev.n3shemmy3.coffre.compose.components.TextField
 import dev.n3shemmy3.coffre.compose.navigation.AppRoute
 import dev.n3shemmy3.coffre.compose.navigation.pop
+import dev.n3shemmy3.coffre.compose.screen.main.MainViewModel
+import dev.n3shemmy3.coffre.domain.model.Transaction
 import dev.n3shemmy3.coffre.util.formatToLocal
 import dev.n3shemmy3.coffre.util.toRelativeDateTime
+import dev.n3shemmy3.coffre.util.toRelativeTime
 import java.math.BigDecimal
 import java.util.Locale
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SearchScreen(backStack: NavBackStack<NavKey>) {
+fun SearchScreen(backStack: NavBackStack<NavKey>, viewModel: MainViewModel) {
+    val state by viewModel.viewState.collectAsState()
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
     val context = LocalContext.current
     val currencySymbol = "€"
@@ -111,48 +119,61 @@ fun SearchScreen(backStack: NavBackStack<NavKey>) {
             contentPadding = paddingValues,
             verticalArrangement = Arrangement.spacedBy(4.dp),
         ) {
-            val items = arrayOf(0, 1, 2, 3, 4, 5, 6, 7, 8, 9)
             itemsIndexed(
-                items = items,
+                items = state.items,
             ) { index, item ->
-                val topRadius = if (index == items.first()) 16.dp else 4.dp
-                val bottomRadius = if (index == items.last()) 16.dp else 4.dp
-                ListItem(
-                    shape = RoundedCornerShape(
-                        topRadius,
-                        topRadius,
-                        bottomRadius,
-                        bottomRadius
-                    ),
-                    leadingContent = {
-                        ActionButton(Icons.Outlined.CreditCard, "")
+                val topRadius = if (index == state.items.indexOfFirst { true }) 16.dp else 4.dp
+                val bottomRadius = if (index == state.items.lastIndex) 16.dp else 4.dp
+                val shape = RoundedCornerShape(
+                    topRadius,
+                    topRadius,
+                    bottomRadius,
+                    bottomRadius
+                )
+                SwipeableItem(
+                    shape = shape,
+                    onEdit = {
+                        viewModel.loadItem(item.id)
+                        backStack.add(AppRoute.Detail)
+                    },
+                    onDelete = {
+                        viewModel.delete(item)
                     },
                     content = {
-                        Text("Item title: $item", style = MaterialTheme.typography.bodyLarge)
+                        ListItem(shape = shape, leadingContent = {
+                            ActionButton(Icons.Outlined.CreditCard, "")
+                        }, content = {
+                            Text(item.title, style = MaterialTheme.typography.bodyLarge)
 
-                        Text(
-                            toRelativeDateTime( context, System.currentTimeMillis()),
-                            style = MaterialTheme.typography.bodyMedium
-                        )
-                    },
-                    actionContent = {
-                        MonetChip(
-                            monetChipColors = MonetChipColors.Secondary
-                        ) {
                             Text(
-                                currencySymbol + formatToLocal(
-                                    Locale.getDefault(),
-                                    BigDecimal(5.99)
-                                ),
-                                style = MaterialTheme.typography.labelMedium
+                                if (DateUtils.isToday(item.time)) toRelativeTime(item.time)
+                                else toRelativeDateTime(
+                                    context = context,
+                                    timestamp = item.time,
+                                ), style = MaterialTheme.typography.bodyMedium
                             )
-                        }
-                    },
-                    onClick = {
-//                        viewModel.loadItem(0)
-                        backStack.add(AppRoute.Detail)
-                    }
-                )
+                        }, actionContent = {
+                            MonetChip(
+                                monetChipColors = when (item.type) {
+                                    Transaction.Type.Income -> MonetChipColors.Secondary
+                                    Transaction.Type.Expense -> MonetChipColors.Error
+                                    else -> {
+                                        MonetChipColors.Tertiary
+                                    }
+                                }
+                            ) {
+                                Text(
+                                    currencySymbol + formatToLocal(
+                                        Locale.getDefault(), item.amount
+                                    ), style = MaterialTheme.typography.labelMedium
+                                )
+                            }
+                        }, onClick = {
+                            viewModel.loadItem(item.id)
+                            backStack.add(AppRoute.Detail)
+
+                        })
+                    })
             }
         }
     }
@@ -163,9 +184,9 @@ fun SearchScreen(backStack: NavBackStack<NavKey>) {
 @Composable
 fun SearchScreenPreview() {
     SearchScreen(
-        rememberNavBackStack(AppRoute.Search)
-//        remember {
-//            MainViewModel(App.appDatabase)
-//        }
+        rememberNavBackStack(AppRoute.Search),
+        remember {
+            MainViewModel(App.appDatabase)
+        }
     )
 }

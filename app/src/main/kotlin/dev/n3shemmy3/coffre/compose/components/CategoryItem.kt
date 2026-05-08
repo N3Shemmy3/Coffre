@@ -19,10 +19,7 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun CategoryItem(
-    modifier: Modifier = Modifier
-        .fillMaxWidth()
-        .minimumInteractiveComponentSize()
-        .wrapContentHeight(),
+    modifier: Modifier = Modifier,
     shape: RoundedCornerShape = RoundedCornerShape(4.dp),
     color: Color = CardDefaults.cardColors().containerColor,
     contentColor: Color = CardDefaults.cardColors().contentColor,
@@ -32,7 +29,14 @@ fun CategoryItem(
 ) {
     Surface(
         onClick = onClick,
-        modifier = modifier, color = color, contentColor = contentColor, shape = shape
+        modifier =
+            modifier
+                .fillMaxWidth()
+                .minimumInteractiveComponentSize()
+                .wrapContentHeight(),
+        color = color,
+        contentColor = contentColor,
+        shape = shape
     ) {
         Row(
             Modifier
