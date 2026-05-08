@@ -5,6 +5,7 @@ import android.text.format.DateUtils
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -30,6 +31,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -72,15 +74,15 @@ fun MainScreen(backStack: NavBackStack<NavKey>, viewModel: MainViewModel) {
         topBar = {
             TopAppBar(
                 navigationIcon = {
-                    BackButton(onClick = {
-
-                    }, content = {
-                        OutlinedCard(shape = CircleShape) {
-                            Icon(
-                                painterResource(R.drawable.ic_launcher_foreground), "Open Menu"
-                            )
-                        }
-                    })
+//                    BackButton(onClick = {
+//
+//                    }, content = {
+//                        OutlinedCard(shape = CircleShape) {
+//                            Icon(
+//                                painterResource(R.drawable.ic_launcher_foreground), "Open Menu"
+//                            )
+//                        }
+//                    })
                 }, title = {
                     Text(stringResource(R.string.app_name))
                 }, actions = {
@@ -144,25 +146,25 @@ fun MainScreen(backStack: NavBackStack<NavKey>, viewModel: MainViewModel) {
                         spent = state.spent,
                     )
                 }
-                item {
-                    CategoryItem(
-                        shape = RoundedCornerShape(
-                            largeCorner, largeCorner, smallCorner, smallCorner
-                        ), content = {
-                            Text(stringResource(R.string.transactions))
-                        }, actionContent = {
-                            TextButton(onClick = {}) {
-                                Text(stringResource(R.string.see_all))
-                            }
-                        })
 
+                item {
+                    Row {
+                        Text(
+                            stringResource(R.string.transactions),
+                            style = MaterialTheme.typography.labelLarge,
+                            color = MaterialTheme.colorScheme.secondary
+                        )
+                    }
                 }
+
                 itemsIndexed(state.items) { index, item ->
-                    val shape = if (index != state.items.lastIndex) RoundedCornerShape(
-                        smallCorner
-                    )
-                    else RoundedCornerShape(
-                        smallCorner, smallCorner, largeCorner, largeCorner
+                    val topRadius = if (index == state.items.indexOfFirst { true }) 16.dp else 4.dp
+                    val bottomRadius = if (index == state.items.lastIndex) 16.dp else 4.dp
+                    val shape = RoundedCornerShape(
+                        topRadius,
+                        topRadius,
+                        bottomRadius,
+                        bottomRadius
                     )
 
                     SwipeableItem(
@@ -178,15 +180,21 @@ fun MainScreen(backStack: NavBackStack<NavKey>, viewModel: MainViewModel) {
                             ListItem(shape = shape, leadingContent = {
                                 ActionButton(Icons.Outlined.CreditCard, "")
                             }, content = {
-                                Text(item.title, style = MaterialTheme.typography.bodyLarge)
+                                Text(
+                                    text = item.title,
+                                    style = MaterialTheme.typography.bodyLarge,
+                                    color = MaterialTheme.colorScheme.onSurface
+                                )
 
                                 Text(
                                     if (DateUtils.isToday(item.time)) toRelativeTime(item.time)
                                     else toRelativeDateTime(
                                         context = context,
                                         timestamp = item.time,
-                                    ), style = MaterialTheme.typography.bodyMedium
-                                )
+                                    ),
+                                    style = MaterialTheme.typography.bodyMedium,
+
+                                    )
                             }, actionContent = {
                                 MonetChip(
                                     monetChipColors = when (item.type) {

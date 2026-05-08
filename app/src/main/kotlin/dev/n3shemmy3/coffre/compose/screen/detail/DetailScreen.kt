@@ -51,6 +51,8 @@ import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.runtime.rememberNavBackStack
 import dev.n3shemmy3.coffre.App
 import dev.n3shemmy3.coffre.R
+import dev.n3shemmy3.coffre.compose.common.DecimalFormatter
+import dev.n3shemmy3.coffre.compose.common.LocaleDecimalTransformation
 import dev.n3shemmy3.coffre.compose.components.ActionButton
 import dev.n3shemmy3.coffre.compose.components.BackButton
 import dev.n3shemmy3.coffre.compose.components.DatePicker
@@ -217,6 +219,7 @@ fun DetailScreen(backStack: NavBackStack<NavKey>, viewModel: MainViewModel) {
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     val textStyle = MaterialTheme.typography.displayMedium
+                    val formatter = remember { DecimalFormatter() }
                     Text(
                         "£",
                         style = textStyle,
@@ -226,17 +229,38 @@ fun DetailScreen(backStack: NavBackStack<NavKey>, viewModel: MainViewModel) {
                         value = amount.trim(),
                         placeholder = "0.00",
                         onValueChange = { input ->
-                            val cleanInput = input.filter { it.isDigit() }
-                            if (cleanInput.length <= 12) {
-                                amount = cleanInput
+                            val normalized = input.replace(formatter.decimalSeparator, '.')
+
+                            // Standard digit/single-dot filter
+                            var hasSeenDot = false
+                            val filtered = normalized.filter { char ->
+                                if (char.isDigit()) true
+                                else if (char == '.' && !hasSeenDot) {
+                                    hasSeenDot = true
+                                    true
+                                } else false
                             }
+
+                            // Truncation Logic
+                            val finalValue = if (filtered.contains('.')) {
+                                val parts = filtered.split('.')
+                                val integerPart = parts[0]
+                                val fractionalPart = parts.getOrNull(1)?.take(2) ?: ""
+                                "$integerPart.$fractionalPart"
+                            } else {
+                                filtered
+                            }
+
+                            amount = finalValue
                         },
                         textStyle = textStyle.copy(textAlign = TextAlign.End),
                         keyboardOptions = KeyboardOptions(
                             showKeyboardOnFocus = true,
-                            keyboardType = KeyboardType.Number,
+                            keyboardType = KeyboardType.Decimal,
                             imeAction = ImeAction.Next
-                        )
+                        ),
+                        visualTransformation = LocaleDecimalTransformation(formatter),
+                        singleLine = true
                     )
                 }
             }
@@ -248,7 +272,7 @@ fun DetailScreen(backStack: NavBackStack<NavKey>, viewModel: MainViewModel) {
                     listOf(
                         stringResource(R.string.received),
                         stringResource(R.string.spent),
-                        stringResource(R.string.transferred)
+//                        stringResource(R.string.transferred)
                     ).forEachIndexed { position, title ->
                         TabTitle(
                             title, position, isSelected = position == type, onClick = {
@@ -357,6 +381,9 @@ fun DetailScreen(backStack: NavBackStack<NavKey>, viewModel: MainViewModel) {
         }
     )
 }
+
+
+
 
 
 @SuppressLint("ViewModelConstructorInComposable")
